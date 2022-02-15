@@ -84,7 +84,7 @@ Remaining items on the agenda moved to Thursday's meeting. Topics to be covered 
 ## Additional points
 - Separate agendas were prepared by the TA and the team this week, from next week we coordinate to create a single agenda.
 - Chairman for next week - Sucharitha
-- Secretary for next week - Ioana 
+- Secretary for next week - Ioan
 
 ## Action points 
 Uploads required by the end of the week - 
