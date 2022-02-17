@@ -11,6 +11,9 @@ Add your own name (do not add the names for others!) to the section below.
 | Profile Picture                                                                           | Name         | Email                         |
 |-------------------------------------------------------------------------------------------|--------------|-------------------------------|
 | ![](https://secure.gravatar.com/avatar/7cc2ce50c088f4c8c206e81284b836bc?s=50&d=identicon) | Karol Jurski | K.K.Jurski@student.tudelft.nl |
+
+| ![](https://secure.gravatar.com/avatar/5e960495591049df6166409846d08790?s=50&d=identicon)| Sucharitha Rajesh | S.Rajesh-1@student.tudelft.nl |
+
 |-------------------------------------------------------------------------------------------| IOAN-MIHNEA HEDEA| i.m.hedea@student.tudelft.nl|
 
 <!-- Instructions (remove once assignment has been completed -->
