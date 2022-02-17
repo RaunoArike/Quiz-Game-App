@@ -11,6 +11,7 @@ Add your own name (do not add the names for others!) to the section below.
 | Profile Picture                                                                           | Name         | Email                         |
 |-------------------------------------------------------------------------------------------|--------------|-------------------------------|
 | ![](https://secure.gravatar.com/avatar/7cc2ce50c088f4c8c206e81284b836bc?s=50&d=identicon) | Karol Jurski | K.K.Jurski@student.tudelft.nl |
+| ![](https://secure.gravatar.com/avatar/1fa867b1c772f0c76684ef0bbcda9f91?s=192&d=identicon) | Rauno Arike | R.Arike@student.tudelft.nl |
 
 | ![](https://secure.gravatar.com/avatar/5e960495591049df6166409846d08790?s=50&d=identicon)| Sucharitha Rajesh | S.Rajesh-1@student.tudelft.nl |
 
