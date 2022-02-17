@@ -15,6 +15,8 @@ Add your own name (do not add the names for others!) to the section below.
 | ![](https://secure.gravatar.com/avatar/5e960495591049df6166409846d08790?s=50&d=identicon)| Sucharitha Rajesh | S.Rajesh-1@student.tudelft.nl |
 
 |-------------------------------------------------------------------------------------------| IOAN-MIHNEA HEDEA| i.m.hedea@student.tudelft.nl|
+|-------------------------------------------------------------------------------------------| Ye Zhao | Y.Zhao-33@student.tudelft.nl |
+
 
 <!-- Instructions (remove once assignment has been completed -->
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
