@@ -1,6 +1,6 @@
 # Agenda - week 3
 
-Date:           20 Feb 2022, Tuesday\
+Date:           22 Feb 2022, Tuesday\
 Main focus:     HCI draft, starting with development\
 Chairman:       Sucharitha Rajesh\
 Secretary:      Ioan-Mihnea Hedea 
