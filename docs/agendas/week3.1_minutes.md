@@ -1,4 +1,4 @@
-# Agenda {Insert Here}
+# Agenda - week 3
 
 Date:           20 Feb 2022, Tuesday\
 Main focus:     HCI draft, starting with development\
