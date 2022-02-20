@@ -34,6 +34,9 @@ To discuss -
 - Has everyone managed to run the template? How about the programming exercises from Wednesday's lecture? 
 - Formulate a concrete plan and create issues that we can start working on this week. 
 
+## Teamwork assignment week 3
+- Formulating a question for the teamwork QA of week 4. 
+
 ## Action points for next week
 - Work on the HCI draft and submit it by the Friday deadline
 - Start with working on the application
