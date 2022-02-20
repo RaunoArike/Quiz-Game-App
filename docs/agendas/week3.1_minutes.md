@@ -21,6 +21,7 @@ To discuss -
 - What is our schedule for writing the draft? 
 - Discuss the assignment template. Can we split up portions between different people?
 - Do we have a team to collaborate with? 
+- We also need to finish (individually) the information literacy module
 
 ## Development details 
 - Checkstyle - complete the template and add it to the project 
