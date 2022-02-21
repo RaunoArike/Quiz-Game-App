@@ -8,13 +8,19 @@ Secretary:      Ioan-Mihnea Hedea
 ## Opening
 
 ## Approval of the agenda
-Check whether the agenda is complete. Cross-check with the TA's agenda and integrate if possible. 
+Quick overview of agenda items, check whether the agenda is complete. 
 
 ## Short reflection
 How are things going? What have each of us done over this past week? 
 
+## Items addressed by the TA
+- Code of Conduct feedback
+- Backlog feedback
+- API endpoints
+- Good GitLab practices
+
 ## TA's comments 
-Regarding our progress over the past week and the requirements for the upcoming week. Are we on track? What should our focus be for the upcoming week? 
+Regarding our progress over the past week and the requirements for the upcoming week: Are we on track? What should our focus be for the upcoming week? 
 
 ## HCI Draft 
 To discuss - 
