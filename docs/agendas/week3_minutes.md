@@ -1,8 +1,8 @@
 #Minutes of the meeting - week 3.3
 
-Date:           22 Feb 2022, Tuesday
-Main focus:     HCI draft, starting with development
-Chairman:       Sucharitha Rajesh
+Date:           22 Feb 2022, Tuesday\
+Main focus:     HCI draft, starting with development\
+Chairman:       Sucharitha Rajesh\
 Secretary:      Ioan-Mihnea Hedea 
 
 #Opening
