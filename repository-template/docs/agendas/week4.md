@@ -29,6 +29,7 @@ TA’s comments
 ## Development Details -continuation-
 -Check Style
 -Other points from a few weeks ago- code review, testing and test coverage, definition of done
+-Contributing with quiz questions/activities to the activity bank, including images
 
 ## Action Points for next week
 -Buddy Check review
