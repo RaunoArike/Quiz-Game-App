@@ -5,7 +5,7 @@
 <module name="Checker">
     <property name="severity" value="error"/>
 
-    <property name="fileExtensions" value="java, properties, xml"/>
+    <property name="fileExtensions" value="java"/>
 
     <!-- Excludes all 'module-info.java' files              -->
     <!-- See https://checkstyle.org/config_filefilters.html -->
@@ -28,6 +28,7 @@
     <module name="LineLength">
         <property name="max" value="120"/>
         <property name="fileExtensions" value="java"/>
+        <property name="tabWidth" value="4"/>
     </module>
 
     <!-- Miscellaneous other checks.                 -->
@@ -40,6 +41,7 @@
     </module>
 
     <module name="TreeWalker">
+        <property name="tabWidth" value="4"/>
 
         <!-- Checks for Naming Conventions.                -->
         <!-- See https://checkstyle.org/config_naming.html -->
