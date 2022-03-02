@@ -11,9 +11,9 @@ import java.util.List;
 @RequestMapping
 public class QuestionsController {
 
-    @GetMapping("api/questions")
-    public List<Question> getQuestions() {
-        return List.of(new Question("Estimation", "How much electricity does a computer consume in an hour?", "200 W"),
-                (new Question("Estimation", "How much electricity does a wind turbine generate in an hour?", "1 MW")));
-    }
+	@GetMapping("api/questions")
+	public List<Question> getQuestions() {
+		return List.of(new Question("Estimation", "How much electricity does a computer consume in an hour?", "200 W"),
+				(new Question("Estimation", "How much electricity does a wind turbine generate in an hour?", "1 MW")));
+	}
 }
