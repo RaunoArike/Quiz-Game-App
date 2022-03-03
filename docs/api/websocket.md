@@ -16,7 +16,7 @@ Submits the answer to the server.
 {
     "answerInt": 3,
     "answerFloat": 3.1,
-    "time": 2500 // In ms
+    "passedTime": 2500 // In ms
 }
 ```
 
@@ -26,17 +26,8 @@ Submits the answer to the server.
 Informs the client about a new question.
 ```
 {
-    "type": "mc"|"estimation"|"comparison",
-    "activities": [
-        {
-            "text": "",
-            "imageUrl": ""
-        },
-        ...
-    ],
-    "correctAnswerInt": 3,
-    "correctAnswerFloat": 3.1,
-    "questionNumber": 20
+    "question": {...}, // See Question model
+    "questionNumber": 19 // Indexed from 0
 }
 ```
 ### Correct answer
