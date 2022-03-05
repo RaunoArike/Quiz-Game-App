@@ -1,6 +1,7 @@
 package server.api;
 
-import commons.Question;
+import commons.model.Activity;
+import commons.model.Question;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,15 @@ public class QuestionsController {
 
 	@GetMapping("api/questions")
 	public List<Question> getQuestions() {
-		return List.of(new Question("Estimation", "How much electricity does a computer consume in an hour?", "200 W"),
-				(new Question("Estimation", "How much electricity does a wind turbine generate in an hour?", "1 MW")));
+		return List.of(
+				new Question.MultiChoice(List.of(
+						new Activity("Activity A", null),
+						new Activity("Activity B", null)
+				), 0),
+				new Question.MultiChoice(List.of(
+						new Activity("Activity C", null),
+						new Activity("Activity D", null)
+				), 1)
+		);
 	}
 }
