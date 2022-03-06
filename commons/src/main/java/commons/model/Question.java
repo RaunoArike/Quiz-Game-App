@@ -3,6 +3,9 @@ package commons.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -36,7 +39,12 @@ public abstract class Question implements QuestionService{
 
 		@Override
 		public Question generateQuestion(int gameId) {
-			return null;
+			List<Activity> TempList = new ArrayList<>();
+			Collections.shuffle(activities);
+			TempList.add(activities.get(new Random().nextInt() % activities.size()));
+			TempList.add(activities.get(new Random().nextInt() % activities.size()));
+			return new Question.MultiChoice(TempList, correctAnswer);
+
 		}
 	}
 
@@ -48,7 +56,12 @@ public abstract class Question implements QuestionService{
 
 		@Override
 		public Question generateQuestion(int gameId) {
-			return null;
+			List<Activity> TempList = new ArrayList<>();
+			Collections.shuffle(activities);
+			TempList.add(activities.get(new Random().nextInt() % activities.size()));
+			TempList.add(activities.get(new Random().nextInt() % activities.size()));
+			return new Question.MultiChoice(TempList, correctAnswer);
+
 		}
 	}
 
@@ -60,7 +73,12 @@ public abstract class Question implements QuestionService{
 
 		@Override
 		public Question generateQuestion(int gameId) {
-			return null;
+			List<Activity> TempList = new ArrayList<>();
+			Collections.shuffle(activities);
+			TempList.add(activities.get(new Random().nextInt() % activities.size()));
+			TempList.add(activities.get(new Random().nextInt() % activities.size()));
+			return new Question.MultiChoice(TempList, correctAnswer);
+
 		}
 	}
 }
