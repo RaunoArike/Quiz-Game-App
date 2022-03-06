@@ -17,8 +17,11 @@ import java.util.List;
 )
 @JsonSubTypes({
 		@Type(value = Question.MultiChoice.class, name = "mc"),
+		@Type(value = Question.CalculationQuestion.class, name = "calculation"),
+		@Type(value = Question.EstimationQuestion.class, name = "estimation"),
+
 })
-public abstract class Question {
+public abstract class Question implements QuestionService{
 
 	/**
 	 * Question with x possible activities to choose, one of them is the correct answer
@@ -28,5 +31,34 @@ public abstract class Question {
 	public static class MultiChoice extends Question {
 		private final List<Activity> activities;
 		private final int correctAnswer;
+
+		@Override
+		public Question generateQuestion(int gameId) {
+			return null;
+		}
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public static class CalculationQuestion extends Question{
+		private final List<Activity> activities;
+		private final int correctAnswer;
+
+		@Override
+		public Question generateQuestion(int gameId) {
+			return null;
+		}
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public static class EstimationQuestion extends Question{
+		private final List<Activity> activities;
+		private final int correctAnswer;
+
+		@Override
+		public Question generateQuestion(int gameId) {
+			return null;
+		}
 	}
 }
