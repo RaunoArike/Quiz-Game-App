@@ -23,6 +23,8 @@ import java.util.List;
 })
 public abstract class Question implements QuestionService{
 
+	public abstract Question generateQuestion(int gameId);
+
 	/**
 	 * Question with x possible activities to choose, one of them is the correct answer
 	 */
