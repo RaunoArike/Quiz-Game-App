@@ -3,9 +3,6 @@ package commons.model;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
