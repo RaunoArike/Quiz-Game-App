@@ -24,34 +24,63 @@ public class MainCtrl {
 
 	private Stage primaryStage;
 
-	private QuoteOverviewCtrl overviewCtrl;
-	private Scene overview;
+	// private QuoteOverviewCtrl overviewCtrl;
+	// private Scene overview;
 
-	private AddQuoteCtrl addCtrl;
-	private Scene add;
+	// private AddQuoteCtrl addCtrl;
+	// private Scene add;
 
-	public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-			Pair<AddQuoteCtrl, Parent> add) {
+	private LeaderboardCtrl leaderboardCtrl;
+	private Scene leaderboard;
+
+	private OpeningCtrl openingCtrl;
+	private Scene home;
+
+
+	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
+			Pair<OpeningCtrl, Parent> openingCtrl) {
+
 		this.primaryStage = primaryStage;
-		this.overviewCtrl = overview.getKey();
-		this.overview = new Scene(overview.getValue());
 
-		this.addCtrl = add.getKey();
-		this.add = new Scene(add.getValue());
+		this.leaderboardCtrl = leaderboardCtrl.getKey();
+		this.leaderboard = new Scene(leaderboardCtrl.getValue());
 
-		showOverview();
+		this.openingCtrl = openingCtrl.getKey();
+		this.home = new Scene(openingCtrl.getValue());
+		
+		//this.overview = new Scene(overview.getValue());
+		//this.addCtrl = add.getKey();
+		//this.add = new Scene(add.getValue());
+
+		showHome();
 		primaryStage.show();
 	}
 
-	public void showOverview() {
-		primaryStage.setTitle("Quotes: Overview");
-		primaryStage.setScene(overview);
-		overviewCtrl.refresh();
+
+	public void showLeaderboard() {
+		primaryStage.setTitle("All-time Leaderboard");
+		primaryStage.setScene(leaderboard);
 	}
 
-	public void showAdd() {
-		primaryStage.setTitle("Quotes: Adding Quote");
-		primaryStage.setScene(add);
-		add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+	public void showHome() {
+		primaryStage.setTitle("Quizz: home");
+		primaryStage.setScene(home);
 	}
+
+	public void showUsername() {
+		
+	}
+
+	// public void showOverview() {
+	// 	primaryStage.setTitle("Quotes: Overview");
+	// 	primaryStage.setScene(overview);
+	// 	//overviewCtrl.refresh();
+	// }
+
+	// public void showAdd() {
+	// 	primaryStage.setTitle("Quotes: Adding Quote");
+	// 	primaryStage.setScene(add);
+	// 	add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+	// }
+
 }
