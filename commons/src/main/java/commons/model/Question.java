@@ -11,12 +11,11 @@ import java.util.List;
 /**
  * Model of a question
  */
-@JsonTypeInfo(
-		use = JsonTypeInfo.Id.NAME,
-		property = "type"
-)
-@JsonSubTypes({
-		@Type(value = Question.MultiChoice.class, name = "mc"),
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({@Type(value = Question.MultiChoice.class, name = "mc"),
+		@Type(value = Question.CalculationQuestion.class, name = "calculation"),
+		@Type(value = Question.EstimationQuestion.class, name = "estimation"),
+
 })
 public abstract class Question {
 
@@ -28,5 +27,21 @@ public abstract class Question {
 	public static class MultiChoice extends Question {
 		private final List<Activity> activities;
 		private final int correctAnswer;
+
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public static class CalculationQuestion extends Question {
+		private final List<Activity> activities;
+		private final int correctAnswer;
+
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public static class EstimationQuestion extends Question {
+		private final Activity activity;
+		private final float correctAnswer;
 	}
 }
