@@ -4,13 +4,14 @@ package server.api;
 import commons.servermessage.ScoreMessage;
 import commons.servermessage.QuestionMessage;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
-public class OutgoingController {
+@Service
+public class OutgoingControllerImpl implements OutgoingController {
     private final SimpMessagingTemplate template;
 
-    public OutgoingController(SimpMessagingTemplate template) {
+    public OutgoingControllerImpl(SimpMessagingTemplate template) {
         this.template = template;
     }
 
