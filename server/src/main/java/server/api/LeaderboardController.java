@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class LeaderboardController {
 
-    @GetMapping("/api/leaderboard")
-    public String getLeaderboard() {
-        return null;
-    }
+	@GetMapping("/api/leaderboard")
+	public String getLeaderboard() {
+		return null;
+	}
 }

@@ -14,23 +14,22 @@ import java.util.Map;
 @Controller
 @RequestMapping
 public class GameController {
+	private final GameService service;
 
-    private final GameService service;
+	public GameController(GameService service) {
+		this.service = service;
+	}
 
-    public GameController(GameService service) {
-        this.service = service;
-    }
+	@MessageMapping("/start-single-player")
+	public void startSPGame(@Payload SinglePlayerGameStartMessage startMessage, SimpMessageHeaderAccessor headerAcc) {
+		Map<String, Object> attrs = headerAcc.getSessionAttributes();
+		attrs.put("player", service.startSinglePlayerGame(startMessage.getUsername()));
+	}
 
-    @MessageMapping("/start-single-player")
-    public void startSinglePlayerGame(@Payload SinglePlayerGameStartMessage startMessage, SimpMessageHeaderAccessor headerAccessor) {
-        Map<String, Object> attrs = headerAccessor.getSessionAttributes();
-        attrs.put("player", service.startSinglePlayerGame(startMessage.getUsername()));
-    }
-
-    @MessageMapping("/score")
-    public void getScore(@Payload QuestionAnswerMessage answerMessage, SimpMessageHeaderAccessor headerAccessor) {
-        Map<String, Object> attrs = headerAccessor.getSessionAttributes();
-        int playerId = (Integer) attrs.get("player");
-        service.submitAnswer(playerId, answerMessage);
-    }
+	@MessageMapping("/score")
+	public void getScore(@Payload QuestionAnswerMessage answerMessage, SimpMessageHeaderAccessor headerAccessor) {
+		Map<String, Object> attrs = headerAccessor.getSessionAttributes();
+		int playerId = (Integer) attrs.get("player");
+		service.submitAnswer(playerId, answerMessage);
+	}
 }
