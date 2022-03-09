@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class LeaderboardController {
 
     @GetMapping("/api/leaderboard")
-    public List<User, >
+    public void getLeaderboard() {}
 }
