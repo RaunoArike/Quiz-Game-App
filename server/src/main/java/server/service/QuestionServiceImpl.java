@@ -1,19 +1,24 @@
 package server.service;
 
-import commons.model.Activity;
 import commons.model.Question;
+import server.entity.ActivityEntity;
+import server.repository.ActivityRepository;
+import server.util.MathUtil;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import server.entity.ActivityEntity;
-import server.repository.ActivityRepository;
 
 public class QuestionServiceImpl implements QuestionService {
+	private static final int MAX_SCORE = 100;
+	private static final float ESTIMATION_SCORE_RATIO_GOOD = 0.1f;
+	private static final float ESTIMATION_SCORE_RATIO_BAD = 0.8f;
+
+	private static final int NUM = 3;
+
 	private final List<ActivityEntity> visited = new ArrayList<>();
 	private final ActivityRepository activityRepository;
-	private static final int NUM = 3;
 
 	public QuestionServiceImpl(ActivityRepository activityRepository) {
 		this.activityRepository = activityRepository;
@@ -36,7 +41,6 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	public List<ActivityEntity> generateActivities() {
-		Collections.shuffle(activityRepository.findAll());
 		List<ActivityEntity> listActivities = activityRepository.findAll();
 		List<ActivityEntity> selectedEntities = new ArrayList<>();
 
@@ -46,7 +50,6 @@ public class QuestionServiceImpl implements QuestionService {
 		while (index < NUM) {
 			int no = Math.abs(new Random().nextInt());
 			ActivityEntity act = listActivities.get(no % listActivities.size());
-			Activity activityFromEnt = new Activity(act.getName(), act.getImageUrl());
 			if (!visited.contains(act)) {
 				listActivities.add(act);
 				visited.add(act);
@@ -59,14 +62,18 @@ public class QuestionServiceImpl implements QuestionService {
 
 	public Question.MultiChoice generateMC() {
 		List<ActivityEntity> selectedEntities = generateActivities();
-		return new Question.MultiChoice(selectedEntities.stream().map(x -> new Activity(x.getName(),
-				x.getImageUrl())).collect(Collectors.toList()), generateAnswer(selectedEntities));
+		return new Question.MultiChoice(
+				selectedEntities.stream().map(ActivityEntity::toModel).collect(Collectors.toList()),
+				generateAnswer(selectedEntities)
+		);
 	}
 
 	public Question.EstimationQuestion generateEst() {
 		List<ActivityEntity> selectedEntities = generateActivities();
-		return new Question.EstimationQuestion(new Activity(selectedEntities.get(1).getName(),
-				selectedEntities.get(1).getImageUrl()), selectedEntities.get(1).getEnergyInWh());
+		return new Question.EstimationQuestion(
+				selectedEntities.get(1).toModel(),
+				selectedEntities.get(1).getEnergyInWh()
+		);
 	}
 
 	public Question.CalculationQuestion generateCal() {
@@ -75,20 +82,51 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	public int generateAnswer(List<ActivityEntity> listActivities) {
-		int answer = 0;
-
-		if (listActivities.get(0).getEnergyInWh() < listActivities.get(1).getEnergyInWh()) {
-			if (listActivities.get(1).getEnergyInWh() < listActivities.get(2).getEnergyInWh()) {
-				answer = 2;
-			} else {
-				answer = 1;
+		int maxIndex = 0;
+		float maxValue = 0f;
+		for (int i = 0; i < listActivities.size(); i++) {
+			float currentEnergy = listActivities.get(i).getEnergyInWh();
+			if (currentEnergy > maxValue) {
+				maxIndex = i;
+				maxValue = currentEnergy;
 			}
 		}
-		if (listActivities.get(0).getEnergyInWh() <= listActivities.get(2).getEnergyInWh()) {
-			answer = 2;
-		}
-		return answer;
+		return maxIndex;
 	}
 
+	@Override
+	public int calculateScore(Question question, Number answer) {
+		if (question instanceof Question.MultiChoice mc) {
+			return calculateScoreMC(mc, answer.intValue());
+		} else if (question instanceof Question.EstimationQuestion est) {
+			return calculateScoreEst(est, answer.floatValue());
+		} else if (question instanceof Question.CalculationQuestion cal) {
+			return calculateScoreCal(cal, answer.floatValue());
+		}
+		return 0;
+	}
 
+	private int calculateScoreMC(Question.MultiChoice question, int answer) {
+		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
+		else return 0;
+	}
+
+	// TODO Consider improving the formula
+	private int calculateScoreEst(Question.EstimationQuestion question, float answer) {
+		float diff = Math.abs(answer - question.getCorrectAnswer());
+		float ratio = diff / question.getCorrectAnswer();
+		if (ratio < ESTIMATION_SCORE_RATIO_GOOD) {
+			return MAX_SCORE;
+		} else if (ratio > ESTIMATION_SCORE_RATIO_BAD) {
+			return 0;
+		} else {
+			return Math.round(
+					MathUtil.linearMap(ratio, ESTIMATION_SCORE_RATIO_GOOD, ESTIMATION_SCORE_RATIO_BAD, MAX_SCORE, 0)
+			);
+		}
+	}
+
+	private int calculateScoreCal(Question.CalculationQuestion question, float answer) {
+		return 0; // TODO
+	}
 }
