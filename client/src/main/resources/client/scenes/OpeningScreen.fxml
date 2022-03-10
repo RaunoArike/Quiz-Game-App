@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OpeningCtrl">
    <children>
       <Button layoutX="86.0" layoutY="256.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="165.0" text="Start new game">
          <font>
@@ -33,7 +32,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="409.0" layoutY="34.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="151.0" text="View leaderboard" />
+      <Button layoutX="409.0" layoutY="34.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="34.0" prefWidth="151.0" text="View leaderboard" />
       <Label layoutX="95.0" layoutY="109.0" prefHeight="34.0" prefWidth="159.0" text="The Energy quiz game">
          <font>
             <Font size="14.0" />
