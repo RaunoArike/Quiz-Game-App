@@ -2,8 +2,6 @@ package client.scenes;
 
 import com.google.inject.Inject;
 import client.utils.ServerUtils;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
 public class OpeningCtrl  {
 
@@ -17,15 +15,15 @@ public class OpeningCtrl  {
 		this.mainCtrl = mainCtrl;
 	}
 
-	public void goToLeaderboard () {
+	public void goToLeaderboard() {
 		mainCtrl.showLeaderboard();
 	}
 
-	public void startNewSingleGame () {
+	public void startNewSingleGame() {
 
 	}
 
-	public void startNewMultiGame () {
+	public void startNewMultiGame() {
 
 	}
 

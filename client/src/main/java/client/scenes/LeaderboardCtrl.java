@@ -5,7 +5,7 @@ import client.utils.ServerUtils;
 
 public class LeaderboardCtrl {
 
-    private final ServerUtils server;
+	private final ServerUtils server;
 	private final MainCtrl mainCtrl;
 
 
@@ -15,9 +15,7 @@ public class LeaderboardCtrl {
 		this.mainCtrl = mainCtrl;
 	}
 
-	public void returnHome () {
+	public void returnHome() {
 		mainCtrl.showHome();
 	}
-
-    
 }
