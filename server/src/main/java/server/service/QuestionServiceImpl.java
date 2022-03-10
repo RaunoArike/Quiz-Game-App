@@ -11,9 +11,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class QuestionServiceImpl implements QuestionService {
-	private static final int MAX_SCORE = 100;
-	private static final float ESTIMATION_SCORE_RATIO_GOOD = 0.1f;
-	private static final float ESTIMATION_SCORE_RATIO_BAD = 0.8f;
+	public static final int MAX_SCORE = 100;
+
+	private static final float EST_SCORE_RATIO_GOOD = 0.1f;
+	private static final float EST_SCORE_RATIO_BAD = 0.5f;
 
 	private static final int NUM = 3;
 
@@ -22,10 +23,6 @@ public class QuestionServiceImpl implements QuestionService {
 
 	public QuestionServiceImpl(ActivityRepository activityRepository) {
 		this.activityRepository = activityRepository;
-	}
-
-	public ActivityRepository getActivityRepository() {
-		return activityRepository;
 	}
 
 	public Question generateQuestion(int gameId) {
@@ -113,16 +110,14 @@ public class QuestionServiceImpl implements QuestionService {
 
 	// TODO Consider improving the formula
 	private int calculateScoreEst(Question.EstimationQuestion question, float answer) {
-		float diff = Math.abs(answer - question.getCorrectAnswer());
-		float ratio = diff / question.getCorrectAnswer();
-		if (ratio < ESTIMATION_SCORE_RATIO_GOOD) {
+		float error = Math.abs(answer - question.getCorrectAnswer());
+		float errorRatio = error / question.getCorrectAnswer();
+		if (errorRatio < EST_SCORE_RATIO_GOOD) {
 			return MAX_SCORE;
-		} else if (ratio > ESTIMATION_SCORE_RATIO_BAD) {
+		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
 			return 0;
 		} else {
-			return Math.round(
-					MathUtil.linearMap(ratio, ESTIMATION_SCORE_RATIO_GOOD, ESTIMATION_SCORE_RATIO_BAD, MAX_SCORE, 0)
-			);
+			return Math.round(MathUtil.linearMap(errorRatio, EST_SCORE_RATIO_GOOD, EST_SCORE_RATIO_BAD, MAX_SCORE, 0));
 		}
 	}
 
