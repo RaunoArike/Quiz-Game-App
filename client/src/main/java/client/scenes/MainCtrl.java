@@ -24,12 +24,6 @@ public class MainCtrl {
 
 	private Stage primaryStage;
 
-	// private QuoteOverviewCtrl overviewCtrl;
-	// private Scene overview;
-
-	// private AddQuoteCtrl addCtrl;
-	// private Scene add;
-
 	private LeaderboardCtrl leaderboardCtrl;
 	private Scene leaderboard;
 
@@ -47,10 +41,6 @@ public class MainCtrl {
 
 		this.openingCtrl = openingCtrl.getKey();
 		this.home = new Scene(openingCtrl.getValue());
-		
-		//this.overview = new Scene(overview.getValue());
-		//this.addCtrl = add.getKey();
-		//this.add = new Scene(add.getValue());
 
 		showHome();
 		primaryStage.show();
@@ -70,17 +60,5 @@ public class MainCtrl {
 	public void showUsername() {
 		
 	}
-
-	// public void showOverview() {
-	// 	primaryStage.setTitle("Quotes: Overview");
-	// 	primaryStage.setScene(overview);
-	// 	//overviewCtrl.refresh();
-	// }
-
-	// public void showAdd() {
-	// 	primaryStage.setTitle("Quotes: Adding Quote");
-	// 	primaryStage.setScene(add);
-	// 	add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
-	// }
 
 }
