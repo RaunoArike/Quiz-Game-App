@@ -11,8 +11,8 @@ import java.util.Map;
 public class Game {
 	private final int gameId;
 
-	private Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
-	private int questionNumber = 0;
+	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
+	private int questionNumber = -1;
 	private Question currentQuestion;
 
 	public Game(int gameId) {

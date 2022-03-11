@@ -110,8 +110,8 @@ public class QuestionServiceImpl implements QuestionService {
 
 	// TODO Consider improving the formula
 	private int calculateScoreEst(Question.EstimationQuestion question, float answer) {
-		float error = Math.abs(answer - question.getCorrectAnswer());
-		float errorRatio = error / question.getCorrectAnswer();
+		var error = Math.abs(answer - question.getCorrectAnswer());
+		var errorRatio = error / question.getCorrectAnswer();
 		if (errorRatio < EST_SCORE_RATIO_GOOD) {
 			return MAX_SCORE;
 		} else if (errorRatio > EST_SCORE_RATIO_BAD) {

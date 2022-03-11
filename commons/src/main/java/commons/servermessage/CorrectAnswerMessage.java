@@ -1,10 +1,8 @@
 package commons.servermessage;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@AllArgsConstructor
-@Getter
+@Data
 public class CorrectAnswerMessage {
 	private final int questionScore;
 	private final int totalScore;
