@@ -7,11 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 public class UsernameCtrl {
-    private final ServerUtils server;
+	private final ServerUtils server;
 	private final MainCtrl mainCtrl;
 
-    @FXML 
-    private TextField username;
+	@FXML
+	private TextField username;
 
 	@Inject
 	public UsernameCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -22,14 +22,14 @@ public class UsernameCtrl {
 	public void start() {
 	}
 
-    public void clearField() {
-        username.clear();
-    }
+	public void clearField() {
+		username.clear();
+	}
 
-    public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {
 		switch (e.getCode()) {
 			case ENTER:
-			    start();
+				start();
 				break;
 			case ESCAPE:
 				clearField();
