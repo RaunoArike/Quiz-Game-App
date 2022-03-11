@@ -30,9 +30,12 @@ public class MainCtrl {
 	private OpeningCtrl openingCtrl;
 	private Scene home;
 
+	private UsernameCtrl usernameCtrl;
+	private Scene username;
+
 
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-			Pair<OpeningCtrl, Parent> openingCtrl) {
+			Pair<OpeningCtrl, Parent> openingCtrl, Pair<UsernameCtrl, Parent> usernameCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -41,6 +44,9 @@ public class MainCtrl {
 
 		this.openingCtrl = openingCtrl.getKey();
 		this.home = new Scene(openingCtrl.getValue());
+
+		this.usernameCtrl = usernameCtrl.getKey();
+		this.username = new Scene(usernameCtrl.getValue());
 
 		showHome();
 		primaryStage.show();
@@ -58,7 +64,8 @@ public class MainCtrl {
 	}
 
 	public void showUsername() {
-		
+		primaryStage.setTitle("Enter username");
+		primaryStage.setScene(username);
 	}
 
 }

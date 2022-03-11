@@ -28,6 +28,7 @@ import client.scenes.MainCtrl;
 
 import client.scenes.LeaderboardCtrl;
 import client.scenes.OpeningCtrl;
+import client.scenes.UsernameCtrl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -48,8 +49,9 @@ public class Main extends Application {
 
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
+		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-		mainCtrl.initialize(primaryStage, leaderboard, home);
+		mainCtrl.initialize(primaryStage, leaderboard, home, username);
 	}
 }

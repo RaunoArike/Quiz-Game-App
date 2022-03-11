@@ -20,11 +20,10 @@ public class OpeningCtrl  {
 	}
 
 	public void startNewSingleGame() {
-
+		mainCtrl.showUsername();
 	}
 
 	public void startNewMultiGame() {
-
 	}
 
 }
