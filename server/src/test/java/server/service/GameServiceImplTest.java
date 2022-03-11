@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.OutgoingController;
+import server.model.Game;
 
 import java.util.List;
 
@@ -109,5 +110,17 @@ public class GameServiceImplTest {
 		);
 
 		assertEquals(new CorrectAnswerMessage(23, 100), correctAnswerMessageCaptor.getAllValues().get(1));
+	}
+
+	@Test
+	public void after_answering_last_question_game_should_not_exist() {
+		var service = createService();
+		var playerId = service.startSinglePlayerGame("abc");
+		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++)
+			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
+
+		assertThrows(Exception.class, () -> {
+			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
+		});
 	}
 }

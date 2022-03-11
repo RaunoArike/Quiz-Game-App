@@ -60,13 +60,19 @@ public class GameServiceImpl implements GameService {
 
 		outgoingController.sendScore(new CorrectAnswerMessage(scoreDelta, player.getScore()), List.of(playerId));
 
-		startNewQuestion(game);
+		if (!game.isLastQuestion()) startNewQuestion(game);
+		else cleanUpGame(game);
 	}
 
 	private void startNewQuestion(Game game) {
 		var question = questionService.generateQuestion(game.getGameId());
 		game.startNewQuestion(question);
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
+	}
+
+	private void cleanUpGame(Game game) {
+		games.remove(game.getGameId());
+		game.getPlayerIds().forEach(players::remove);
 	}
 
 	private Game getPlayerGame(int playerId) {

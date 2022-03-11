@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Game {
+	public static final int QUESTIONS_PER_GAME = 20;
+
 	private final int gameId;
 
 	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
@@ -39,6 +41,10 @@ public class Game {
 
 	public List<Integer> getPlayerIds() {
 		return new ArrayList<>(players.keySet());
+	}
+
+	public boolean isLastQuestion() {
+		return questionNumber == QUESTIONS_PER_GAME - 1;
 	}
 
 	public int getQuestionNumber() {
