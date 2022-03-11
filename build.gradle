@@ -23,6 +23,7 @@ subprojects {
 		maxErrors = 0
 		maxWarnings = 0
 		configFile = '../checkstyle.xml' as File
+		configProperties = [config_suppressions: rootDir.path + '/checkstyle-suppressions.xml']
 	}
 
 	tasks.named('test') {

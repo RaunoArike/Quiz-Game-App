@@ -5,14 +5,11 @@ import commons.model.Activity;
 import commons.model.Question;
 import commons.servermessage.CorrectAnswerMessage;
 import commons.servermessage.QuestionMessage;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.OutgoingController;
 import server.model.Game;
@@ -116,8 +113,9 @@ public class GameServiceImplTest {
 	public void after_answering_last_question_game_should_not_exist() {
 		var service = createService();
 		var playerId = service.startSinglePlayerGame("abc");
-		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++)
+		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
+		}
 
 		assertThrows(Exception.class, () -> {
 			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
