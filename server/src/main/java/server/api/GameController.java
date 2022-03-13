@@ -26,8 +26,8 @@ public class GameController {
 		attrs.put("player", service.startSinglePlayerGame(startMessage.getUsername()));
 	}
 
-	@MessageMapping("/score")
-	public void getScore(@Payload QuestionAnswerMessage answerMessage, SimpMessageHeaderAccessor headerAccessor) {
+	@MessageMapping("/submit-answer")
+	public void submitAnswer(@Payload QuestionAnswerMessage answerMessage, SimpMessageHeaderAccessor headerAccessor) {
 		Map<String, Object> attrs = headerAccessor.getSessionAttributes();
 		int playerId = (Integer) attrs.get("player");
 		service.submitAnswer(playerId, answerMessage);
