@@ -21,6 +21,8 @@ import com.google.inject.Scopes;
 
 import client.scenes.OpeningCtrl;
 import client.scenes.MainCtrl;
+import client.scenes.EndingCtrl;
+import client.scenes.JoinWaitingroomCtrl;
 import client.scenes.LeaderboardCtrl;
 
 public class MyModule implements Module {
@@ -30,5 +32,7 @@ public class MyModule implements Module {
 		binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(OpeningCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
+		binder.bind(JoinWaitingroomCtrl.class).in(Scopes.SINGLETON);
+		binder.bind(EndingCtrl.class).in(Scopes.SINGLETON);
 	}
 }
