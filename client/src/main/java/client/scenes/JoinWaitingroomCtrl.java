@@ -7,13 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 public class JoinWaitingroomCtrl {
-    private final ServerUtils server;
+	private final ServerUtils server;
 	private final MainCtrl mainCtrl;
 
 	@FXML
-    private TextField username;
+	private TextField username;
 
-    @Inject
+	@Inject
 	public JoinWaitingroomCtrl(ServerUtils server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
