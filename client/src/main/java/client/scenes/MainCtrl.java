@@ -32,10 +32,17 @@ public class MainCtrl {
 
 	private UsernameCtrl usernameCtrl;
 	private Scene username;
+	
+	private JoinWaitingroomCtrl joinWaitingroomCtrl;
+	private Scene joinWaitingroom;
+
+	private EndingCtrl endingCtrl;
+	private Scene ending;
 
 
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-			Pair<OpeningCtrl, Parent> openingCtrl, Pair<UsernameCtrl, Parent> usernameCtrl) {
+			Pair<OpeningCtrl, Parent> openingCtrl, Pair<UsernameCtrl, Parent> usernameCtrl,
+			Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl, Pair<EndingCtrl, Parent> endingCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -47,6 +54,12 @@ public class MainCtrl {
 
 		this.usernameCtrl = usernameCtrl.getKey();
 		this.username = new Scene(usernameCtrl.getValue());
+
+		this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
+		this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
+
+		this.endingCtrl = endingCtrl.getKey();
+		this.ending = new Scene(endingCtrl.getValue());
 
 		showHome();
 		primaryStage.show();
@@ -66,6 +79,11 @@ public class MainCtrl {
 	public void showUsername() {
 		primaryStage.setTitle("Enter username");
 		primaryStage.setScene(username);
+	}
+
+	public void showJoinWaitingroom() {
+		primaryStage.setTitle("Join a waiting room");
+		primaryStage.setScene(joinWaitingroom);
 	}
 
 }

@@ -24,8 +24,9 @@ import com.google.inject.Injector;
 
 // import client.scenes.AddQuoteCtrl;
 import client.scenes.MainCtrl;
+import client.scenes.EndingCtrl;
 // import client.scenes.QuoteOverviewCtrl;
-
+import client.scenes.JoinWaitingroomCtrl;
 import client.scenes.LeaderboardCtrl;
 import client.scenes.OpeningCtrl;
 import client.scenes.UsernameCtrl;
@@ -50,8 +51,10 @@ public class Main extends Application {
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
 		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");
+		var joinWaitingroom = FXML.load(JoinWaitingroomCtrl.class, "client", "scenes", "JoinWaitingroomScreen.fxml");
+		var ending = FXML.load(EndingCtrl.class, "client", "scenes", "EndingScreen.fxml");
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-		mainCtrl.initialize(primaryStage, leaderboard, home, username);
+		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom,ending);
 	}
 }
