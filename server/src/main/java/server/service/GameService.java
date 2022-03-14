@@ -8,6 +8,7 @@ import commons.clientmessage.QuestionAnswerMessage;
 public interface GameService {
 	/**
 	 * Starts a single-player game
+	 *
 	 * @param userName name of the player, will be used for leaderboard
 	 * @return created player id, used to identify player throughout the game
 	 */
@@ -15,6 +16,7 @@ public interface GameService {
 
 	/**
 	 * Submits answer to the current question
+	 *
 	 * @param playerId player id
 	 * @param answer submitted answer
 	 */

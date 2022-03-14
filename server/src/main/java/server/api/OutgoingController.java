@@ -1,7 +1,7 @@
 package server.api;
 
-import commons.servermessage.CorrectAnswerMessage;
 import commons.servermessage.QuestionMessage;
+import commons.servermessage.ScoreMessage;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface OutgoingController {
 	 * @param message - the message containing the score
 	 * @param players - the players that receive the message
 	 */
-	void sendScore(CorrectAnswerMessage message, List<Integer> players);
+	void sendScore(ScoreMessage message, List<Integer> players);
 }
