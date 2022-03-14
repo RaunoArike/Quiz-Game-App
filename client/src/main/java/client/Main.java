@@ -55,6 +55,6 @@ public class Main extends Application {
 		var ending = FXML.load(EndingCtrl.class, "client", "scenes", "EndingScreen.fxml");
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom,ending);
+		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, ending);
 	}
 }
