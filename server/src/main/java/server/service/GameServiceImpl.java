@@ -1,8 +1,8 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
-import commons.servermessage.CorrectAnswerMessage;
 import commons.servermessage.QuestionMessage;
+import commons.servermessage.ScoreMessage;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
@@ -58,7 +58,7 @@ public class GameServiceImpl implements GameService {
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer());
 		player.incrementScore(scoreDelta);
 
-		outgoingController.sendScore(new CorrectAnswerMessage(scoreDelta, player.getScore()), List.of(playerId));
+		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
 
 		if (!game.isLastQuestion()) startNewQuestion(game);
 		else cleanUpGame(game);

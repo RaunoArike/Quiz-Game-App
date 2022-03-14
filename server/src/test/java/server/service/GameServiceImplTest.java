@@ -3,8 +3,8 @@ package server.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.Activity;
 import commons.model.Question;
-import commons.servermessage.CorrectAnswerMessage;
 import commons.servermessage.QuestionMessage;
+import commons.servermessage.ScoreMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -31,7 +31,7 @@ public class GameServiceImplTest {
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
-	private ArgumentCaptor<CorrectAnswerMessage> correctAnswerMessageCaptor;
+	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
 
 	private GameServiceImpl createService() {
 		return new GameServiceImpl(questionService, outgoingController);
@@ -86,7 +86,7 @@ public class GameServiceImplTest {
 		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 420));
 
 		verify(outgoingController).sendScore(
-				new CorrectAnswerMessage(77, 77),
+				new ScoreMessage(77, 77),
 				List.of(playerId)
 		);
 	}
@@ -106,7 +106,7 @@ public class GameServiceImplTest {
 				eq(List.of(playerId))
 		);
 
-		assertEquals(new CorrectAnswerMessage(23, 100), correctAnswerMessageCaptor.getAllValues().get(1));
+		assertEquals(new ScoreMessage(23, 100), correctAnswerMessageCaptor.getAllValues().get(1));
 	}
 
 	@Test

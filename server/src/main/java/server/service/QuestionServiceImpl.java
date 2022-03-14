@@ -1,6 +1,7 @@
 package server.service;
 
 import commons.model.Question;
+import org.springframework.stereotype.Service;
 import server.entity.ActivityEntity;
 import server.repository.ActivityRepository;
 import server.util.MathUtil;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+@Service
 public class QuestionServiceImpl implements QuestionService {
 	public static final int MAX_SCORE = 100;
 

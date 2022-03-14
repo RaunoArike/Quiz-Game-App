@@ -15,7 +15,7 @@
 
     <!-- https://checkstyle.org/config_filters.html#SuppressionFilter -->
     <module name="SuppressionFilter">
-        <property name="file" value="${config_suppressions}"/>
+        <property name="file" value="${config_suppressions}" default="/checkstyle-suppressions.xml"/>
     </module>
 
     <!-- Checks for Size Violations.                  -->
