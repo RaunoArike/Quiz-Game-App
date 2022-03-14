@@ -18,7 +18,7 @@ public interface GameService {
 	 * Submits answer to the current question
 	 *
 	 * @param playerId player id
-	 * @param answer   submitted answer
+	 * @param answer submitted answer
 	 */
 	void submitAnswer(int playerId, QuestionAnswerMessage answer);
 }
