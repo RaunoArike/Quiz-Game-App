@@ -1,10 +1,8 @@
 package commons.clientmessage;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@AllArgsConstructor
-@Getter
+@Data
 public class SinglePlayerGameStartMessage {
 	private final String username;
 }

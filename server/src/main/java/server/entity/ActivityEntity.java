@@ -1,5 +1,6 @@
 package server.entity;
 
+import commons.model.Activity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,4 +31,8 @@ public class ActivityEntity {
 	private String imageUrl;
 
 	private float energyInWh;
+
+	public Activity toModel() {
+		return new Activity(name, imageUrl);
+	}
 }
