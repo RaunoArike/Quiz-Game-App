@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionServiceImplTest {
-	private static final Activity FAKE_ACTIVITY = new Activity("A1", null);
+	private static final Activity FAKE_ACTIVITY = new Activity("A1", null, 1f);
 	private static final List<Activity> FAKE_ACTIVITY_LIST = List.of(
 			FAKE_ACTIVITY,
-			new Activity("A2", null),
-			new Activity("A3", null)
+			new Activity("A2", null, 2f),
+			new Activity("A3", null, 3f)
 	);
 
 	@Mock

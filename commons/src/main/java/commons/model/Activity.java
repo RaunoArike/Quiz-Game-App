@@ -1,14 +1,13 @@
 package commons.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * Model of an activity
  */
-@AllArgsConstructor
-@Getter
+@Data
 public class Activity {
 	private final String name;
 	private final String imageUrl;
+	private final float energyInWh;
 }
