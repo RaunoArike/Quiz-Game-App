@@ -13,6 +13,9 @@ public class JoinWaitingroomCtrl {
 	@FXML
 	private TextField username;
 
+	@FXML
+	private TextField gamePin;
+
 	@Inject
 	public JoinWaitingroomCtrl(ServerUtils server, MainCtrl mainCtrl) {
 		this.server = server;
