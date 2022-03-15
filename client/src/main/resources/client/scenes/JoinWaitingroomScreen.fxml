@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.JoinWaitingroomCtrl">
    <children>
       <Label layoutX="96.0" layoutY="70.0" prefHeight="37.0" prefWidth="448.0" text="Start a new multiplayer game...">
          <font>
@@ -34,12 +33,12 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button layoutX="410.0" layoutY="283.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="122.0" text="Join">
+      <Button layoutX="410.0" layoutY="283.0" mnemonicParsing="false" onAction="#join" prefHeight="49.0" prefWidth="122.0" text="Join">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="81.0" layoutY="283.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="122.0" text="Return ">
+      <Button layoutX="81.0" layoutY="283.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="49.0" prefWidth="122.0" text="Return ">
          <font>
             <Font size="25.0" />
          </font>
