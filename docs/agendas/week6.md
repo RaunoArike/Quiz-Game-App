@@ -17,6 +17,7 @@ Secretary:		Ye Zhao
 - Regarding our progress over the past week and the requirements for the upcoming week: Are we on track? What should our focus be for the upcoming week?
 
 ## Items addressed by the TA
+- Feedback to the final submitted version of the HCI assignment
 - Feedback to our development process thus far
 - Feedback to our approach with development - have we been focusing on the right things and splitting the work equally?
 - Plans for the upcoming sprint and for the continuation of the development process
