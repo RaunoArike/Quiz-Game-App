@@ -22,9 +22,14 @@
       <Button layoutX="193.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
       <Button layoutX="450.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
       <Button layoutX="321.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <Text layoutX="124.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot; This is the question&quot; ">
+      <Text layoutX="50.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot; This is the question&quot; ">
          <font>
             <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="503.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" wrappingWidth="47.6063232421875">
+         <font>
+            <Font size="14.0" />
          </font>
       </Text>
    </children>
