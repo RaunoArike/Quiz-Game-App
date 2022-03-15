@@ -26,6 +26,10 @@ public class UsernameCtrl {
 		username.clear();
 	}
 
+	public void cancel() {
+		mainCtrl.showHome();
+	}
+
 	public void keyPressed(KeyEvent e) {
 		switch (e.getCode()) {
 			case ENTER:
