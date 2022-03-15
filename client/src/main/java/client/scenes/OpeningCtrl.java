@@ -26,4 +26,8 @@ public class OpeningCtrl  {
 	public void startNewMultiGame() {
 	}
 
+	public void returnHome() {
+		mainCtrl.showHome();
+	}
+
 }
