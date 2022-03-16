@@ -22,6 +22,7 @@ public class QuestionServiceImplTest {
 			new Activity("A3", null)
 	);
 
+
 	@Mock
 	private ActivityRepository activityRepository;
 
@@ -32,7 +33,7 @@ public class QuestionServiceImplTest {
 	@Test
 	public void correct_answer_for_mc_question_should_give_max_score() {
 		var service = createService();
-		var question = new Question.MultiChoice(FAKE_ACTIVITY_LIST, 2);
+		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 2);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
@@ -40,7 +41,7 @@ public class QuestionServiceImplTest {
 	@Test
 	public void wrong_answer_for_mc_question_should_give_zero_score() {
 		var service = createService();
-		var question = new Question.MultiChoice(FAKE_ACTIVITY_LIST, 2);
+		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 1);
 		assertEquals(0, score);
 	}
@@ -68,5 +69,46 @@ public class QuestionServiceImplTest {
 		var score = service.calculateScore(question, 70f);
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
+	}
+
+	@Test
+	public void close_answer_for_comp_question_should_give_max_score() {
+		var service = createService();
+		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
+		var score = service.calculateScore(question, 1.1f);
+		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
+	}
+
+	@Test
+	public void distant_answer_for_comp_question_should_give_zero_score() {
+		var service = createService();
+		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
+		var score = service.calculateScore(question, 2.1f);
+		assertEquals(0, score);
+	}
+
+	@Test
+	public void medium_answer_for_comp_question_should_partial_score() {
+		var service = createService();
+		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
+		var score = service.calculateScore(question, 1.5f);
+		assertTrue(score > 0);
+		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
+	}
+
+	@Test
+	public void correct_answer_for_pick_question_should_give_max_score() {
+		var service = createService();
+		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2);
+		var score = service.calculateScore(question, 2);
+		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
+	}
+
+	@Test
+	public void wrong_answer_for_pick_question_should_give_zero_score() {
+		var service = createService();
+		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2);
+		var score = service.calculateScore(question, 1);
+		assertEquals(0, score);
 	}
 }
