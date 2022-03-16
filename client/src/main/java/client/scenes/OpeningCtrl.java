@@ -24,6 +24,11 @@ public class OpeningCtrl  {
 	}
 
 	public void startNewMultiGame() {
+		mainCtrl.showJoinWaitingroom();
+	}
+
+	public void returnHome() {
+		mainCtrl.showHome();
 	}
 
 }
