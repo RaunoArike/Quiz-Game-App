@@ -18,7 +18,8 @@ public class QuestionServiceImpl implements QuestionService {
 	private static final float EST_SCORE_RATIO_GOOD = 0.1f;
 	private static final float EST_SCORE_RATIO_BAD = 0.5f;
 
-	private static final int NUM = 3;
+	private static final int NUM1 = 3;
+	private static final int NUM2 = 4;
 
 	private final List<ActivityEntity> visited = new ArrayList<>();
 	private final ActivityRepository activityRepository;
@@ -31,10 +32,11 @@ public class QuestionServiceImpl implements QuestionService {
 
 		int no = Math.abs(new Random().nextInt());
 
-		switch (no % NUM) {
+		switch (no % NUM2) {
 			case 0:	return generateMC();
 			case 1: return generateEst();
-			case 2: return generateCal();
+			case 2: return generateComp();
+			case NUM1: return generatePick();
 		}
 		return null;
 	}
@@ -46,7 +48,7 @@ public class QuestionServiceImpl implements QuestionService {
 		int index = 0;
 		///MAGIC NUMBERS HAVE TO BE REMOVED
 
-		while (index < NUM) {
+		while (index < NUM1) {
 			int no = Math.abs(new Random().nextInt());
 			ActivityEntity act = listActivities.get(no % listActivities.size());
 			if (!visited.contains(act)) {
@@ -59,11 +61,12 @@ public class QuestionServiceImpl implements QuestionService {
 		return selectedEntities;
 	}
 
-	public Question.MultiChoice generateMC() {
+
+	public Question.MultiChoiceQuestion generateMC() {
 		List<ActivityEntity> selectedEntities = generateActivities();
-		return new Question.MultiChoice(
+		return new Question.MultiChoiceQuestion(
 				selectedEntities.stream().map(ActivityEntity::toModel).collect(Collectors.toList()),
-				generateAnswer(selectedEntities)
+				generateMCAnswer(selectedEntities)
 		);
 	}
 
@@ -75,12 +78,24 @@ public class QuestionServiceImpl implements QuestionService {
 		);
 	}
 
-	public Question.CalculationQuestion generateCal() {
-		///TODO
-		return null;
+	public Question.ComparisonQuestion generateComp() {
+		List<ActivityEntity> selectedEntities = generateActivities().subList(0, 2);
+		return new Question.ComparisonQuestion(
+				selectedEntities.stream().map(ActivityEntity::toModel).collect(Collectors.toList()),
+				generateCompAnswer(selectedEntities)
+		);
 	}
 
-	public int generateAnswer(List<ActivityEntity> listActivities) {
+	public Question.PickEnergyQuestion generatePick() {
+		List<ActivityEntity> selectedEntities = generateActivities();
+		return new Question.PickEnergyQuestion(
+				selectedEntities.get(1).toModel(),
+				Math.abs(new Random().nextInt()) % NUM1
+		);
+	}
+
+
+	public int generateMCAnswer(List<ActivityEntity> listActivities) {
 		int maxIndex = 0;
 		float maxValue = 0f;
 		for (int i = 0; i < listActivities.size(); i++) {
@@ -93,19 +108,28 @@ public class QuestionServiceImpl implements QuestionService {
 		return maxIndex;
 	}
 
+	public float generateCompAnswer(List<ActivityEntity> listActivities) {
+		ActivityEntity activity1 = listActivities.get(0);
+		ActivityEntity activity2 = listActivities.get(1);
+		return activity2.getEnergyInWh() / activity1.getEnergyInWh();
+	}
+
+
 	@Override
 	public int calculateScore(Question question, Number answer) {
-		if (question instanceof Question.MultiChoice mc) {
+		if (question instanceof Question.MultiChoiceQuestion mc) {
 			return calculateScoreMC(mc, answer.intValue());
 		} else if (question instanceof Question.EstimationQuestion est) {
 			return calculateScoreEst(est, answer.floatValue());
-		} else if (question instanceof Question.CalculationQuestion cal) {
-			return calculateScoreCal(cal, answer.floatValue());
+		} else if (question instanceof Question.ComparisonQuestion comp) {
+			return calculateScoreComp(comp, answer.floatValue());
+		} else if (question instanceof Question.PickEnergyQuestion pick) {
+			return calculateScorePick(pick, answer.intValue());
 		}
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoice question, int answer) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer) {
 		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
@@ -114,6 +138,20 @@ public class QuestionServiceImpl implements QuestionService {
 	private int calculateScoreEst(Question.EstimationQuestion question, float answer) {
 		var error = Math.abs(answer - question.getCorrectAnswer());
 		var errorRatio = error / question.getCorrectAnswer();
+		return calculateScoreShared(errorRatio);
+	}
+
+	private int calculateScoreComp(Question.ComparisonQuestion question, float answer) {
+		float errorRatio = 0;
+		if (answer < question.getCorrectAnswer()) {
+			errorRatio = 1 - (answer / question.getCorrectAnswer());
+		} else {
+			errorRatio = 1 - (question.getCorrectAnswer() / answer);
+		}
+		return calculateScoreShared(errorRatio);
+	}
+
+	private int calculateScoreShared(float errorRatio) {
 		if (errorRatio < EST_SCORE_RATIO_GOOD) {
 			return MAX_SCORE;
 		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
@@ -123,7 +161,8 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int calculateScoreCal(Question.CalculationQuestion question, float answer) {
-		return 0; // TODO
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer) {
+		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
+		else return 0;
 	}
 }
