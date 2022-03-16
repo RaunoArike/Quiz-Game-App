@@ -1,0 +1,9 @@
+plugins {
+	id 'application'
+}
+
+dependencies {
+	implementation project(":commons")
+
+	implementation 'org.glassfish.jersey.core:jersey-client:3.0.3'
+}
