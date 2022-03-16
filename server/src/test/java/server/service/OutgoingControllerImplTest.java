@@ -18,7 +18,7 @@ public class OutgoingControllerImplTest {
 	}
 
 	@Test
-	public void test_template_creation () {
+	public void test_template_creation() {
 
 	}
 }
