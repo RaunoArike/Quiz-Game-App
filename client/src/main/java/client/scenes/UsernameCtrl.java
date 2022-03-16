@@ -20,6 +20,7 @@ public class UsernameCtrl {
 	}
 
 	public void start() {
+		// TODO call on serverutils method
 	}
 
 	public void clearField() {
