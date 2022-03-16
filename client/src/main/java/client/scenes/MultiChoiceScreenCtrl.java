@@ -6,8 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-
-
 public class MultiChoiceScreenCtrl {
 
 	private final ServerUtils server;
@@ -27,6 +25,15 @@ public class MultiChoiceScreenCtrl {
 
 	@FXML
 	private TextField score;
+
+	@FXML
+	private Button eliminateOption;
+
+	@FXML
+	private Button doublePoints;
+
+	@FXML
+	private TextField timer;
 
 	@Inject
 	public MultiChoiceScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -64,5 +71,13 @@ public class MultiChoiceScreenCtrl {
 
 	public void timer() {
 	}
+
+	public void useEliminateOption() {
+	}
+
+	public void useDoublePoints() {
+	}
+
+
 
 }
