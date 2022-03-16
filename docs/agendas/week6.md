@@ -1,8 +1,8 @@
-# Agenda - week 4
+# Agenda - week 6
 
-Date: 		1st March 2022\
+Date: 		15th March 2022\
 Time: 		14:45-15:45\
-Main Focus:		HCI assignment(final), Sprint Week, Development Week\
+Main Focus:		Sprint Week, Development Week\
 Chairman: 		Rauno Arike\
 Secretary:		Ye Zhao
 
@@ -17,6 +17,11 @@ TA’s comments
 - Regarding our progress over the past week and the requirements for the upcoming week: Are we on track? What should our focus be for the upcoming week?
 
 ## Items addressed by the TA
+  TA’s comments
+- Regarding our progress over the past week and the requirements for the upcoming week: Are we on track? What should our focus be for the upcoming week?
+
+## Items addressed by the TA
+- Feedback to the final submitted version of the HCI assignment
 - Feedback to our development process thus far
 - Feedback to our approach with development - have we been focusing on the right things and splitting the work equally?
 - Plans for the upcoming sprint and for the continuation of the development process
