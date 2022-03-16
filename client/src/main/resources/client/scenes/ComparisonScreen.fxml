@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
    <children>
-      <Label fx:id="answerA" layoutX="393.0" layoutY="144.0" text="Answer text">
+      <Label fx:id="optionAtext" layoutX="393.0" layoutY="144.0" text="Answer text">
          <font>
             <Font size="15.0" />
          </font>
@@ -40,24 +40,24 @@
          <font>
             <Font size="14.0" />
          </font></RadioButton>
-      <Text layoutX="472.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" wrappingWidth="113.20635986328125">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
-      <Label layoutX="393.0" layoutY="182.0" text="Answer text">
+      <Label fx:id="optionBtext" layoutX="393.0" layoutY="182.0" text="Answer text">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="393.0" layoutY="219.0" text="Answer text">
+      <Label fx:id="optionCtext" layoutX="393.0" layoutY="219.0" text="Answer text">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="35.0" layoutY="60.0" prefHeight="50.0" prefWidth="542.0" text="&quot;Instead of X, you can do Y&quot; ">
+      <Label fx:id="questionText" layoutX="35.0" layoutY="41.0" prefHeight="50.0" prefWidth="542.0" text="&quot;Instead of X, you can do Y&quot; ">
          <font>
             <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="score" layoutX="482.0" layoutY="30.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
    </children>

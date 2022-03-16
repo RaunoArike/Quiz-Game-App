@@ -1,15 +1,11 @@
 package client.scenes;
 
 import client.utils.ServerUtils;
-import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 
-public class ComparisonScreenCtrl {
-
-	private final ServerUtils server;
-	private final MainCtrl mainCtrl;
+public class ComparisonScreenCtrl extends QuestionCtrl {
 
 	@FXML
 	private RadioButton optionA;
@@ -21,11 +17,21 @@ public class ComparisonScreenCtrl {
 	private RadioButton optionC;
 
 	@FXML
-	private Label answerA;
+	private Label optionAtext;
 
-	@Inject
+	@FXML
+	private Label optionBtext;
+
+	@FXML
+	private Label optionCtext;
+
 	public ComparisonScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
-		this.server = server;
-		this.mainCtrl = mainCtrl;
+		super(server, mainCtrl);
+	}
+
+	public void setOptions(String a, String b, String c) {
+		this.optionAtext.setText(a);
+		this.optionBtext.setText(b);
+		this.optionCtext.setText(c);
 	}
 }
