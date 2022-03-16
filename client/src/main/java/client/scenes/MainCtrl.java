@@ -36,11 +36,14 @@ public class MainCtrl {
 	private JoinWaitingroomCtrl joinWaitingroomCtrl;
 	private Scene joinWaitingroom;
 
-	private Scene ending;
+	private ServerAddressScreenCtrl serverAddressScreenCtrl;
+	private Scene serverAddress;
 
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-			Pair<OpeningCtrl, Parent> openingCtrl, Pair<UsernameCtrl, Parent> usernameCtrl,
-			Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl) {
+	Pair<OpeningCtrl, Parent> openingCtrl,
+	Pair<UsernameCtrl, Parent> usernameCtrl,
+	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
+	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -56,7 +59,10 @@ public class MainCtrl {
 		this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
 		this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
 
-		showHome();
+		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
+		this.serverAddress = new Scene(serverAddressCtrl.getValue());
+
+		showServerAddress();
 		primaryStage.show();
 	}
 
@@ -79,6 +85,11 @@ public class MainCtrl {
 	public void showJoinWaitingroom() {
 		primaryStage.setTitle("Join a waiting room");
 		primaryStage.setScene(joinWaitingroom);
+	}
+
+	public void showServerAddress() {
+		primaryStage.setTitle("Join a server");
+		primaryStage.setScene(serverAddress);
 	}
 
 }

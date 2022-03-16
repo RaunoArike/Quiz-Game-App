@@ -19,7 +19,6 @@ import static com.google.inject.Guice.createInjector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 import com.google.inject.Injector;
 
 // import client.scenes.AddQuoteCtrl;
@@ -28,6 +27,7 @@ import client.scenes.MainCtrl;
 import client.scenes.JoinWaitingroomCtrl;
 import client.scenes.LeaderboardCtrl;
 import client.scenes.OpeningCtrl;
+import client.scenes.ServerAddressScreenCtrl;
 import client.scenes.UsernameCtrl;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -52,8 +52,9 @@ public class Main extends Application {
 		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");
 		var joinWaitingroom = FXML.load(JoinWaitingroomCtrl.class, "client", "scenes", "JoinWaitingroomScreen.fxml");
 		var ending = FXML.load(OpeningCtrl.class, "client", "scenes", "EndingScreen.fxml");
+		var serverAddress = FXML.load(ServerAddressScreenCtrl.class, "client", "scenes", "ServerAddressScreen.fxml");
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom);
+		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress);
 	}
 }
