@@ -33,6 +33,7 @@ public class ServerAddressScreenCtrl {
 		//if false, show error message
 		errorMessage.setText("Please enter a valid address: ");
 		//if true, proceed to show home
+		this.serverAddress.clear();
 		mainCtrl.showHome();
 	}
 }

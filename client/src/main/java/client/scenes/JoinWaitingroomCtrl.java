@@ -30,6 +30,7 @@ public class JoinWaitingroomCtrl {
 	//Links to the join button
 	public void join() {
 		// TODO -  call on serverutils method
+		clearField();
 	}
 
 	//Helper method for key functionality
@@ -49,6 +50,7 @@ public class JoinWaitingroomCtrl {
 				break;
 			case ESCAPE:
 				clearField();
+				returnHome();
 				break;
 			default:
 				break;

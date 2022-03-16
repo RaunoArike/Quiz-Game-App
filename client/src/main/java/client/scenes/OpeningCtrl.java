@@ -32,4 +32,7 @@ public class OpeningCtrl  {
 		mainCtrl.showHome();
 	}
 
+	public void connectToServer() {
+		mainCtrl.showServerAddress();
+	}
 }

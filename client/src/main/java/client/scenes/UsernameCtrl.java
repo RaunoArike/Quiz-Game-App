@@ -21,6 +21,7 @@ public class UsernameCtrl {
 
 	public void start() {
 		// TODO call on serverutils method
+		this.username.clear();
 	}
 
 	public void clearField() {
