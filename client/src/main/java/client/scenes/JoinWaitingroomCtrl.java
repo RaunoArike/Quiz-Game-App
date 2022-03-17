@@ -1,14 +1,19 @@
 package client.scenes;
 
+import client.service.ServerService;
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
+import client.service.ServerServiceImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 public class JoinWaitingroomCtrl {
-	private final ServerUtils server;
+	private final ServerServiceImpl server;
 	private final MainCtrl mainCtrl;
+
+	@FXML
+	private Label errorMessage;
 
 	@FXML
 	private TextField username;
@@ -17,7 +22,7 @@ public class JoinWaitingroomCtrl {
 	private TextField gamePin;
 
 	@Inject
-	public JoinWaitingroomCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public JoinWaitingroomCtrl(ServerServiceImpl server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}
@@ -27,6 +32,14 @@ public class JoinWaitingroomCtrl {
 	}
 
 	public void join() {
+		this.errorMessage.setText("");
+		String username = this.username.getText();
+		if (username != null && !username.isEmpty()) {
+			this.server.startMultiGame(username);
+		} else {
+			this.errorMessage.setText("Please enter a valid username: ");
+		}
+		this.username.clear();
 	}
 
 	public void clearField() {

@@ -20,4 +20,6 @@ public interface ServerService {
 
 	//receive messages from server
 	void registerListener(ServerListener serverListener);
+
+	void startMultiGame(String username);
 }
