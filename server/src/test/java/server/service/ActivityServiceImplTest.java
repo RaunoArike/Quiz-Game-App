@@ -45,4 +45,12 @@ public class ActivityServiceImplTest {
 
 		assertEquals(FAKE_ACTIVITY_LIST, activityModels);
 	}
+
+	@Test
+	public void removeAllActivities_should_delete_activities_from_repo() {
+		var service = createService();
+		service.removeAllActivities();
+
+		verify(activityRepository).deleteAll();
+	}
 }

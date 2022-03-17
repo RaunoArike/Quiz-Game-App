@@ -24,4 +24,9 @@ public class ActivityController {
 	public void addActivities(@RequestBody List<Activity> activities) {
 		activityService.addActivities(activities);
 	}
+
+	@DeleteMapping
+	public void removeAllActivities() {
+		activityService.removeAllActivities();
+	}
 }

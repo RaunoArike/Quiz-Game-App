@@ -20,4 +20,9 @@ public class ActivityServiceImpl implements ActivityService {
 		List<ActivityEntity> entities = activities.stream().map(ActivityEntity::fromModel).toList();
 		activityRepository.saveAll(entities);
 	}
+
+	@Override
+	public void removeAllActivities() {
+		activityRepository.deleteAll();
+	}
 }
