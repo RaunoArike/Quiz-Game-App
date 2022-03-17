@@ -1,5 +1,5 @@
 package client.scenes;
-import client.utils.ServerUtils;
+import client.service.ServerService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 
 public abstract class QuestionCtrl {
 
-	private final ServerUtils server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	@FXML
@@ -25,7 +25,7 @@ public abstract class QuestionCtrl {
 
 
 	@Inject
-	public QuestionCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public QuestionCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}

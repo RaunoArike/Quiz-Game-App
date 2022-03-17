@@ -1,6 +1,6 @@
 package client.scenes;
 
-import client.utils.ServerUtils;
+import client.service.ServerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -16,7 +16,7 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	private Button ok;
 
 	@Inject
-	public EstimationScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public EstimationScreenCtrl(ServerService server, MainCtrl mainCtrl) {
 		super(server, mainCtrl);
 	}
 

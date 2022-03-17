@@ -22,6 +22,8 @@ import com.google.inject.Scopes;
 import client.scenes.OpeningCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.LeaderboardCtrl;
+import client.service.ServerServiceImpl;
+import client.service.ServerService;
 
 public class MyModule implements Module {
 
@@ -30,5 +32,6 @@ public class MyModule implements Module {
 		binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(OpeningCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
+		binder.bind(ServerService.class).to(ServerServiceImpl.class).in(Scopes.SINGLETON);
 	}
 }

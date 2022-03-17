@@ -1,6 +1,6 @@
 package client.scenes;
 
-import client.utils.ServerUtils;
+import client.service.ServerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -27,7 +27,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	private Label optionCtext;
 
 	@Inject
-	public ComparisonScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public ComparisonScreenCtrl(ServerService server, MainCtrl mainCtrl) {
 		super(server, mainCtrl);
 	}
 

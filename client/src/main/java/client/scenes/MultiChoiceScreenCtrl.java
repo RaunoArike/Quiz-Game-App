@@ -1,6 +1,6 @@
 package client.scenes;
 
-import client.utils.ServerUtils;
+import client.service.ServerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import com.google.inject.Inject;
@@ -17,7 +17,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	private Button optionC;
 
 	@Inject
-	public MultiChoiceScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public MultiChoiceScreenCtrl(ServerService server, MainCtrl mainCtrl) {
 		super(server, mainCtrl);
 	}
 

@@ -20,6 +20,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+//import client.service.MessageLogicService;
+
 public class MainCtrl {
 
 	private Stage primaryStage;
@@ -122,13 +124,25 @@ public class MainCtrl {
 		primaryStage.setScene(serverAddress);
 	}
 
-	public void showQuestion() {
-		//called from server-comm with parameters indicating type of question and the question itself
-		//based on question type, show one of the 4 screens
-		//set appropriate score, question text, option texts
-		primaryStage.setTitle("Quiz in progress");
-		primaryStage.setScene(comparisonScreen);
-	}
+	// public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
+
+	// 	this.comparisonScreenCtrl.setQuestion("");
+	// 	this.comparisonScreenCtrl.setOptions("", "", "");
+	// 	this.comparisonScreenCtrl.setScore(0);
+
+	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
+	// 	primaryStage.setScene(comparisonScreen);
+	// }
+
+	// public void showEstimationQuestion(Question q, int questionNumber, int score) {
+
+	// 	this.estimationScreenCtrl.setQuestion("");
+	// 	this.comparisonScreenCtrl.setOptions("", "", "");
+	// 	this.comparisonScreenCtrl.setScore(0);
+
+	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
+	// 	primaryStage.setScene(comparisonScreen);
+	// }
 
 	public void sendAnswer() {
 		//called with parameters that indicate type of question, answer (option or number)
