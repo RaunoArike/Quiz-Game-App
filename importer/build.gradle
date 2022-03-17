@@ -2,6 +2,10 @@ plugins {
 	id 'application'
 }
 
+application {
+	mainClass = 'importer.Main'
+}
+
 dependencies {
 	implementation project(":commons")
 
