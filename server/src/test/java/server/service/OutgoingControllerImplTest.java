@@ -27,7 +27,7 @@ public class OutgoingControllerImplTest {
 	}
 
 	@Test
-	public void test_template_creation() {
+	public void test_sending_message() {
 		OutgoingController outgoingController = createController();
 		int playerId = 15;
 		String user = "15";
