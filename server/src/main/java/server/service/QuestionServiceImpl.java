@@ -17,9 +17,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 	private static final float EST_SCORE_RATIO_GOOD = 0.1f;
 	private static final float EST_SCORE_RATIO_BAD = 0.5f;
-
-	private static final int NUM1 = 3;
-	private static final int NUM2 = 4;
+	private static final int NUMBER_OF_CASES = 3;
+	private static final int NUMBER_OF_ANSWER_OPTIONS = 3;
+	private static final int NUMBER_OF_QUESTION_TYPES = 4;
 
 	private final List<ActivityEntity> visited = new ArrayList<>();
 	private final ActivityRepository activityRepository;
@@ -32,11 +32,11 @@ public class QuestionServiceImpl implements QuestionService {
 
 		int no = Math.abs(new Random().nextInt());
 
-		switch (no % NUM2) {
+		switch (no % NUMBER_OF_QUESTION_TYPES) {
 			case 0:	return generateMC();
 			case 1: return generateEst();
 			case 2: return generateComp();
-			case NUM1: return generatePick();
+			case NUMBER_OF_CASES: return generatePick();
 		}
 		return null;
 	}
@@ -48,7 +48,7 @@ public class QuestionServiceImpl implements QuestionService {
 		int index = 0;
 		///MAGIC NUMBERS HAVE TO BE REMOVED
 
-		while (index < NUM1) {
+		while (index < NUMBER_OF_ANSWER_OPTIONS) {
 			int no = Math.abs(new Random().nextInt());
 			ActivityEntity act = listActivities.get(no % listActivities.size());
 			if (!visited.contains(act)) {
@@ -88,7 +88,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	public Question.PickEnergyQuestion generatePick() {
 		List<ActivityEntity> selectedEntities = generateActivities();
-		int correctAnswer = Math.abs(new Random().nextInt()) % NUM1;
+		int correctAnswer = Math.abs(new Random().nextInt()) % NUMBER_OF_ANSWER_OPTIONS;
 		return new Question.PickEnergyQuestion(
 				selectedEntities.get(1).toModel(),
 				correctAnswer,
@@ -116,11 +116,11 @@ public class QuestionServiceImpl implements QuestionService {
 		return activity2.getEnergyInWh() / activity1.getEnergyInWh();
 	}
 
-	// consider improving the formula
+	//TODO consider improving the formula
 	public List<Float> generatePickOptions(float correctAnswerInWh, int answerNumber) {
 		int correctAnswerInt = (int) correctAnswerInWh;
 		List<Float> answerList = new ArrayList<>();
-		for (int i = 0; i < NUM1; i++) {
+		for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
 			float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
 			while (wrongAnswer == 0) {
 				wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
@@ -165,7 +165,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	private int calculateScoreComp(Question.ComparisonQuestion question, float answer) {
-		float errorRatio = 0;
+		float errorRatio;
 		if (answer < question.getCorrectAnswer()) {
 			errorRatio = 1 - (answer / question.getCorrectAnswer());
 		} else {
