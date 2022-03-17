@@ -34,7 +34,7 @@ public class ActivityServiceImplTest {
 	}
 
 	@Test
-	public void correct_answer_for_mc_question_should_give_max_score() {
+	public void addActivities_should_save_activities_to_repo() {
 		var service = createService();
 		service.addActivities(FAKE_ACTIVITY_LIST);
 

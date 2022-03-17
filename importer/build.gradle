@@ -5,6 +5,9 @@ plugins {
 dependencies {
 	implementation project(":commons")
 
-	implementation 'org.glassfish.jersey.core:jersey-client:3.0.3'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.1'
+	implementation 'jakarta.activation:jakarta.activation-api:2.1.0'
+
+	implementation 'org.glassfish.jersey.core:jersey-client:3.0.4'
+	implementation 'org.glassfish.jersey.inject:jersey-hk2:3.0.4'
+	implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.0.4'
 }
