@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -11,11 +11,6 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
    <children>
-      <Label fx:id="optionAtext" layoutX="393.0" layoutY="144.0" text="Answer text">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
       <ProgressBar layoutX="177.0" layoutY="296.0" prefHeight="18.0" prefWidth="258.0" progress="0.0" />
       <Text layoutX="109.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
       <Text layoutX="147.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" wrappingWidth="18.537506103515625" />
@@ -25,37 +20,20 @@
          </font>
       </Text>
       <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
       <Button layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
       <ImageView fitHeight="32.0" fitWidth="204.0" layoutX="66.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
-      <RadioButton fx:id="optionA" layoutX="348.0" layoutY="145.0" mnemonicParsing="false" text="A">
-         <font>
-            <Font size="14.0" />
-         </font></RadioButton>
-      <RadioButton fx:id="optionB" layoutX="348.0" layoutY="183.0" mnemonicParsing="false" text="B">
-         <font>
-            <Font size="14.0" />
-         </font></RadioButton>
-      <RadioButton fx:id="optionC" layoutX="348.0" layoutY="220.0" mnemonicParsing="false" text="C">
-         <font>
-            <Font size="14.0" />
-         </font></RadioButton>
-      <Label fx:id="optionBtext" layoutX="393.0" layoutY="182.0" text="Answer text">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label fx:id="optionCtext" layoutX="393.0" layoutY="219.0" text="Answer text">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
       <Label fx:id="questionText" layoutX="35.0" layoutY="41.0" prefHeight="50.0" prefWidth="542.0" text="&quot;Instead of X, you can do Y&quot; ">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Label fx:id="score" layoutX="482.0" layoutY="30.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="answer" layoutX="398.0" layoutY="156.0" />
+      <Label fx:id="questionText1" layoutX="304.0" layoutY="144.0" prefHeight="50.0" prefWidth="100.0" text="Your answer:">
          <font>
             <Font size="15.0" />
          </font>

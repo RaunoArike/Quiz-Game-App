@@ -28,15 +28,15 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 		this.optionC.setText(c);
 	}
 
-	public void optionAclicked() {
+	public void optionAClicked() {
 		//return to a mainctrl answer method with a specific parameter
 	}
 
-	public void optionBclicked() {
+	public void optionBClicked() {
 
 	}
 
-	public void optionCclicked() {
+	public void optionCClicked() {
 
 	}
 

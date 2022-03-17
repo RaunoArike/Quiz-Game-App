@@ -8,6 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 public class UsernameCtrl {
+
+	/**
+	 * This controller class refers to the username input screen for starting a singleplayer game.
+	 * For multiplayer game refer to JoinWaitingRoomCtrl.
+	 */
 	private final ServerServiceImpl server;
 	private final MainCtrl mainCtrl;
 
