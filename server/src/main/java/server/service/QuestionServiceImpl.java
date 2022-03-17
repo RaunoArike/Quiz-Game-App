@@ -41,7 +41,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return null;
 	}
 
-	public List<ActivityEntity> generateActivities() {
+	private List<ActivityEntity> generateActivities() {
 		List<ActivityEntity> listActivities = activityRepository.findAll();
 		List<ActivityEntity> selectedEntities = new ArrayList<>();
 
@@ -97,7 +97,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 
-	public int generateMCAnswer(List<ActivityEntity> listActivities) {
+	private int generateMCAnswer(List<ActivityEntity> listActivities) {
 		int maxIndex = 0;
 		float maxValue = 0f;
 		for (int i = 0; i < listActivities.size(); i++) {
@@ -110,7 +110,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return maxIndex;
 	}
 
-	public float generateCompAnswer(List<ActivityEntity> listActivities) {
+	private float generateCompAnswer(List<ActivityEntity> listActivities) {
 		ActivityEntity activity1 = listActivities.get(0);
 		ActivityEntity activity2 = listActivities.get(1);
 		return activity2.getEnergyInWh() / activity1.getEnergyInWh();
