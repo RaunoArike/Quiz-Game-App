@@ -21,6 +21,7 @@ public class QuestionServiceImplTest {
 			new Activity("A2", null),
 			new Activity("A3", null)
 	);
+	private static final List<Float> FAKE_ENERGIES = List.of(0.5f, 15f, 25f);
 
 
 	@Mock
@@ -99,7 +100,7 @@ public class QuestionServiceImplTest {
 	@Test
 	public void correct_answer_for_pick_question_should_give_max_score() {
 		var service = createService();
-		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2);
+		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
 		var score = service.calculateScore(question, 2);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
@@ -107,8 +108,15 @@ public class QuestionServiceImplTest {
 	@Test
 	public void wrong_answer_for_pick_question_should_give_zero_score() {
 		var service = createService();
-		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2);
+		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
 		var score = service.calculateScore(question, 1);
 		assertEquals(0, score);
+	}
+
+	@Test
+	public void pick_energy_answer_generator_should_generate_positive_answers() {
+		var service = createService();
+		var answerOptions = service.generatePickOptions(55, 2);
+		assertTrue(answerOptions.get(0) > 0 && answerOptions.get(1) > 0 && answerOptions.get(2) > 0);
 	}
 }
