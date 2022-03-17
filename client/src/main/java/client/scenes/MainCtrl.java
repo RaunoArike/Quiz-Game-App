@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+
 //import client.service.MessageLogicService;
 
 public class MainCtrl {
@@ -109,6 +110,7 @@ public class MainCtrl {
 
 	public void showUsername() {
 		primaryStage.setTitle("Enter username");
+		username.setOnKeyPressed(e -> usernameCtrl.keyPressed(e));
 		this.usernameCtrl.clearField();
 		primaryStage.setScene(username);
 	}
@@ -120,6 +122,7 @@ public class MainCtrl {
 
 	public void showServerAddress() {
 		primaryStage.setTitle("Join a server");
+		serverAddress.setOnKeyPressed(e -> serverAddressScreenCtrl.keyPressed(e));
 		serverAddressScreenCtrl.clear();
 		primaryStage.setScene(serverAddress);
 	}

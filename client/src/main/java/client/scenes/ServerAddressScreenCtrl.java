@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 
 public class ServerAddressScreenCtrl {
@@ -46,4 +47,18 @@ public class ServerAddressScreenCtrl {
 		this.serverAddress.clear();
 		this.errorMessage.setText("");
 	}
+
+	public void keyPressed(KeyEvent e) {
+		switch (e.getCode()) {
+			case ENTER:
+				ok();
+				break;
+			case ESCAPE:
+				clear();
+				break;
+			default:
+				break;
+		}
+	}
+
 }
