@@ -51,5 +51,6 @@ public abstract class Question {
 	public static class PickEnergyQuestion extends Question {
 		private final Activity activity;
 		private final int correctAnswer;
+		private final List<Float> answerOptions;
 	}
 }
