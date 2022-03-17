@@ -41,7 +41,7 @@ public class ImportServiceImplTest {
 	}
 
 	@Test
-	public void addActivities_should_save_activities_to_repo() throws IOException {
+	public void importServicesFromFile_should_add_activities_via_api() throws IOException {
 		when(objectMapper.readValue(ArgumentMatchers.<File>any(), eq(ImportedActivity[].class)))
 				.thenReturn(FAKE_IMPORTED_ACTIVITIES);
 
@@ -49,5 +49,13 @@ public class ImportServiceImplTest {
 		service.importServicesFromFile("url", "filePath");
 
 		verify(activityApi).addActivities("url", FAKE_ACTIVITIES);
+	}
+
+	@Test
+	public void deleteAllActivities_should_delete_activities_via_api() {
+		var service = createService();
+		service.deleteAllActivities("url");
+
+		verify(activityApi).deleteAllActivities("url");
 	}
 }

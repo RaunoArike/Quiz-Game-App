@@ -14,4 +14,11 @@ public interface ImportService {
 	 * @throws IOException in case of unsuccessful file access
 	 */
 	void importServicesFromFile(String serverUrl, String filePath) throws IOException;
+
+	/**
+	 * Deletes all activities on the server.
+	 *
+	 * @param serverUrl server url
+	 */
+	void deleteAllActivities(String serverUrl);
 }

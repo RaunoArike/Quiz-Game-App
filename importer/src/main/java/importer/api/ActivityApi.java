@@ -9,10 +9,17 @@ import java.util.List;
  */
 public interface ActivityApi {
 	/**
-	 * Adds activities.
+	 * Adds activities on the server.
 	 *
 	 * @param serverUrl server url
 	 * @param activities activities to add
 	 */
 	void addActivities(String serverUrl, List<Activity> activities);
+
+	/**
+	 * Deletes all activities on the server.
+	 *
+	 * @param serverUrl server url
+	 */
+	void deleteAllActivities(String serverUrl);
 }

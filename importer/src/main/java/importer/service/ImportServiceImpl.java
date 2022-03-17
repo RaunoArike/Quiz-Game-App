@@ -24,4 +24,9 @@ public class ImportServiceImpl implements ImportService {
 		var activities = Arrays.stream(rawActivities).map(ImportedActivity::toModel).toList();
 		activityApi.addActivities(serverUrl, activities);
 	}
+
+	@Override
+	public void deleteAllActivities(String serverUrl) {
+		activityApi.deleteAllActivities(serverUrl);
+	}
 }
