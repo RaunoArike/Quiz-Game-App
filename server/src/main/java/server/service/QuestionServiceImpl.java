@@ -127,13 +127,7 @@ public class QuestionServiceImpl implements QuestionService {
 			}
 			answerList.add(wrongAnswer);
 		}
-		if (answerNumber == 0) {
-			answerList.add(0, correctAnswerInWh);
-		} else if (answerNumber == 1) {
-			answerList.add(1, correctAnswerInWh);
-		} else {
-			answerList.add(2, correctAnswerInWh);
-		}
+		answerList.add(answerNumber, correctAnswerInWh);
 		return answerList;
 	}
 
