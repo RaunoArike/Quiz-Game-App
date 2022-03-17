@@ -16,7 +16,7 @@ public interface ServerService {
 	void startSingleGame(String username);
 
 	//answer submit
-	void answerQuestions(Number answer);
+	void answerQuestion(Number answer);
 
 	//receive messages from server
 	void registerListener(ServerListener serverListener);

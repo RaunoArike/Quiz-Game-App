@@ -76,7 +76,7 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public void answerQuestions(Number answer) {
+	public void answerQuestion(Number answer) {
 		Integer answerInt = answer instanceof Integer ? (Integer) answer : null;
 		Float answerFloat = answer instanceof Float ? (Float) answer : null;
 		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat, 0));
