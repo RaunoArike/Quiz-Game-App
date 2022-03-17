@@ -1,5 +1,5 @@
 package client.scenes;
-import client.utils.ServerUtils;
+import client.service.ServerServiceImpl;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -7,14 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 
-
 public class ServerAddressScreenCtrl {
 
-	private final ServerUtils server;
+	private final ServerServiceImpl server;
 	private final MainCtrl mainCtrl;
 
 	@Inject
-	public ServerAddressScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public ServerAddressScreenCtrl(ServerServiceImpl server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}
@@ -29,11 +28,22 @@ public class ServerAddressScreenCtrl {
 	private Button ok;
 
 	public void ok() {
-		//call serverconnect method
-		//if false, show error message
-		errorMessage.setText("Please enter a valid address: ");
-		//if true, proceed to show home
+		String url = this.serverAddress.getText();
+		if (url != null && !url.isEmpty()) {
+			boolean result = this.server.connectToServer(url);
+			if (result) {
+				this.serverAddress.clear();
+				mainCtrl.showHome();
+			} else {
+				errorMessage.setText("Please enter a valid address: ");
+			}
+		} else {
+			errorMessage.setText("Please enter a valid address: ");
+		}
+	}
+
+	public void clear() {
 		this.serverAddress.clear();
-		mainCtrl.showHome();
+		this.errorMessage.setText("");
 	}
 }

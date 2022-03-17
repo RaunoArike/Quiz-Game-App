@@ -29,6 +29,10 @@ import client.scenes.LeaderboardCtrl;
 import client.scenes.OpeningCtrl;
 import client.scenes.ServerAddressScreenCtrl;
 import client.scenes.UsernameCtrl;
+import client.scenes.ComparisonScreenCtrl;
+import client.scenes.EstimationScreenCtrl;
+import client.scenes.MultiChoiceScreenCtrl;
+import client.scenes.PickEnergyScreenCtrl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -51,10 +55,15 @@ public class Main extends Application {
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
 		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");
 		var joinWaitingroom = FXML.load(JoinWaitingroomCtrl.class, "client", "scenes", "JoinWaitingroomScreen.fxml");
-		var ending = FXML.load(OpeningCtrl.class, "client", "scenes", "EndingScreen.fxml");
+		//var ending = FXML.load(OpeningCtrl.class, "client", "scenes", "EndingScreen.fxml");
 		var serverAddress = FXML.load(ServerAddressScreenCtrl.class, "client", "scenes", "ServerAddressScreen.fxml");
+		var comparisonScreen = FXML.load(ComparisonScreenCtrl.class, "client", "scenes", "ComparisonScreen.fxml");
+		var estimationScreen = FXML.load(EstimationScreenCtrl.class, "client", "scenes", "EstimationScreen.fxml");
+		var multiChoiceScreen = FXML.load(MultiChoiceScreenCtrl.class, "client", "scenes", "MultiChoiceScreen.fxml");
+		var pickEnergyScreen = FXML.load(PickEnergyScreenCtrl.class, "client", "scenes", "PickEnergyScreen.fxml");
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress);
+		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress,
+		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen);
 	}
 }

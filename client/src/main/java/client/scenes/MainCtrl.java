@@ -39,11 +39,27 @@ public class MainCtrl {
 	private ServerAddressScreenCtrl serverAddressScreenCtrl;
 	private Scene serverAddress;
 
+	private ComparisonScreenCtrl comparisonScreenCtrl;
+	private Scene comparisonScreen;
+
+	private EstimationScreenCtrl estimationScreenCtrl;
+	private Scene estimationScreen;
+
+	private MultiChoiceScreenCtrl multiChoiceScreenCtrl;
+	private Scene multiChoiceScreen;
+
+	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
+	private Scene pickEnergyScreen;
+
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 	Pair<OpeningCtrl, Parent> openingCtrl,
 	Pair<UsernameCtrl, Parent> usernameCtrl,
 	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
-	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl) {
+	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
+	Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
+	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
+	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
+	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -62,6 +78,18 @@ public class MainCtrl {
 		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
 		this.serverAddress = new Scene(serverAddressCtrl.getValue());
 
+		this.comparisonScreenCtrl = comparsionScreenCtrl.getKey();
+		this.comparisonScreen = new Scene(comparsionScreenCtrl.getValue());
+
+		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
+		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
+
+		this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
+		this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
+
+		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
+		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+
 		showServerAddress();
 		primaryStage.show();
 	}
@@ -79,6 +107,7 @@ public class MainCtrl {
 
 	public void showUsername() {
 		primaryStage.setTitle("Enter username");
+		this.usernameCtrl.clearField();
 		primaryStage.setScene(username);
 	}
 
@@ -89,7 +118,22 @@ public class MainCtrl {
 
 	public void showServerAddress() {
 		primaryStage.setTitle("Join a server");
+		serverAddressScreenCtrl.clear();
 		primaryStage.setScene(serverAddress);
+	}
+
+	public void showQuestion() {
+		//called from server-comm with parameters indicating type of question and the question itself
+		//based on question type, show one of the 4 screens
+		//set appropriate score, question text, option texts
+		primaryStage.setTitle("Quiz in progress");
+		primaryStage.setScene(comparisonScreen);
+	}
+
+	public void sendAnswer() {
+		//called with parameters that indicate type of question, answer (option or number)
+		//additionally time taken
+		//should in turn pass this on to server-comm
 	}
 
 }

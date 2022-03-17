@@ -4,6 +4,7 @@ import client.utils.ServerUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import com.google.inject.Inject;
 
 public class ComparisonScreenCtrl extends QuestionCtrl {
 
@@ -25,6 +26,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	@FXML
 	private Label optionCtext;
 
+	@Inject
 	public ComparisonScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
 		super(server, mainCtrl);
 	}
