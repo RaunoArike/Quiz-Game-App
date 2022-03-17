@@ -88,9 +88,11 @@ public class QuestionServiceImpl implements QuestionService {
 
 	public Question.PickEnergyQuestion generatePick() {
 		List<ActivityEntity> selectedEntities = generateActivities();
+		int correctAnswer = Math.abs(new Random().nextInt()) % NUM1;
 		return new Question.PickEnergyQuestion(
 				selectedEntities.get(1).toModel(),
-				Math.abs(new Random().nextInt()) % NUM1
+				correctAnswer,
+				generatePickOptions(selectedEntities.get(1).getEnergyInWh(), correctAnswer)
 		);
 	}
 
@@ -112,6 +114,27 @@ public class QuestionServiceImpl implements QuestionService {
 		ActivityEntity activity1 = listActivities.get(0);
 		ActivityEntity activity2 = listActivities.get(1);
 		return activity2.getEnergyInWh() / activity1.getEnergyInWh();
+	}
+
+	// consider improving the formula
+	public List<Float> generatePickOptions(float correctAnswerInWh, int answerNumber) {
+		int correctAnswerInt = (int) correctAnswerInWh;
+		List<Float> answerList = new ArrayList<>();
+		for (int i = 0; i < NUM1; i++) {
+			float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+			while (wrongAnswer == 0) {
+				wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+			}
+			answerList.add(wrongAnswer);
+		}
+		if (answerNumber == 0) {
+			answerList.add(0, correctAnswerInWh);
+		} else if (answerNumber == 1) {
+			answerList.add(1, correctAnswerInWh);
+		} else {
+			answerList.add(2, correctAnswerInWh);
+		}
+		return answerList;
 	}
 
 
