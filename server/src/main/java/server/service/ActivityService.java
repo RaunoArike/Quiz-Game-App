@@ -16,7 +16,7 @@ public interface ActivityService {
 	void addActivities(List<Activity> activities);
 
 	/**
-	 * Removes all activities
+	 * Removes all activities.
 	 */
 	void removeAllActivities();
 }

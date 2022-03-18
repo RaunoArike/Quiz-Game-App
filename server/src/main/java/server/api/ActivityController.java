@@ -25,6 +25,9 @@ public class ActivityController {
 		activityService.addActivities(activities);
 	}
 
+	/**
+	 * Removes all activities.
+	 */
 	@DeleteMapping
 	public void removeAllActivities() {
 		activityService.removeAllActivities();

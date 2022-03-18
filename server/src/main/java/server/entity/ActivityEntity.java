@@ -33,7 +33,7 @@ public class ActivityEntity {
 	private float energyInWh;
 
 	public static ActivityEntity fromModel(Activity activity) {
-		return new ActivityEntity(-1, activity.getName(), activity.getImageUrl(), activity.getEnergyInWh());
+		return new ActivityEntity(-1, activity.name(), activity.imageUrl(), activity.energyInWh());
 	}
 
 	public Activity toModel() {
