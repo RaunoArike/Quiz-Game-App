@@ -1,5 +1,5 @@
 package client.scenes;
-import client.service.ServerServiceImpl;
+import client.service.ServerService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,11 +10,11 @@ import javafx.scene.input.KeyEvent;
 
 public class ServerAddressScreenCtrl {
 
-	private final ServerServiceImpl server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	@Inject
-	public ServerAddressScreenCtrl(ServerServiceImpl server, MainCtrl mainCtrl) {
+	public ServerAddressScreenCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}
@@ -31,9 +31,9 @@ public class ServerAddressScreenCtrl {
 	public void ok() {
 		String url = this.serverAddress.getText();
 		if (url != null && !url.isEmpty()) {
-			boolean result = this.server.connectToServer(url);
+			boolean result = server.connectToServer(url);
 			if (result) {
-				this.serverAddress.clear();
+				serverAddress.clear();
 				mainCtrl.showHome();
 			} else {
 				errorMessage.setText("Please enter a valid address: ");
@@ -44,8 +44,8 @@ public class ServerAddressScreenCtrl {
 	}
 
 	public void clear() {
-		this.serverAddress.clear();
-		this.errorMessage.setText("");
+		serverAddress.clear();
+		errorMessage.setText("");
 	}
 
 	public void keyPressed(KeyEvent e) {
