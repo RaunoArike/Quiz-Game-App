@@ -20,6 +20,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+
+//import client.service.MessageLogicService;
+
 public class MainCtrl {
 
 	private Stage primaryStage;
@@ -36,11 +39,30 @@ public class MainCtrl {
 	private JoinWaitingroomCtrl joinWaitingroomCtrl;
 	private Scene joinWaitingroom;
 
-	private Scene ending;
+	private ServerAddressScreenCtrl serverAddressScreenCtrl;
+	private Scene serverAddress;
+
+	private ComparisonScreenCtrl comparisonScreenCtrl;
+	private Scene comparisonScreen;
+
+	private EstimationScreenCtrl estimationScreenCtrl;
+	private Scene estimationScreen;
+
+	private MultiChoiceScreenCtrl multiChoiceScreenCtrl;
+	private Scene multiChoiceScreen;
+
+	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
+	private Scene pickEnergyScreen;
 
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-			Pair<OpeningCtrl, Parent> openingCtrl, Pair<UsernameCtrl, Parent> usernameCtrl,
-			Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl) {
+	Pair<OpeningCtrl, Parent> openingCtrl,
+	Pair<UsernameCtrl, Parent> usernameCtrl,
+	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
+	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
+	Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
+	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
+	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
+	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -56,7 +78,22 @@ public class MainCtrl {
 		this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
 		this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
 
-		showHome();
+		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
+		this.serverAddress = new Scene(serverAddressCtrl.getValue());
+
+		this.comparisonScreenCtrl = comparsionScreenCtrl.getKey();
+		this.comparisonScreen = new Scene(comparsionScreenCtrl.getValue());
+
+		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
+		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
+
+		this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
+		this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
+
+		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
+		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+
+		showServerAddress();
 		primaryStage.show();
 	}
 
@@ -73,12 +110,47 @@ public class MainCtrl {
 
 	public void showUsername() {
 		primaryStage.setTitle("Enter username");
+		username.setOnKeyPressed(e -> usernameCtrl.keyPressed(e));
+		this.usernameCtrl.clearField();
 		primaryStage.setScene(username);
 	}
 
 	public void showJoinWaitingroom() {
 		primaryStage.setTitle("Join a waiting room");
 		primaryStage.setScene(joinWaitingroom);
+	}
+
+	public void showServerAddress() {
+		primaryStage.setTitle("Join a server");
+		serverAddress.setOnKeyPressed(e -> serverAddressScreenCtrl.keyPressed(e));
+		serverAddressScreenCtrl.clear();
+		primaryStage.setScene(serverAddress);
+	}
+
+	// public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
+
+	// 	this.comparisonScreenCtrl.setQuestion("");
+	// 	this.comparisonScreenCtrl.setOptions("", "", "");
+	// 	this.comparisonScreenCtrl.setScore(0);
+
+	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
+	// 	primaryStage.setScene(comparisonScreen);
+	// }
+
+	// public void showEstimationQuestion(Question q, int questionNumber, int score) {
+
+	// 	this.estimationScreenCtrl.setQuestion("");
+	// 	this.comparisonScreenCtrl.setOptions("", "", "");
+	// 	this.comparisonScreenCtrl.setScore(0);
+
+	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
+	// 	primaryStage.setScene(comparisonScreen);
+	// }
+
+	public void sendAnswer() {
+		//called with parameters that indicate type of question, answer (option or number)
+		//additionally time taken
+		//should in turn pass this on to server-comm
 	}
 
 }
