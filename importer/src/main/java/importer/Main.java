@@ -7,23 +7,6 @@ import importer.service.ImportServiceImpl;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * In order to import activities, run with arguments:
- * <pre>
- * SERVER_URL ACTIVITIES_FILE_PATH [-D]
- * </pre>
- * where:
- * <ul>
- *     <li>SERVER_URL is address of the server to connect to</li>
- *     <li>ACTIVITIES_FILE_PATH is path to activities.json file</li>
- *     <li>-D is an optional flag for removing all prior activities</li>
- * </ul>
- *
- * For example:
- * <pre>
- * gradle :importer:run --args "http://localhost:8080 ../activities/activities.json" -D
- * </pre>
- */
 public class Main {
 	public static void main(String[] args) throws IOException {
 		if (args.length < 2) throw new IllegalArgumentException("Not enough arguments provided");
