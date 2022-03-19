@@ -46,6 +46,10 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
+	public int startMultiPlayerGame(String userName) {
+		return 0;
+	}
+	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
@@ -63,8 +67,8 @@ public class GameServiceImpl implements GameService {
 		if (!game.isLastQuestion()) startNewQuestion(game);
 		else cleanUpGame(game);
 	}
-
-	private void startNewQuestion(Game game) {
+	@Override
+	public void startNewQuestion(Game game) {
 		var question = questionService.generateQuestion(game.getGameId());
 		game.startNewQuestion(question);
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());

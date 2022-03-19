@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import server.api.OutgoingController;
 import server.model.Game;
-import server.model.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,23 +11,36 @@ import java.util.Map;
 public class WaitingRoomImpl implements WaitingRoom {
 	@Getter
 	@Setter
-	private Map<Integer, Player> listOfPlayers = new HashMap<>();
-	private final Map<Integer, Game> listOfGames = new HashMap<>();
-
+	//Maps the playerId to the waiting room they belong
+	private Map<String, WaitingRoom> listOfPlayers = new HashMap<>();
+	// gameIds to game
+	private final Map<Integer, Game> games = new HashMap<>();
+	private final Map<Integer, Integer> playersToGame = new HashMap<>();
+	private int playersInWaitingRoom;
+	private Game currentGame;
 	private String gameId;
-	private OutgoingController outgoingController;
+	private final OutgoingController outgoingController;
+	public WaitingRoomImpl(OutgoingController outgoingController) {
+		this.outgoingController = outgoingController;
+	}
+
 	@Override
-	public boolean isInWaitingRoom(Player player) {
+	public boolean isInWaitingRoom(String playerName) {
 		return false;
 	}
 
 	@Override
-	public void addPlayer(Player player) {
+	public void joinWaitingRoom(String playerName) {
 
 	}
 
 	@Override
 	public boolean isInProgress() {
 		return false;
+	}
+
+	@Override
+	public void startMultiplayerGame(String playerName) {
+
 	}
 }
