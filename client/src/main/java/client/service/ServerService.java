@@ -77,6 +77,4 @@ public interface ServerService {
 	 * @param serverListener listener
 	 */
 	void registerListener(ServerListener serverListener);
-
-	void startMultiGame(String username);
 }
