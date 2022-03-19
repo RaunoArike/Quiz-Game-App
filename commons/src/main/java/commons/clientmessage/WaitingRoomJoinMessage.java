@@ -1,3 +1,5 @@
 package commons.clientmessage;
 
-public record WaitingRoomJoinMessage(String username) { }
+public record WaitingRoomJoinMessage(String username) {
+
+}

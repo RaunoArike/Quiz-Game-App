@@ -35,7 +35,7 @@ public class JoinWaitingroomCtrl {
 		this.errorMessage.setText("");
 		String username = this.username.getText();
 		if (username != null && !username.isEmpty()) {
-			this.server.startMultiGame();
+			this.server.joinWaitingRoom(username);
 		} else {
 			this.errorMessage.setText("Please enter a valid username: ");
 		}

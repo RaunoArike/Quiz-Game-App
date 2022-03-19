@@ -2,6 +2,7 @@ package client.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
+import commons.clientmessage.WaitingRoomJoinMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import org.springframework.lang.NonNull;
@@ -77,7 +78,7 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public void joinWaitingRoom(String username) {
-		// TODO
+		session.send("/app/join-waiting-room", new WaitingRoomJoinMessage(username));
 	}
 
 	@Override
