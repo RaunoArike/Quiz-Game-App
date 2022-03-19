@@ -76,6 +76,16 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
+	public void joinWaitingRoom(String username) {
+		// TODO
+	}
+
+	@Override
+	public void startMultiGame() {
+		// TODO
+	}
+
+	@Override
 	public void answerQuestion(Number answer) {
 		Integer answerInt = answer instanceof Integer ? (Integer) answer : null;
 		Float answerFloat = answer instanceof Float ? (Float) answer : null;

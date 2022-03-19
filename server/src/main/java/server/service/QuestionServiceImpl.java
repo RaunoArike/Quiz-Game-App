@@ -17,8 +17,9 @@ public class QuestionServiceImpl implements QuestionService {
 
 	private static final float EST_SCORE_RATIO_GOOD = 0.1f;
 	private static final float EST_SCORE_RATIO_BAD = 0.5f;
-
-	private static final int NUM = 3;
+	private static final int NUMBER_OF_CASES = 3;
+	private static final int NUMBER_OF_ANSWER_OPTIONS = 3;
+	private static final int NUMBER_OF_QUESTION_TYPES = 4;
 
 	private final List<ActivityEntity> visited = new ArrayList<>();
 	private final ActivityRepository activityRepository;
@@ -31,22 +32,23 @@ public class QuestionServiceImpl implements QuestionService {
 
 		int no = Math.abs(new Random().nextInt());
 
-		switch (no % NUM) {
+		switch (no % NUMBER_OF_QUESTION_TYPES) {
 			case 0:	return generateMC();
 			case 1: return generateEst();
-			case 2: return generateCal();
+			case 2: return generateComp();
+			case NUMBER_OF_CASES: return generatePick();
 		}
 		return null;
 	}
 
-	public List<ActivityEntity> generateActivities() {
+	private List<ActivityEntity> generateActivities() {
 		List<ActivityEntity> listActivities = activityRepository.findAll();
 		List<ActivityEntity> selectedEntities = new ArrayList<>();
 
 		int index = 0;
 		///MAGIC NUMBERS HAVE TO BE REMOVED
 
-		while (index < NUM) {
+		while (index < NUMBER_OF_ANSWER_OPTIONS) {
 			int no = Math.abs(new Random().nextInt());
 			ActivityEntity act = listActivities.get(no % listActivities.size());
 			if (!visited.contains(act)) {
@@ -59,11 +61,12 @@ public class QuestionServiceImpl implements QuestionService {
 		return selectedEntities;
 	}
 
-	public Question.MultiChoice generateMC() {
+
+	public Question.MultiChoiceQuestion generateMC() {
 		List<ActivityEntity> selectedEntities = generateActivities();
-		return new Question.MultiChoice(
+		return new Question.MultiChoiceQuestion(
 				selectedEntities.stream().map(ActivityEntity::toModel).collect(Collectors.toList()),
-				generateAnswer(selectedEntities)
+				generateMCAnswer(selectedEntities)
 		);
 	}
 
@@ -75,12 +78,26 @@ public class QuestionServiceImpl implements QuestionService {
 		);
 	}
 
-	public Question.CalculationQuestion generateCal() {
-		///TODO
-		return null;
+	public Question.ComparisonQuestion generateComp() {
+		List<ActivityEntity> selectedEntities = generateActivities().subList(0, 2);
+		return new Question.ComparisonQuestion(
+				selectedEntities.stream().map(ActivityEntity::toModel).collect(Collectors.toList()),
+				generateCompAnswer(selectedEntities)
+		);
 	}
 
-	public int generateAnswer(List<ActivityEntity> listActivities) {
+	public Question.PickEnergyQuestion generatePick() {
+		List<ActivityEntity> selectedEntities = generateActivities();
+		int correctAnswer = Math.abs(new Random().nextInt()) % NUMBER_OF_ANSWER_OPTIONS;
+		return new Question.PickEnergyQuestion(
+				selectedEntities.get(1).toModel(),
+				correctAnswer,
+				generatePickOptions(selectedEntities.get(1).getEnergyInWh(), correctAnswer)
+		);
+	}
+
+
+	private int generateMCAnswer(List<ActivityEntity> listActivities) {
 		int maxIndex = 0;
 		float maxValue = 0f;
 		for (int i = 0; i < listActivities.size(); i++) {
@@ -93,19 +110,43 @@ public class QuestionServiceImpl implements QuestionService {
 		return maxIndex;
 	}
 
+	private float generateCompAnswer(List<ActivityEntity> listActivities) {
+		ActivityEntity activity1 = listActivities.get(0);
+		ActivityEntity activity2 = listActivities.get(1);
+		return activity2.getEnergyInWh() / activity1.getEnergyInWh();
+	}
+
+	//TODO consider improving the formula
+	public List<Float> generatePickOptions(float correctAnswerInWh, int answerNumber) {
+		int correctAnswerInt = (int) correctAnswerInWh;
+		List<Float> answerList = new ArrayList<>();
+		for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
+			float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+			while (wrongAnswer == 0) {
+				wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+			}
+			answerList.add(wrongAnswer);
+		}
+		answerList.add(answerNumber, correctAnswerInWh);
+		return answerList;
+	}
+
+
 	@Override
 	public int calculateScore(Question question, Number answer) {
-		if (question instanceof Question.MultiChoice mc) {
+		if (question instanceof Question.MultiChoiceQuestion mc) {
 			return calculateScoreMC(mc, answer.intValue());
 		} else if (question instanceof Question.EstimationQuestion est) {
 			return calculateScoreEst(est, answer.floatValue());
-		} else if (question instanceof Question.CalculationQuestion cal) {
-			return calculateScoreCal(cal, answer.floatValue());
+		} else if (question instanceof Question.ComparisonQuestion comp) {
+			return calculateScoreComp(comp, answer.floatValue());
+		} else if (question instanceof Question.PickEnergyQuestion pick) {
+			return calculateScorePick(pick, answer.intValue());
 		}
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoice question, int answer) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer) {
 		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
@@ -114,6 +155,20 @@ public class QuestionServiceImpl implements QuestionService {
 	private int calculateScoreEst(Question.EstimationQuestion question, float answer) {
 		var error = Math.abs(answer - question.getCorrectAnswer());
 		var errorRatio = error / question.getCorrectAnswer();
+		return calculateScoreShared(errorRatio);
+	}
+
+	private int calculateScoreComp(Question.ComparisonQuestion question, float answer) {
+		float errorRatio;
+		if (answer < question.getCorrectAnswer()) {
+			errorRatio = 1 - (answer / question.getCorrectAnswer());
+		} else {
+			errorRatio = 1 - (question.getCorrectAnswer() / answer);
+		}
+		return calculateScoreShared(errorRatio);
+	}
+
+	private int calculateScoreShared(float errorRatio) {
 		if (errorRatio < EST_SCORE_RATIO_GOOD) {
 			return MAX_SCORE;
 		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
@@ -123,7 +178,8 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int calculateScoreCal(Question.CalculationQuestion question, float answer) {
-		return 0; // TODO
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer) {
+		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
+		else return 0;
 	}
 }
