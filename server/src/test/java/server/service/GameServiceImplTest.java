@@ -27,8 +27,7 @@ public class GameServiceImplTest {
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
-	@Mock
-	private PlayerService playerService;
+	private PlayerService playerService = new PlayerServiceImpl();
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
