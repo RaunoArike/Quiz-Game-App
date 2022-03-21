@@ -20,6 +20,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import commons.model.Question.ComparisonQuestion;
+import commons.model.Question.EstimationQuestion;
+import commons.model.Question.MultiChoiceQuestion;
+import commons.model.Question.PickEnergyQuestion;
+
 
 //import client.service.MessageLogicService;
 
@@ -53,6 +58,8 @@ public class MainCtrl {
 
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
+
+	private int score;
 
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 	Pair<OpeningCtrl, Parent> openingCtrl,
@@ -127,30 +134,59 @@ public class MainCtrl {
 		primaryStage.setScene(serverAddress);
 	}
 
-	// public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
+	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber) {
 
-	// 	this.comparisonScreenCtrl.setQuestion("");
-	// 	this.comparisonScreenCtrl.setOptions("", "", "");
-	// 	this.comparisonScreenCtrl.setScore(0);
+		String textActivity1 = q.getActivities().get(0).getName();
+		String textActivity2 = q.getActivities().get(1).getName();
+		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
+		this.comparisonScreenCtrl.setQuestion(textQuestion);
+		this.comparisonScreenCtrl.setScore(0);
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(comparisonScreen);
+	}
 
-	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
-	// 	primaryStage.setScene(comparisonScreen);
-	// }
+	public void showEstimationQuestion(EstimationQuestion q, int questionNumber) {
+		String textQuestion = "Estimate the amount of energy it takes to " + q.getActivity().getName();
+		this.estimationScreenCtrl.setQuestion(textQuestion);
+		this.comparisonScreenCtrl.setScore(score);
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(estimationScreen);
+	}
 
-	// public void showEstimationQuestion(Question q, int questionNumber, int score) {
+	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber) {
+		String textQuestion = "Which of the following takes the most energy?";
+		this.multiChoiceScreenCtrl.setQuestion(textQuestion);
+		String a = q.getActivities().get(0).getName();
+		String b = q.getActivities().get(1).getName();
+		String c = q.getActivities().get(2).getName();
+		this.multiChoiceScreenCtrl.setAnswerOptions(a, b, c);
+		this.multiChoiceScreenCtrl.setScore(score);
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(multiChoiceScreen);
+	}
 
-	// 	this.estimationScreenCtrl.setQuestion("");
-	// 	this.comparisonScreenCtrl.setOptions("", "", "");
-	// 	this.comparisonScreenCtrl.setScore(0);
-
-	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
-	// 	primaryStage.setScene(comparisonScreen);
-	// }
+	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber) {
+		String textActivity = q.getActivity().getName();
+		String textQuestion = "How much energy does " + textActivity + " take?";
+		this.pickEnergyScreenCtrl.setQuestion(textQuestion);
+		String a = q.getAnswerOptions().get(0).toString();
+		String b = q.getAnswerOptions().get(1).toString();
+		String c = q.getAnswerOptions().get(2).toString();
+		this.pickEnergyScreenCtrl.setOptions(a, b, c);
+		this.pickEnergyScreenCtrl.setScore(score);
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(pickEnergyScreen);
+	}
 
 	public void sendAnswer() {
 		//called with parameters that indicate type of question, answer (option or number)
 		//additionally time taken
 		//should in turn pass this on to server-comm
+	}
+
+	public void setScore(int score) {
+		//server-comm must reset the score attribute whenever a correct answer message is received
+		this.score = score;
 	}
 
 }
