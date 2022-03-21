@@ -1,16 +1,21 @@
 package client.scenes;
 
-import client.utils.ServerUtils;
+import client.service.ServerService;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import com.google.inject.Inject;
 
-public class ComparisonScreenCtrl {
+public class ComparisonScreenCtrl extends QuestionCtrl {
 
-	private final ServerUtils server;
-	private final MainCtrl mainCtrl;
+	@FXML
+	private TextField answer;
 
 	@Inject
-	public ComparisonScreenCtrl(ServerUtils server, MainCtrl mainCtrl) {
-		this.server = server;
-		this.mainCtrl = mainCtrl;
+	public ComparisonScreenCtrl(ServerService server, MainCtrl mainCtrl) {
+		super(server, mainCtrl);
+	}
+
+	public void sendAnswer() {
+
 	}
 }

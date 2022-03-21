@@ -15,6 +15,7 @@ public class LeaderboardCtrl {
 		this.mainCtrl = mainCtrl;
 	}
 
+	// Links to the return button
 	public void returnHome() {
 		mainCtrl.showHome();
 	}
