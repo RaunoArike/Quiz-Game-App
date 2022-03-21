@@ -2,8 +2,11 @@ package client.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
+import commons.clientmessage.WaitingRoomJoinMessage;
+import commons.servermessage.ErrorMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
+import commons.servermessage.WaitingRoomStateMessage;
 import org.springframework.lang.NonNull;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompHeaders;
@@ -19,16 +22,16 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 public class ServerServiceImpl implements ServerService {
+	private final List<ServerListener> serverListeners = new ArrayList<>();
+
 	private StompSession session;
-	private List<ServerListener> serverListeners = new ArrayList<>();
 
 	private StompSession connect(String url) {
 		var client = new StandardWebSocketClient();
 		var stomp = new WebSocketStompClient(client);
 		stomp.setMessageConverter(new MappingJackson2MessageConverter());
 		try {
-			return stomp.connect(url, new StompSessionHandlerAdapter() {
-			}).get();
+			return stomp.connect(url, new StompSessionHandlerAdapter() { }).get();
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		} catch (ExecutionException e) {
@@ -42,13 +45,13 @@ public class ServerServiceImpl implements ServerService {
 
 			@Override
 			@NonNull
-			public Type getPayloadType(StompHeaders headers) {
+			public Type getPayloadType(@NonNull StompHeaders headers) {
 				return type;
 			}
 
 			@SuppressWarnings("unchecked")
 			@Override
-			public void handleFrame(StompHeaders headers, Object payload) {
+			public void handleFrame(@NonNull StompHeaders headers, Object payload) {
 				consumer.accept((T) payload);
 			}
 		});
@@ -64,6 +67,12 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/topic/score", ScoreMessage.class, message -> {
 				serverListeners.forEach(serverListener -> serverListener.onScore(message));
 			});
+			registerForMessages("/topic/waiting-room-state", WaitingRoomStateMessage.class, message -> {
+				serverListeners.forEach(serverListener -> serverListener.onWaitingRoomState(message));
+			});
+			registerForMessages("/topic/error", ErrorMessage.class, message -> {
+				serverListeners.forEach(serverListener -> serverListener.onError(message));
+			});
 		} catch (Exception e) {
 			return false;
 		}
@@ -77,12 +86,12 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public void joinWaitingRoom(String username) {
-		// TODO
+		session.send("/app/join-waiting-room", new WaitingRoomJoinMessage(username));
 	}
 
 	@Override
 	public void startMultiGame() {
-		// TODO
+		session.send("/app/start-single-player", new Object());
 	}
 
 	@Override
