@@ -2,6 +2,7 @@ package server.api;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
+import commons.clientmessage.WaitingRoomJoinMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -31,5 +32,10 @@ public class GameController {
 		Map<String, Object> attrs = headerAccessor.getSessionAttributes();
 		int playerId = (Integer) attrs.get("player");
 		service.submitAnswer(playerId, answerMessage);
+	}
+
+	@MessageMapping("/join-waiting-room")
+	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, SimpMessageHeaderAccessor headerAccessor) {
+
 	}
 }
