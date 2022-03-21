@@ -3,17 +3,19 @@ package server.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
 import server.model.Player;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@EnableScheduling
 public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
