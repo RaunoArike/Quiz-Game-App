@@ -183,7 +183,7 @@ public class MainCtrl {
 	 * @param answer for comparison and estimation denotes the answer given by the user, for mc and pickChoice denotes
 	 * 0, 1 or 2 based on option A/B/C clicked by the user.
 	 */
-	public void sendAnswer(QuestionTypes type, int answer) {
+	public void sendAnswer(QuestionTypes type, float answer) {
 		//called with parameters that indicate type of question, answer (option or number)
 		//additionally time taken
 		//should in turn pass this on to server-comm

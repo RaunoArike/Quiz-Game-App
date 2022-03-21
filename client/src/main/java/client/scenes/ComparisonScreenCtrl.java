@@ -20,11 +20,11 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	}
 
 	public void sendAnswer() {
-		mainCtrl.sendAnswer(QuestionTypes.COMPARISON, Integer.parseInt(answer.getText()));
+		mainCtrl.sendAnswer(QuestionTypes.COMPARISON, Float.parseFloat(answer.getText()));
 		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
 	}
 
-	public void showAnswer(int correctAnswer, int scoreIncrement) {
+	public void showAnswer(float correctAnswer, int scoreIncrement) {
 		String message = "The correct answer was: " + correctAnswer + " kwH. You score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
 	}
