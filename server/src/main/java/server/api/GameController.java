@@ -23,7 +23,7 @@ public class GameController {
 	@MessageMapping("/start-single-player")
 	public void startSPGame(@Payload SinglePlayerGameStartMessage startMessage, SimpMessageHeaderAccessor headerAcc) {
 		Map<String, Object> attrs = headerAcc.getSessionAttributes();
-		attrs.put("player", service.startSinglePlayerGame(startMessage.getUsername()));
+		attrs.put("player", service.startSinglePlayerGame(startMessage.username()));
 	}
 
 	@MessageMapping("/submit-answer")

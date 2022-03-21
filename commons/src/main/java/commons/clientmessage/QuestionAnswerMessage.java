@@ -1,12 +1,6 @@
 package commons.clientmessage;
 
-import lombok.Data;
-
-@Data
-public class QuestionAnswerMessage {
-	private final Integer answerInt;
-	private final Float answerFloat;
-	private final int passedTime;
+public record QuestionAnswerMessage(Integer answerInt, Float answerFloat, int passedTime) {
 
 	public Number getAnswer() {
 		if (answerInt != null) return answerInt;
