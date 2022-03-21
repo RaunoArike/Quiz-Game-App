@@ -47,5 +47,8 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 
 	@Override
 	public void resetWaitingRoom() {
+		//clears the list of players whilst resetting the number of players
+		playersInWaitingRoom = 0;
+		listOfPlayers.clear();
 	}
 }
