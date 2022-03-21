@@ -1,0 +1,17 @@
+plugins {
+	id 'application'
+}
+
+application {
+	mainClass = 'importer.Main'
+}
+
+dependencies {
+	implementation project(":commons")
+
+	implementation 'jakarta.activation:jakarta.activation-api:2.1.0'
+
+	implementation 'org.glassfish.jersey.core:jersey-client:3.0.4'
+	implementation 'org.glassfish.jersey.inject:jersey-hk2:3.0.4'
+	implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:3.0.4'
+}

@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
-	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b"), 4f);
+	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
 
 	@Mock
 	private QuestionService questionService;
