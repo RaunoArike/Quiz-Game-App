@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class OutgoingControllerImplTest {
-	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b"), 4f);
+	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
 
 	@Mock
 	private SimpMessagingTemplate template;
