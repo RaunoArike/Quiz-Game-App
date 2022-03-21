@@ -25,7 +25,7 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	}
 
 	public void answerEntered() {
-		mainCtrl.sendAnswer(2, Integer.parseInt(answer.getText()));
+		mainCtrl.sendAnswer(QuestionTypes.ESTIMATION, Integer.parseInt(answer.getText()));
 		//TO DO - make sure the input is an integer that can be parsed, show error otherwise
 		//ie. catch numberformatexception
 	}

@@ -177,14 +177,20 @@ public class MainCtrl {
 		primaryStage.setScene(pickEnergyScreen);
 	}
 
-	public void sendAnswer(int questionType, int answer) {
+	/**
+	 * Sends the answer entered by the user to the server
+	 * @param type
+	 * @param answer for comparison and estimation denotes the answer given by the user, for mc and pickChoice denotes
+	 * 0, 1 or 2 based on option A/B/C clicked by the user.
+	 */
+	public void sendAnswer(QuestionTypes type, int answer) {
 		//called with parameters that indicate type of question, answer (option or number)
 		//additionally time taken
 		//should in turn pass this on to server-comm
 	}
 
-	public void showComparisonAnswer() {
-
+	public void showAnswer() {
+		//TO DO. Methods within controllers have been implemented.
 	}
 
 	public void setScore(int score) {

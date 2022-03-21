@@ -20,7 +20,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	}
 
 	public void sendAnswer() {
-		mainCtrl.sendAnswer(1, Integer.parseInt(answer.getText()));
+		mainCtrl.sendAnswer(QuestionTypes.COMPARISON, Integer.parseInt(answer.getText()));
 		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
 	}
 

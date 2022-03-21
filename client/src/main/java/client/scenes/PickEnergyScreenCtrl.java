@@ -38,11 +38,28 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAclicked() {
+		mainCtrl.sendAnswer(QuestionTypes.PICK_ENERGY, 0);
 	}
 
 	public void optionBclicked() {
+		mainCtrl.sendAnswer(QuestionTypes.PICK_ENERGY, 1);
 	}
 
 	public void optionCclicked() {
+		mainCtrl.sendAnswer(QuestionTypes.PICK_ENERGY, 2);
+	}
+
+	public void showAnswer(int option) {
+		switch (option) {
+			case 0:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+			case 1:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+			case 2:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+		}
 	}
 }

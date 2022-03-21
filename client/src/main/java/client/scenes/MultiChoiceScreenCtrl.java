@@ -21,7 +21,6 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 		super(server, mainCtrl);
 	}
 
-
 	public void setAnswerOptions(String a, String b, String c) {
 		this.optionA.setText(a);
 		this.optionB.setText(b);
@@ -29,15 +28,29 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAClicked() {
-		//return to a mainctrl answer method with a specific parameter
+		mainCtrl.sendAnswer(QuestionTypes.MULTI_CHOICE, 0);
 	}
 
 	public void optionBClicked() {
-
+		mainCtrl.sendAnswer(QuestionTypes.MULTI_CHOICE, 1);
 	}
 
 	public void optionCClicked() {
+		mainCtrl.sendAnswer(QuestionTypes.MULTI_CHOICE, 2);
+	}
 
+	public void showAnswer(int option) {
+		switch (option) {
+			case 0:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+			case 1:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+			case 2:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+		}
 	}
 
 	public void useEliminateOption() {
