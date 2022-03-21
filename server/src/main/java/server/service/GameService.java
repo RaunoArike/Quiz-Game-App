@@ -22,13 +22,5 @@ public interface GameService {
 	 * @param answer submitted answer
 	 */
 	void submitAnswer(int playerId, QuestionAnswerMessage answer);
-
-	/**
-	 * Starts a multiplayer game given the waiting room
-	 * @param userName name of the player, to be used in the leaderboard
-	 * @return created player id to be identified in the game
-	 */
-	int startMultiPlayerGame(String userName);
-
 	void startNewQuestion(Game game);
 }

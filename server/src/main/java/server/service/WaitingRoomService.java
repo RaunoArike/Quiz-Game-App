@@ -1,7 +1,7 @@
 package server.service;
 
 
-public interface WaitingRoom {
+public interface WaitingRoomService {
 	/**
 	 *Check if the given player by their name is in the waiting room
 	 * @param playerName The name of the player
@@ -12,12 +12,14 @@ public interface WaitingRoom {
 	/**
 	 *Puts the player in the waiting room if not already
 	 * @param playerName The name of the player
+	 * @return the player id
 	 */
-	void joinWaitingRoom(String playerName);
+	int joinWaitingRoom(String playerName);
 
 	/**
 	 * The game of the given waiting room is started by one of the players
-	 * @param playerName The name of one player from the waiting room
+	 * @return
 	 */
-	void startMultiplayerGame(String playerName);
+	Object startMultiplayerGame();
+	///Resetting the waiting room
 }

@@ -22,7 +22,6 @@ public class GameServiceImpl implements GameService {
 
 	private int nextGameId = 0;
 	private int nextPlayerId = 0;
-
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
@@ -31,7 +30,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public int startSinglePlayerGame(String userName) {
 		var playerId = nextPlayerId++;
-		var player = new Player(userName);
+		var player = new Player(userName, 0);
 
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
@@ -43,11 +42,7 @@ public class GameServiceImpl implements GameService {
 		startNewQuestion(game);
 
 		return playerId;
-	}
-
-	@Override
-	public int startMultiPlayerGame(String userName) {
-		return 0;
+		//TODO
 	}
 	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
