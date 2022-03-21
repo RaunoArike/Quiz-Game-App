@@ -13,14 +13,17 @@ import com.google.inject.Inject;
 public class MessageLogicService implements ServerListener {
 
 	private MainCtrl mainCtrl;
+	private ServerService server;
 	private int score;
 	private QuestionTypes currentType;
 	private Number correctAnswer;
 
 	@Inject
-	public MessageLogicService(MainCtrl mainCtrl) {
+	public MessageLogicService(MainCtrl mainCtrl, ServerService server) {
 		this.mainCtrl = mainCtrl;
 		this.score = 0;
+		this.server = server;
+		server.registerListener(this);
 	}
 
 	/**
