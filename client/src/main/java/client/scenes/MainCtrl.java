@@ -59,8 +59,6 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
-	private int score;
-
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 	Pair<OpeningCtrl, Parent> openingCtrl,
 	Pair<UsernameCtrl, Parent> usernameCtrl,
@@ -134,17 +132,17 @@ public class MainCtrl {
 		primaryStage.setScene(serverAddress);
 	}
 
-	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber) {
+	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
 		String textActivity1 = q.getActivities().get(0).getName();
 		String textActivity2 = q.getActivities().get(1).getName();
 		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
 		this.comparisonScreenCtrl.setQuestion(textQuestion);
-		this.comparisonScreenCtrl.setScore(0);
+		this.comparisonScreenCtrl.setScore(score);
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(comparisonScreen);
 	}
 
-	public void showEstimationQuestion(EstimationQuestion q, int questionNumber) {
+	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
 		String textQuestion = "Estimate the amount of energy it takes to " + q.getActivity().getName();
 		this.estimationScreenCtrl.setQuestion(textQuestion);
 		this.comparisonScreenCtrl.setScore(score);
@@ -152,7 +150,7 @@ public class MainCtrl {
 		primaryStage.setScene(estimationScreen);
 	}
 
-	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber) {
+	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {
 		String textQuestion = "Which of the following takes the most energy?";
 		this.multiChoiceScreenCtrl.setQuestion(textQuestion);
 		String a = q.getActivities().get(0).getName();
@@ -164,7 +162,7 @@ public class MainCtrl {
 		primaryStage.setScene(multiChoiceScreen);
 	}
 
-	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber) {
+	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber, int score) {
 		String textActivity = q.getActivity().getName();
 		String textQuestion = "How much energy does " + textActivity + " take?";
 		this.pickEnergyScreenCtrl.setQuestion(textQuestion);
@@ -177,25 +175,19 @@ public class MainCtrl {
 		primaryStage.setScene(pickEnergyScreen);
 	}
 
-	/**
-	 * Sends the answer entered by the user to the server
-	 * @param type
-	 * @param answer for comparison and estimation denotes the answer given by the user, for mc and pickChoice denotes
-	 * 0, 1 or 2 based on option A/B/C clicked by the user.
-	 */
-	public void sendAnswer(QuestionTypes type, float answer) {
-		//called with parameters that indicate type of question, answer (option or number)
-		//additionally time taken
-		//should in turn pass this on to server-comm
-	}
-
-	public void showAnswer() {
-		//TO DO. Methods within controllers have been implemented.
-	}
-
-	public void setScore(int score) {
-		//server-comm must reset the score attribute whenever a correct answer message is received
-		this.score = score;
+	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {
+		if (type == QuestionTypes.COMPARISON) {
+			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+		}
+		if (type == QuestionTypes.ESTIMATION) {
+			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+		}
+		if (type == QuestionTypes.MULTI_CHOICE) {
+			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
+		}
+		if (type == QuestionTypes.PICK_ENERGY) {
+			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
+		}
 	}
 
 }

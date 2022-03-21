@@ -24,13 +24,12 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 		super(server, mainCtrl);
 	}
 
-	public void answerEntered() {
-		mainCtrl.sendAnswer(QuestionTypes.ESTIMATION, Float.parseFloat(answer.getText()));
-		//TO DO - make sure the input is an integer that can be parsed, show error otherwise
-		//ie. catch numberformatexception
+	public void sendAnswer() {
+		server.answerQuestion(Float.parseFloat(answer.getText()));
+		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
 	}
 
-	public void showAnswer(float correctAnswer, int scoreIncrement) {
+	public void showAnswer(Number correctAnswer, int scoreIncrement) {
 		String message = "The correct answer was: " + correctAnswer + "kwH . You score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
 	}

@@ -38,15 +38,15 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAclicked() {
-		mainCtrl.sendAnswer(QuestionTypes.PICK_ENERGY, 0);
+		server.answerQuestion(0);
 	}
 
 	public void optionBclicked() {
-		mainCtrl.sendAnswer(QuestionTypes.PICK_ENERGY, 1);
+		server.answerQuestion(1);
 	}
 
 	public void optionCclicked() {
-		mainCtrl.sendAnswer(QuestionTypes.PICK_ENERGY, 2);
+		server.answerQuestion(2);
 	}
 
 	public void showAnswer(int option) {

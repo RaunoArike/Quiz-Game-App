@@ -28,15 +28,15 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAClicked() {
-		mainCtrl.sendAnswer(QuestionTypes.MULTI_CHOICE, 0);
+		server.answerQuestion(0);
 	}
 
 	public void optionBClicked() {
-		mainCtrl.sendAnswer(QuestionTypes.MULTI_CHOICE, 1);
+		server.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
-		mainCtrl.sendAnswer(QuestionTypes.MULTI_CHOICE, 2);
+		server.answerQuestion(2);
 	}
 
 	public void showAnswer(int option) {

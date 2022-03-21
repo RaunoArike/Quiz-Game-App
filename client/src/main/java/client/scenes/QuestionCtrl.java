@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 
 public abstract class QuestionCtrl {
 
-	private final ServerService server;
+	protected final ServerService server;
 	protected final MainCtrl mainCtrl;
 
 	@FXML
