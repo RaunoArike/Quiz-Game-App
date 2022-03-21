@@ -12,9 +12,10 @@ import java.util.List;
  * Model of a question
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-@JsonSubTypes({@Type(value = Question.MultiChoice.class, name = "mc"),
-		@Type(value = Question.CalculationQuestion.class, name = "calculation"),
+@JsonSubTypes({@Type(value = Question.MultiChoiceQuestion.class, name = "mc"),
+		@Type(value = Question.ComparisonQuestion.class, name = "calculation"),
 		@Type(value = Question.EstimationQuestion.class, name = "estimation"),
+		@Type(value = Question.PickEnergyQuestion.class, name = "picking")
 
 })
 public abstract class Question {
@@ -24,7 +25,7 @@ public abstract class Question {
 	 */
 	@AllArgsConstructor
 	@Getter
-	public static class MultiChoice extends Question {
+	public static class MultiChoiceQuestion extends Question {
 		private final List<Activity> activities;
 		private final int correctAnswer;
 
@@ -32,9 +33,9 @@ public abstract class Question {
 
 	@AllArgsConstructor
 	@Getter
-	public static class CalculationQuestion extends Question {
+	public static class ComparisonQuestion extends Question {
 		private final List<Activity> activities;
-		private final int correctAnswer;
+		private final float correctAnswer;
 
 	}
 
@@ -43,5 +44,13 @@ public abstract class Question {
 	public static class EstimationQuestion extends Question {
 		private final Activity activity;
 		private final float correctAnswer;
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public static class PickEnergyQuestion extends Question {
+		private final Activity activity;
+		private final int correctAnswer;
+		private final List<Float> answerOptions;
 	}
 }

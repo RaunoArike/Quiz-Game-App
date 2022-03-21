@@ -15,12 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionServiceImplTest {
-	private static final Activity FAKE_ACTIVITY = new Activity("A1", null);
+	private static final Activity FAKE_ACTIVITY = new Activity("A1", null, 1f);
 	private static final List<Activity> FAKE_ACTIVITY_LIST = List.of(
 			FAKE_ACTIVITY,
-			new Activity("A2", null),
-			new Activity("A3", null)
+			new Activity("A2", null, 2f),
+			new Activity("A3", null, 3f)
 	);
+	private static final List<Float> FAKE_ENERGIES = List.of(0.5f, 15f, 25f);
+
 
 	@Mock
 	private ActivityRepository activityRepository;
@@ -32,7 +34,7 @@ public class QuestionServiceImplTest {
 	@Test
 	public void correct_answer_for_mc_question_should_give_max_score() {
 		var service = createService();
-		var question = new Question.MultiChoice(FAKE_ACTIVITY_LIST, 2);
+		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 2);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
@@ -40,7 +42,7 @@ public class QuestionServiceImplTest {
 	@Test
 	public void wrong_answer_for_mc_question_should_give_zero_score() {
 		var service = createService();
-		var question = new Question.MultiChoice(FAKE_ACTIVITY_LIST, 2);
+		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 1);
 		assertEquals(0, score);
 	}
@@ -68,5 +70,53 @@ public class QuestionServiceImplTest {
 		var score = service.calculateScore(question, 70f);
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
+	}
+
+	@Test
+	public void close_answer_for_comp_question_should_give_max_score() {
+		var service = createService();
+		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
+		var score = service.calculateScore(question, 1.1f);
+		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
+	}
+
+	@Test
+	public void distant_answer_for_comp_question_should_give_zero_score() {
+		var service = createService();
+		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
+		var score = service.calculateScore(question, 2.1f);
+		assertEquals(0, score);
+	}
+
+	@Test
+	public void medium_answer_for_comp_question_should_partial_score() {
+		var service = createService();
+		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
+		var score = service.calculateScore(question, 1.5f);
+		assertTrue(score > 0);
+		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
+	}
+
+	@Test
+	public void correct_answer_for_pick_question_should_give_max_score() {
+		var service = createService();
+		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
+		var score = service.calculateScore(question, 2);
+		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
+	}
+
+	@Test
+	public void wrong_answer_for_pick_question_should_give_zero_score() {
+		var service = createService();
+		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
+		var score = service.calculateScore(question, 1);
+		assertEquals(0, score);
+	}
+
+	@Test
+	public void pick_energy_answer_generator_should_generate_positive_answers() {
+		var service = createService();
+		var answerOptions = service.generatePickOptions(55, 2);
+		assertTrue(answerOptions.get(0) > 0 && answerOptions.get(1) > 0 && answerOptions.get(2) > 0);
 	}
 }
