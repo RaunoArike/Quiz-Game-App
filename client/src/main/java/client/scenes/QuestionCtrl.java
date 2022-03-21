@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 public abstract class QuestionCtrl {
 
 	private final ServerService server;
-	private final MainCtrl mainCtrl;
+	protected final MainCtrl mainCtrl;
 
 	@FXML
 	private Label questionText;

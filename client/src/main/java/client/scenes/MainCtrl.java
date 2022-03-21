@@ -135,7 +135,6 @@ public class MainCtrl {
 	}
 
 	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber) {
-
 		String textActivity1 = q.getActivities().get(0).getName();
 		String textActivity2 = q.getActivities().get(1).getName();
 		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
@@ -178,10 +177,14 @@ public class MainCtrl {
 		primaryStage.setScene(pickEnergyScreen);
 	}
 
-	public void sendAnswer() {
+	public void sendAnswer(int questionType, int answer) {
 		//called with parameters that indicate type of question, answer (option or number)
 		//additionally time taken
 		//should in turn pass this on to server-comm
+	}
+
+	public void showComparisonAnswer() {
+
 	}
 
 	public void setScore(int score) {
