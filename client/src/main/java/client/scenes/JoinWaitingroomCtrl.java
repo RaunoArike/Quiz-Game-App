@@ -27,10 +27,12 @@ public class JoinWaitingroomCtrl {
 		this.mainCtrl = mainCtrl;
 	}
 
+	//Links to the cancel button
 	public void returnHome() {
 		mainCtrl.showHome();
 	}
 
+	//Links to the join button
 	public void join() {
 		this.errorMessage.setText("");
 		String username = this.username.getText();
@@ -42,10 +44,15 @@ public class JoinWaitingroomCtrl {
 		this.username.clear();
 	}
 
+	//Helper method for key functionality
 	public void clearField() {
 		username.clear();
 	}
 
+	/**
+	 * Adds key functionality to the textfields - enter to trigger join,
+	 * escape to clear fields
+	 */
 	public void keyPressed(KeyEvent e) {
 		switch (e.getCode()) {
 			case ENTER:
@@ -53,6 +60,7 @@ public class JoinWaitingroomCtrl {
 				break;
 			case ESCAPE:
 				clearField();
+				returnHome();
 				break;
 			default:
 				break;
