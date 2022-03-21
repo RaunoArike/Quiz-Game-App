@@ -18,7 +18,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <TextField layoutX="325.0" layoutY="180.0" prefHeight="28.0" prefWidth="164.0">
+      <TextField fx:id="username" layoutX="325.0" layoutY="180.0" prefHeight="28.0" prefWidth="164.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -33,5 +33,10 @@
             <Font size="13.0" />
          </font>
       </Button>
+      <Label fx:id="errorMessage" layoutX="254.0" layoutY="242.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
