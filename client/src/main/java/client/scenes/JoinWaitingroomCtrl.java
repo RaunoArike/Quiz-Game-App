@@ -17,9 +17,6 @@ public class JoinWaitingroomCtrl {
 	private TextField username;
 
 	@FXML
-	private TextField gamePin;
-
-	@FXML
 	private Label errorMessage;
 
 	@Inject
