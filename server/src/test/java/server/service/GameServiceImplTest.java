@@ -27,14 +27,15 @@ public class GameServiceImplTest {
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
-
+	@Mock
+	private PlayerService playerService;
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
 
 	private GameServiceImpl createService() {
-		return new GameServiceImpl(questionService, outgoingController);
+		return new GameServiceImpl(questionService, outgoingController, playerService);
 	}
 
 	@Test

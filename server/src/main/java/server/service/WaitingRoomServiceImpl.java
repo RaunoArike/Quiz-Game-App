@@ -44,4 +44,8 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		//TODO
 		return null;
 	}
+
+	@Override
+	public void resetWaitingRoom() {
+	}
 }

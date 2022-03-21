@@ -5,10 +5,12 @@ import server.model.Player;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
-
+	private int nextPlayerId = 0;
 	@Override
-	public Player playerGeneration(String playerName) {
-		Player player = new Player(playerName, 0);
+	public Player generatePlayer(String playerName) {
+		var playerId = nextPlayerId++;
+		var player = new Player(playerName, playerId);
 		return player;
 	}
+
 }

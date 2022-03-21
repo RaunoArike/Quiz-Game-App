@@ -18,8 +18,11 @@ public interface WaitingRoomService {
 
 	/**
 	 * The game of the given waiting room is started by one of the players
-	 * @return
+	 * @return returns the player id starting the game
 	 */
 	Object startMultiplayerGame();
-	///Resetting the waiting room
+
+	/** Resets the waiting room
+	 */
+	void resetWaitingRoom();
 }
