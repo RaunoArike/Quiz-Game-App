@@ -8,6 +8,7 @@ import server.api.OutgoingController;
 import server.model.Game;
 import server.model.Player;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class GameServiceImpl implements GameService {
 		var player = new Player(userName);
 
 		var gameId = nextGameId++;
-		var game = new Game(gameId);
+		var game = new Game(gameId, new TimerService(gameId));
 		game.addPlayer(playerId, player);
 
 		players.put(playerId, gameId);
@@ -53,9 +54,10 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
+		int timePassed = game.getTimerService().stopTimer();
 		var currentQuestion = game.getCurrentQuestion();
 
-		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer());
+		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(), timePassed);
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
@@ -65,9 +67,11 @@ public class GameServiceImpl implements GameService {
 	}
 
 	private void startNewQuestion(Game game) {
-		var question = questionService.generateQuestion(game.getGameId());
+		var gameId = game.getGameId();
+		var question = questionService.generateQuestion(gameId);
 		game.startNewQuestion(question);
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
+		game.getTimerService().startTimer();
 	}
 
 	private void cleanUpGame(Game game) {
