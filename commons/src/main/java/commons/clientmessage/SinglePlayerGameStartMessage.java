@@ -1,8 +1,3 @@
 package commons.clientmessage;
 
-import lombok.Data;
-
-@Data
-public class SinglePlayerGameStartMessage {
-	private final String username;
-}
+public record SinglePlayerGameStartMessage(String username) { }

@@ -21,7 +21,6 @@ public class GameServiceImpl implements GameService {
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
 	private int nextGameId = 0;
-	private int nextPlayerId = 0;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController) {
 		this.questionService = questionService;
@@ -29,8 +28,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public int startSinglePlayerGame(String userName) {
-		var playerId = nextPlayerId++;
+	public void startSinglePlayerGame(int playerId, String userName) {
 		var player = new Player(userName);
 
 		var gameId = nextGameId++;
@@ -41,8 +39,6 @@ public class GameServiceImpl implements GameService {
 		games.put(gameId, game);
 
 		startNewQuestion(game);
-
-		return playerId;
 	}
 
 	@Override
