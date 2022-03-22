@@ -2,23 +2,22 @@ package server.model;
 
 import commons.model.Question;
 import org.springframework.lang.Nullable;
-import server.service.TimerService;
 
 import java.util.*;
 
 public class Game {
 	public static final int QUESTIONS_PER_GAME = 20;
+	public static final int TIMER_DELAY = 100;
 
 	private final int gameId;
-	private final TimerService timerService;
 
 	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
 	private int questionNumber = -1;
+	private long questionStartTime = 0;
 	private Question currentQuestion;
 
-	public Game(int gameId, TimerService timerService) {
+	public Game(int gameId) {
 		this.gameId = gameId;
-		this.timerService = timerService;
 	}
 
 	public void addPlayer(int playerId, Player player) {
@@ -55,5 +54,18 @@ public class Game {
 		return currentQuestion;
 	}
 
-	public TimerService getTimerService() { return timerService; }
+	public void startTimer(long currentTime) {
+		new Timer().schedule(
+				new TimerTask() {
+					@Override
+					public void run() {
+					}
+				}, TIMER_DELAY
+		);
+		this.questionStartTime = currentTime;
+	}
+
+	public long getStartTime() {
+		return this.questionStartTime;
+	}
 }

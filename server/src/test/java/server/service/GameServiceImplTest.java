@@ -27,6 +27,8 @@ public class GameServiceImplTest {
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
+	@Mock
+	private TimerService timerService;
 
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
@@ -34,7 +36,7 @@ public class GameServiceImplTest {
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
 
 	private GameServiceImpl createService() {
-		return new GameServiceImpl(questionService, outgoingController);
+		return new GameServiceImpl(questionService, outgoingController, timerService);
 	}
 
 	@Test
@@ -79,7 +81,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void answering_question_should_send_score() {
-		when(questionService.calculateScore(any(), eq(5f))).thenReturn(77);
+		when(questionService.calculateScore(any(), eq(5f), eq(1000))).thenReturn(77);
 
 		var service = createService();
 		var playerId = service.startSinglePlayerGame("abc");
@@ -93,8 +95,8 @@ public class GameServiceImplTest {
 
 	@Test
 	public void answering_second_question_should_send_increased_total_score() {
-		when(questionService.calculateScore(any(), eq(5f))).thenReturn(77);
-		when(questionService.calculateScore(any(), eq(11f))).thenReturn(23);
+		when(questionService.calculateScore(any(), eq(5f), eq(1000))).thenReturn(77);
+		when(questionService.calculateScore(any(), eq(11f), eq(1000))).thenReturn(23);
 
 		var service = createService();
 		var playerId = service.startSinglePlayerGame("abc");
@@ -120,5 +122,13 @@ public class GameServiceImplTest {
 		assertThrows(Exception.class, () -> {
 			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
 		});
+	}
+
+	@Test
+	public void starting_game_should_start_the_timer() {
+		var service = createService();
+		service.startSinglePlayerGame("abc");
+
+		verify(timerService).getTime();
 	}
 }

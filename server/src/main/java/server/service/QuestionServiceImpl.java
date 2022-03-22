@@ -133,42 +133,42 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 	@Override
-	public int calculateScore(Question question, Number answer) {
+	public int calculateScore(Question question, Number answer, long timeSpent) {
 		if (question instanceof Question.MultiChoiceQuestion mc) {
-			return calculateScoreMC(mc, answer.intValue());
+			return calculateScoreMC(mc, answer.intValue(), timeSpent);
 		} else if (question instanceof Question.EstimationQuestion est) {
-			return calculateScoreEst(est, answer.floatValue());
+			return calculateScoreEst(est, answer.floatValue(), timeSpent);
 		} else if (question instanceof Question.ComparisonQuestion comp) {
-			return calculateScoreComp(comp, answer.floatValue());
+			return calculateScoreComp(comp, answer.floatValue(), timeSpent);
 		} else if (question instanceof Question.PickEnergyQuestion pick) {
-			return calculateScorePick(pick, answer.intValue());
+			return calculateScorePick(pick, answer.intValue(), timeSpent);
 		}
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
 		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
 
 	// TODO Consider improving the formula
-	private int calculateScoreEst(Question.EstimationQuestion question, float answer) {
+	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent) {
 		var error = Math.abs(answer - question.getCorrectAnswer());
 		var errorRatio = error / question.getCorrectAnswer();
-		return calculateScoreShared(errorRatio);
+		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreComp(Question.ComparisonQuestion question, float answer) {
+	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent) {
 		float errorRatio;
 		if (answer < question.getCorrectAnswer()) {
 			errorRatio = 1 - (answer / question.getCorrectAnswer());
 		} else {
 			errorRatio = 1 - (question.getCorrectAnswer() / answer);
 		}
-		return calculateScoreShared(errorRatio);
+		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreShared(float errorRatio) {
+	private int calculateScoreShared(float errorRatio, long timeSpent) {
 		if (errorRatio < EST_SCORE_RATIO_GOOD) {
 			return MAX_SCORE;
 		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
@@ -178,7 +178,7 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int calculateScorePick(Question.PickEnergyQuestion question, int answer) {
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent) {
 		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}

@@ -4,31 +4,33 @@ import commons.clientmessage.QuestionAnswerMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
 import server.model.Player;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @EnableScheduling
 public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
+	private final TimerService timerService;
 
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
+	private static final int QUESTION_DELAY = 10;
+
 	private int nextGameId = 0;
 	private int nextPlayerId = 0;
 
-	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController) {
+	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
+			TimerService timerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
+		this.timerService = timerService;
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class GameServiceImpl implements GameService {
 		var player = new Player(userName);
 
 		var gameId = nextGameId++;
-		var game = new Game(gameId, new TimerService(gameId));
+		var game = new Game(gameId);
 		game.addPlayer(playerId, player);
 
 		players.put(playerId, gameId);
@@ -56,10 +58,11 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		int timePassed = game.getTimerService().stopTimer();
+		long timePassed = timerService.getTime();
 		var currentQuestion = game.getCurrentQuestion();
 
-		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(), timePassed);
+		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
+				game.getStartTime() - timePassed);
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
@@ -71,9 +74,17 @@ public class GameServiceImpl implements GameService {
 	private void startNewQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
-		game.startNewQuestion(question);
-		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
-		game.getTimerService().startTimer();
+		new Timer().schedule(
+				new TimerTask() {
+					@Override
+					public void run() {
+						game.startNewQuestion(question);
+						outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
+								game.getPlayerIds());
+						game.startTimer(timerService.getTime());
+					}
+				}, QUESTION_DELAY
+		);
 	}
 
 	private void cleanUpGame(Game game) {
