@@ -1,13 +1,13 @@
 package client.scenes;
 
+import client.service.ServerService;
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 public class JoinWaitingroomCtrl {
-	private final ServerUtils server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	@FXML
@@ -17,7 +17,7 @@ public class JoinWaitingroomCtrl {
 	private TextField gamePin;
 
 	@Inject
-	public JoinWaitingroomCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public JoinWaitingroomCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}

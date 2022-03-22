@@ -1,16 +1,15 @@
 package client.scenes;
 
+import client.service.ServerService;
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
 
 public class LeaderboardCtrl {
 
-	private final ServerUtils server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
-
 	@Inject
-	public LeaderboardCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public LeaderboardCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}

@@ -1,17 +1,17 @@
 package client.scenes;
 
+import client.service.ServerService;
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
 
-public class OpeningCtrl  {
+public class OpeningCtrl {
 
-	private final ServerUtils server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	/**Shared controller class for OpeningScreen and EndingScreen */
 
 	@Inject
-	public OpeningCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public OpeningCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}
