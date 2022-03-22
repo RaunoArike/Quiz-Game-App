@@ -7,8 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
-import java.text.BreakIterator;
-
 public class JoinWaitingroomCtrl {
 	private final ServerServiceImpl server;
 	private final MainCtrl mainCtrl;
