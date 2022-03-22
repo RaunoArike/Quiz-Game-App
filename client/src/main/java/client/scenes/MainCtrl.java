@@ -133,8 +133,8 @@ public class MainCtrl {
 	}
 
 	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
-		String textActivity1 = q.getActivities().get(0).getName();
-		String textActivity2 = q.getActivities().get(1).getName();
+		String textActivity1 = q.activities().get(0).name();
+		String textActivity2 = q.activities().get(1).name();
 		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
 		this.comparisonScreenCtrl.setQuestion(textQuestion);
 		this.comparisonScreenCtrl.setScore(score);
@@ -144,7 +144,7 @@ public class MainCtrl {
 	}
 
 	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
-		String textQuestion = "Estimate the amount of energy it takes to " + q.getActivity().getName();
+		String textQuestion = "Estimate the amount of energy it takes to " + q.activity().name();
 		this.estimationScreenCtrl.setQuestion(textQuestion);
 		this.comparisonScreenCtrl.setScore(score);
 		questionNumber++;
@@ -155,9 +155,9 @@ public class MainCtrl {
 	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {
 		String textQuestion = "Which of the following takes the most energy?";
 		this.multiChoiceScreenCtrl.setQuestion(textQuestion);
-		String a = q.getActivities().get(0).getName();
-		String b = q.getActivities().get(1).getName();
-		String c = q.getActivities().get(2).getName();
+		String a = q.activities().get(0).name();
+		String b = q.activities().get(1).name();
+		String c = q.activities().get(2).name();
 		this.multiChoiceScreenCtrl.setAnswerOptions(a, b, c);
 		this.multiChoiceScreenCtrl.setScore(score);
 		questionNumber++;
@@ -166,12 +166,12 @@ public class MainCtrl {
 	}
 
 	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber, int score) {
-		String textActivity = q.getActivity().getName();
+		String textActivity = q.activity().name();
 		String textQuestion = "How much energy does " + textActivity + " take?";
 		this.pickEnergyScreenCtrl.setQuestion(textQuestion);
-		String a = q.getAnswerOptions().get(0).toString();
-		String b = q.getAnswerOptions().get(1).toString();
-		String c = q.getAnswerOptions().get(2).toString();
+		String a = q.answerOptions().get(0).toString();
+		String b = q.answerOptions().get(1).toString();
+		String c = q.answerOptions().get(2).toString();
 		this.pickEnergyScreenCtrl.setOptions(a, b, c);
 		this.pickEnergyScreenCtrl.setScore(score);
 		questionNumber++;
