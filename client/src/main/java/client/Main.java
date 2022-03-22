@@ -50,7 +50,6 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
 		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");

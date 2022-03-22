@@ -1,7 +1,7 @@
 package client.scenes;
 
-import com.google.inject.Inject;
 import client.service.ServerService;
+import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;

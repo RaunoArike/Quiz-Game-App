@@ -2,7 +2,7 @@ package client.scenes;
 
 import com.google.inject.Inject;
 
-public class OpeningCtrl  {
+public class OpeningCtrl {
 
 	private final MainCtrl mainCtrl;
 
