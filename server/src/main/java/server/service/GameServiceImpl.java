@@ -6,6 +6,7 @@ import commons.servermessage.ScoreMessage;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
+import server.model.Player;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,31 +17,33 @@ public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
 	private final PlayerService playerService;
+
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
 	private int nextGameId = 0;
+
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-		PlayerService playerService) {
+			PlayerService playerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
 		this.playerService = playerService;
 	}
 
 	@Override
-	public int startSinglePlayerGame(String userName) {
+	public void startSinglePlayerGame(int playerId, String userName) {
+		var player = new Player(userName);
+
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
-		var player = playerService.generatePlayer(userName);
-		game.addPlayer(player.getPlayerId(), player);
+		game.addPlayer(playerId, player);
 
-		players.put(player.getPlayerId(), gameId);
+		players.put(playerId, gameId);
 		games.put(gameId, game);
 
 		startNewQuestion(game);
-
-		return player.getPlayerId();
 	}
+
 	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
 		var game = getPlayerGame(playerId);
@@ -59,8 +62,8 @@ public class GameServiceImpl implements GameService {
 		if (!game.isLastQuestion()) startNewQuestion(game);
 		else cleanUpGame(game);
 	}
-	@Override
-	public void startNewQuestion(Game game) {
+
+	private void startNewQuestion(Game game) {
 		var question = questionService.generateQuestion(game.getGameId());
 		game.startNewQuestion(question);
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
