@@ -85,7 +85,7 @@ public class GameServiceImplTest {
 
 		var service = createService();
 		var playerId = service.startSinglePlayerGame("abc");
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 420));
+		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 1000));
 
 		verify(outgoingController).sendScore(
 				new ScoreMessage(77, 77),
@@ -100,8 +100,8 @@ public class GameServiceImplTest {
 
 		var service = createService();
 		var playerId = service.startSinglePlayerGame("abc");
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 420));
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 11f, 840));
+		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 1000));
+		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 11f, 1000));
 
 		verify(outgoingController, times(2)).sendScore(
 				correctAnswerMessageCaptor.capture(),
