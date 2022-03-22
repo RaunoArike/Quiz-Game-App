@@ -12,7 +12,7 @@
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <ProgressBar layoutX="177.0" layoutY="326.0" prefHeight="18.0" prefWidth="258.0" progress="0.0" />
+            <ProgressBar fx:id="timerProgress" layoutX="177.0" layoutY="326.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" />
             <Text layoutX="109.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
             <Text layoutX="39.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
                <font>
@@ -39,11 +39,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="148.0" layoutY="325.0" text="10">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
+            <Text fx:id="number" layoutX="149.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
          </children>
       </AnchorPane>
    </children>

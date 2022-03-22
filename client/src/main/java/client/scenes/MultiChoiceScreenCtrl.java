@@ -30,14 +30,15 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 
 	public void optionAClicked() {
 		//return to a mainctrl answer method with a specific parameter
+		timeStop();
 	}
 
 	public void optionBClicked() {
-
+		timeStop();
 	}
 
 	public void optionCClicked() {
-
+		timeStop();
 	}
 
 	public void useEliminateOption() {

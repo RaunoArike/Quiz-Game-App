@@ -16,6 +16,6 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	}
 
 	public void sendAnswer() {
-
+		timeStop();
 	}
 }

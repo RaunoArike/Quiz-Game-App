@@ -21,6 +21,7 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	}
 
 	public void answerEntered() {
+		timeStop();
 	}
 
 }

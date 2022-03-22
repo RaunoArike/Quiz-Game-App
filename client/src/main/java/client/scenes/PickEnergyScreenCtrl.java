@@ -38,11 +38,14 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAclicked() {
+		timeStop();
 	}
 
 	public void optionBclicked() {
+		timeStop();
 	}
 
 	public void optionCclicked() {
+		timeStop();
 	}
 }
