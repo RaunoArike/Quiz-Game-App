@@ -1,10 +1,10 @@
-# Agenda - week 6
+# Agenda - week 7
 
 Date: 		22th March 2022\
 Time: 		14:45-15:45\
 Main Focus:		Development Week\
 Chairman: 		Ye Zhao\
-Secretary:		Max Tanis
+Secretary:		Sucharitha Rajesh
 
 ## Opening
 
