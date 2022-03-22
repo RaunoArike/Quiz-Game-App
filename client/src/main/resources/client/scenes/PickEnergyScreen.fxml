@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.image.ImageView?>
@@ -8,13 +9,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PickEnergyScreenCtrl">
    <children>
-      <Text layoutX="39.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;How much das X take?&quot; ">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
       <ProgressBar layoutX="177.0" layoutY="326.0" prefHeight="18.0" prefWidth="258.0" progress="0.0" />
       <Text layoutX="109.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
       <Text layoutX="147.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" wrappingWidth="18.537506103515625" />
@@ -23,17 +19,36 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-      <Button layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="eliminateOption" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePoints" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="66.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
-      <RadioButton layoutX="348.0" layoutY="153.0" mnemonicParsing="false" text="A" />
-      <RadioButton layoutX="348.0" layoutY="191.0" mnemonicParsing="false" text="B" />
-      <RadioButton layoutX="348.0" layoutY="228.0" mnemonicParsing="false" text="C" />
-      <Text layoutX="508.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score:" wrappingWidth="47.6063232421875">
+      <RadioButton fx:id="optionA" layoutX="348.0" layoutY="153.0" mnemonicParsing="false" onAction="#optionAclicked" text="A" />
+      <RadioButton fx:id="optionB" layoutX="348.0" layoutY="191.0" mnemonicParsing="false" onAction="#optionBclicked" text="B" />
+      <RadioButton fx:id="optionC" layoutX="348.0" layoutY="228.0" mnemonicParsing="false" onAction="#optionCclicked" text="C" />
+      <Label fx:id="questionText" layoutX="53.0" layoutY="23.0" prefHeight="48.0" prefWidth="419.0" text="How much does X take?">
          <font>
-            <Font size="14.0" />
+            <Font size="24.0" />
          </font>
-      </Text>
+      </Label>
+      <Label fx:id="score" layoutX="455.0" layoutY="23.0" prefHeight="32.0" prefWidth="106.0" text="Score:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="optionAtext" layoutX="402.0" layoutY="146.0" prefHeight="32.0" prefWidth="106.0" text="OptionA">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="optionBtext" layoutX="402.0" layoutY="184.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="optionCtext" layoutX="402.0" layoutY="221.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
