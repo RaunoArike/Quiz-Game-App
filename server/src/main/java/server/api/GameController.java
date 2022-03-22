@@ -2,6 +2,7 @@ package server.api;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
+import commons.clientmessage.WaitingRoomJoinMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -37,6 +38,12 @@ public class GameController {
 	public void startMPGame(@Payload SimpMessageHeaderAccessor headerAcc) throws NullPointerException {
 		Map<String, Object> attrs = headerAcc.getSessionAttributes();
 		attrs.put("player", waitingRoomService.startMultiplayerGame());
+	}
+
+	@MessageMapping("/join-waiting-room")
+	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, Principal principal) {
+		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
+		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username());
 	}
 
 	@MessageMapping("/submit-answer")
