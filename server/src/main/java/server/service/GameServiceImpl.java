@@ -32,7 +32,7 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
-		var player = new Player(userName);
+		var player = new Player(userName, playerId);
 
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
