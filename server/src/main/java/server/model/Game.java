@@ -7,7 +7,6 @@ import java.util.*;
 
 public class Game {
 	public static final int QUESTIONS_PER_GAME = 20;
-	public static final int TIMER_DELAY = 100;
 
 	private final int gameId;
 
@@ -55,14 +54,7 @@ public class Game {
 	}
 
 	public void startTimer(long currentTime) {
-		new Timer().schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-					}
-				}, TIMER_DELAY
-		);
-		this.questionStartTime = currentTime;
+		this.questionStartTime = currentTime + 100;
 	}
 
 	public long getStartTime() {
