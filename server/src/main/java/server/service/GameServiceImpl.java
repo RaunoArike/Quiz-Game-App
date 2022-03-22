@@ -24,7 +24,6 @@ public class GameServiceImpl implements GameService {
 	private static final int QUESTION_DELAY = 10;
 
 	private int nextGameId = 0;
-	private int nextPlayerId = 0;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
 			TimerService timerService) {
@@ -34,8 +33,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public int startSinglePlayerGame(String userName) {
-		var playerId = nextPlayerId++;
+	public void startSinglePlayerGame(int playerId, String userName) {
 		var player = new Player(userName);
 
 		var gameId = nextGameId++;
@@ -46,8 +44,6 @@ public class GameServiceImpl implements GameService {
 		games.put(gameId, game);
 
 		startNewQuestion(game);
-
-		return playerId;
 	}
 
 	@Override

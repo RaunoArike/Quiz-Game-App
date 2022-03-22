@@ -147,23 +147,23 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
-		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
+		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
 
 	// TODO Consider improving the formula
 	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent) {
-		var error = Math.abs(answer - question.getCorrectAnswer());
-		var errorRatio = error / question.getCorrectAnswer();
+		var error = Math.abs(answer - question.correctAnswer());
+		var errorRatio = error / question.correctAnswer();
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
 	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent) {
 		float errorRatio;
-		if (answer < question.getCorrectAnswer()) {
-			errorRatio = 1 - (answer / question.getCorrectAnswer());
+		if (answer < question.correctAnswer()) {
+			errorRatio = 1 - (answer / question.correctAnswer());
 		} else {
-			errorRatio = 1 - (question.getCorrectAnswer() / answer);
+			errorRatio = 1 - (question.correctAnswer() / answer);
 		}
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
@@ -179,7 +179,7 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent) {
-		if (question.getCorrectAnswer() == answer) return MAX_SCORE;
+		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
 }
