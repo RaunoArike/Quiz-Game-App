@@ -93,38 +93,9 @@ public class MainCtrl {
 		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
 		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
 
-		//showComparisonScreen();
-		//showPickEnergyScreen();
-		//showMultiChoiceScreen();
 		showServerAddress();
-		//showEstimationScreen();
 		primaryStage.show();
 	}
-
-	private void showEstimationScreen() {
-		primaryStage.setTitle("test time limiter");
-		primaryStage.setScene(estimationScreen);
-		estimationScreenCtrl.callTimeLimiter();
-	}
-
-	private void showComparisonScreen() {
-		primaryStage.setTitle("test time limiter");
-		primaryStage.setScene(comparisonScreen);
-		comparisonScreenCtrl.callTimeLimiter();
-	}
-
-	private void showMultiChoiceScreen() {
-		primaryStage.setTitle("test time limiter");
-		primaryStage.setScene(multiChoiceScreen);
-		multiChoiceScreenCtrl.callTimeLimiter();
-	}
-
-	private void showPickEnergyScreen() {
-		primaryStage.setTitle("test time limiter");
-		primaryStage.setScene(pickEnergyScreen);
-		pickEnergyScreenCtrl.callTimeLimiter();
-	}
-
 
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
