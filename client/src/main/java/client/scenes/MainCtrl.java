@@ -138,6 +138,7 @@ public class MainCtrl {
 		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
 		this.comparisonScreenCtrl.setQuestion(textQuestion);
 		this.comparisonScreenCtrl.setScore(score);
+		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(comparisonScreen);
 	}
@@ -146,6 +147,7 @@ public class MainCtrl {
 		String textQuestion = "Estimate the amount of energy it takes to " + q.getActivity().getName();
 		this.estimationScreenCtrl.setQuestion(textQuestion);
 		this.comparisonScreenCtrl.setScore(score);
+		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(estimationScreen);
 	}
@@ -158,6 +160,7 @@ public class MainCtrl {
 		String c = q.getActivities().get(2).getName();
 		this.multiChoiceScreenCtrl.setAnswerOptions(a, b, c);
 		this.multiChoiceScreenCtrl.setScore(score);
+		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(multiChoiceScreen);
 	}
@@ -171,6 +174,7 @@ public class MainCtrl {
 		String c = q.getAnswerOptions().get(2).toString();
 		this.pickEnergyScreenCtrl.setOptions(a, b, c);
 		this.pickEnergyScreenCtrl.setScore(score);
+		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(pickEnergyScreen);
 	}
