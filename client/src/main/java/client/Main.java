@@ -19,6 +19,8 @@ import static com.google.inject.Guice.createInjector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import client.service.MessageLogicService;
 import com.google.inject.Injector;
 
 // import client.scenes.AddQuoteCtrl;
@@ -65,5 +67,7 @@ public class Main extends Application {
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress,
 		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen);
+
+		INJECTOR.getInstance(MessageLogicService.class);
 	}
 }
