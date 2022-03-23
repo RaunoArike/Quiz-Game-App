@@ -47,6 +47,11 @@ public class ActivityServiceImplTest {
 	}
 
 	@Test
+	public void provideActivities_should_return_a_list_of_all_activities_in_repo() {
+
+	}
+
+	@Test
 	public void removeAllActivities_should_delete_activities_from_repo() {
 		var service = createService();
 		service.removeAllActivities();

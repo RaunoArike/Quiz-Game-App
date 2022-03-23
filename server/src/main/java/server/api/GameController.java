@@ -14,6 +14,9 @@ import server.service.WaitingRoomService;
 import java.security.Principal;
 import java.util.Map;
 
+/**
+ * A controller for client to server communication during the game
+ */
 @Controller
 @RequestMapping
 public class GameController {
@@ -28,24 +31,48 @@ public class GameController {
 		this.connectionRegistry = connectionRegistry;
 	}
 
+	/**
+	 * Starts a new single-player game
+	 *
+	 * @param startMessage message to the server containing the username of the player
+	 * @param principal contains the connection id
+	 */
 	@MessageMapping("/start-single-player")
 	public void startSPGame(@Payload SinglePlayerGameStartMessage startMessage, Principal principal) {
 		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
 		gameService.startSinglePlayerGame(playerId, startMessage.username());
 	}
 
+	/**
+	 * Starts a new multi-player game
+	 *
+	 * @param headerAcc a header accessor for access to session attributes for each player
+	 * @throws NullPointerException
+	 */
 	@MessageMapping("/start-multiplayer-player")
 	public void startMPGame(@Payload SimpMessageHeaderAccessor headerAcc) throws NullPointerException {
 		Map<String, Object> attrs = headerAcc.getSessionAttributes();
 		attrs.put("player", waitingRoomService.startMultiplayerGame());
 	}
 
+	/**
+	 * Adds the player to the waiting room
+	 *
+	 * @param waitingRoomJoinMessage A message containing the player's username
+	 * @param principal contains the connection id
+	 */
 	@MessageMapping("/join-waiting-room")
 	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, Principal principal) {
 		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
 		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username());
 	}
 
+	/**
+	 * Submits the player's answer to the server
+	 *
+	 * @param answerMessage a message containing the player's answer
+	 * @param principal contains the connection id
+	 */
 	@MessageMapping("/submit-answer")
 	public void submitAnswer(@Payload QuestionAnswerMessage answerMessage, Principal principal) {
 		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());

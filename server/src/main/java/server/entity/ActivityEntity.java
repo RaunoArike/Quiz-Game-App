@@ -39,4 +39,16 @@ public class ActivityEntity {
 	public Activity toModel() {
 		return new Activity(name, imageUrl, energyInWh);
 	}
+
+	public void setName(@NonNull String name) {
+		this.name = name;
+	}
+
+	public void setImageUrl(@Nullable String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public void setEnergyInWh(float energyInWh) {
+		this.energyInWh = energyInWh;
+	}
 }

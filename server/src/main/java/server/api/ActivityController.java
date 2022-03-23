@@ -6,6 +6,9 @@ import server.service.ActivityService;
 
 import java.util.List;
 
+/**
+ * Controller for admin panel interactions
+ */
 @RestController
 @RequestMapping("/api/activities")
 public class ActivityController {
@@ -13,6 +16,16 @@ public class ActivityController {
 
 	public ActivityController(ActivityService activityService) {
 		this.activityService = activityService;
+	}
+
+	/**
+	 * Provides a list of all activities on the server.
+	 *
+	 * @return returns a list of activities
+	 */
+	@GetMapping("/api/admin")
+	public List<Activity> getActivities() {
+		return activityService.provideActivities();
 	}
 
 	/**
@@ -31,5 +44,10 @@ public class ActivityController {
 	@DeleteMapping
 	public void removeAllActivities() {
 		activityService.removeAllActivities();
+	}
+
+	@PutMapping("/api/activities/{id}")
+	public void updateActivity(@PathVariable long id, Activity activity) {
+		activityService.updateActivity(id, activity);
 	}
 }
