@@ -40,7 +40,7 @@ public class GameController {
 	@MessageMapping("/join-waiting-room")
 	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, Principal principal) {
 		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
-		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username());
+		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username(), playerId);
 	}
 
 	@MessageMapping("/submit-answer")

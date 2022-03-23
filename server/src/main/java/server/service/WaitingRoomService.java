@@ -1,7 +1,6 @@
 package server.service;
 
 
-import server.model.Game;
 
 public interface WaitingRoomService {
 	/**
@@ -14,21 +13,12 @@ public interface WaitingRoomService {
 	/**
 	 *Puts the player in the waiting room if not already
 	 * @param playerName The name of the player
-	 * @return the player id
+	 * @param playerId The id of the palyer
 	 */
-	int joinWaitingRoom(String playerName);
+	void joinWaitingRoom(String playerName, int playerId);
 
 	/**
 	 * The game of the given waiting room is started by one of the players
 	 */
 	void startMultiplayerGame();
-
-	/** Resets the waiting room
-	 */
-	void resetWaitingRoom();
-	/**
-	 * Generates a new quesiton for the player in the waiting room
-	 * @param game The current game that is played with the waiting room
-	 */
-	void startNewQuestion(Game game);
 }
