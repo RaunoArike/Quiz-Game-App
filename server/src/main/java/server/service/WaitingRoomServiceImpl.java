@@ -3,7 +3,6 @@ package server.service;
 import commons.servermessage.WaitingRoomStateMessage;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
-import server.model.Game;
 import server.model.Player;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		if (!isInWaitingRoom(playerName)) {
 			Player currentPlayer = new Player(playerName, playerId);
 			listOfPlayers.add(currentPlayer);
+			broadcastNotify();
 		}
 	}
 
@@ -46,6 +46,9 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 
 	private void resetWaitingRoom() {
 		//clears the list of players whilst resetting the number of players
+		listOfPlayers.clear();
+	}
+	private void broadcastNotify() {
 		List<Player>  tempListOfPlayers = new ArrayList<>();
 		int i = 0;
 		int numberOfDummies = listOfPlayers.size();
@@ -54,12 +57,11 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 			tempListOfPlayers.add(currentPlayer);
 			i++;
 		}
-		listOfPlayers.clear();
 		int numberOfPlayers = listOfPlayers.size();
 		WaitingRoomStateMessage waitingRoomStateMessage = new WaitingRoomStateMessage(numberOfPlayers);
 		if (numberOfPlayers != 0) {
 			List<Integer> listOfPlayerIds = new ArrayList<>();
-			for(Player player : listOfPlayers) {
+			for (Player player : listOfPlayers) {
 				listOfPlayerIds.add(player.getPlayerId());
 			}
 			outgoingController.sendWaitingRoomState(waitingRoomStateMessage, listOfPlayerIds);

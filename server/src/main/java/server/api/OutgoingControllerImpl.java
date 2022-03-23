@@ -5,7 +5,6 @@ import commons.servermessage.QuestionMessage;
 import commons.servermessage.WaitingRoomStateMessage;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-import server.model.Player;
 
 import java.util.List;
 

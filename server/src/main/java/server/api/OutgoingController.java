@@ -3,8 +3,6 @@ package server.api;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import commons.servermessage.WaitingRoomStateMessage;
-import org.aspectj.bridge.Message;
-import server.model.Player;
 
 import java.util.List;
 
