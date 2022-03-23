@@ -104,7 +104,6 @@ public class MainCtrl {
 		primaryStage.show();
 	}
 
-
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
 		primaryStage.setScene(leaderboard);
@@ -143,6 +142,8 @@ public class MainCtrl {
 		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(comparisonScreen);
+
+		comparisonScreenCtrl.callTimeLimiter();
 	}
 
 	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
@@ -152,6 +153,8 @@ public class MainCtrl {
 		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(estimationScreen);
+
+		estimationScreenCtrl.callTimeLimiter();
 	}
 
 	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {
@@ -165,6 +168,8 @@ public class MainCtrl {
 		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(multiChoiceScreen);
+
+		multiChoiceScreenCtrl.callTimeLimiter();
 	}
 
 	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber, int score) {
@@ -179,6 +184,8 @@ public class MainCtrl {
 		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(pickEnergyScreen);
+
+		pickEnergyScreenCtrl.callTimeLimiter();
 	}
 
 	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {

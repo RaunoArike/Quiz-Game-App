@@ -39,14 +39,17 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 
 	public void optionAclicked() {
 		server.answerQuestion(0);
+		timeStop();
 	}
 
 	public void optionBclicked() {
 		server.answerQuestion(1);
+		timeStop();
 	}
 
 	public void optionCclicked() {
 		server.answerQuestion(2);
+		timeStop();
 	}
 
 	public void showAnswer(int option) {
