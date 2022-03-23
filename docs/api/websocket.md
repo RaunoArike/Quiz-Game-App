@@ -89,7 +89,7 @@ Informs client that the final question has been sent and the game can be ended.
 ```
 
 
-### Reduce time player
+### Reduce time played
 Informs players in a multi-player game that their time has been reduced due to another player using a joker
 ```
 {
