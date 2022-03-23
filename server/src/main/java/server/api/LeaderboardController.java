@@ -3,7 +3,7 @@ package server.api;
 
 import java.util.List;
 import commons.model.LeaderboardEntry;
-import server.repository.LeaderboardRepository;
+import server.service.LeaderboardService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class LeaderboardController {
 
-	private final LeaderboardRepository repo;
+	private final LeaderboardService leaderboardService;
 
-	public LeaderboardController(LeaderboardRepository repo) {
-		this.repo = repo;
+	public LeaderboardController(LeaderboardService leaderboardService) {
+		this.leaderboardService = leaderboardService;
 	}
 
 	@GetMapping("/api/leaderboard")
 	public List<LeaderboardEntry> getLeaderboard() {
-		//TO DO
-		return null;
+		return leaderboardService.getTopLeaderboardEntries();
 	}
 }

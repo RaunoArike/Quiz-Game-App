@@ -10,7 +10,7 @@ public interface LeaderboardService {
 	 * @param name username of the player
 	 * @param score total score from a single-player game
 	 */
-	void addtoLeaderboard(String name, int score);
+	void addtoLeaderboard(LeaderboardEntry entry);
 
 	/**
 	 * Removes all existing leaderboard entry records from the repository
@@ -22,5 +22,4 @@ public interface LeaderboardService {
 	 * @return list of leaderboard entries
 	 */
 	List<LeaderboardEntry> getTopLeaderboardEntries();
-
 }
