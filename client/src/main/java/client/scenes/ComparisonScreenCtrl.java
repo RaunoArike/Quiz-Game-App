@@ -2,6 +2,7 @@ package client.scenes;
 
 import client.service.ServerService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
@@ -13,6 +14,9 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 
 	@FXML
 	private Label answerMessage;
+
+	@FXML
+	private Button ok;
 
 	@Inject
 	public ComparisonScreenCtrl(ServerService server, MainCtrl mainCtrl) {
