@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 import commons.model.LeaderboardEntry;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class LeaderboardEntity {
 
 	@Id
