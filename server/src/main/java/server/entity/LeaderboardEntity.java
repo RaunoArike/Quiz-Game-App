@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-/** 
+/**
  * DB entity for single-player leaderboard entries
  */
 @Entity
@@ -18,22 +18,22 @@ import javax.persistence.GenerationType;
 @AllArgsConstructor
 public class LeaderboardEntity {
 
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-    @NonNull
+	@NonNull
 	private String name;
 
-    @NonNull
-    private int score;
+	@NonNull
+	private int score;
 
-    public static LeaderboardEntity fromModel(LeaderboardEntry entry) {
-        return new LeaderboardEntity(-1, entry.name(), entry.score());
-    }
+	public static LeaderboardEntity fromModel(LeaderboardEntry entry) {
+		return new LeaderboardEntity(-1, entry.name(), entry.score());
+	}
 
-    public LeaderboardEntry toModel() {
-        return new LeaderboardEntry(name, score);
-    }
+	public LeaderboardEntry toModel() {
+		return new LeaderboardEntry(name, score);
+	}
 
 }
