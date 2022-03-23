@@ -72,7 +72,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void answering_question_should_send_score() {
-		when(questionService.calculateScore(any(), eq(5f), eq(1000))).thenReturn(77);
+		when(questionService.calculateScore(any(), eq(5f), any())).thenReturn(77);
 
 		var service = createService();
 		service.startSinglePlayerGame(30, "abc");
@@ -86,8 +86,8 @@ public class GameServiceImplTest {
 
 	@Test
 	public void answering_second_question_should_send_increased_total_score() {
-		when(questionService.calculateScore(any(), eq(5f), eq(1000))).thenReturn(77);
-		when(questionService.calculateScore(any(), eq(11f), eq(1000))).thenReturn(23);
+		when(questionService.calculateScore(any(), eq(5f), any())).thenReturn(77);
+		when(questionService.calculateScore(any(), eq(11f), any())).thenReturn(23);
 
 		var service = createService();
 		service.startSinglePlayerGame(30, "abc");

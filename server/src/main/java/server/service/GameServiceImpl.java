@@ -21,7 +21,7 @@ public class GameServiceImpl implements GameService {
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
-	private static final int QUESTION_DELAY = 1;
+	private static final int QUESTION_DELAY = 0;
 
 	private int nextGameId = 0;
 
