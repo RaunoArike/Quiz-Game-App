@@ -42,7 +42,7 @@ public class ServerAddressScreenCtrl {
 	}
 
 	public void useDefault() {
-		sendServerAddress(mainCtrl.getDefaultServerAddress());
+		sendServerAddress(mainCtrl.DEFAULT_SERVER_ADDRESS);
 	}
 
 	public void sendServerAddress(String url) {
