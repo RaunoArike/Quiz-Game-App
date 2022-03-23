@@ -20,6 +20,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	}
 
 	public void sendAnswer() {
+		timeStop();
 		server.answerQuestion(Float.parseFloat(answer.getText()));
 		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
 	}
@@ -27,6 +28,5 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
 		String message = "The correct answer was: " + correctAnswer + " kwH. You score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
-		timeStop();
 	}
 }

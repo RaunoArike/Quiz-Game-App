@@ -14,8 +14,8 @@ import java.util.TimerTask;
 
 public abstract class QuestionCtrl {
 
-	private final ServerService server;
-	private final MainCtrl mainCtrl;
+	protected final ServerService server;
+	protected final MainCtrl mainCtrl;
 	private static final int PERIOD = 1000;
 
 	@FXML

@@ -25,10 +25,9 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	}
 
 	public void sendAnswer() {
+		timeStop();
 		server.answerQuestion(Float.parseFloat(answer.getText()));
 		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
-	public void answerEntered() {
-		timeStop();
 	}
 
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
