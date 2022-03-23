@@ -5,14 +5,12 @@ import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import server.service.GameService;
 import server.service.WaitingRoomService;
 
 import java.security.Principal;
-import java.util.Map;
 
 @Controller
 @RequestMapping
@@ -35,9 +33,8 @@ public class GameController {
 	}
 
 	@MessageMapping("/start-multiplayer-player")
-	public void startMPGame(@Payload SimpMessageHeaderAccessor headerAcc) throws NullPointerException {
-		Map<String, Object> attrs = headerAcc.getSessionAttributes();
-		attrs.put("player", waitingRoomService.startMultiplayerGame());
+	public void startMPGame() throws NullPointerException {
+		waitingRoomService.startMultiplayerGame();
 	}
 
 	@MessageMapping("/join-waiting-room")

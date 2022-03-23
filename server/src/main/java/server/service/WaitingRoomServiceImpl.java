@@ -40,14 +40,13 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 	}
 
 	@Override
-	public Object startMultiplayerGame() {
+	public void startMultiplayerGame() {
 		for (Player player : listOfPlayers) {
 			var currentPlayer = player;
 			var playerGame = currentGame;
 			currentGame.addPlayer(currentPlayer.getPlayerId(), currentPlayer);
 			startNewQuestion(currentGame);
 		}
-		return currentGame;
 	}
 
 	@Override
