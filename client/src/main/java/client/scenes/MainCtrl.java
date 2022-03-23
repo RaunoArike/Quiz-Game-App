@@ -33,6 +33,9 @@ public class MainCtrl {
 	private OpeningCtrl openingCtrl;
 	private Scene home;
 
+	private AdminCtrl adminCtrl;
+	private Scene admin;
+
 	private UsernameCtrl usernameCtrl;
 	private Scene username;
 
@@ -54,15 +57,16 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
-	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-	Pair<OpeningCtrl, Parent> openingCtrl,
-	Pair<UsernameCtrl, Parent> usernameCtrl,
-	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
-	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
-	Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
-	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
-	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
+	public void initialize(Stage primaryStage,
+		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
+		Pair<OpeningCtrl, Parent> openingCtrl,
+		Pair<UsernameCtrl, Parent> usernameCtrl,
+		Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
+		Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
+		Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
+		Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
+		Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
+		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
 
 		this.primaryStage = primaryStage;
 

@@ -35,4 +35,7 @@ public class OpeningCtrl  {
 	public void connectToServer() {
 		mainCtrl.showServerAddress();
 	}
+
+	public void adminOption() {
+	}
 }
