@@ -2,6 +2,7 @@ package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.Activity;
+import commons.model.LeaderboardEntry;
 import commons.model.Question;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
@@ -28,13 +29,15 @@ public class GameServiceImplTest {
 	@Mock
 	private OutgoingController outgoingController;
 	private PlayerService playerService = new PlayerServiceImpl();
+	@Mock
+	private LeaderboardService leaderboardService;
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
 
 	private GameServiceImpl createService() {
-		return new GameServiceImpl(questionService, outgoingController, playerService);
+		return new GameServiceImpl(questionService, outgoingController, playerService, leaderboardService);
 	}
 
 	@Test
@@ -107,7 +110,7 @@ public class GameServiceImplTest {
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		}
-
+		verify(leaderboardService).addtoLeaderboard(new LeaderboardEntry("abc", 0));
 		assertThrows(Exception.class, () -> {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		});

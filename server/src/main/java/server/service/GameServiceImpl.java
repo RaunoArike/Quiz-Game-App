@@ -1,6 +1,7 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.model.LeaderboardEntry;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
 	private final PlayerService playerService;
+	private final LeaderboardService leaderboardService;
 
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
@@ -24,10 +26,11 @@ public class GameServiceImpl implements GameService {
 	private int nextGameId = 0;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-			PlayerService playerService) {
+			PlayerService playerService, LeaderboardService leaderboardService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
 		this.playerService = playerService;
+		this.leaderboardService = leaderboardService;
 	}
 
 	@Override
@@ -59,8 +62,12 @@ public class GameServiceImpl implements GameService {
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
 
-		if (!game.isLastQuestion()) startNewQuestion(game);
-		else cleanUpGame(game);
+		if (!game.isLastQuestion()) {
+			startNewQuestion(game);
+		} else {
+			leaderboardService.addtoLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
+			cleanUpGame(game);
+		}
 	}
 
 	private void startNewQuestion(Game game) {
