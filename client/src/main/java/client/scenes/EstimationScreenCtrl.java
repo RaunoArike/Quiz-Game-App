@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.service.ServerService;
+import client.utils.NumberUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -19,15 +20,23 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	@FXML
 	private Label answerMessage;
 
+	@FXML
+	private Label errorMessage;
+
 	@Inject
 	public EstimationScreenCtrl(ServerService server, MainCtrl mainCtrl) {
 		super(server, mainCtrl);
 	}
 
 	public void sendAnswer() {
-		timeStop();
-		server.answerQuestion(Float.parseFloat(answer.getText()));
-		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
+		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
+		if (parsedValue != null) {
+			server.answerQuestion(parsedValue);
+			resetError();
+			timeStop();
+		} else {
+			errorMessage.setText("Invalid value");
+		}
 	}
 
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
@@ -35,4 +44,7 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 		answerMessage.setText(message);
 	}
 
+	public void resetError() {
+		errorMessage.setText("");
+	}
 }

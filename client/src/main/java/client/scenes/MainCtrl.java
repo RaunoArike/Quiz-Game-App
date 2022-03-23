@@ -144,6 +144,7 @@ public class MainCtrl {
 		primaryStage.setScene(comparisonScreen);
 
 		comparisonScreenCtrl.callTimeLimiter();
+		comparisonScreenCtrl.resetError();
 	}
 
 	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
@@ -155,6 +156,7 @@ public class MainCtrl {
 		primaryStage.setScene(estimationScreen);
 
 		estimationScreenCtrl.callTimeLimiter();
+		estimationScreenCtrl.resetError();
 	}
 
 	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {

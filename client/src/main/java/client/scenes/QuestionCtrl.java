@@ -3,14 +3,13 @@ package client.scenes;
 import client.service.ServerService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 public abstract class QuestionCtrl {
 
@@ -34,9 +33,9 @@ public abstract class QuestionCtrl {
 	private ProgressBar timerProgress;
 
 	@FXML
-	private Text number;
+	private Text timerNumber;
 
-	private Timer timer = new Timer();
+	private final Timer timer = new Timer();
 
 	@Inject
 	public QuestionCtrl(ServerService server, MainCtrl mainCtrl) {
@@ -65,9 +64,9 @@ public abstract class QuestionCtrl {
 				if (timeLeft >= progressPercentage) {
 					timeLeft -= progressPercentage;
 					timerProgress.setProgress(timeLeft);
-					number.setText(String.valueOf(Math.round(timerProgress.getProgress() * seconds)));
+					timerNumber.setText(String.valueOf(Math.round(timerProgress.getProgress() * seconds)));
 				} else {
-					number.setText("0");
+					timerNumber.setText("0");
 					timerProgress.setProgress(0);
 				}
 			}
