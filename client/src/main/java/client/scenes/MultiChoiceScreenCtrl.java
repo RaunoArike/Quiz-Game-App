@@ -29,10 +29,13 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 
 	public void optionAClicked() {
 		server.answerQuestion(0);
+		//return to a mainctrl answer method with a specific parameter
+		timeStop();
 	}
 
 	public void optionBClicked() {
 		server.answerQuestion(1);
+		timeStop();
 	}
 
 	public void optionCClicked() {
@@ -51,6 +54,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 		}
+		timeStop();
 	}
 
 	public void useEliminateOption() {

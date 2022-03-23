@@ -104,7 +104,6 @@ public class MainCtrl {
 		primaryStage.show();
 	}
 
-
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
 		primaryStage.setScene(leaderboard);
