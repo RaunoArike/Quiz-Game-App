@@ -5,7 +5,7 @@ import commons.model.Question;
 import commons.model.Question.*;
 import commons.servermessage.*;
 import client.scenes.MainCtrl;
-import client.scenes.QuestionTypes;
+import client.model.QuestionTypes;
 
 import com.google.inject.Inject;
 

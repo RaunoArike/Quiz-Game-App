@@ -1,4 +1,4 @@
-package client.scenes;
+package client.model;
 
 public enum QuestionTypes {
 	COMPARISON,

@@ -19,7 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
+import client.model.QuestionTypes;
 import commons.model.Question.ComparisonQuestion;
 import commons.model.Question.EstimationQuestion;
 import commons.model.Question.MultiChoiceQuestion;
