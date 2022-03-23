@@ -1,42 +1,46 @@
 package client.scenes;
 
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
+import client.service.ServerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 public class JoinWaitingroomCtrl {
-	private final ServerUtils server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	@FXML
 	private TextField username;
 
 	@FXML
-	private TextField gamePin;
+	private Label errorMessage;
 
 	@Inject
-	public JoinWaitingroomCtrl(ServerUtils server, MainCtrl mainCtrl) {
+	public JoinWaitingroomCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}
 
 	//Links to the cancel button
 	public void returnHome() {
+		username.clear();
+		this.errorMessage.setText("");
 		mainCtrl.showHome();
 	}
 
 	//Links to the join button
 	public void join() {
-		// TODO -  call on serverutils method
-		clearField();
-	}
-
-	//Helper method for key functionality
-	public void clearField() {
 		username.clear();
-		gamePin.clear();
+		this.errorMessage.setText("");
+		String username = this.username.getText();
+		if (username != null && !username.isEmpty()) {
+			server.joinWaitingRoom(username);
+		} else {
+			this.errorMessage.setText("Please enter a valid username: ");
+		}
+		this.username.clear();
 	}
 
 	/**
@@ -49,7 +53,6 @@ public class JoinWaitingroomCtrl {
 				join();
 				break;
 			case ESCAPE:
-				clearField();
 				returnHome();
 				break;
 			default:
