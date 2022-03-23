@@ -7,8 +7,11 @@ import commons.servermessage.ErrorMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import commons.servermessage.WaitingRoomStateMessage;
+import javafx.application.Platform;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
@@ -31,7 +34,18 @@ public class ServerServiceImpl implements ServerService {
 		var stomp = new WebSocketStompClient(client);
 		stomp.setMessageConverter(new MappingJackson2MessageConverter());
 		try {
-			return stomp.connect(url, new StompSessionHandlerAdapter() { }).get();
+			return stomp.connect(url, new StompSessionHandlerAdapter() {
+				@Override
+				public void handleException(
+						@NonNull StompSession session,
+						@Nullable StompCommand command,
+						@NonNull StompHeaders headers,
+						@NonNull byte[] payload,
+						@NonNull Throwable exception
+				) {
+					throw new RuntimeException("Websocket handler exception", exception);
+				}
+			}).get();
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		} catch (ExecutionException e) {
@@ -58,25 +72,30 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public boolean connectToServer(String url) {
+	public boolean connectToServer(String serverAddress) {
+		String url = "ws://" + serverAddress + "/websocket";
 		try {
 			session = connect(url);
-			registerForMessages("/topic/question", QuestionMessage.class, message -> {
-				serverListeners.forEach(serverListener -> serverListener.onQuestion(message));
+			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
+				notifyListeners(listener -> listener.onQuestion(message));
 			});
-			registerForMessages("/topic/score", ScoreMessage.class, message -> {
-				serverListeners.forEach(serverListener -> serverListener.onScore(message));
+			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
+				notifyListeners(listener -> listener.onScore(message));
 			});
-			registerForMessages("/topic/waiting-room-state", WaitingRoomStateMessage.class, message -> {
-				serverListeners.forEach(serverListener -> serverListener.onWaitingRoomState(message));
+			registerForMessages("/user/queue/waiting-room-state", WaitingRoomStateMessage.class, message -> {
+				notifyListeners(listener -> listener.onWaitingRoomState(message));
 			});
-			registerForMessages("/topic/error", ErrorMessage.class, message -> {
-				serverListeners.forEach(serverListener -> serverListener.onError(message));
+			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
+				notifyListeners(listener -> listener.onError(message));
 			});
 		} catch (Exception e) {
 			return false;
 		}
 		return true;
+	}
+
+	private void notifyListeners(Consumer<ServerListener> consumer) {
+		Platform.runLater(() -> serverListeners.forEach(consumer));
 	}
 
 	@Override

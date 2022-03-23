@@ -1,7 +1,7 @@
 package client.scenes;
 
 import com.google.inject.Inject;
-import client.service.ServerServiceImpl;
+import client.service.ServerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -13,7 +13,7 @@ public class UsernameCtrl {
 	 * This controller class refers to the username input screen for starting a singleplayer game.
 	 * For multiplayer game refer to JoinWaitingRoomCtrl.
 	 */
-	private final ServerServiceImpl server;
+	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	@FXML
@@ -23,7 +23,7 @@ public class UsernameCtrl {
 	private Label errorMessage;
 
 	@Inject
-	public UsernameCtrl(ServerServiceImpl server, MainCtrl mainCtrl) {
+	public UsernameCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}

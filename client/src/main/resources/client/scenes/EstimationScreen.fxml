@@ -28,7 +28,7 @@
                </font>
             </Text>
             <TextField fx:id="answer" layoutX="408.0" layoutY="154.0" />
-            <Button fx:id="ok" layoutX="463.0" layoutY="200.0" mnemonicParsing="false" onAction="#answerEntered" prefHeight="25.0" prefWidth="91.0" text="OK" />
+            <Button fx:id="ok" layoutX="463.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
             <Label fx:id="questionText" layoutX="34.0" layoutY="27.0" text="How much does X take?">
                <font>
                   <Font size="27.0" />
@@ -39,6 +39,12 @@
                   <Font size="15.0" />
                </font>
             </Label>
+            <Label layoutX="148.0" layoutY="325.0" text="10">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="answerMessage" layoutX="272.0" layoutY="266.0" prefHeight="18.0" prefWidth="258.0" />
             <Text fx:id="number" layoutX="149.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
          </children>
       </AnchorPane>
