@@ -66,39 +66,42 @@ public class MainCtrl {
 		Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
 		Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
 		Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
+		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
+		Pair<AdminCtrl, Parent> adminCtrlParentPair) {
 
-		this.primaryStage = primaryStage;
+			this.primaryStage = primaryStage;
 
-		this.leaderboardCtrl = leaderboardCtrl.getKey();
-		this.leaderboard = new Scene(leaderboardCtrl.getValue());
+			this.leaderboardCtrl = leaderboardCtrl.getKey();
+			this.leaderboard = new Scene(leaderboardCtrl.getValue());
 
-		this.openingCtrl = openingCtrl.getKey();
-		this.home = new Scene(openingCtrl.getValue());
+			this.openingCtrl = openingCtrl.getKey();
+			this.home = new Scene(openingCtrl.getValue());
 
-		this.usernameCtrl = usernameCtrl.getKey();
-		this.username = new Scene(usernameCtrl.getValue());
+			this.usernameCtrl = usernameCtrl.getKey();
+			this.username = new Scene(usernameCtrl.getValue());
 
-		this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
-		this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
+			this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
+			this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
 
-		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
-		this.serverAddress = new Scene(serverAddressCtrl.getValue());
+			this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
+			this.serverAddress = new Scene(serverAddressCtrl.getValue());
 
-		this.comparisonScreenCtrl = comparsionScreenCtrl.getKey();
-		this.comparisonScreen = new Scene(comparsionScreenCtrl.getValue());
+			this.comparisonScreenCtrl = comparsionScreenCtrl.getKey();
+			this.comparisonScreen = new Scene(comparsionScreenCtrl.getValue());
 
-		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
-		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
+			this.estimationScreenCtrl = estimationScreenCtrl.getKey();
+			this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
 
-		this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
-		this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
+			this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
+			this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
 
-		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
-		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+			this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
+			this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
 
-		showServerAddress();
-		primaryStage.show();
+			this.adminCtrl = adminCtrlParentPair.getKey();
+			this.admin = new Scene(adminCtrlParentPair.getValue());
+			showServerAddress();
+			primaryStage.show();
 	}
 
 
