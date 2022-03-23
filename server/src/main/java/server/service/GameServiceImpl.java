@@ -16,20 +16,23 @@ import java.util.Map;
 public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
+	private final PlayerService playerService;
 
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
 	private int nextGameId = 0;
 
-	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController) {
+	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
+			PlayerService playerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
+		this.playerService = playerService;
 	}
 
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
-		var player = new Player(userName);
+		var player = new Player(userName, playerId);
 
 		var gameId = nextGameId++;
 		var game = new Game(gameId);

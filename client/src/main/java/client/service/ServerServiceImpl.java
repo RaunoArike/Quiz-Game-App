@@ -72,7 +72,8 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public boolean connectToServer(String url) {
+	public boolean connectToServer(String serverAddress) {
+		String url = "ws://" + serverAddress + "/websocket";
 		try {
 			session = connect(url);
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
