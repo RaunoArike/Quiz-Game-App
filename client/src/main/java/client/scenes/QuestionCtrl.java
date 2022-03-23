@@ -61,11 +61,13 @@ public abstract class QuestionCtrl {
 			public void run() {
 				final double progressPercentage = 0.05;
 				final double seconds = 20;
+
 				if (timeLeft >= progressPercentage) {
 					timeLeft -= progressPercentage;
 					timerProgress.setProgress(timeLeft);
 					number.setText(String.valueOf(Math.round(timerProgress.getProgress() * seconds)));
-				} else {
+				}
+				else {
 					number.setText("0");
 					timerProgress.setProgress(0);
 				}
