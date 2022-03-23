@@ -29,16 +29,22 @@ Submits the answer to the server.
 ```
 {
     "answerInt": 3,
-    "answerFloat": 3.1,
-    "passedTime": 2500 // In ms
+    "answerFloat": 3.1
 }
 ```
 ### Joker played 
 ```
 {
-    //TODO
+    "joker":"eliminateJoker" //string
 }
 ```
+### Emoji sent 
+```
+{
+    "emoji":2 //number denoting the emoji
+}
+```
+
 
 ## Server -> Client
 
@@ -48,6 +54,9 @@ Informs the client about a new question.
 {
     "question": {...}, // See Question model
     "questionNumber": 19 // Indexed from 0
+    "eliminateJokerAvailable": true,
+    "doublePointsAvailable":false,
+    "reduceTimeAvailable":true
 }
 ```
 ### Correct answer
@@ -58,10 +67,40 @@ Informs the client about the question result.
     "totalScore": 666,
 }
 ```
+### End of game
+Informs client that the final question has been sent and the game can be ended. 
+```
+{
+
+}
+```
+
 ### Waiting room state
 ```
 {
     "noOfPeopleInRoom": "",
+}
+```
+### Intermediate leaderboard
+```
+{
+    "LeaderboardEntries": []  //list of LeaderboardEntries in order
+}
+```
+
+
+### Reduce time player
+Informs players in a multi-player game that their time has been reduced due to another player using a joker
+```
+{
+    "timeLeft":  //ms
+}
+```
+
+### Emoji played
+```
+{
+    "emoji":2 //number denoting the emoji
 }
 ```
 
