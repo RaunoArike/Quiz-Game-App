@@ -41,8 +41,13 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 
 	@Override
 	public Object startMultiplayerGame() {
-		//TODO
-		return null;
+		for (Player player : listOfPlayers) {
+			var currentPlayer = player;
+			var playerGame = currentGame;
+			currentGame.addPlayer(currentPlayer.getPlayerId(), currentPlayer);
+			startNewQuestion(currentGame);
+		}
+		return currentGame;
 	}
 
 	@Override
@@ -50,5 +55,16 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		//clears the list of players whilst resetting the number of players
 		playersInWaitingRoom = 0;
 		listOfPlayers.clear();
+	}
+
+	@Override
+	public void startNewQuestion(Game game) {
+		var noQuestions = 0;
+		var currentQuestion = game.getCurrentQuestion();
+		while (currentQuestion != null
+			&& noQuestions <= game.QUESTIONS_PER_GAME) {
+			startNewQuestion(game);
+			noQuestions++;
+		}
 	}
 }

@@ -1,6 +1,8 @@
 package server.service;
 
 
+import server.model.Game;
+
 public interface WaitingRoomService {
 	/**
 	 *Check if the given player by their name is in the waiting room
@@ -25,4 +27,10 @@ public interface WaitingRoomService {
 	/** Resets the waiting room
 	 */
 	void resetWaitingRoom();
+
+	/**
+	 * Generates a new quesiton for the player in the waiting room
+	 * @param game The current game that is played with the waiting room
+	 */
+	void startNewQuestion(Game game);
 }
