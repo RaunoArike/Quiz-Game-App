@@ -59,6 +59,8 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
+	private final String defaultServerAddress = "localhost:8080";
+
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 	Pair<OpeningCtrl, Parent> openingCtrl,
 	Pair<UsernameCtrl, Parent> usernameCtrl,
@@ -192,6 +194,10 @@ public class MainCtrl {
 		if (type == QuestionTypes.PICK_ENERGY) {
 			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
 		}
+	}
+
+	public String getDefaultServerAddress() {
+		return defaultServerAddress;
 	}
 
 }

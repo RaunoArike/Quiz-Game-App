@@ -42,7 +42,7 @@ public class ServerAddressScreenCtrl {
 	}
 
 	public void useDefault() {
-		sendServerAddress("localhost:8080");
+		sendServerAddress(mainCtrl.getDefaultServerAddress());
 	}
 
 	public void sendServerAddress(String url) {

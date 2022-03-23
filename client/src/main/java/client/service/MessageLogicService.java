@@ -30,6 +30,7 @@ public class MessageLogicService implements ServerListener {
 	 * Called when new question starts
 	 * @param message message with new question details
 	 */
+	@Override
 	public void onQuestion(QuestionMessage message) {
 		int questionNumber = message.questionNumber();
 		Question question = message.question();
@@ -63,6 +64,7 @@ public class MessageLogicService implements ServerListener {
 	 * Called when question ends
 	 * @param message message with player's score
 	 */
+	@Override
 	public void onScore(ScoreMessage message) {
 		this.score = message.totalScore();
 		mainCtrl.showAnswer(currentType, correctAnswer, message.questionScore());
@@ -72,6 +74,7 @@ public class MessageLogicService implements ServerListener {
 	 * Called when waiting room state is updated
 	 * @param message message with waiting room details
 	 */
+	@Override
 	public void onWaitingRoomState(WaitingRoomStateMessage message) {
 
 	}
@@ -80,6 +83,7 @@ public class MessageLogicService implements ServerListener {
 	 * Called when error occurs at the server side
 	 * @param message message with error details
 	 */
+	@Override
 	public void onError(ErrorMessage message) {
 
 	}
