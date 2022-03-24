@@ -16,12 +16,12 @@ public class OpeningCtrl  {
 		this.mainCtrl = mainCtrl;
 	}
 
-	public void adminOption() {
-		mainCtrl.showAdminPanel();
-	}
 
 	public void goToLeaderboard() {
 		mainCtrl.showLeaderboard();
+	}
+	public void adminOption() {
+		mainCtrl.showAdminPanel();
 	}
 
 	public void startNewSingleGame() {
