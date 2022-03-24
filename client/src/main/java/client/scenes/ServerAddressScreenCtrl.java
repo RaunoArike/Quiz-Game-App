@@ -31,9 +31,10 @@ public class ServerAddressScreenCtrl {
 	@FXML
 	private Button defaultButton;
 
+
 	public static String url;
 
-	
+
 	public void ok() {
 		url = this.serverAddress.getText();
 		sendServerAddress(url);
