@@ -51,8 +51,8 @@ public abstract class QuestionCtrl {
 		this.questionText.setText(questionText);
 	}
 
-	public void setScore(int score) {
-		String scoreText = "Score: " + score;
+	public void setScore(int scoreNumber) {
+		String scoreText = "Score: " + scoreNumber;
 		this.score.setText(scoreText);
 	}
 
