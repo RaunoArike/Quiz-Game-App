@@ -42,7 +42,8 @@ public class GameServiceImplTest {
 	private ArgumentCaptor<Runnable> runnableCaptor;
 
 	private GameServiceImpl createService(TimerService timerService) {
-		return new GameServiceImpl(questionService, outgoingController, playerService, leaderboardService, timerService);
+		return new GameServiceImpl(questionService, outgoingController, playerService,
+			leaderboardService, timerService);
 	}
 
 	@Test
