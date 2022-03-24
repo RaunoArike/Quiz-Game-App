@@ -3,12 +3,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" layoutX="104.0" layoutY="45.0" prefHeight="90.0" prefWidth="392.0" text="ADMIN" textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS">
+      <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="61.0" prefWidth="134.0" text="ADMIN" textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS" wrapText="true">
          <font>
             <Font size="40.0" />
          </font>
@@ -16,10 +18,17 @@
       <ButtonBar layoutX="61.0" layoutY="246.0" prefHeight="40.0" prefWidth="68.0" />
       <ButtonBar layoutX="257.0" layoutY="246.0" prefHeight="40.0" prefWidth="57.0" />
       <ButtonBar layoutX="453.0" layoutY="246.0" prefHeight="40.0" prefWidth="76.0" />
-    <Button cancelButton="true" layoutX="411.0" layoutY="77.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="156.0" text="RETURN HOME" />
-      <Button layoutX="34.0" layoutY="217.0" mnemonicParsing="false" text="DISPLAY ACTIVITIES" />
-      <Button layoutX="193.0" layoutY="217.0" mnemonicParsing="false" text="ADD ACTIVITY" />
-      <Button layoutX="338.0" layoutY="217.0" mnemonicParsing="false" text="REMOVE ACTIVITY" />
-      <Button layoutX="473.0" layoutY="217.0" mnemonicParsing="false" text="UPDATE ACTIVITY" />
+    <Button cancelButton="true" layoutX="17.0" layoutY="346.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="156.0" text="RETURN HOME" />
+      <Button layoutX="27.0" layoutY="200.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="DISPLAY ACTIVITIES" />
+      <Button layoutX="27.0" layoutY="233.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="ADD ACTIVITY" />
+      <Button layoutX="28.0" layoutY="310.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="REMOVE ACTIVITY" />
+      <Button layoutX="27.0" layoutY="273.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="UPDATE ACTIVITY" />
+      <TableView layoutX="244.0" layoutY="14.0" prefHeight="380.0" prefWidth="335.0">
+        <columns>
+          <TableColumn prefWidth="31.20001220703125" text="#" />
+            <TableColumn prefWidth="119.20001220703125" text="NAME" />
+            <TableColumn prefWidth="182.40001220703124" text="ENEDGY IN Wh" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
