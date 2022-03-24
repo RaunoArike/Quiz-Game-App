@@ -20,9 +20,8 @@ public class OpeningCtrl  {
 	public void goToLeaderboard() {
 		mainCtrl.showLeaderboard();
 	}
-	public void adminOption() {
-		mainCtrl.showAdminPanel();
-	}
+
+
 
 	public void startNewSingleGame() {
 		mainCtrl.showUsername();
@@ -31,7 +30,9 @@ public class OpeningCtrl  {
 	public void startNewMultiGame() {
 		mainCtrl.showJoinWaitingroom();
 	}
-
+	public void adminOption() {
+		mainCtrl.showAdminPanel();
+	}
 	public void returnHome() {
 		mainCtrl.showHome();
 	}
