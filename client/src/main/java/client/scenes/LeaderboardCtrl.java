@@ -2,7 +2,6 @@ package client.scenes;
 
 import client.service.ServerService;
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
 import commons.model.LeaderboardEntry;
 
 import javafx.beans.property.SimpleIntegerProperty;

@@ -137,6 +137,8 @@ public class ServerServiceImpl implements ServerService {
 				.target("http://localhost:8080/").path("api/leaderboard") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
-				.get(new GenericType<>() {});
+				.get(new GenericType<>() {
+
+				});
 	}
 }
