@@ -1,6 +1,8 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.model.LeaderboardEntry;
+import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import org.springframework.stereotype.Service;
@@ -75,6 +77,13 @@ public class GameServiceImpl implements GameService {
 		var question = questionService.generateQuestion(game.getGameId());
 		game.startNewQuestion(question);
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
+	}
+
+	private void showIntermediateLeaderboard(Game game) {
+		List<LeaderboardEntry> list = null;
+		outgoingController.sendIntermediateLeaderboard(new IntermediateLeaderboardMessage(list), game.getPlayerIds());
+
+		startNewQuestion(game);
 	}
 
 	private void cleanUpGame(Game game) {

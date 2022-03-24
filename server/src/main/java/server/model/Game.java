@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class Game {
 	public static final int QUESTIONS_PER_GAME = 20;
+	public static final int LEADERBOARD_DISPLAY_FREQUENCY = 5;
 
 	private final int gameId;
 
@@ -52,6 +53,12 @@ public class Game {
 
 	public boolean isLastQuestion() {
 		return questionNumber == QUESTIONS_PER_GAME - 1;
+	}
+
+	public boolean isIntermediateLeaderboardNext() {
+		if (questionNumber == 0) return false;
+		if (isLastQuestion()) return false;
+		return questionNumber % (LEADERBOARD_DISPLAY_FREQUENCY - 1) == 0;
 	}
 
 	public int getQuestionNumber() {
