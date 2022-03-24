@@ -1,5 +1,9 @@
 package server.service;
 
+
+/**
+ * A mock TimerService class that enables testing without timer delay for methods that use the timer.
+ */
 public class MockTimerService implements TimerService {
 	@Override
 	public long getTime() {
