@@ -48,7 +48,11 @@ public class LeaderboardCtrl implements Initializable {
 		colUsername.setCellValueFactory(q -> new SimpleStringProperty(q.getValue().name()));
 		colScore.setCellValueFactory(q -> new SimpleIntegerProperty(q.getValue().score()));
 
-		colRanking.setCellValueFactory(q -> new ReadOnlyObjectWrapper<>(singleLeaderboard.getItems().indexOf(q.getValue())+1));
+		colRanking.setCellValueFactory(q -> {
+			ReadOnlyObjectWrapper<Number> finalRanking;
+			finalRanking= new ReadOnlyObjectWrapper<>(singleLeaderboard.getItems().indexOf(q.getValue()) + 1);
+			return finalRanking;
+		});
 	}
 
 
