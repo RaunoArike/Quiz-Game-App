@@ -48,7 +48,7 @@ public class ActivityServiceImplTest {
 
 	@Test
 	public void provideActivities_should_return_a_list_of_all_activities_in_repo() {
-
+		var service = createService();
 	}
 
 	@Test
@@ -57,5 +57,15 @@ public class ActivityServiceImplTest {
 		service.removeAllActivities();
 
 		verify(activityRepository).deleteAll();
+	}
+
+	@Test
+	public void updateActivity_should_update_the_contents_of_an_activity() {
+		var service = createService();
+	}
+
+	@Test
+	public void updateActivity_should_update_the_activity_with_the_provided_id() {
+		var service = createService();
 	}
 }

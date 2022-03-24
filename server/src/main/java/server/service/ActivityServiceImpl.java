@@ -41,14 +41,10 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public void updateActivity(long activityId, Activity activity) {
-		try {
-			ActivityEntity entity = activityRepository.getById(activityId);
-			entity.setName(activity.name());
-			entity.setImageUrl(activity.imageUrl());
-			entity.setEnergyInWh(activity.energyInWh());
-		} catch (EntityNotFoundException e) {
-			addActivities(List.of(activity));
-		}
+	public void updateActivity(long activityId, Activity activity) throws EntityNotFoundException {
+		ActivityEntity entity = activityRepository.getById(activityId);
+		entity.setName(activity.name());
+		entity.setImageUrl(activity.imageUrl());
+		entity.setEnergyInWh(activity.energyInWh());
 	}
 }

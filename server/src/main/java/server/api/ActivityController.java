@@ -2,8 +2,10 @@ package server.api;
 
 import commons.model.Activity;
 import org.springframework.web.bind.annotation.*;
+import server.exception.IdNotFoundException;
 import server.service.ActivityService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -46,8 +48,19 @@ public class ActivityController {
 		activityService.removeAllActivities();
 	}
 
+	/**
+	 * Updates the contents of a single activity.
+	 * Throws an IdNotFoundException if there isn't an activity with the id specified by the user.
+	 *
+	 * @param id the id of the activity to update
+	 * @param activity the activity to replace the old activity with
+	 */
 	@PutMapping("/api/activities/{id}")
 	public void updateActivity(@PathVariable long id, Activity activity) {
-		activityService.updateActivity(id, activity);
+		try {
+			activityService.updateActivity(id, activity);
+		} catch (EntityNotFoundException e) {
+			throw new IdNotFoundException();
+		}
 	}
 }
