@@ -2,7 +2,9 @@ package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.Activity;
+import commons.model.LeaderboardEntry;
 import commons.model.Question;
+import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import org.junit.jupiter.api.Test;
@@ -13,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.OutgoingController;
 import server.model.Game;
+import server.model.Player;
 
 import java.util.List;
 
@@ -23,15 +26,33 @@ import static org.mockito.Mockito.*;
 public class GameServiceImplTest {
 	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
 
+	private static final List<Player> FAKE_PLAYER_LIST = List.of(
+		new Player("name1", 1, 100),
+		new Player("name2", 2, 200),
+		new Player("name3", 3, 300)
+	);
+
+	private static final List<LeaderboardEntry> FAKE_LEADERBOARD = List.of(
+		new LeaderboardEntry("name3", 300),
+		new LeaderboardEntry("name2", 200),
+		new LeaderboardEntry("name1", 100)
+	);
+
+	private static final List<Integer> FAKE_PLAYER_ID_LIST = List.of(1, 2, 3);
+
 	@Mock
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
 	private PlayerService playerService = new PlayerServiceImpl();
+	@Mock
+	private Game game;
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
+	@Captor
+	private ArgumentCaptor<IntermediateLeaderboardMessage> leaderboardMessageCaptor;
 
 	private GameServiceImpl createService() {
 		return new GameServiceImpl(questionService, outgoingController, playerService);
@@ -111,5 +132,18 @@ public class GameServiceImplTest {
 		assertThrows(Exception.class, () -> {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		});
+	}
+
+	@Test
+	public void show_intermediate_leaderboard_should_send_leaderboard() {
+		when(game.getPlayers()).thenReturn(FAKE_PLAYER_LIST);
+		when(game.getPlayerIds()).thenReturn(List.of(1, 2, 3));
+
+		var service = createService();
+		service.showIntermediateLeaderboard(game);
+
+		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(FAKE_LEADERBOARD);
+		verify(outgoingController).sendIntermediateLeaderboard(message, FAKE_PLAYER_ID_LIST);
+
 	}
 }

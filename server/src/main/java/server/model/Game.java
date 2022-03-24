@@ -51,6 +51,10 @@ public class Game {
 		return new ArrayList<>(players.keySet());
 	}
 
+	public List<Player> getPlayers() {
+		return new ArrayList<>(players.values());
+	}
+
 	public boolean isLastQuestion() {
 		return questionNumber == QUESTIONS_PER_GAME - 1;
 	}

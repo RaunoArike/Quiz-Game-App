@@ -12,7 +12,9 @@ import server.model.Player;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Comparator;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -24,6 +26,8 @@ public class GameServiceImpl implements GameService {
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
 	private int nextGameId = 0;
+
+	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
 			PlayerService playerService) {
@@ -79,11 +83,19 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
 	}
 
-	private void showIntermediateLeaderboard(Game game) {
-		List<LeaderboardEntry> list = null;
-		outgoingController.sendIntermediateLeaderboard(new IntermediateLeaderboardMessage(list), game.getPlayerIds());
-
-		startNewQuestion(game);
+	@Override
+	public void showIntermediateLeaderboard(Game game) {
+		List<Player> players = game.getPlayers();
+		List<LeaderboardEntry> listOfEntries = new ArrayList<LeaderboardEntry>();
+		for (Player p : players) {
+			listOfEntries.add(new LeaderboardEntry(p.getName(), p.getScore()));
+		}
+		List<LeaderboardEntry> leaderboard = listOfEntries.stream()
+			.sorted(Comparator.<LeaderboardEntry>comparingInt(entry -> entry.score()).reversed())
+			.limit(NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD)
+			.toList();
+		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(leaderboard);
+		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
 	}
 
 	private void cleanUpGame(Game game) {
