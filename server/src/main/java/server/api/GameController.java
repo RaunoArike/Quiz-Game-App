@@ -32,7 +32,7 @@ public class GameController {
 		gameService.startSinglePlayerGame(playerId, startMessage.username());
 	}
 
-	@MessageMapping("/start-multiplayer-player")
+	@MessageMapping("/start-multi-player")
 	public void startMPGame() throws NullPointerException {
 		waitingRoomService.startMultiplayerGame();
 	}

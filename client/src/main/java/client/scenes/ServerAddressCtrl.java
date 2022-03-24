@@ -8,13 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-public class ServerAddressScreenCtrl extends AbstractCtrl {
+public class ServerAddressCtrl extends AbstractCtrl {
 
 	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
 	@Inject
-	public ServerAddressScreenCtrl(ServerService server, MainCtrl mainCtrl) {
+	public ServerAddressCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 	}

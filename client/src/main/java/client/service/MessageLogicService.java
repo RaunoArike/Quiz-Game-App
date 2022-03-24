@@ -76,7 +76,7 @@ public class MessageLogicService implements ServerListener {
 	 */
 	@Override
 	public void onWaitingRoomState(WaitingRoomStateMessage message) {
-
+		mainCtrl.showWaitingroom(message.noOfPeopleInRoom());
 	}
 
 	/**

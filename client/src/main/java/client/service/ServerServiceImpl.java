@@ -119,7 +119,7 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public void startMultiGame() {
-		session.send("/app/start-single-player", new Object());
+		session.send("/app/start-multi-player", "");
 	}
 
 	@Override

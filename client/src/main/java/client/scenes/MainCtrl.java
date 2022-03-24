@@ -44,7 +44,10 @@ public class MainCtrl {
 	private JoinWaitingroomCtrl joinWaitingroomCtrl;
 	private Scene joinWaitingroom;
 
-	private ServerAddressScreenCtrl serverAddressScreenCtrl;
+	private WaitingroomCtrl waitingroomCtrl;
+	private Scene waitingroom;
+
+	private ServerAddressCtrl serverAddressCtrl;
 	private Scene serverAddress;
 
 	private ComparisonScreenCtrl comparisonScreenCtrl;
@@ -68,7 +71,8 @@ public class MainCtrl {
 	Pair<OpeningCtrl, Parent> openingCtrl,
 	Pair<UsernameCtrl, Parent> usernameCtrl,
 	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
-	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
+	Pair<WaitingroomCtrl, Parent> waitingroomCtrl,
+	Pair<ServerAddressCtrl, Parent> serverAddressCtrl,
 	Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
 	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
 	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
@@ -89,7 +93,10 @@ public class MainCtrl {
 		this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
 		this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
 
-		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
+		this.waitingroomCtrl = waitingroomCtrl.getKey();
+		this.waitingroom = new Scene(waitingroomCtrl.getValue());
+
+		this.serverAddressCtrl = serverAddressCtrl.getKey();
 		this.serverAddress = new Scene(serverAddressCtrl.getValue());
 
 		this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
@@ -138,9 +145,17 @@ public class MainCtrl {
 		primaryStage.setScene(joinWaitingroom);
 	}
 
+	public void showWaitingroom(int noOfPeople) {
+		waitingroomCtrl.init();
+		waitingroomCtrl.updateWaitingroomState(noOfPeople);
+		waitingroom.setOnKeyPressed(e -> waitingroomCtrl.keyPressed(e));
+		primaryStage.setTitle("Join a waiting room");
+		primaryStage.setScene(waitingroom);
+	}
+
 	public void showServerAddress() {
-		serverAddressScreenCtrl.init();
-		serverAddress.setOnKeyPressed(e -> serverAddressScreenCtrl.keyPressed(e));
+		serverAddressCtrl.init();
+		serverAddress.setOnKeyPressed(e -> serverAddressCtrl.keyPressed(e));
 		primaryStage.setTitle("Join a server");
 		primaryStage.setScene(serverAddress);
 	}
