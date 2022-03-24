@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import com.google.inject.Inject;
 
@@ -20,6 +21,11 @@ import java.util.ResourceBundle;
 public class AdminCtrl implements Initializable {
 	private final ServerService serverServicer;
 	private final MainCtrl mainCtrl;
+
+	public TextField nameTextField;
+	public TextField energyTextField;
+	public TextField urlTextField;
+
 	@FXML
 	private TableView<Activity> table;
 
@@ -34,12 +40,10 @@ public class AdminCtrl implements Initializable {
 		this.mainCtrl = mainCtrl;
 	}
 
-	ObservableList<Activity> observableList = FXCollections.observableArrayList(
-			new Activity("a", "", 1),
+	ObservableList<Activity> observableList = FXCollections.observableArrayList(new Activity("a", "", 1),
 			new Activity("b", "", 1),
 			new Activity("c", "", 1),
-			new Activity("c", "", 1)
-	);
+			new Activity("c", "", 1));
 
 	///The option to return home
 	public void returnHome() {
@@ -51,6 +55,7 @@ public class AdminCtrl implements Initializable {
 			case ESCAPE:
 				returnHome();
 				break;
+			case ENTER : addButton();
 			default:
 				break;
 		}
@@ -62,5 +67,15 @@ public class AdminCtrl implements Initializable {
 		columnOne.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
 		columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x.getValue().energyInWh()));
 		table.setItems(observableList);
+	}
+
+	public void addButton() {
+		Activity activity = new Activity(nameTextField.getText(),
+				urlTextField.getText(),
+				(float) Double.parseDouble(energyTextField.getText()));
+		table.getItems().add(activity);
+		nameTextField.clear();
+		energyTextField.clear();
+		urlTextField.clear();
 	}
 }
