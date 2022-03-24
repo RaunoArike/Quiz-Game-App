@@ -32,6 +32,11 @@ public interface ServerService {
 		void onWaitingRoomState(WaitingRoomStateMessage message);
 
 		/**
+		 * Called when the endofGame message is received from the server
+		 */
+		void onEndOfGame();
+
+		/**
 		 * Called when error occurs at the server side
 		 * @param message message with error details
 		 */

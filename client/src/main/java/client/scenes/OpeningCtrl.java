@@ -1,18 +1,13 @@
 package client.scenes;
 
 import com.google.inject.Inject;
-import client.utils.ServerUtils;
 
 public class OpeningCtrl  {
 
-	private final ServerUtils server;
 	private final MainCtrl mainCtrl;
 
-	/**Shared controller class for OpeningScreen and EndingScreen */
-
 	@Inject
-	public OpeningCtrl(ServerUtils server, MainCtrl mainCtrl) {
-		this.server = server;
+	public OpeningCtrl(MainCtrl mainCtrl) {
 		this.mainCtrl = mainCtrl;
 	}
 
@@ -26,10 +21,6 @@ public class OpeningCtrl  {
 
 	public void startNewMultiGame() {
 		mainCtrl.showJoinWaitingroom();
-	}
-
-	public void returnHome() {
-		mainCtrl.showHome();
 	}
 
 	public void connectToServer() {
