@@ -34,8 +34,10 @@ public class GameServiceImplTest {
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
+	@Captor
+	private ArgumentCaptor<Runnable> runnableCaptor;
 
-	private GameServiceImpl createService() {
+	private GameServiceImpl createService(TimerService timerService) {
 		return new GameServiceImpl(questionService, outgoingController, timerService);
 	}
 
@@ -43,7 +45,7 @@ public class GameServiceImplTest {
 	public void starting_single_player_game_should_send_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService();
+		var service = createService(new MockTimerService());
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(outgoingController).sendQuestion(
@@ -56,7 +58,7 @@ public class GameServiceImplTest {
 	public void answering_question_should_send_another_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService();
+		var service = createService(new MockTimerService());
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 
@@ -74,7 +76,7 @@ public class GameServiceImplTest {
 	public void answering_question_should_send_score() {
 		when(questionService.calculateScore(any(), eq(5f), any())).thenReturn(77);
 
-		var service = createService();
+		var service = createService(timerService);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 
@@ -89,7 +91,7 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(5f), any())).thenReturn(77);
 		when(questionService.calculateScore(any(), eq(11f), any())).thenReturn(23);
 
-		var service = createService();
+		var service = createService(timerService);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 11f));
@@ -104,7 +106,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {
-		var service = createService();
+		var service = createService(new MockTimerService());
 		service.startSinglePlayerGame(30, "abc");
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null));
@@ -117,8 +119,12 @@ public class GameServiceImplTest {
 
 	@Test
 	public void starting_game_should_start_the_timer() {
-		var service = createService();
+		var service = createService(timerService);
 		service.startSinglePlayerGame(30, "abc");
+
+		verify(timerService).scheduleTimer(anyInt(), eq(3000L), runnableCaptor.capture());
+
+		runnableCaptor.getValue().run();
 
 		verify(timerService).getTime();
 	}

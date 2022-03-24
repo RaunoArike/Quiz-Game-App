@@ -21,7 +21,7 @@ public class GameServiceImpl implements GameService {
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
-	private static final int QUESTION_DELAY = 0;
+	private static final long QUESTION_DELAY = 3000;
 
 	private int nextGameId = 0;
 
@@ -31,6 +31,7 @@ public class GameServiceImpl implements GameService {
 		this.outgoingController = outgoingController;
 		this.timerService = timerService;
 	}
+
 
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
@@ -58,7 +59,7 @@ public class GameServiceImpl implements GameService {
 		var currentQuestion = game.getCurrentQuestion();
 
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				game.getStartTime() - timePassed);
+				timePassed - game.getStartTime());
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
@@ -67,20 +68,22 @@ public class GameServiceImpl implements GameService {
 		else cleanUpGame(game);
 	}
 
+
 	private void startNewQuestion(Game game) {
+		if (game.isFirstQuestion()) {
+			newQuestion(game);
+		} else {
+			timerService.scheduleTimer(game.getGameId(), QUESTION_DELAY, () -> newQuestion(game));
+		}
+	}
+
+	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
-		new Timer().schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-						game.startNewQuestion(question);
-						outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
-								game.getPlayerIds());
-						game.startTimer(timerService.getTime());
-					}
-				}, QUESTION_DELAY
-		);
+		game.startNewQuestion(question);
+		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
+				game.getPlayerIds());
+		game.startTimer(timerService.getTime());
 	}
 
 	private void cleanUpGame(Game game) {

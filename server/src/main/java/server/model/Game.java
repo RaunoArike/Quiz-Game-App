@@ -2,6 +2,8 @@ package server.model;
 
 import commons.model.Question;
 import org.springframework.lang.Nullable;
+import server.service.TimerService;
+import server.service.TimerServiceImpl;
 
 import java.util.*;
 
@@ -19,6 +21,7 @@ public class Game {
 	public Game(int gameId) {
 		this.gameId = gameId;
 	}
+
 
 	public void addPlayer(int playerId, Player player) {
 		players.put(playerId, player);
@@ -44,6 +47,10 @@ public class Game {
 
 	public boolean isLastQuestion() {
 		return questionNumber == QUESTIONS_PER_GAME - 1;
+	}
+
+	public boolean isFirstQuestion() {
+		return questionNumber == 0;
 	}
 
 	public int getQuestionNumber() {
