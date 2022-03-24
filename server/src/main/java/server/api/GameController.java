@@ -5,14 +5,12 @@ import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import server.service.GameService;
 import server.service.WaitingRoomService;
 
 import java.security.Principal;
-import java.util.Map;
 
 /**
  * A controller for client to server communication during the game
@@ -45,14 +43,10 @@ public class GameController {
 
 	/**
 	 * Starts a new multi-player game.
-	 *
-	 * @param headerAcc a header accessor for access to session attributes for each player
-	 * @throws NullPointerException
 	 */
 	@MessageMapping("/start-multiplayer-player")
-	public void startMPGame(@Payload SimpMessageHeaderAccessor headerAcc) throws NullPointerException {
-		Map<String, Object> attrs = headerAcc.getSessionAttributes();
-		attrs.put("player", waitingRoomService.startMultiplayerGame());
+	public void startMPGame() throws NullPointerException {
+		waitingRoomService.startMultiplayerGame();
 	}
 
 	/**
@@ -64,7 +58,7 @@ public class GameController {
 	@MessageMapping("/join-waiting-room")
 	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, Principal principal) {
 		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
-		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username());
+		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username(), playerId);
 	}
 
 	/**

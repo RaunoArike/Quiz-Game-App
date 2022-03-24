@@ -32,6 +32,11 @@ public interface ServerService {
 		void onWaitingRoomState(WaitingRoomStateMessage message);
 
 		/**
+		 * Called when the endofGame message is received from the server
+		 */
+		void onEndOfGame();
+
+		/**
 		 * Called when error occurs at the server side
 		 * @param message message with error details
 		 */
@@ -69,6 +74,7 @@ public interface ServerService {
 	 * Submits answer to the current question.
 	 * Can only be called if connected to server.
 	 * @param answer answer; Integer or Float depending on the question type
+	 * 0, 1 or 2 for choice questions, float answer for open-ended questions
 	 */
 	void answerQuestion(Number answer);
 
