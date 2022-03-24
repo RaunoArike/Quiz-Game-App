@@ -77,4 +77,9 @@ public interface ServerService {
 	 * @param serverListener listener
 	 */
 	void registerListener(ServerListener serverListener);
+
+	/**
+	 * Gets to the admin panel
+	 */
+	void adminPanel();
 }

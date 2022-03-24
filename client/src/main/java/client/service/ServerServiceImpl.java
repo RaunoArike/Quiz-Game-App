@@ -3,10 +3,7 @@ package client.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
-import commons.servermessage.ErrorMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
-import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.*;
 import javafx.application.Platform;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -119,8 +116,18 @@ public class ServerServiceImpl implements ServerService {
 		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat, 0));
 	}
 
+
 	@Override
 	public void registerListener(ServerListener serverListener) {
 		serverListeners.add(serverListener);
+	}
+
+	/**
+	 * Gets to the admin panel
+	 * @param serverListener listner
+	 */
+	@Override
+	public void adminPanel() {
+		session.send("app/admin-panel", new AdminMessage());
 	}
 }
