@@ -33,7 +33,7 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
-		var player = new Player(userName);
+		var player = new Player(userName, playerId);
 
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
@@ -43,6 +43,14 @@ public class GameServiceImpl implements GameService {
 		games.put(gameId, game);
 
 		startNewQuestion(game);
+	}
+
+	@Override
+	public void generateNewQuestion(List<Player> listOfPlayers) {
+		var newGameId = nextGameId++;
+		Game newGame = new Game(newGameId);
+		games.put(newGameId, newGame);
+		startNewQuestion(newGame);
 	}
 
 	@Override
