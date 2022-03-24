@@ -7,17 +7,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
 
-
 public class EstimationScreenCtrl extends QuestionCtrl {
 
 	@FXML
 	private TextField answer;
 
 	@FXML
-	private Button ok;
+	private Label answerMessage;
 
 	@FXML
-	private Label answerMessage;
+	private Button ok;
 
 	@Inject
 	public EstimationScreenCtrl(ServerService server, MainCtrl mainCtrl) {
@@ -31,8 +30,7 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	}
 
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
-		String message = "The correct answer was: " + correctAnswer + "kwH . You score " + scoreIncrement + " points.";
+		String message = "The correct answer was: " + correctAnswer + " kwH. You score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
 	}
-
 }

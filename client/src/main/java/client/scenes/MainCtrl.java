@@ -149,7 +149,7 @@ public class MainCtrl {
 	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
 		String textQuestion = "Estimate the amount of energy it takes to " + q.activity().name();
 		this.estimationScreenCtrl.setQuestion(textQuestion);
-		this.comparisonScreenCtrl.setScore(score);
+		this.estimationScreenCtrl.setScore(score);
 		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(estimationScreen);

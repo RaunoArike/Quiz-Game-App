@@ -37,6 +37,7 @@ public abstract class QuestionCtrl {
 	private Text number;
 
 	private Timer timer = new Timer();
+	private TimerTask timerTask;
 
 	@Inject
 	public QuestionCtrl(ServerService server, MainCtrl mainCtrl) {
@@ -48,13 +49,13 @@ public abstract class QuestionCtrl {
 		this.questionText.setText(questionText);
 	}
 
-	public void setScore(int score) {
-		String scoreText = "Score: " + score;
+	public void setScore(int scoreNumber) {
+		String scoreText = "Score: " + scoreNumber;
 		this.score.setText(scoreText);
 	}
 
 	public void callTimeLimiter() {
-		TimerTask timerTask = new TimerTask() {
+		timerTask = new TimerTask() {
 			double timeLeft = 1;
 
 			@Override
@@ -76,6 +77,6 @@ public abstract class QuestionCtrl {
 	}
 
 	public void timeStop() {
-		timer.cancel();
+		timerTask.cancel();
 	}
 }
