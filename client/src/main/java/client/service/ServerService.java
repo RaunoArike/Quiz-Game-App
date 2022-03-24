@@ -69,6 +69,7 @@ public interface ServerService {
 	 * Submits answer to the current question.
 	 * Can only be called if connected to server.
 	 * @param answer answer; Integer or Float depending on the question type
+	 * 0, 1 or 2 for choice questions, float answer for open-ended questions
 	 */
 	void answerQuestion(Number answer);
 
