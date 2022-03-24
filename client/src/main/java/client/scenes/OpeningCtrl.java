@@ -22,20 +22,25 @@ public class OpeningCtrl  {
 	}
 
 
-
 	public void startNewSingleGame() {
 		mainCtrl.showUsername();
 	}
 
+
 	public void startNewMultiGame() {
 		mainCtrl.showJoinWaitingroom();
 	}
-	public void adminOption() {
-		mainCtrl.showAdminPanel();
-	}
+
+
 	public void returnHome() {
 		mainCtrl.showHome();
 	}
+
+
+	public void adminOption() {
+		mainCtrl.showAdminPanel();
+	}
+
 
 	public void connectToServer() {
 		mainCtrl.showServerAddress();
