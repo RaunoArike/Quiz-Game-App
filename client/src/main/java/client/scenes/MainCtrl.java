@@ -59,6 +59,9 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
+	private EndingScreenCtrl endingScreenCtrl;
+	private Scene endingScreen;
+
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
@@ -66,10 +69,11 @@ public class MainCtrl {
 	Pair<UsernameCtrl, Parent> usernameCtrl,
 	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
 	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
-	Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
+	Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
 	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
 	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
+	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
+	Pair<EndingScreenCtrl, Parent> endingScreenCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -88,8 +92,8 @@ public class MainCtrl {
 		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
 		this.serverAddress = new Scene(serverAddressCtrl.getValue());
 
-		this.comparisonScreenCtrl = comparsionScreenCtrl.getKey();
-		this.comparisonScreen = new Scene(comparsionScreenCtrl.getValue());
+		this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
+		this.comparisonScreen = new Scene(comparisonScreenCtrl.getValue());
 
 		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
 		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
@@ -99,6 +103,9 @@ public class MainCtrl {
 
 		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
 		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+
+		this.endingScreenCtrl = endingScreenCtrl.getKey();
+		this.endingScreen = new Scene(endingScreenCtrl.getValue());
 
 		showServerAddress();
 		primaryStage.show();
@@ -203,6 +210,12 @@ public class MainCtrl {
 		if (type == QuestionTypes.PICK_ENERGY) {
 			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
 		}
+	}
+
+	public void showEndingScreen(int score) {
+		primaryStage.setTitle("Game over");
+		endingScreenCtrl.setScore(score);
+		primaryStage.setScene(endingScreen);
 	}
 
 }

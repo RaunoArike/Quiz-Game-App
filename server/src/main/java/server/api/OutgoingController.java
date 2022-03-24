@@ -26,6 +26,13 @@ public interface OutgoingController {
 	void sendScore(ScoreMessage message, List<Integer> players);
 
 	/**
+	 * Sends an empty message to the client, signifying that the game has ended
+	 * and no more questions will be sent by the server
+	 * @param players - the players that receive the message
+	 */
+	void sendEndOfGame(List<Integer> players);
+
+	/**
 	 * Sends the client the waiting room state
 	 * @param message The message that has to be sent
 	 * @param listOfPlayers The list of players that has to be passed as parameter
