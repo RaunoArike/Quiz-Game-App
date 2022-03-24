@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import commons.servermessage.WaitingRoomStateMessage;
@@ -30,4 +31,11 @@ public interface OutgoingController {
 	 * @param listOfPlayers The list of players that has to be passed as parameter
 	 */
 	void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers);
+
+	/**
+	 * Sends the intermediate leaderboard to the client
+	 * @param leaderboard - list of (maximum) ten LeaderboardEntry objects sorted in descending order
+	 * @param listofPlayers - the players that receive the message
+	*/
+	void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers);
 }

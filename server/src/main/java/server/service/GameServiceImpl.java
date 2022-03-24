@@ -2,6 +2,7 @@ package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.LeaderboardEntry;
+import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class GameServiceImpl implements GameService {
 	private static final long QUESTION_DELAY = 3000;
 
 	private int nextGameId = 0;
+
+	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
 			PlayerService playerService, LeaderboardService leaderboardService, TimerService timerService) {
@@ -99,6 +102,21 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
 				game.getPlayerIds());
 		game.startTimer(timerService.getTime());
+	}
+
+	@Override
+	public void showIntermediateLeaderboard(Game game) {
+		List<Player> players = game.getPlayers();
+		List<LeaderboardEntry> listOfEntries = new ArrayList<LeaderboardEntry>();
+		for (Player p : players) {
+			listOfEntries.add(new LeaderboardEntry(p.getName(), p.getScore()));
+		}
+		List<LeaderboardEntry> leaderboard = listOfEntries.stream()
+			.sorted(Comparator.<LeaderboardEntry>comparingInt(entry -> entry.score()).reversed())
+			.limit(NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD)
+			.toList();
+		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(leaderboard);
+		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
 	}
 
 	private void cleanUpGame(Game game) {

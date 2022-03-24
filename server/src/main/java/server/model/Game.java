@@ -7,6 +7,7 @@ import java.util.*;
 
 public class Game {
 	public static final int QUESTIONS_PER_GAME = 20;
+	public static final int LEADERBOARD_DISPLAY_FREQUENCY = 5;
 	public static final int TIMER_DELAY = 100;
 
 	private final int gameId;
@@ -49,8 +50,18 @@ public class Game {
 		return new ArrayList<>(players.keySet());
 	}
 
+	public List<Player> getPlayers() {
+		return new ArrayList<>(players.values());
+	}
+
 	public boolean isLastQuestion() {
 		return questionNumber == QUESTIONS_PER_GAME - 1;
+	}
+
+	public boolean isIntermediateLeaderboardNext() {
+		if (questionNumber == 0) return false;
+		if (isLastQuestion()) return false;
+		return ((questionNumber + 1) % LEADERBOARD_DISPLAY_FREQUENCY) == 0;
 	}
 
 	public boolean isFirstQuestion() {
