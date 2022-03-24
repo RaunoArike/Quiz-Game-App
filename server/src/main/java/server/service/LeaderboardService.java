@@ -10,7 +10,7 @@ public interface LeaderboardService {
 	 * @param name username of the player
 	 * @param score total score from a single-player game
 	 */
-	void addtoLeaderboard(LeaderboardEntry entry);
+	void addToLeaderboard(LeaderboardEntry entry);
 
 	/**
 	 * Removes all existing leaderboard entry records from the repository

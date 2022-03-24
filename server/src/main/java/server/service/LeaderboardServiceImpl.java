@@ -17,7 +17,7 @@ public class LeaderboardServiceImpl implements LeaderboardService {
 	}
 
 	@Override
-	public void addtoLeaderboard(LeaderboardEntry entry) {
+	public void addToLeaderboard(LeaderboardEntry entry) {
 		repository.save(LeaderboardEntity.fromModel(entry));
 	}
 

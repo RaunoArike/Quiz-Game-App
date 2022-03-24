@@ -52,7 +52,7 @@ public class LeaderboardServiceImplTest {
 	@Test
 	public void addtoLeaderboard_should_save_entry() {
 		var service = createService();
-		service.addtoLeaderboard(FAKE_ENTRY);
+		service.addToLeaderboard(FAKE_ENTRY);
 
 		verify(leaderboardRepository).save(leaderboardEntityCaptor.capture());
 	}

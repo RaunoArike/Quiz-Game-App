@@ -110,7 +110,7 @@ public class GameServiceImplTest {
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		}
-		verify(leaderboardService).addtoLeaderboard(new LeaderboardEntry("abc", 0));
+		verify(leaderboardService).addToLeaderboard(new LeaderboardEntry("abc", 0));
 		assertThrows(Exception.class, () -> {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		});

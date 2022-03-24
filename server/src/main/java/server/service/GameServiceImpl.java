@@ -65,7 +65,7 @@ public class GameServiceImpl implements GameService {
 		if (!game.isLastQuestion()) {
 			startNewQuestion(game);
 		} else {
-			leaderboardService.addtoLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
+			leaderboardService.addToLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
 			cleanUpGame(game);
 		}
 	}
