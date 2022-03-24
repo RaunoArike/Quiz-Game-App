@@ -34,8 +34,13 @@ public class OutgoingControllerImpl implements OutgoingController {
 		send(message, players, "score");
 	}
 
+	public void sendEndOfGame(List<Integer> players) {
+		send(new Object(), players, "end-of-game");
+	}
+
 	public void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers) {
 		String destination = new String("waiting-room-state");
 		send(message, listOfPlayers, destination);
 	}
+
 }

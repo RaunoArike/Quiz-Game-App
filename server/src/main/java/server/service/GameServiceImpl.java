@@ -67,8 +67,12 @@ public class GameServiceImpl implements GameService {
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
 
-		if (!game.isLastQuestion()) startNewQuestion(game);
-		else cleanUpGame(game);
+		if (!game.isLastQuestion()) {
+			startNewQuestion(game);
+		} else {
+			outgoingController.sendEndOfGame(game.getPlayerIds());
+			cleanUpGame(game);
+		}
 	}
 
 	private void startNewQuestion(Game game) {
