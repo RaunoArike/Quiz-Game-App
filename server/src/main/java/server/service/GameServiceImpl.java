@@ -38,7 +38,9 @@ public class GameServiceImpl implements GameService {
 		this.timerService = timerService;
 	}
 
-
+	/**
+	 * start single-player game
+	 */
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
 		var player = new Player(userName, playerId);
@@ -53,16 +55,36 @@ public class GameServiceImpl implements GameService {
 		startNewQuestion(game);
 	}
 
+	/**
+	 * start multi-player game
+	 */
 	@Override
-	public void generateNewQuestion(List<Player> listOfPlayers) {
+	public void startMultiPlayerGame(List<Player> listOfPlayers) {
 		var newGameId = nextGameId++;
-		Game newGame = new Game(newGameId);
+		Game newGame = new Game(listOfPlayers, newGameId);
 		games.put(newGameId, newGame);
 		startNewQuestion(newGame);
 	}
 
+	/**
+	 * Generic submitAnswer method, calls either single- or multi-player method
+	 */
 	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+		if (game.isSinglePlayer()) {
+			submitAnswerSinglePlayer(playerId, answer);
+		} else {
+			submitAnswerMultiPlayer(playerId, answer);
+		}
+	}
+
+	/**
+	 * Single-player submitAnswer method
+	 */
+	public void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
+
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
 
@@ -87,7 +109,18 @@ public class GameServiceImpl implements GameService {
 		}
 	}
 
+	/**
+	 * Multi-player submitAnswer method
+	 */
+	public void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
+		//TO DO
+	}
 
+
+	/**
+	 * Generic method for both single and multi player games
+	 * @param game game for which new question is to be generated
+	 */
 	private void startNewQuestion(Game game) {
 		if (game.isFirstQuestion()) {
 			newQuestion(game);
@@ -96,6 +129,10 @@ public class GameServiceImpl implements GameService {
 		}
 	}
 
+	/**
+	 * Helper method of startNewQuestion
+	 * @param game
+	 */
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
@@ -105,6 +142,9 @@ public class GameServiceImpl implements GameService {
 		game.startTimer(timerService.getTime());
 	}
 
+	/**
+	 * Multiplayer leaderboard method
+	 */
 	@Override
 	public void showIntermediateLeaderboard(Game game) {
 		List<Player> players = game.getPlayers();
@@ -120,11 +160,20 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
 	}
 
+	/**
+	 * Generic cleanup method
+	 * @param game
+	 */
 	private void cleanUpGame(Game game) {
 		games.remove(game.getGameId());
 		game.getPlayerIds().forEach(players::remove);
 	}
 
+	/**
+	 * Generic get method - returns which game a player is in
+	 * @param playerId
+	 * @return
+	 */
 	private Game getPlayerGame(int playerId) {
 		var gameId = players.get(playerId);
 		if (gameId == null) return null;

@@ -54,6 +54,10 @@ public class Game {
 		return new ArrayList<>(players.values());
 	}
 
+	public boolean isSinglePlayer() {
+		return (getPlayerIds().size() <= 1);
+	}
+
 	public boolean isLastQuestion() {
 		return questionNumber == QUESTIONS_PER_GAME - 1;
 	}

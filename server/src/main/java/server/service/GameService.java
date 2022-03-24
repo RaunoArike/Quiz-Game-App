@@ -30,7 +30,7 @@ public interface GameService {
 	 *
 	 * @param listOfPlayers
 	 */
-	void generateNewQuestion(List<Player> listOfPlayers);
+	void startMultiPlayerGame(List<Player> listOfPlayers);
 
 	/**
 	 * Generates an intermediate leaderboard and sends it to every player
