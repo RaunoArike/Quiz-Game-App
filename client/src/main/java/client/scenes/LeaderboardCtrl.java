@@ -4,6 +4,7 @@ import client.service.ServerService;
 import com.google.inject.Inject;
 import commons.model.LeaderboardEntry;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -33,7 +34,7 @@ public class LeaderboardCtrl implements Initializable {
 	private TableColumn<LeaderboardEntry, Number> colScore;
 
 	@FXML
-	private TableColumn colRanking;
+	private TableColumn<LeaderboardEntry, Number> colRanking;
 
 
 	@Inject
@@ -42,14 +43,18 @@ public class LeaderboardCtrl implements Initializable {
 		this.mainCtrl = mainCtrl;
 	}
 
+
 	public void initialize(URL location, ResourceBundle resources) {
 		colUsername.setCellValueFactory(q -> new SimpleStringProperty(q.getValue().name()));
 		colScore.setCellValueFactory(q -> new SimpleIntegerProperty(q.getValue().score()));
-		colRanking.setCellValueFactory(q -> new SimpleIntegerProperty(1));
+
+		colRanking.setCellValueFactory(q -> new ReadOnlyObjectWrapper<>(singleLeaderboard.getItems().indexOf(q.getValue())+1));
 	}
+
 
 	public void refresh() {
 		var leaderboardEntries = server.getData();
+
 		data = FXCollections.observableList(leaderboardEntries);
 		singleLeaderboard.setItems(data);
 	}
