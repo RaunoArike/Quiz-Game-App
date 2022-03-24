@@ -10,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import server.entity.ActivityEntity;
 import server.repository.ActivityRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
