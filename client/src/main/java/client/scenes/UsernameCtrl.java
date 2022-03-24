@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
-public class UsernameCtrl {
+public class UsernameCtrl extends AbstractCtrl {
 
 	/**
 	 * This controller class refers to the username input screen for starting a singleplayer game.
@@ -26,6 +26,12 @@ public class UsernameCtrl {
 	public UsernameCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		clearField();
 	}
 
 	public void start() {

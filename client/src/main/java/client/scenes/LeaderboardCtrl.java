@@ -17,7 +17,7 @@ import javafx.scene.control.TableView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LeaderboardCtrl implements Initializable {
+public class LeaderboardCtrl extends AbstractCtrl implements Initializable {
 
 	private final ServerService server;
 	private final MainCtrl mainCtrl;

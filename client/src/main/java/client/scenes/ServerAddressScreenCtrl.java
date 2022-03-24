@@ -1,4 +1,5 @@
 package client.scenes;
+
 import client.service.ServerService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
@@ -7,8 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-
-public class ServerAddressScreenCtrl {
+public class ServerAddressScreenCtrl extends AbstractCtrl {
 
 	private final ServerService server;
 	private final MainCtrl mainCtrl;
@@ -34,6 +34,11 @@ public class ServerAddressScreenCtrl {
 
 	public static String url;
 
+	@Override
+	public void init() {
+		super.init();
+		clear();
+	}
 
 	public void ok() {
 		url = this.serverAddress.getText();
@@ -46,7 +51,7 @@ public class ServerAddressScreenCtrl {
 	}
 
 	public void useDefault() {
-		url = mainCtrl.DEFAULT_SERVER_ADDRESS;
+		url = MainCtrl.DEFAULT_SERVER_ADDRESS;
 		sendServerAddress(url);
 	}
 

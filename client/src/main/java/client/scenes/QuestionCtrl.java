@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class QuestionCtrl {
+public abstract class QuestionCtrl extends AbstractCtrl {
 
 	private static final int TIMER_UPDATE_PERIOD = 1000;
 	private static final double TIMER_PROGRESS_PERCENTAGE = 0.05;
@@ -45,6 +45,12 @@ public abstract class QuestionCtrl {
 	public QuestionCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		callTimeLimiter();
 	}
 
 	public void setQuestion(String questionText) {
