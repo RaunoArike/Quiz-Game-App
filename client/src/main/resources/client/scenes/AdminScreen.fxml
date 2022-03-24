@@ -25,9 +25,8 @@
       <Button layoutX="27.0" layoutY="273.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="UPDATE ACTIVITY" />
       <TableView layoutX="244.0" layoutY="14.0" prefHeight="380.0" prefWidth="335.0">
         <columns>
-          <TableColumn prefWidth="31.20001220703125" text="#" />
             <TableColumn prefWidth="119.20001220703125" text="NAME" />
-            <TableColumn prefWidth="182.40001220703124" text="ENEDGY IN Wh" />
+            <TableColumn prefWidth="213.5999755859375" text="ENEDGY IN Wh" />
         </columns>
       </TableView>
    </children>
