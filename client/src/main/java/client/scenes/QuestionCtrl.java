@@ -3,20 +3,22 @@ package client.scenes;
 import client.service.ServerService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.text.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public abstract class QuestionCtrl {
+
+	private static final int TIMER_UPDATE_PERIOD = 1000;
+	private static final double TIMER_PROGRESS_PERCENTAGE = 0.05;
+	private static final double TIMER_SECONDS = 20;
 
 	protected final ServerService server;
 	protected final MainCtrl mainCtrl;
-	private static final int PERIOD = 1000;
 
 	@FXML
 	private Label questionText;
@@ -34,9 +36,9 @@ public abstract class QuestionCtrl {
 	private ProgressBar timerProgress;
 
 	@FXML
-	private Text number;
+	private Text timerNumber;
 
-	private Timer timer = new Timer();
+	private final Timer timer = new Timer();
 	private TimerTask timerTask;
 
 	@Inject
@@ -60,20 +62,17 @@ public abstract class QuestionCtrl {
 
 			@Override
 			public void run() {
-				final double progressPercentage = 0.05;
-				final double seconds = 20;
-
-				if (timeLeft >= progressPercentage) {
-					timeLeft -= progressPercentage;
+				if (timeLeft >= TIMER_PROGRESS_PERCENTAGE) {
+					timeLeft -= TIMER_PROGRESS_PERCENTAGE;
 					timerProgress.setProgress(timeLeft);
-					number.setText(String.valueOf(Math.round(timerProgress.getProgress() * seconds)));
+					timerNumber.setText(String.valueOf(Math.round(timerProgress.getProgress() * TIMER_SECONDS)));
 				} else {
-					number.setText("0");
+					timerNumber.setText("0");
 					timerProgress.setProgress(0);
 				}
 			}
 		};
-		timer.schedule(timerTask, 0, PERIOD);
+		timer.schedule(timerTask, 0, TIMER_UPDATE_PERIOD);
 	}
 
 	public void timeStop() {
