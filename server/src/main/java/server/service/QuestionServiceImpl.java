@@ -133,7 +133,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 	@Override
-	public int calculateScore(Question question, Number answer, Long timeSpent) {
+	public int calculateScore(Question question, Number answer, long timeSpent) {
 		if (question instanceof Question.MultiChoiceQuestion mc) {
 			return calculateScoreMC(mc, answer.intValue(), timeSpent);
 		} else if (question instanceof Question.EstimationQuestion est) {
@@ -146,19 +146,19 @@ public class QuestionServiceImpl implements QuestionService {
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, Long timeSpent) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
 		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
 
 	// TODO Consider improving the formula
-	private int calculateScoreEst(Question.EstimationQuestion question, float answer, Long timeSpent) {
+	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent) {
 		var error = Math.abs(answer - question.correctAnswer());
 		var errorRatio = error / question.correctAnswer();
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, Long timeSpent) {
+	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent) {
 		float errorRatio;
 		if (answer < question.correctAnswer()) {
 			errorRatio = 1 - (answer / question.correctAnswer());
@@ -168,7 +168,7 @@ public class QuestionServiceImpl implements QuestionService {
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreShared(float errorRatio, Long timeSpent) {
+	private int calculateScoreShared(float errorRatio, long timeSpent) {
 		if (errorRatio < EST_SCORE_RATIO_GOOD) {
 			return MAX_SCORE;
 		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
@@ -178,7 +178,7 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, Long timeSpent) {
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent) {
 		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
