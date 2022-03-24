@@ -7,20 +7,20 @@ import javafx.scene.input.KeyEvent;
 import javax.inject.Inject;
 import java.awt.*;
 
-
 public class AdminCtrl {
 	private final ServerUtils serverUtils;
 	private final MainCtrl mainCtrl;
 
 	@FXML
-	private  List listOfQuestions;
+	private  List listOfActivities;
 
 	@Inject
 	public AdminCtrl(ServerUtils serverUtils, MainCtrl mainCtrl) {
 		this.serverUtils = serverUtils;
 		this.mainCtrl = mainCtrl;
-		listOfQuestions = new List();
+		listOfActivities = new List();
 	}
+	///SHOW, ADD, REMOVE, UPDATE
 
 	///The option to return home
 	public void returnHome() {

@@ -1,5 +1,5 @@
 package commons.servermessage;
 
 public record AdminMessage() {
-	//TODO
+	//TODO using rest
 }

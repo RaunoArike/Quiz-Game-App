@@ -124,7 +124,6 @@ public class ServerServiceImpl implements ServerService {
 
 	/**
 	 * Gets to the admin panel
-	 * @param serverListener listner
 	 */
 	@Override
 	public void adminPanel() {
