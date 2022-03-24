@@ -21,6 +21,13 @@ public class Game {
 		this.gameId = gameId;
 	}
 
+	public Game(List<Player> listOfPlayers, int gameId) {
+		this(gameId);
+		for (Player player : listOfPlayers) {
+			players.put(player.getPlayerId(), player);
+		}
+	}
+
 	public void addPlayer(int playerId, Player player) {
 		players.put(playerId, player);
 	}

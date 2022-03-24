@@ -28,17 +28,22 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAClicked() {
+		timeStop();
+
 		server.answerQuestion(0);
 		//return to a mainctrl answer method with a specific parameter
-		timeStop();
+
 	}
 
 	public void optionBClicked() {
-		server.answerQuestion(1);
 		timeStop();
+
+		server.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
+		timeStop();
+
 		server.answerQuestion(2);
 	}
 

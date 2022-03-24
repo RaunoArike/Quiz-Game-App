@@ -45,6 +45,14 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
+	public void generateNewQuestion(List<Player> listOfPlayers) {
+		var newGameId = nextGameId++;
+		Game newGame = new Game(newGameId);
+		games.put(newGameId, newGame);
+		startNewQuestion(newGame);
+	}
+
+	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
