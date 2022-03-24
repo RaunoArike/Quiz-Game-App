@@ -32,7 +32,7 @@ public class GameController {
 	}
 
 	/**
-	 * Starts a new single-player game
+	 * Starts a new single-player game.
 	 *
 	 * @param startMessage message to the server containing the username of the player
 	 * @param principal contains the connection id
@@ -44,7 +44,7 @@ public class GameController {
 	}
 
 	/**
-	 * Starts a new multi-player game
+	 * Starts a new multi-player game.
 	 *
 	 * @param headerAcc a header accessor for access to session attributes for each player
 	 * @throws NullPointerException
@@ -56,7 +56,7 @@ public class GameController {
 	}
 
 	/**
-	 * Adds the player to the waiting room
+	 * Adds the player to the waiting room.
 	 *
 	 * @param waitingRoomJoinMessage A message containing the player's username
 	 * @param principal contains the connection id
@@ -68,7 +68,7 @@ public class GameController {
 	}
 
 	/**
-	 * Submits the player's answer to the server
+	 * Submits the player's answer to the server.
 	 *
 	 * @param answerMessage a message containing the player's answer
 	 * @param principal contains the connection id

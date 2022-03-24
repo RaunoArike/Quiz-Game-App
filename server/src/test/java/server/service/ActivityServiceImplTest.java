@@ -8,11 +8,13 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import server.entity.ActivityEntity;
+import server.exception.IdNotFoundException;
 import server.repository.ActivityRepository;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -67,5 +69,13 @@ public class ActivityServiceImplTest {
 	@Test
 	public void updateActivity_should_update_the_activity_with_the_provided_id() {
 		var service = createService();
+	}
+
+	@Test
+	public void updateActivity_should_throw_exception_for_wrong_id() {
+		var controller = createService();
+		controller.addActivities(FAKE_ACTIVITY_LIST);
+
+		assertThrows(IdNotFoundException.class, () -> controller.updateActivity(150000, new Activity("A4", null, 4f)));
 	}
 }
