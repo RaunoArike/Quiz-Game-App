@@ -51,8 +51,6 @@ public class GameServiceImplTest {
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
-	@Captor
-	private ArgumentCaptor<IntermediateLeaderboardMessage> leaderboardMessageCaptor;
 
 	private GameServiceImpl createService() {
 		return new GameServiceImpl(questionService, outgoingController, playerService);
