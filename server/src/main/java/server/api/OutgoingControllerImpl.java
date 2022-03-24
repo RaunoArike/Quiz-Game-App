@@ -1,6 +1,7 @@
 package server.api;
 
 import commons.servermessage.ScoreMessage;
+import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.WaitingRoomStateMessage;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -37,5 +38,9 @@ public class OutgoingControllerImpl implements OutgoingController {
 	public void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers) {
 		String destination = new String("waiting-room-state");
 		send(message, listOfPlayers, destination);
+	}
+
+	public void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers) {
+		send(message, listOfPlayers, "intermediate-leaderboard");
 	}
 }
