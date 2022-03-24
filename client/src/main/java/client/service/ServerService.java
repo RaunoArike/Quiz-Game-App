@@ -84,5 +84,5 @@ public interface ServerService {
 	 */
 	void registerListener(ServerListener serverListener);
 
-	List<LeaderboardEntry> getData();
+	List<LeaderboardEntry> getLeaderboardData(String url);
 }

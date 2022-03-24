@@ -132,9 +132,9 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public List<LeaderboardEntry> getData() {
+	public List<LeaderboardEntry>  getLeaderboardData(String serverAddress) {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target("http://localhost:8080/").path("api/leaderboard") //
+				.target("http://" + serverAddress + "/").path("api/leaderboard") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<>() {
