@@ -2,8 +2,6 @@ package server.model;
 
 import commons.model.Question;
 import org.springframework.lang.Nullable;
-import server.service.TimerService;
-import server.service.TimerServiceImpl;
 
 import java.util.*;
 
