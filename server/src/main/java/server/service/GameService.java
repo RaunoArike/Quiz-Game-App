@@ -1,6 +1,9 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import server.model.Player;
+
+import java.util.List;
 
 /**
  * Game management service
@@ -21,4 +24,10 @@ public interface GameService {
 	 * @param answer submitted answer
 	 */
 	void submitAnswer(int playerId, QuestionAnswerMessage answer);
+
+	/**
+	 *
+	 * @param listOfPlayers
+	 */
+	void generateNewQuestion(List<Player> listOfPlayers);
 }
