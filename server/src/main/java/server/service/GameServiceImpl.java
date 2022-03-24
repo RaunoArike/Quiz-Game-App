@@ -10,31 +10,34 @@ import server.api.OutgoingController;
 import server.model.Game;
 import server.model.Player;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Comparator;
+import java.util.*;
 
 @Service
 public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
 	private final PlayerService playerService;
+	private final LeaderboardService leaderboardService;
+	private final TimerService timerService;
 
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
+
+	private static final long QUESTION_DELAY = 3000;
 
 	private int nextGameId = 0;
 
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-			PlayerService playerService) {
+			PlayerService playerService, LeaderboardService leaderboardService, TimerService timerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
 		this.playerService = playerService;
+		this.leaderboardService = leaderboardService;
+		this.timerService = timerService;
 	}
+
 
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
@@ -66,21 +69,39 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
+		long timePassed = timerService.getTime() - game.getStartTime();
 		var currentQuestion = game.getCurrentQuestion();
 
-		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer());
+		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
+				timePassed);
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
 
-		if (!game.isLastQuestion()) startNewQuestion(game);
-		else cleanUpGame(game);
+		if (!game.isLastQuestion()) {
+			startNewQuestion(game);
+		} else {
+			leaderboardService.addToLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
+			cleanUpGame(game);
+		}
 	}
 
+
 	private void startNewQuestion(Game game) {
-		var question = questionService.generateQuestion(game.getGameId());
+		if (game.isFirstQuestion()) {
+			newQuestion(game);
+		} else {
+			timerService.scheduleTimer(game.getGameId(), QUESTION_DELAY, () -> newQuestion(game));
+		}
+	}
+
+	private void newQuestion(Game game) {
+		var gameId = game.getGameId();
+		var question = questionService.generateQuestion(gameId);
 		game.startNewQuestion(question);
-		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()), game.getPlayerIds());
+		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
+				game.getPlayerIds());
+		game.startTimer(timerService.getTime());
 	}
 
 	@Override
