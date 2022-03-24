@@ -21,20 +21,20 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
-	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b"), 4f);
+	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
 
 	@Mock
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
-
+	private PlayerService playerService = new PlayerServiceImpl();
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
 
 	private GameServiceImpl createService() {
-		return new GameServiceImpl(questionService, outgoingController);
+		return new GameServiceImpl(questionService, outgoingController, playerService);
 	}
 
 	@Test
@@ -42,21 +42,12 @@ public class GameServiceImplTest {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
 		var service = createService();
-		var playerId = service.startSinglePlayerGame("abc");
+		service.startSinglePlayerGame(30, "abc");
 
 		verify(outgoingController).sendQuestion(
 				new QuestionMessage(FAKE_QUESTION, 0),
-				List.of(playerId)
+				List.of(30)
 		);
-	}
-
-	@Test
-	public void starting_two_single_player_games_should_yield_different_player_ids() {
-		var service = createService();
-		var playerId1 = service.startSinglePlayerGame("abc");
-		var playerId2 = service.startSinglePlayerGame("def");
-
-		assertNotEquals(playerId1, playerId2);
 	}
 
 	@Test
@@ -64,12 +55,12 @@ public class GameServiceImplTest {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
 		var service = createService();
-		var playerId = service.startSinglePlayerGame("abc");
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 420));
+		service.startSinglePlayerGame(30, "abc");
+		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f, 420));
 
 		verify(outgoingController, times(2)).sendQuestion(
 				questionMessageCaptor.capture(),
-				eq(List.of(playerId))
+				eq(List.of(30))
 		);
 		assertEquals(new QuestionMessage(FAKE_QUESTION, 0), questionMessageCaptor.getAllValues().get(0));
 		assertEquals(new QuestionMessage(FAKE_QUESTION, 1), questionMessageCaptor.getAllValues().get(1));
@@ -82,12 +73,12 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(5f))).thenReturn(77);
 
 		var service = createService();
-		var playerId = service.startSinglePlayerGame("abc");
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 420));
+		service.startSinglePlayerGame(30, "abc");
+		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f, 420));
 
 		verify(outgoingController).sendScore(
 				new ScoreMessage(77, 77),
-				List.of(playerId)
+				List.of(30)
 		);
 	}
 
@@ -97,13 +88,13 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(11f))).thenReturn(23);
 
 		var service = createService();
-		var playerId = service.startSinglePlayerGame("abc");
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 5f, 420));
-		service.submitAnswer(playerId, new QuestionAnswerMessage(null, 11f, 840));
+		service.startSinglePlayerGame(30, "abc");
+		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f, 420));
+		service.submitAnswer(30, new QuestionAnswerMessage(null, 11f, 840));
 
 		verify(outgoingController, times(2)).sendScore(
 				correctAnswerMessageCaptor.capture(),
-				eq(List.of(playerId))
+				eq(List.of(30))
 		);
 
 		assertEquals(new ScoreMessage(23, 100), correctAnswerMessageCaptor.getAllValues().get(1));
@@ -112,13 +103,13 @@ public class GameServiceImplTest {
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {
 		var service = createService();
-		var playerId = service.startSinglePlayerGame("abc");
+		service.startSinglePlayerGame(30, "abc");
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
-			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
+			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		}
 
 		assertThrows(Exception.class, () -> {
-			service.submitAnswer(playerId, new QuestionAnswerMessage(null, null, 0));
+			service.submitAnswer(30, new QuestionAnswerMessage(null, null, 0));
 		});
 	}
 }

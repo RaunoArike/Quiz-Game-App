@@ -1,6 +1,9 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import server.model.Player;
+
+import java.util.List;
 
 /**
  * Game management service
@@ -9,10 +12,10 @@ public interface GameService {
 	/**
 	 * Starts a single-player game
 	 *
+	 * @param playerId player id, used to identify player throughout the game
 	 * @param userName name of the player, will be used for leaderboard
-	 * @return created player id, used to identify player throughout the game
 	 */
-	int startSinglePlayerGame(String userName);
+	void startSinglePlayerGame(int playerId, String userName);
 
 	/**
 	 * Submits answer to the current question
@@ -21,4 +24,10 @@ public interface GameService {
 	 * @param answer submitted answer
 	 */
 	void submitAnswer(int playerId, QuestionAnswerMessage answer);
+
+	/**
+	 *
+	 * @param listOfPlayers
+	 */
+	void generateNewQuestion(List<Player> listOfPlayers);
 }
