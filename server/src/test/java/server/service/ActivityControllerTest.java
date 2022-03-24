@@ -25,6 +25,7 @@ public class ActivityControllerTest {
 		return new ActivityController(activityService);
 	}
 
+	
 	@Test
 	public void updateActivity_should_throw_exception_for_wrong_id() {
 		var controller = createController();
