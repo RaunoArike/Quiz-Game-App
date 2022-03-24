@@ -21,5 +21,5 @@ public interface QuestionService {
 	 * @param answer the answer that the player gave
 	 * @return the score of the player
 	 */
-	int calculateScore(Question question, Number answer);
+	int calculateScore(Question question, Number answer, long timeSpent);
 }

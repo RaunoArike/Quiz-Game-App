@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ServerAddressScreenCtrl">
    <children>
       <Label layoutX="97.0" layoutY="107.0" prefHeight="47.0" prefWidth="405.0" text="Connect to a server to play:">
@@ -20,11 +19,12 @@
          </font>
       </Label>
       <TextField fx:id="serverAddress" layoutX="300.0" layoutY="180.0" />
-      <Button fx:id="ok" layoutX="345.0" layoutY="221.0" mnemonicParsing="false" onAction="#ok" prefHeight="26.0" prefWidth="59.0" text="OK " />
+      <Button fx:id="ok" layoutX="390.0" layoutY="231.0" mnemonicParsing="false" onAction="#ok" prefHeight="26.0" prefWidth="59.0" text="OK " />
       <Label fx:id="errorMessage" layoutX="195.0" layoutY="294.0" prefHeight="35.0" prefWidth="219.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
+      <Button fx:id="defaultButton" layoutX="267.0" layoutY="226.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="88.0" text="Use default" />
    </children>
 </AnchorPane>

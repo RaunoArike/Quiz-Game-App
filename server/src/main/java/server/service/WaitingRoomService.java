@@ -16,9 +16,9 @@ public interface WaitingRoomService {
 	 * Puts the player in the waiting room if not already there
 	 *
 	 * @param playerName The name of the player
-	 * @return the player id
+	 * @param playerId The id of the palyer
 	 */
-	int joinWaitingRoom(String playerName);
+	void joinWaitingRoom(String playerName, int playerId);
 
 	/**
 	 * The game of the given waiting room is started by one of the players
@@ -30,5 +30,5 @@ public interface WaitingRoomService {
 	/**
 	 * Resets the waiting room
 	 */
-	void resetWaitingRoom();
+	void startMultiplayerGame();
 }

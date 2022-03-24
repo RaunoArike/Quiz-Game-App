@@ -13,9 +13,9 @@
       <Button fx:id="optionA" layoutX="32.0" layoutY="238.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="38.0" prefWidth="157.0" text="A" />
       <Button fx:id="optionB" layoutX="221.0" layoutY="238.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="38.0" prefWidth="158.0" text="B" />
       <Button fx:id="optionC" layoutX="410.0" layoutY="238.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="38.0" prefWidth="158.0" text="C" />
-      <ProgressBar layoutX="202.0" layoutY="306.0" prefHeight="18.0" prefWidth="258.0" progress="0.0" />
+      <ProgressBar fx:id="timerProgress" layoutX="202.0" layoutY="306.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" />
       <Text layoutX="134.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
-      <Text fx:id="timer" layoutX="172.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="10" wrappingWidth="18.537506103515625" />
+      <Text fx:id="timerNumber" layoutX="172.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
       <Text layoutX="34.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
          <font>
             <Font size="24.0" />
@@ -31,7 +31,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="questionText" layoutX="55.0" layoutY="34.0" prefHeight="35.0" prefWidth="349.0" text="This is the question">
+      <Label fx:id="questionText" layoutX="42.0" layoutY="45.0" prefHeight="35.0" prefWidth="349.0" text="This is the question">
          <font>
             <Font size="24.0" />
          </font>
