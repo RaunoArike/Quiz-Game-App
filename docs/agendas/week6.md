@@ -13,12 +13,6 @@ Secretary:		Ye Zhao
 
 ## Short Reflection
 - How did this week go? What has each one of us done over the last period of time? What is not working?
-TA’s comments
-- Regarding our progress over the past week and the requirements for the upcoming week: Are we on track? What should our focus be for the upcoming week?
-
-## Items addressed by the TA
-  TA’s comments
-- Regarding our progress over the past week and the requirements for the upcoming week: Are we on track? What should our focus be for the upcoming week?
 
 ## Items addressed by the TA
 - Feedback to the final submitted version of the HCI assignment

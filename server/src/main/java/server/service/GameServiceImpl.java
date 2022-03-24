@@ -3,7 +3,6 @@ package server.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
@@ -12,7 +11,6 @@ import server.model.Player;
 import java.util.*;
 
 @Service
-@EnableScheduling
 public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
@@ -55,11 +53,11 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		long timePassed = timerService.getTime();
+		long timePassed = timerService.getTime() - game.getStartTime();
 		var currentQuestion = game.getCurrentQuestion();
 
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed - game.getStartTime());
+				timePassed);
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
