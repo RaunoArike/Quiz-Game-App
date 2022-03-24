@@ -57,7 +57,7 @@ public class LeaderboardCtrl implements Initializable {
 
 
 	public void refresh() {
-		var leaderboardEntries = server.getLeaderboardData(mainCtrl.DEFAULT_SERVER_ADDRESS);
+		var leaderboardEntries = server.getLeaderboardData(ServerAddressScreenCtrl.url);
 
 		data = FXCollections.observableList(leaderboardEntries);
 		singleLeaderboard.setItems(data);
