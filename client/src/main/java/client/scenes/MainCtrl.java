@@ -227,6 +227,7 @@ public class MainCtrl {
 	}
 
 	public void showEndingScreen(int score) {
+		endingScreenCtrl.init();
 		endingScreenCtrl.setScore(score);
 		primaryStage.setTitle("Game over");
 		primaryStage.setScene(endingScreen);

@@ -27,6 +27,12 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 		super(server, mainCtrl);
 	}
 
+	@Override
+	public void init() {
+		super.init();
+		resetError();
+	}
+
 	public void sendAnswer() {
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
