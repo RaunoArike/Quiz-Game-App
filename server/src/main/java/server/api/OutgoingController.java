@@ -1,7 +1,9 @@
 package server.api;
 
+import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
+import commons.servermessage.WaitingRoomStateMessage;
 
 import java.util.List;
 
@@ -22,4 +24,25 @@ public interface OutgoingController {
 	 * @param players - the players that receive the message
 	 */
 	void sendScore(ScoreMessage message, List<Integer> players);
+
+	/**
+	 * Sends an empty message to the client, signifying that the game has ended
+	 * and no more questions will be sent by the server
+	 * @param players - the players that receive the message
+	 */
+	void sendEndOfGame(List<Integer> players);
+
+	/**
+	 * Sends the client the waiting room state
+	 * @param message The message that has to be sent
+	 * @param listOfPlayers The list of players that has to be passed as parameter
+	 */
+	void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers);
+
+	/**
+	 * Sends the intermediate leaderboard to the client
+	 * @param leaderboard - list of (maximum) ten LeaderboardEntry objects sorted in descending order
+	 * @param listofPlayers - the players that receive the message
+	*/
+	void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers);
 }

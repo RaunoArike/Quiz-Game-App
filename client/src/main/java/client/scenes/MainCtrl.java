@@ -19,6 +19,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import client.model.QuestionTypes;
+import commons.model.Question.ComparisonQuestion;
+import commons.model.Question.EstimationQuestion;
+import commons.model.Question.MultiChoiceQuestion;
+import commons.model.Question.PickEnergyQuestion;
 
 
 //import client.service.MessageLogicService;
@@ -54,15 +59,21 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
+	private EndingScreenCtrl endingScreenCtrl;
+	private Scene endingScreen;
+
+	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
+
 	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 	Pair<OpeningCtrl, Parent> openingCtrl,
 	Pair<UsernameCtrl, Parent> usernameCtrl,
 	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
 	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
-	Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
+	Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
 	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
 	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl) {
+	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
+	Pair<EndingScreenCtrl, Parent> endingScreenCtrl) {
 
 		this.primaryStage = primaryStage;
 
@@ -81,8 +92,8 @@ public class MainCtrl {
 		this.serverAddressScreenCtrl = serverAddressCtrl.getKey();
 		this.serverAddress = new Scene(serverAddressCtrl.getValue());
 
-		this.comparisonScreenCtrl = comparsionScreenCtrl.getKey();
-		this.comparisonScreen = new Scene(comparsionScreenCtrl.getValue());
+		this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
+		this.comparisonScreen = new Scene(comparisonScreenCtrl.getValue());
 
 		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
 		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
@@ -93,10 +104,12 @@ public class MainCtrl {
 		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
 		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
 
+		this.endingScreenCtrl = endingScreenCtrl.getKey();
+		this.endingScreen = new Scene(endingScreenCtrl.getValue());
+
 		showServerAddress();
 		primaryStage.show();
 	}
-
 
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
@@ -127,30 +140,82 @@ public class MainCtrl {
 		primaryStage.setScene(serverAddress);
 	}
 
-	// public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
+	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
+		String textActivity1 = q.activities().get(0).name();
+		String textActivity2 = q.activities().get(1).name();
+		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
+		this.comparisonScreenCtrl.setQuestion(textQuestion);
+		this.comparisonScreenCtrl.setScore(score);
+		questionNumber++;
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(comparisonScreen);
 
-	// 	this.comparisonScreenCtrl.setQuestion("");
-	// 	this.comparisonScreenCtrl.setOptions("", "", "");
-	// 	this.comparisonScreenCtrl.setScore(0);
+		comparisonScreenCtrl.callTimeLimiter();
+		comparisonScreenCtrl.resetError();
+	}
 
-	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
-	// 	primaryStage.setScene(comparisonScreen);
-	// }
+	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
+		String textQuestion = "Estimate the amount of energy it takes to " + q.activity().name();
+		this.estimationScreenCtrl.setQuestion(textQuestion);
+		this.estimationScreenCtrl.setScore(score);
+		questionNumber++;
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(estimationScreen);
 
-	// public void showEstimationQuestion(Question q, int questionNumber, int score) {
+		estimationScreenCtrl.callTimeLimiter();
+		estimationScreenCtrl.resetError();
+	}
 
-	// 	this.estimationScreenCtrl.setQuestion("");
-	// 	this.comparisonScreenCtrl.setOptions("", "", "");
-	// 	this.comparisonScreenCtrl.setScore(0);
+	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {
+		String textQuestion = "Which of the following takes the most energy?";
+		this.multiChoiceScreenCtrl.setQuestion(textQuestion);
+		String a = q.activities().get(0).name();
+		String b = q.activities().get(1).name();
+		String c = q.activities().get(2).name();
+		this.multiChoiceScreenCtrl.setAnswerOptions(a, b, c);
+		this.multiChoiceScreenCtrl.setScore(score);
+		questionNumber++;
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(multiChoiceScreen);
 
-	// 	primaryStage.setTitle("Question " + questionNumber + " of 20");
-	// 	primaryStage.setScene(comparisonScreen);
-	// }
+		multiChoiceScreenCtrl.callTimeLimiter();
+	}
 
-	public void sendAnswer() {
-		//called with parameters that indicate type of question, answer (option or number)
-		//additionally time taken
-		//should in turn pass this on to server-comm
+	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber, int score) {
+		String textActivity = q.activity().name();
+		String textQuestion = "How much energy does " + textActivity + " take?";
+		this.pickEnergyScreenCtrl.setQuestion(textQuestion);
+		String a = q.answerOptions().get(0).toString();
+		String b = q.answerOptions().get(1).toString();
+		String c = q.answerOptions().get(2).toString();
+		this.pickEnergyScreenCtrl.setOptions(a, b, c);
+		this.pickEnergyScreenCtrl.setScore(score);
+		questionNumber++;
+		primaryStage.setTitle("Question " + questionNumber + " of 20");
+		primaryStage.setScene(pickEnergyScreen);
+
+		pickEnergyScreenCtrl.callTimeLimiter();
+	}
+
+	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {
+		if (type == QuestionTypes.COMPARISON) {
+			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+		}
+		if (type == QuestionTypes.ESTIMATION) {
+			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+		}
+		if (type == QuestionTypes.MULTI_CHOICE) {
+			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
+		}
+		if (type == QuestionTypes.PICK_ENERGY) {
+			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
+		}
+	}
+
+	public void showEndingScreen(int score) {
+		primaryStage.setTitle("Game over");
+		endingScreenCtrl.setScore(score);
+		primaryStage.setScene(endingScreen);
 	}
 
 }

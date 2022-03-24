@@ -38,11 +38,31 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 	}
 
 	public void optionAclicked() {
+		server.answerQuestion(0);
+		timeStop();
 	}
 
 	public void optionBclicked() {
+		server.answerQuestion(1);
+		timeStop();
 	}
 
 	public void optionCclicked() {
+		server.answerQuestion(2);
+		timeStop();
+	}
+
+	public void showAnswer(int option) {
+		switch (option) {
+			case 0:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+			case 1:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+			case 2:
+				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				break;
+		}
 	}
 }

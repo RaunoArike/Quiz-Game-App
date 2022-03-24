@@ -72,7 +72,8 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public boolean connectToServer(String url) {
+	public boolean connectToServer(String serverAddress) {
+		String url = "ws://" + serverAddress + "/websocket";
 		try {
 			session = connect(url);
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
@@ -86,6 +87,9 @@ public class ServerServiceImpl implements ServerService {
 			});
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
+			});
+			registerForMessages("/user/queue/end-of-game", Object.class, message -> {
+				notifyListeners(listener -> listener.onEndOfGame());
 			});
 		} catch (Exception e) {
 			return false;
@@ -116,7 +120,7 @@ public class ServerServiceImpl implements ServerService {
 	public void answerQuestion(Number answer) {
 		Integer answerInt = answer instanceof Integer ? (Integer) answer : null;
 		Float answerFloat = answer instanceof Float ? (Float) answer : null;
-		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat, 0));
+		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat));
 	}
 
 	@Override

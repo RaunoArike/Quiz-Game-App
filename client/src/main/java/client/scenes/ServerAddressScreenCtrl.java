@@ -28,8 +28,24 @@ public class ServerAddressScreenCtrl {
 	@FXML
 	private Button ok;
 
+	@FXML
+	private Button defaultButton;
+
 	public void ok() {
 		String url = this.serverAddress.getText();
+		sendServerAddress(url);
+	}
+
+	public void clear() {
+		serverAddress.clear();
+		errorMessage.setText("");
+	}
+
+	public void useDefault() {
+		sendServerAddress(mainCtrl.DEFAULT_SERVER_ADDRESS);
+	}
+
+	public void sendServerAddress(String url) {
 		if (url != null && !url.isEmpty()) {
 			boolean result = server.connectToServer(url);
 			if (result) {
@@ -41,11 +57,6 @@ public class ServerAddressScreenCtrl {
 		} else {
 			errorMessage.setText("Please enter a valid address: ");
 		}
-	}
-
-	public void clear() {
-		serverAddress.clear();
-		errorMessage.setText("");
 	}
 
 	public void keyPressed(KeyEvent e) {
