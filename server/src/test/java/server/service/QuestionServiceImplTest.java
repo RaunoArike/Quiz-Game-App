@@ -35,7 +35,7 @@ public class QuestionServiceImplTest {
 	public void correct_answer_for_mc_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
-		var score = service.calculateScore(question, 2);
+		var score = service.calculateScore(question, 2, 1000L);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -43,7 +43,7 @@ public class QuestionServiceImplTest {
 	public void wrong_answer_for_mc_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
-		var score = service.calculateScore(question, 1);
+		var score = service.calculateScore(question, 1, 1000L);
 		assertEquals(0, score);
 	}
 
@@ -51,7 +51,7 @@ public class QuestionServiceImplTest {
 	public void close_answer_for_est_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 95f);
+		var score = service.calculateScore(question, 95f, 1000L);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -59,7 +59,7 @@ public class QuestionServiceImplTest {
 	public void distant_answer_for_est_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 40f);
+		var score = service.calculateScore(question, 40f, 1000L);
 		assertEquals(0, score);
 	}
 
@@ -67,7 +67,7 @@ public class QuestionServiceImplTest {
 	public void medium_answer_for_est_question_should_partial_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 70f);
+		var score = service.calculateScore(question, 70f, 1000L);
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
 	}
@@ -76,7 +76,7 @@ public class QuestionServiceImplTest {
 	public void close_answer_for_comp_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
-		var score = service.calculateScore(question, 1.1f);
+		var score = service.calculateScore(question, 1.1f, 1000L);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -84,7 +84,7 @@ public class QuestionServiceImplTest {
 	public void distant_answer_for_comp_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
-		var score = service.calculateScore(question, 2.1f);
+		var score = service.calculateScore(question, 2.1f, 1000L);
 		assertEquals(0, score);
 	}
 
@@ -92,7 +92,7 @@ public class QuestionServiceImplTest {
 	public void medium_answer_for_comp_question_should_partial_score() {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
-		var score = service.calculateScore(question, 1.5f);
+		var score = service.calculateScore(question, 1.5f, 1000L);
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
 	}
@@ -101,7 +101,7 @@ public class QuestionServiceImplTest {
 	public void correct_answer_for_pick_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
-		var score = service.calculateScore(question, 2);
+		var score = service.calculateScore(question, 2, 1000L);
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -109,7 +109,7 @@ public class QuestionServiceImplTest {
 	public void wrong_answer_for_pick_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
-		var score = service.calculateScore(question, 1);
+		var score = service.calculateScore(question, 1, 1000L);
 		assertEquals(0, score);
 	}
 
