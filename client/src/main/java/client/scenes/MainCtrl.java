@@ -39,7 +39,7 @@ public class MainCtrl {
 	private Scene home;
 
 	private AdminCtrl adminCtrl;
-	private Scene admin;
+	private Scene adminScreen;
 
 	private UsernameCtrl usernameCtrl;
 	private Scene username;
@@ -64,17 +64,17 @@ public class MainCtrl {
 
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
-	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-	Pair<OpeningCtrl, Parent> openingCtrl,
-	Pair<UsernameCtrl, Parent> usernameCtrl,
-	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
-	Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
-	Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
-	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
-	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
-	Pair<AdminCtrl, Parent> adminCtrlParentPair){
-
+	public void initialize(Stage primaryStage,
+		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
+		Pair<OpeningCtrl, Parent> openingCtrl,
+		Pair<UsernameCtrl, Parent> usernameCtrl,
+		Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
+		Pair<ServerAddressScreenCtrl, Parent> serverAddressCtrl,
+		Pair<ComparisonScreenCtrl, Parent> comparsionScreenCtrl,
+		Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
+		Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
+		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
+		Pair<AdminCtrl, Parent> adminCtrlParentPair) {
 			this.primaryStage = primaryStage;
 
 			this.leaderboardCtrl = leaderboardCtrl.getKey();
@@ -105,14 +105,15 @@ public class MainCtrl {
 			this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
 
 			this.adminCtrl = adminCtrlParentPair.getKey();
-			this.admin = new Scene(adminCtrlParentPair.getValue());
+			this.adminScreen = new Scene(adminCtrlParentPair.getValue());
+
 			showServerAddress();
 			primaryStage.show();
 	}
 
 	public void showAdminPanel() {
 		primaryStage.setTitle("Admin panel");
-		primaryStage.setScene(admin);
+		primaryStage.setScene(adminScreen);
 	}
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");

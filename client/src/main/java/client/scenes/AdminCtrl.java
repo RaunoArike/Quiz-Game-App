@@ -1,6 +1,6 @@
 package client.scenes;
 
-import client.utils.ServerUtils;
+import client.service.ServerService;
 import commons.model.Activity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,11 +9,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import com.google.inject.Inject;
 
-import javax.inject.Inject;
 
 public class AdminCtrl {
-	private final ServerUtils serverUtils;
+	private final ServerService serverServicer;
 	private final MainCtrl mainCtrl;
 
 
@@ -26,16 +26,15 @@ public class AdminCtrl {
 
 
 	@Inject
-	public AdminCtrl(ServerUtils serverUtils, MainCtrl mainCtrl) {
-		this.serverUtils = serverUtils;
+	public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
+		this.serverServicer = serverService;
 		this.mainCtrl = mainCtrl;
 
 		///set up the columns of the table
+		nameColumn = new TableColumn<>();
+		energyColumn = new TableColumn<>();
 
-		if (nameColumn != null) {
-			nameColumn.setCellValueFactory(new PropertyValueFactory<Activity, String>("NAME"));
-		}
-		assert energyColumn != null;
+		nameColumn.setCellValueFactory(new PropertyValueFactory<Activity, String>("NAME"));
 		energyColumn.setCellValueFactory(new PropertyValueFactory<Activity, Float>("ENERGY IN Wh"));
 
 		tableOfActivities.setItems(getActivities());
@@ -47,6 +46,8 @@ public class AdminCtrl {
 		activities.add(1, new Activity("ds", "das", 1));
 		return activities;
 	}
+
+
 
 	///The option to return home
 	public void returnHome() {

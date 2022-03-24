@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminCtrl">
    <children>
       <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="61.0" prefWidth="134.0" text="ADMIN" textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS" wrapText="true">
          <font>
@@ -18,7 +18,7 @@
       <ButtonBar layoutX="61.0" layoutY="246.0" prefHeight="40.0" prefWidth="68.0" />
       <ButtonBar layoutX="257.0" layoutY="246.0" prefHeight="40.0" prefWidth="57.0" />
       <ButtonBar layoutX="453.0" layoutY="246.0" prefHeight="40.0" prefWidth="76.0" />
-    <Button cancelButton="true" layoutX="17.0" layoutY="346.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="156.0" text="RETURN HOME" />
+    <Button cancelButton="true" layoutX="17.0" layoutY="346.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="26.0" prefWidth="156.0" text="RETURN HOME" />
       <Button layoutX="27.0" layoutY="200.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="DISPLAY ACTIVITIES" />
       <Button layoutX="27.0" layoutY="233.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="ADD ACTIVITY" />
       <Button layoutX="28.0" layoutY="310.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="134.0" text="REMOVE ACTIVITY" />
@@ -26,7 +26,7 @@
       <TableView layoutX="244.0" layoutY="14.0" prefHeight="380.0" prefWidth="335.0">
         <columns>
             <TableColumn prefWidth="119.20001220703125" text="NAME" />
-            <TableColumn prefWidth="213.5999755859375" text="ENEDGY IN Wh" />
+            <TableColumn prefWidth="213.5999755859375" text="ENERGY IN Wh" />
         </columns>
       </TableView>
    </children>
