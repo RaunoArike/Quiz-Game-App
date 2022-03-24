@@ -1,11 +1,13 @@
 package client.scenes;
 
+import client.model.QuestionData;
 import client.service.ServerService;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import com.google.inject.Inject;
 
-public class MultiChoiceScreenCtrl extends QuestionCtrl {
+public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
 	@FXML
 	private Button optionA;
@@ -21,7 +23,21 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 		super(server, mainCtrl);
 	}
 
-	public void setAnswerOptions(String a, String b, String c) {
+	@Override
+	public void setQuestion(QuestionData<Question.MultiChoiceQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textQuestion = "Which of the following takes the most energy?";
+		setQuestionText(textQuestion);
+
+		var a = question.activities().get(0).name();
+		var b = question.activities().get(1).name();
+		var c = question.activities().get(2).name();
+		setAnswerOptions(a, b, c);
+	}
+
+	private void setAnswerOptions(String a, String b, String c) {
 		this.optionA.setText(a);
 		this.optionB.setText(b);
 		this.optionC.setText(c);
@@ -53,10 +69,10 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 			case 1:
-				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				optionB.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 			case 2:
-				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				optionC.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 		}
 		timeStop();

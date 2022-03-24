@@ -15,6 +15,7 @@
  */
 package client.scenes;
 
+import client.model.QuestionData;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -160,54 +161,31 @@ public class MainCtrl {
 		primaryStage.setScene(serverAddress);
 	}
 
-	public void showComparisonQuestion(ComparisonQuestion q, int questionNumber, int score) {
-		String textActivity1 = q.activities().get(0).name();
-		String textActivity2 = q.activities().get(1).name();
-		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
-		this.comparisonScreenCtrl.setQuestion(textQuestion);
-		this.comparisonScreenCtrl.setScore(score);
-		this.comparisonScreenCtrl.init();
-		questionNumber++;
-		primaryStage.setTitle("Question " + questionNumber + " of 20");
+	public void showComparisonQuestion(QuestionData<ComparisonQuestion> questionData) {
+		comparisonScreenCtrl.init();
+		comparisonScreenCtrl.setQuestion(questionData);
+		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
 		primaryStage.setScene(comparisonScreen);
 	}
 
-	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
-		String textQuestion = "Estimate the amount of energy it takes to " + q.activity().name();
-		this.estimationScreenCtrl.setQuestion(textQuestion);
-		this.estimationScreenCtrl.setScore(score);
-		this.estimationScreenCtrl.init();
-		questionNumber++;
-		primaryStage.setTitle("Question " + questionNumber + " of 20");
+	public void showEstimationQuestion(QuestionData<EstimationQuestion> questionData) {
+		estimationScreenCtrl.init();
+		estimationScreenCtrl.setQuestion(questionData);
+		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
 		primaryStage.setScene(estimationScreen);
 	}
 
-	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {
-		String textQuestion = "Which of the following takes the most energy?";
-		this.multiChoiceScreenCtrl.setQuestion(textQuestion);
-		String a = q.activities().get(0).name();
-		String b = q.activities().get(1).name();
-		String c = q.activities().get(2).name();
-		this.multiChoiceScreenCtrl.setAnswerOptions(a, b, c);
-		this.multiChoiceScreenCtrl.setScore(score);
-		this.multiChoiceScreenCtrl.init();
-		questionNumber++;
-		primaryStage.setTitle("Question " + questionNumber + " of 20");
+	public void showMultiChoiceQuestion(QuestionData<MultiChoiceQuestion> questionData) {
+		multiChoiceScreenCtrl.init();
+		multiChoiceScreenCtrl.setQuestion(questionData);
+		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
 		primaryStage.setScene(multiChoiceScreen);
 	}
 
-	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber, int score) {
-		String textActivity = q.activity().name();
-		String textQuestion = "How much energy does " + textActivity + " take?";
-		this.pickEnergyScreenCtrl.setQuestion(textQuestion);
-		String a = q.answerOptions().get(0).toString();
-		String b = q.answerOptions().get(1).toString();
-		String c = q.answerOptions().get(2).toString();
-		this.pickEnergyScreenCtrl.setOptions(a, b, c);
-		this.pickEnergyScreenCtrl.setScore(score);
-		this.pickEnergyScreenCtrl.init();
-		questionNumber++;
-		primaryStage.setTitle("Question " + questionNumber + " of 20");
+	public void showPickEnergyQuestion(QuestionData<PickEnergyQuestion> questionData) {
+		pickEnergyScreenCtrl.init();
+		pickEnergyScreenCtrl.setQuestion(questionData);
+		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
 		primaryStage.setScene(pickEnergyScreen);
 	}
 

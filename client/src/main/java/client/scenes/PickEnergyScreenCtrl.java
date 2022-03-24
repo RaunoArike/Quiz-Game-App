@@ -1,12 +1,14 @@
 package client.scenes;
 
+import client.model.QuestionData;
 import client.service.ServerService;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import com.google.inject.Inject;
 
-public class PickEnergyScreenCtrl extends QuestionCtrl {
+public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
 	@FXML
 	private RadioButton optionA;
@@ -31,7 +33,22 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 		super(server, mainCtrl);
 	}
 
-	public void setOptions(String a, String b, String c) {
+	@Override
+	public void setQuestion(QuestionData<Question.PickEnergyQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textActivity = question.activity().name();
+		var textQuestion = "How much energy does " + textActivity + " take?";
+		setQuestionText(textQuestion);
+
+		var a = question.answerOptions().get(0).toString();
+		var b = question.answerOptions().get(1).toString();
+		var c = question.answerOptions().get(2).toString();
+		setOptions(a, b, c);
+	}
+
+	private void setOptions(String a, String b, String c) {
 		this.optionAtext.setText(a);
 		this.optionBtext.setText(b);
 		this.optionCtext.setText(c);
@@ -58,10 +75,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 			case 1:
-				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				optionB.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 			case 2:
-				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				optionC.setStyle("-fx-background-color: #00ff7f; ");
 				break;
 		}
 	}

@@ -1,14 +1,16 @@
 package client.scenes;
 
+import client.model.QuestionData;
 import client.service.ServerService;
 import client.utils.NumberUtils;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
 
-public class EstimationScreenCtrl extends QuestionCtrl {
+public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuestion> {
 
 	@FXML
 	private TextField answer;
@@ -31,6 +33,15 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	public void init() {
 		super.init();
 		resetError();
+	}
+
+	@Override
+	public void setQuestion(QuestionData<Question.EstimationQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textQuestion = "Estimate the amount of energy it takes to " + question.activity().name();
+		setQuestionText(textQuestion);
 	}
 
 	public void sendAnswer() {

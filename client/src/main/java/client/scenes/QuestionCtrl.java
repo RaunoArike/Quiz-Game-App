@@ -1,7 +1,9 @@
 package client.scenes;
 
+import client.model.QuestionData;
 import client.service.ServerService;
 import com.google.inject.Inject;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +13,7 @@ import javafx.scene.text.Text;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class QuestionCtrl extends AbstractCtrl {
+public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private static final int TIMER_UPDATE_PERIOD = 1000;
 	private static final double TIMER_PROGRESS_PERCENTAGE = 0.05;
@@ -53,7 +55,11 @@ public abstract class QuestionCtrl extends AbstractCtrl {
 		callTimeLimiter();
 	}
 
-	public void setQuestion(String questionText) {
+	public void setQuestion(QuestionData<Q> questionData) {
+		setScore(questionData.currentScore());
+	}
+
+	protected void setQuestionText(String questionText) {
 		this.questionText.setText(questionText);
 	}
 

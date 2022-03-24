@@ -16,6 +16,7 @@
 package client;
 
 import client.service.MessageLogicService;
+import client.service.MessageLogicServiceImpl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
@@ -34,6 +35,6 @@ public class MyModule implements Module {
 		binder.bind(OpeningCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(ServerService.class).to(ServerServiceImpl.class).in(Scopes.SINGLETON);
-		binder.bind(MessageLogicService.class).in(Scopes.SINGLETON);
+		binder.bind(MessageLogicService.class).to(MessageLogicServiceImpl.class).in(Scopes.SINGLETON);
 	}
 }
