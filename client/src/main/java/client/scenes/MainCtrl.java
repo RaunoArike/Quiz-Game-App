@@ -104,7 +104,10 @@ public class MainCtrl {
 			primaryStage.show();
 	}
 
-
+	public void showAdminPanel() {
+		primaryStage.setTitle("Admin panel");
+		primaryStage.setScene(admin);
+	}
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
 		primaryStage.setScene(leaderboard);
