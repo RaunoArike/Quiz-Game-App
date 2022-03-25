@@ -92,6 +92,5 @@ public interface ServerService {
 	/**
 	 * Gets to the admin panel
 	 */
-	void adminPanel();
 	List<LeaderboardEntry> getLeaderboardData(String url);
 }
