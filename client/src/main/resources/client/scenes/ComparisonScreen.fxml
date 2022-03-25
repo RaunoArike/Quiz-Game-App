@@ -22,7 +22,7 @@
       <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
       <Button layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
       <ImageView fitHeight="32.0" fitWidth="204.0" layoutX="66.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="questionText" layoutX="36.0" layoutY="50.0" prefHeight="103.0" prefWidth="542.0" text="&quot;Instead of X, you can do Y&quot; ">
+      <Label fx:id="questionText" layoutX="36.0" layoutY="50.0" prefHeight="103.0" prefWidth="542.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
          <font>
             <Font size="20.0" />
          </font>

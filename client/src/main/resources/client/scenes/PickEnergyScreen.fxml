@@ -25,7 +25,7 @@
       <RadioButton fx:id="optionA" layoutX="348.0" layoutY="178.0" mnemonicParsing="false" onAction="#optionAclicked" text="A" />
       <RadioButton fx:id="optionB" layoutX="348.0" layoutY="207.0" mnemonicParsing="false" onAction="#optionBclicked" text="B" />
       <RadioButton fx:id="optionC" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#optionCclicked" text="C" />
-      <Label fx:id="questionText" layoutX="34.0" layoutY="55.0" prefHeight="118.0" prefWidth="543.0" text="How much does X take?">
+      <Label fx:id="questionText" layoutX="34.0" layoutY="55.0" prefHeight="118.0" prefWidth="543.0" text="How much does X take?" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>

@@ -31,7 +31,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="questionText" layoutX="34.0" layoutY="45.0" prefHeight="82.0" prefWidth="527.0" text="This is the question">
+      <Label fx:id="questionText" layoutX="34.0" layoutY="45.0" prefHeight="82.0" prefWidth="527.0" text="This is the question" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
