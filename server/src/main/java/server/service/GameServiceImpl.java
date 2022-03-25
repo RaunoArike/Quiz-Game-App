@@ -56,8 +56,13 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void generateNewQuestion(List<Player> listOfPlayers) {
 		var newGameId = nextGameId++;
-		Game newGame = new Game(newGameId);
+		Game newGame = new Game(listOfPlayers, newGameId);
+
+		for (Player player : listOfPlayers) {
+			players.put(player.getPlayerId(), newGameId);
+		}
 		games.put(newGameId, newGame);
+
 		startNewQuestion(newGame);
 	}
 
@@ -69,8 +74,11 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
+		if (game.isQuestionFinished()) return;
+		game.markCurrentQuestionAsFinished();
+
 		long timePassed = timerService.getTime() - game.getStartTime();
-		var currentQuestion = game.getCurrentQuestion();
+		var currentQuestion = game.getQuestion();
 
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
 				timePassed);
@@ -89,7 +97,7 @@ public class GameServiceImpl implements GameService {
 
 
 	private void startNewQuestion(Game game) {
-		if (game.isFirstQuestion()) {
+		if (game.isBeforeFirstQuestion()) {
 			newQuestion(game);
 		} else {
 			timerService.scheduleTimer(game.getGameId(), QUESTION_DELAY, () -> newQuestion(game));

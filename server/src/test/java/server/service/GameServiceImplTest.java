@@ -114,7 +114,7 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
 		when(questionService.calculateScore(any(), eq(11f), anyLong())).thenReturn(23);
 
-		var service = createService(timerService);
+		var service = createService(new MockTimerService());
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 11f));

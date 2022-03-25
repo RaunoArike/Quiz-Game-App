@@ -15,7 +15,8 @@ public class Game {
 	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
 	private int questionNumber = -1;
 	private long questionStartTime = 0;
-	private Question currentQuestion;
+	private Question question;
+	private boolean questionFinished;
 
 	public Game(int gameId) {
 		this.gameId = gameId;
@@ -34,7 +35,12 @@ public class Game {
 
 	public void startNewQuestion(Question question) {
 		questionNumber++;
-		currentQuestion = question;
+		this.question = question;
+		questionFinished = false;
+	}
+
+	public void markCurrentQuestionAsFinished() {
+		questionFinished = true;
 	}
 
 	public int getGameId() {
@@ -64,16 +70,16 @@ public class Game {
 		return ((questionNumber + 1) % LEADERBOARD_DISPLAY_FREQUENCY) == 0;
 	}
 
-	public boolean isFirstQuestion() {
-		return questionNumber == 0;
+	public boolean isBeforeFirstQuestion() {
+		return questionNumber == -1;
 	}
 
 	public int getQuestionNumber() {
 		return questionNumber;
 	}
 
-	public Question getCurrentQuestion() {
-		return currentQuestion;
+	public Question getQuestion() {
+		return question;
 	}
 
 	public void startTimer(long currentTime) {
@@ -82,5 +88,9 @@ public class Game {
 
 	public long getStartTime() {
 		return this.questionStartTime;
+	}
+
+	public boolean isQuestionFinished() {
+		return questionFinished;
 	}
 }
