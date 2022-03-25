@@ -61,9 +61,19 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void startMultiPlayerGame(List<Player> listOfPlayers) {
 		var newGameId = nextGameId++;
-		Game newGame = new Game(listOfPlayers, newGameId);
-		games.put(newGameId, newGame);
-		startNewQuestion(newGame);
+		Game game = new Game(listOfPlayers, newGameId);
+		games.put(newGameId, game);
+		continueMultiPlayerGame(game);
+
+	}
+
+	private void continueMultiPlayerGame(Game game) {
+		//Question number branch logic needed
+		//if next is intermediate, call on an intermediate method
+		game.answers = new HashMap<>();
+		game.times = new HashMap<>();
+		startNewQuestion(game);
+		timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
 	}
 
 	/**
@@ -114,11 +124,22 @@ public class GameServiceImpl implements GameService {
 	 */
 	public void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
 		//TO DO
+
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+		//as answers come in, the map will be updated with time and answer
+		game.answers.put(playerId, answer);
+		long timePassed = timerService.getTime() - game.getStartTime();
+		game.times.put(playerId, timePassed);
 	}
 
 
 	/**
-	 * Generic method for both single and multi player games
+	 *  Sends a new question after a preset delay.
 	 * @param game game for which new question is to be generated
 	 */
 	private void startNewQuestion(Game game) {
@@ -130,7 +151,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Helper method of startNewQuestion
+	 * Sends a new question immediately.
 	 * @param game
 	 */
 	private void newQuestion(Game game) {
@@ -140,6 +161,23 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
 				game.getPlayerIds());
 		game.startTimer(timerService.getTime());
+	}
+
+	/**
+	 * Updates the scores of all the players in a multi-player game when the timer of a question elapses
+	 * based on the latest answer that they submitted
+	 * @param game
+	 */
+	private void scoreUpdate(Game game) {
+		for (int playerId : game.answers.keySet()) {
+			Player p = game.getPlayer(playerId);
+			QuestionAnswerMessage answer = game.answers.get(playerId);
+			Long timeTakenToAnswer = game.times.get(playerId);
+			var scoreDelta = questionService.calculateScore(game.getCurrentQuestion(), answer.getAnswer(),
+				timeTakenToAnswer);
+		p.incrementScore(scoreDelta);
+		}
+		continueMultiPlayerGame(game);
 	}
 
 	/**
@@ -170,9 +208,9 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Generic get method - returns which game a player is in
+	 * Generic get method
 	 * @param playerId
-	 * @return
+	 * @return which game a player is in
 	 */
 	private Game getPlayerGame(int playerId) {
 		var gameId = players.get(playerId);

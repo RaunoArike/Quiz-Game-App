@@ -1,5 +1,6 @@
 package server.model;
 
+import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.Question;
 import org.springframework.lang.Nullable;
 
@@ -9,10 +10,17 @@ public class Game {
 	public static final int QUESTIONS_PER_GAME = 20;
 	public static final int LEADERBOARD_DISPLAY_FREQUENCY = 5;
 	public static final int TIMER_DELAY = 100;
+	public static final int QUESTION_DURATION = 20000;
 
 	private final int gameId;
 
 	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
+
+	//Used in a multiplayer game to keep track of answer submissions and answering times of each player,
+	//mapped to by playerId.
+	public Map<Integer, QuestionAnswerMessage> answers = new HashMap<>();
+	public Map<Integer, Long> times = new HashMap<>();
+
 	private int questionNumber = -1;
 	private long questionStartTime = 0;
 	private Question currentQuestion;
