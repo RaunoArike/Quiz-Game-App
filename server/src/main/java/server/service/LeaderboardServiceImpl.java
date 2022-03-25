@@ -3,9 +3,11 @@ package server.service;
 import java.util.Comparator;
 import java.util.List;
 import commons.model.LeaderboardEntry;
+import org.springframework.stereotype.Service;
 import server.entity.LeaderboardEntity;
 import server.repository.LeaderboardRepository;
 
+@Service
 public class LeaderboardServiceImpl implements LeaderboardService {
 
 	private final LeaderboardRepository repository;
