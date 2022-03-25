@@ -49,6 +49,7 @@ public abstract class QuestionCtrl {
 
 	public void setQuestion(String questionText) {
 		this.questionText.setText(questionText);
+		this.questionText.setWrapText(true);
 	}
 
 	public void setScore(int scoreNumber) {
