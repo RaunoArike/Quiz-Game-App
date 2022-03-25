@@ -39,8 +39,9 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	}
 
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
-		String message = "The correct answer was: " + correctAnswer + " kwH. "
+		String message = "The correct answer was: " + correctAnswer + " times. "
 						+ "\nYou score " + scoreIncrement + " points.";
+
 		answerMessage.setText(message);
 
 		answerMessage.setWrapText(true);
