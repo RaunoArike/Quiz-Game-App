@@ -6,6 +6,8 @@ import lombok.Getter;
 public class Player {
 	private final String name;
 	private final int playerId;
+	private Number latestAnswer;
+	private long timeTakenToAnswer;
 	private int score = 0;
 
 	public Player(String name, int playerId, int score) {
@@ -21,5 +23,13 @@ public class Player {
 
 	public void incrementScore(int scoreDelta) {
 		score += scoreDelta;
+	}
+
+	public void setLatestAnswer(Number answer) {
+		this.latestAnswer = answer;
+	}
+
+	public void setTimeTakenToAnswer(Long time) {
+		this.timeTakenToAnswer = time;
 	}
 }

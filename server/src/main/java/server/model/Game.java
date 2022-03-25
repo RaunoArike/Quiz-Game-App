@@ -1,6 +1,5 @@
 package server.model;
 
-import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.Question;
 import org.springframework.lang.Nullable;
 
@@ -18,8 +17,8 @@ public class Game {
 
 	//Used in a multiplayer game to keep track of answer submissions and answering times of each player,
 	//mapped to by playerId.
-	public Map<Integer, QuestionAnswerMessage> answers = new HashMap<>();
-	public Map<Integer, Long> times = new HashMap<>();
+	//public Map<Integer, QuestionAnswerMessage> answers = new HashMap<>();
+	//public Map<Integer, Long> times = new HashMap<>();
 
 	private int questionNumber = -1;
 	private long questionStartTime = 0;

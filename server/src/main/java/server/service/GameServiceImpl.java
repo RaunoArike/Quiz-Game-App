@@ -64,8 +64,10 @@ public class GameServiceImpl implements GameService {
 		var newGameId = nextGameId++;
 		Game game = new Game(listOfPlayers, newGameId);
 		games.put(newGameId, game);
+		for (Player p : listOfPlayers) {
+			players.put(p.getPlayerId(), newGameId);
+		}
 		continueMultiPlayerGame(game);
-
 	}
 
 	private void continueMultiPlayerGame(Game game) {
@@ -75,8 +77,15 @@ public class GameServiceImpl implements GameService {
 			//before proceeding to the next question
 		}
 		if (!game.isLastQuestion()) {
-			game.answers = new HashMap<>();
-			game.times = new HashMap<>();
+			List<Player> playersinGame = game.getPlayers();
+			for (Player p : playersinGame) {
+				p.setLatestAnswer(-1);
+				//needs to be handled. In case a player does not answer, this number will be passed
+				//directly to the score calculatino method
+				p.setTimeTakenToAnswer((long) 0);
+			}
+			// game.answers = new HashMap<>();
+			// game.times = new HashMap<>();
 			startNewQuestion(game);
 			timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
 		} else {
@@ -147,9 +156,11 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		game.answers.put(playerId, answer);
+		player.setLatestAnswer(answer.getAnswer());
+		//game.answers.put(playerId, answer);
 		long timePassed = timerService.getTime() - game.getStartTime();
-		game.times.put(playerId, timePassed);
+		//game.times.put(playerId, timePassed);
+		player.setTimeTakenToAnswer(timePassed);
 	}
 
 
@@ -184,13 +195,13 @@ public class GameServiceImpl implements GameService {
 	 * @param game
 	 */
 	private void scoreUpdate(Game game) {
-		for (int playerId : game.answers.keySet()) {
-			Player p = game.getPlayer(playerId);
-			QuestionAnswerMessage answer = game.answers.get(playerId);
-			Long timeTakenToAnswer = game.times.get(playerId);
-			var scoreDelta = questionService.calculateScore(game.getCurrentQuestion(), answer.getAnswer(),
-				timeTakenToAnswer);
-		p.incrementScore(scoreDelta);
+		for (Player player : game.getPlayers()) {
+		//if latestAnswer was -1 it represents that the player has not given any answer for this question
+			if ((int) player.getLatestAnswer() != -1) {
+				var scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
+					player.getLatestAnswer(), player.getTimeTakenToAnswer());
+				player.incrementScore(scoreDelta);
+			}
 		}
 		continueMultiPlayerGame(game);
 	}
