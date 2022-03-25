@@ -8,12 +8,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ServerAddressCtrl">
    <children>
-      <Label layoutX="97.0" layoutY="107.0" prefHeight="47.0" prefWidth="405.0" text="Connect to a server to play:">
+      <Label layoutX="87.0" layoutY="105.0" prefHeight="47.0" prefWidth="435.0" text="Connect to a server to play:">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <Label layoutX="126.0" layoutY="175.0" prefHeight="35.0" prefWidth="178.0" text="Server address:">
+      <Label layoutX="121.0" layoutY="175.0" prefHeight="35.0" prefWidth="178.0" text="Server address:">
          <font>
             <Font size="24.0" />
          </font>

@@ -15,6 +15,7 @@
  */
 package client;
 
+import client.scenes.AdminCtrl;
 import client.service.MessageLogicService;
 import client.service.MessageLogicServiceImpl;
 import com.google.inject.Binder;
@@ -32,9 +33,15 @@ public class MyModule implements Module {
 	@Override
 	public void configure(Binder binder) {
 		binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
+
 		binder.bind(OpeningCtrl.class).in(Scopes.SINGLETON);
+
+		binder.bind(AdminCtrl.class).in(Scopes.SINGLETON);
+
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
+
 		binder.bind(ServerService.class).to(ServerServiceImpl.class).in(Scopes.SINGLETON);
+
 		binder.bind(MessageLogicService.class).to(MessageLogicServiceImpl.class).in(Scopes.SINGLETON);
 	}
 }

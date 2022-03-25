@@ -63,7 +63,7 @@
             <property name="max" value="100"/>
         </module>
         <module name="ParameterNumber">
-            <property name="max" value="12"/>
+            <property name="max" value="20"/>
         </module>
 
         <!-- Checks for whitespace                             -->

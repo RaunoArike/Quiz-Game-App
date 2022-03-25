@@ -28,6 +28,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@FXML
 	private Label optionCtext;
 
+	private boolean clickedA = false;
+	private boolean clickedB = false;
+	private boolean clickedC = false;
+
 	@Inject
 	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
 		super(messageService, mainCtrl);
@@ -57,28 +61,67 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	public void optionAclicked() {
 		messageService.answerQuestion(0);
 		timeStop();
+
+		clickedA = true;
 	}
 
 	public void optionBclicked() {
 		messageService.answerQuestion(1);
 		timeStop();
+
+		clickedB = true;
 	}
 
 	public void optionCclicked() {
 		messageService.answerQuestion(2);
 		timeStop();
+
+		clickedC = true;
 	}
 
 	public void showAnswer(int option) {
 		switch (option) {
 			case 0:
-				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				optionA.setStyle("-fx-background-color: #00c203; ");
+
+
+				if (clickedB) {
+					optionB.setStyle("-fx-background-color: #fd4119; ");
+					clickedB = false;
+				} else if (clickedC) {
+					optionC.setStyle("-fx-background-color: #fd4119; ");
+					clickedC = false;
+				}
+
 				break;
 			case 1:
-				optionB.setStyle("-fx-background-color: #00ff7f; ");
+				optionB.setStyle("-fx-background-color: #00c203; ");
+
+
+				if (clickedA) {
+					optionA.setStyle("-fx-background-color: #fd4119; ");
+					clickedA = false;
+				}
+				if (clickedC) {
+					optionC.setStyle("-fx-background-color: #fd4119; ");
+					clickedC = false;
+				}
+
+
 				break;
 			case 2:
-				optionC.setStyle("-fx-background-color: #00ff7f; ");
+				optionC.setStyle("-fx-background-color: #00c203; ");
+
+
+				if (clickedB) {
+					optionB.setStyle("-fx-background-color: #fd4119; ");
+					clickedB = false;
+				}
+				if (clickedA) {
+					optionA.setStyle("-fx-background-color: #fd4119; ");
+					clickedA = false;
+				}
+
 				break;
 		}
 	}

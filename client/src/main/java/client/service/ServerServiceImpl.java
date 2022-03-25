@@ -131,6 +131,7 @@ public class ServerServiceImpl implements ServerService {
 		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat));
 	}
 
+
 	@Override
 	public void registerListener(ServerListener serverListener) {
 		serverListeners.add(serverListener);

@@ -63,22 +63,27 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
+	private AdminCtrl adminCtrl;
+	private Scene adminScreen;
+
 	private EndingScreenCtrl endingScreenCtrl;
 	private Scene endingScreen;
 
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
-	public void initialize(Stage primaryStage, Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
-	Pair<OpeningCtrl, Parent> openingCtrl,
-	Pair<UsernameCtrl, Parent> usernameCtrl,
-	Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
-	Pair<WaitingroomCtrl, Parent> waitingroomCtrl,
-	Pair<ServerAddressCtrl, Parent> serverAddressCtrl,
-	Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
-	Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
-	Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-	Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
-	Pair<EndingScreenCtrl, Parent> endingScreenCtrl) {
+	public void initialize(Stage primaryStage,
+			Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
+			Pair<OpeningCtrl, Parent> openingCtrl,
+			Pair<UsernameCtrl, Parent> usernameCtrl,
+			Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
+			Pair<WaitingroomCtrl, Parent> waitingroomCtrl,
+			Pair<ServerAddressCtrl, Parent> serverAddressCtrl,
+			Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
+			Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
+			Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
+			Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
+			Pair<AdminCtrl, Parent> adminCtrlParentPair,
+			Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
 
 		this.primaryStage = primaryStage;
 
@@ -112,11 +117,19 @@ public class MainCtrl {
 		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
 		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
 
-		this.endingScreenCtrl = endingScreenCtrl.getKey();
-		this.endingScreen = new Scene(endingScreenCtrl.getValue());
+		this.adminCtrl = adminCtrlParentPair.getKey();
+		this.adminScreen = new Scene(adminCtrlParentPair.getValue());
+
+		this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
+		this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
 
 		showServerAddress();
 		primaryStage.show();
+	}
+
+	public void showAdminPanel() {
+		primaryStage.setTitle("Admin panel");
+		primaryStage.setScene(adminScreen);
 	}
 
 	public void showLeaderboard() {

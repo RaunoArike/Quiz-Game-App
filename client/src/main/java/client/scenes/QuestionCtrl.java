@@ -61,6 +61,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	protected void setQuestionText(String questionText) {
 		this.questionText.setText(questionText);
+
 	}
 
 	public void setScore(int scoreNumber) {

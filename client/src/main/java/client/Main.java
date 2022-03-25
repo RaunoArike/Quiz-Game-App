@@ -33,6 +33,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
 		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");
@@ -44,9 +45,11 @@ public class Main extends Application {
 		var estimationScreen = FXML.load(EstimationScreenCtrl.class, "client", "scenes", "EstimationScreen.fxml");
 		var multiChoiceScreen = FXML.load(MultiChoiceScreenCtrl.class, "client", "scenes", "MultiChoiceScreen.fxml");
 		var pickEnergyScreen = FXML.load(PickEnergyScreenCtrl.class, "client", "scenes", "PickEnergyScreen.fxml");
+		var adminScreen = FXML.load(AdminCtrl.class, "client", "scenes", "AdminScreen.fxml");
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
+
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, waitingroom, serverAddress,
-		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, ending);
+		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, adminScreen, ending);
 	}
 }

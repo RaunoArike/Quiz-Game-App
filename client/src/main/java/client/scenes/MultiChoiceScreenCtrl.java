@@ -18,6 +18,10 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	@FXML
 	private Button optionC;
 
+	private boolean clickedA = false;
+	private boolean clickedB = false;
+	private boolean clickedC = false;
+
 	@Inject
 	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
 		super(messageService, mainCtrl);
@@ -45,7 +49,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	public void optionAClicked() {
 		timeStop();
-
+		clickedA = true;
 		messageService.answerQuestion(0);
 		//return to a mainctrl answer method with a specific parameter
 
@@ -53,13 +57,13 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	public void optionBClicked() {
 		timeStop();
-
+		clickedB = true;
 		messageService.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
 		timeStop();
-
+		clickedC = true;
 		messageService.answerQuestion(2);
 	}
 
@@ -67,12 +71,43 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		switch (option) {
 			case 0:
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
+
+
+				if (clickedB) {
+					optionB.setStyle("-fx-background-color: #fd4119; ");
+					clickedB = false;
+				}
+				if (clickedC) {
+					optionC.setStyle("-fx-background-color: #fd4119; ");
+					clickedC = false;
+				}
+
 				break;
 			case 1:
 				optionB.setStyle("-fx-background-color: #00ff7f; ");
+
+
+				if (clickedA) {
+					optionA.setStyle("-fx-background-color: #fd4119; ");
+					clickedA = false;
+				} else if (clickedC) {
+					optionC.setStyle("-fx-background-color: #fd4119; ");
+					clickedC = false;
+					}
+
 				break;
 			case 2:
 				optionC.setStyle("-fx-background-color: #00ff7f; ");
+
+
+				if (clickedA) {
+					optionA.setStyle("-fx-background-color: #fd4119; ");
+					clickedA = false;
+				} else if (clickedB) {
+					optionB.setStyle("-fx-background-color: #fd4119; ");
+					clickedB = false;
+				}
+
 				break;
 		}
 		timeStop();
@@ -83,7 +118,6 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	public void useDoublePoints() {
 	}
-
 
 
 }
