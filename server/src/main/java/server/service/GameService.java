@@ -2,6 +2,7 @@ package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import server.model.Player;
+import server.model.Game;
 
 import java.util.List;
 
@@ -30,4 +31,10 @@ public interface GameService {
 	 * @param listOfPlayers
 	 */
 	void generateNewQuestion(List<Player> listOfPlayers);
+
+	/**
+	 * Generates an intermediate leaderboard and sends it to every player
+	 * @param game
+	 */
+	void showIntermediateLeaderboard(Game game);
 }

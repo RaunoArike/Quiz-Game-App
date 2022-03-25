@@ -62,6 +62,9 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
+	private EndingScreenCtrl endingScreenCtrl;
+	private Scene endingScreen;
+
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
 	public void initialize(Stage primaryStage,
@@ -107,8 +110,11 @@ public class MainCtrl {
 			this.adminCtrl = adminCtrlParentPair.getKey();
 			this.adminScreen = new Scene(adminCtrlParentPair.getValue());
 
-			showServerAddress();
-			primaryStage.show();
+		this.endingScreenCtrl = endingScreenCtrl.getKey();
+		this.endingScreen = new Scene(endingScreenCtrl.getValue());
+
+		showServerAddress();
+		primaryStage.show();
 	}
 
 	public void showAdminPanel() {
@@ -161,7 +167,7 @@ public class MainCtrl {
 	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
 		String textQuestion = "Estimate the amount of energy it takes to " + q.activity().name();
 		this.estimationScreenCtrl.setQuestion(textQuestion);
-		this.comparisonScreenCtrl.setScore(score);
+		this.estimationScreenCtrl.setScore(score);
 		questionNumber++;
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(estimationScreen);
@@ -214,6 +220,12 @@ public class MainCtrl {
 		if (type == QuestionTypes.PICK_ENERGY) {
 			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
 		}
+	}
+
+	public void showEndingScreen(int score) {
+		primaryStage.setTitle("Game over");
+		endingScreenCtrl.setScore(score);
+		primaryStage.setScene(endingScreen);
 	}
 
 }

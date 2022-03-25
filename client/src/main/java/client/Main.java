@@ -26,6 +26,16 @@ import com.google.inject.Injector;
 
 // import client.scenes.AddQuoteCtrl;
 // import client.scenes.QuoteOverviewCtrl;
+import client.scenes.JoinWaitingroomCtrl;
+import client.scenes.LeaderboardCtrl;
+import client.scenes.OpeningCtrl;
+import client.scenes.ServerAddressScreenCtrl;
+import client.scenes.UsernameCtrl;
+import client.scenes.ComparisonScreenCtrl;
+import client.scenes.EndingScreenCtrl;
+import client.scenes.EstimationScreenCtrl;
+import client.scenes.MultiChoiceScreenCtrl;
+import client.scenes.PickEnergyScreenCtrl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -41,10 +51,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
-		//var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
-		//var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
-		//var ending = FXML.load(OpeningCtrl.class, "client", "scenes", "EndingScreen.fxml");
-
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 
 
@@ -55,7 +61,7 @@ public class Main extends Application {
 
 
 		var joinWaitingroom = FXML.load(JoinWaitingroomCtrl.class, "client", "scenes", "JoinWaitingroomScreen.fxml");
-
+		var ending = FXML.load(EndingScreenCtrl.class, "client", "scenes", "EndingScreen.fxml");
 		var serverAddress = FXML.load(ServerAddressScreenCtrl.class, "client", "scenes", "ServerAddressScreen.fxml");
 
 
@@ -76,8 +82,7 @@ public class Main extends Application {
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress,
-
-		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, adminScreen);
+		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, ending);
 
 		INJECTOR.getInstance(MessageLogicService.class);
 	}
