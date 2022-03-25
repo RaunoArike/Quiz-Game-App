@@ -3,8 +3,15 @@ package client.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
-import commons.servermessage.*;
+import commons.model.LeaderboardEntry;
+import commons.servermessage.ErrorMessage;
+import commons.servermessage.QuestionMessage;
+import commons.servermessage.ScoreMessage;
+import commons.servermessage.WaitingRoomStateMessage;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.GenericType;
 import javafx.application.Platform;
+import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -20,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
+
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerServiceImpl implements ServerService {
 	private final List<ServerListener> serverListeners = new ArrayList<>();
@@ -126,11 +135,14 @@ public class ServerServiceImpl implements ServerService {
 		serverListeners.add(serverListener);
 	}
 
-	/**
-	 * Gets to the admin panel
-	 */
 	@Override
-	public void adminPanel() {
-		session.send("app/admin-panel", new AdminMessage());
+	public List<LeaderboardEntry>  getLeaderboardData(String serverAddress) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target("http://" + serverAddress + "/").path("api/leaderboard") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<>() {
+
+				});
 	}
 }

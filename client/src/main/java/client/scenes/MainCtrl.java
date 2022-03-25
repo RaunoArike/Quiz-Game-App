@@ -125,6 +125,7 @@ public class MainCtrl {
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
 		primaryStage.setScene(leaderboard);
+		leaderboardCtrl.refresh();
 	}
 
 	public void showHome() {
