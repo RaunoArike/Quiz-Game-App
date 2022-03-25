@@ -89,8 +89,5 @@ public interface ServerService {
 	 */
 	void registerListener(ServerListener serverListener);
 
-	/**
-	 * Gets to the admin panel
-	 */
 	List<LeaderboardEntry> getLeaderboardData(String url);
 }
