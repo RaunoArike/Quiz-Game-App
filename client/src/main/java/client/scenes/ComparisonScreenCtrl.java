@@ -1,7 +1,7 @@
 package client.scenes;
 
 import client.model.QuestionData;
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import client.utils.NumberUtils;
 import commons.model.Question;
 import javafx.fxml.FXML;
@@ -25,8 +25,8 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	private Label errorMessage;
 
 	@Inject
-	public ComparisonScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public ComparisonScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	public void sendAnswer() {
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
-			server.answerQuestion(parsedValue);
+			messageService.answerQuestion(parsedValue);
 			resetError();
 			timeStop();
 		} else {

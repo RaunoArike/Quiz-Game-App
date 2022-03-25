@@ -1,7 +1,7 @@
 package client.scenes;
 
 import client.model.QuestionData;
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import client.utils.NumberUtils;
 import commons.model.Question;
 import javafx.fxml.FXML;
@@ -25,8 +25,8 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	private Label errorMessage;
 
 	@Inject
-	public EstimationScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public EstimationScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	public void sendAnswer() {
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
-			server.answerQuestion(parsedValue);
+			messageService.answerQuestion(parsedValue);
 			resetError();
 			timeStop();
 		} else {

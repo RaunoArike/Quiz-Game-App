@@ -31,9 +31,6 @@ public class ServerAddressCtrl extends AbstractCtrl {
 	@FXML
 	private Button defaultButton;
 
-
-	public static String url;
-
 	@Override
 	public void init() {
 		super.init();
@@ -41,7 +38,7 @@ public class ServerAddressCtrl extends AbstractCtrl {
 	}
 
 	public void ok() {
-		url = this.serverAddress.getText();
+		var url = this.serverAddress.getText();
 		sendServerAddress(url);
 	}
 
@@ -51,8 +48,7 @@ public class ServerAddressCtrl extends AbstractCtrl {
 	}
 
 	public void useDefault() {
-		url = MainCtrl.DEFAULT_SERVER_ADDRESS;
-		sendServerAddress(url);
+		sendServerAddress(MainCtrl.DEFAULT_SERVER_ADDRESS);
 	}
 
 	public void sendServerAddress(String url) {

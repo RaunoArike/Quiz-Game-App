@@ -1,7 +1,7 @@
 package client.scenes;
 
 import client.model.QuestionData;
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,8 +29,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	private Label optionCtext;
 
 	@Inject
-	public PickEnergyScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
 	@Override
@@ -55,17 +55,17 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	}
 
 	public void optionAclicked() {
-		server.answerQuestion(0);
+		messageService.answerQuestion(0);
 		timeStop();
 	}
 
 	public void optionBclicked() {
-		server.answerQuestion(1);
+		messageService.answerQuestion(1);
 		timeStop();
 	}
 
 	public void optionCclicked() {
-		server.answerQuestion(2);
+		messageService.answerQuestion(2);
 		timeStop();
 	}
 

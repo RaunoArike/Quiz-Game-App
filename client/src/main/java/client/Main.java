@@ -16,7 +16,6 @@
 package client;
 
 import client.scenes.*;
-import client.service.MessageLogicService;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -49,7 +48,5 @@ public class Main extends Application {
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, waitingroom, serverAddress,
 		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, ending);
-
-		INJECTOR.getInstance(MessageLogicService.class);
 	}
 }

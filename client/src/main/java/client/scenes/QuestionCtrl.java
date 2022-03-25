@@ -1,7 +1,7 @@
 package client.scenes;
 
 import client.model.QuestionData;
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import com.google.inject.Inject;
 import commons.model.Question;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final double TIMER_PROGRESS_PERCENTAGE = 0.05;
 	private static final double TIMER_SECONDS = 20;
 
-	protected final ServerService server;
+	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
 
 	@FXML
@@ -44,8 +44,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private TimerTask timerTask;
 
 	@Inject
-	public QuestionCtrl(ServerService server, MainCtrl mainCtrl) {
-		this.server = server;
+	public QuestionCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
 	}
 
@@ -69,6 +69,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void callTimeLimiter() {
+		timeStop();
 		timerTask = new TimerTask() {
 			double timeLeft = 1;
 
@@ -88,6 +89,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void timeStop() {
-		timerTask.cancel();
+		if (timerTask != null) {
+			timerTask.cancel();
+		}
 	}
 }

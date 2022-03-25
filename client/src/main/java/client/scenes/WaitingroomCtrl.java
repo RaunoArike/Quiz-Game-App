@@ -1,21 +1,21 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 public class WaitingroomCtrl extends AbstractCtrl {
-	private final ServerService server;
+	private final MessageLogicService messageService;
 	private final MainCtrl mainCtrl;
 
 	@FXML
 	private Label noOfPeopleText;
 
 	@Inject
-	public WaitingroomCtrl(ServerService server, MainCtrl mainCtrl) {
-		this.server = server;
+	public WaitingroomCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
 	}
 
@@ -26,7 +26,7 @@ public class WaitingroomCtrl extends AbstractCtrl {
 
 	// Links to the start button
 	public void startGame() {
-		server.startMultiGame();
+		messageService.startMultiGame();
 	}
 
 	public void updateWaitingroomState(int noOfPeople) {

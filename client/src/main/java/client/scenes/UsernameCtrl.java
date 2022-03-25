@@ -1,7 +1,7 @@
 package client.scenes;
 
+import client.service.MessageLogicService;
 import com.google.inject.Inject;
-import client.service.ServerService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -13,7 +13,7 @@ public class UsernameCtrl extends AbstractCtrl {
 	 * This controller class refers to the username input screen for starting a singleplayer game.
 	 * For multiplayer game refer to JoinWaitingRoomCtrl.
 	 */
-	private final ServerService server;
+	private final MessageLogicService messageService;
 	private final MainCtrl mainCtrl;
 
 	@FXML
@@ -23,8 +23,8 @@ public class UsernameCtrl extends AbstractCtrl {
 	private Label errorMessage;
 
 	@Inject
-	public UsernameCtrl(ServerService server, MainCtrl mainCtrl) {
-		this.server = server;
+	public UsernameCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
 	}
 
@@ -38,7 +38,7 @@ public class UsernameCtrl extends AbstractCtrl {
 		this.errorMessage.setText("");
 		String username = this.username.getText();
 		if (username != null && !username.isEmpty()) {
-			this.server.startSingleGame(username);
+			this.messageService.startSingleGame(username);
 		} else {
 			this.errorMessage.setText("Please enter a valid username: ");
 		}

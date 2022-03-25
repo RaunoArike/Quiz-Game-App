@@ -12,4 +12,16 @@ public interface MessageLogicService {
 	 * @param username username
 	 */
 	void joinWaitingRoom(String username);
+
+	/**
+	 * Starts a multiplayer game, the player must already be in a waiting room.
+	 */
+	void startMultiGame();
+
+	/**
+	 * Submits answer to the current question.
+	 * @param answer answer; Integer or Float depending on the question type
+	 * 0, 1 or 2 for choice questions, float answer for open-ended questions
+	 */
+	void answerQuestion(Number answer);
 }

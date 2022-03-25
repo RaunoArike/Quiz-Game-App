@@ -1,7 +1,7 @@
 package client.scenes;
 
 import client.model.QuestionData;
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,8 +19,8 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	private Button optionC;
 
 	@Inject
-	public MultiChoiceScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	public void optionAClicked() {
 		timeStop();
 
-		server.answerQuestion(0);
+		messageService.answerQuestion(0);
 		//return to a mainctrl answer method with a specific parameter
 
 	}
@@ -54,13 +54,13 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	public void optionBClicked() {
 		timeStop();
 
-		server.answerQuestion(1);
+		messageService.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
 		timeStop();
 
-		server.answerQuestion(2);
+		messageService.answerQuestion(2);
 	}
 
 	public void showAnswer(int option) {

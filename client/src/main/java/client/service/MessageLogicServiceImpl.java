@@ -44,6 +44,16 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 		gameType = GameType.MULTI;
 	}
 
+	@Override
+	public void startMultiGame() {
+		server.startMultiGame();
+	}
+
+	@Override
+	public void answerQuestion(Number answer) {
+		server.answerQuestion(answer);
+	}
+
 	/**
 	 * Called when new question starts
 	 * @param message message with new question details

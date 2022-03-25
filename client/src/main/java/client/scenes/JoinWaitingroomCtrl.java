@@ -1,6 +1,6 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.service.MessageLogicService;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
 public class JoinWaitingroomCtrl extends AbstractCtrl {
-	private final ServerService server;
+	private final MessageLogicService messageService;
 	private final MainCtrl mainCtrl;
 
 	@FXML
@@ -18,8 +18,8 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	private Label errorMessage;
 
 	@Inject
-	public JoinWaitingroomCtrl(ServerService server, MainCtrl mainCtrl) {
-		this.server = server;
+	public JoinWaitingroomCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
 	}
 
@@ -39,7 +39,7 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	public void join() {
 		String username = this.username.getText();
 		if (username != null && !username.isEmpty()) {
-			server.joinWaitingRoom(username);
+			messageService.joinWaitingRoom(username);
 			errorMessage.setText("");
 		} else {
 			errorMessage.setText("Please enter a valid username: ");

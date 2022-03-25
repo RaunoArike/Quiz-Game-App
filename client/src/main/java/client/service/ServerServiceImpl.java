@@ -34,6 +34,7 @@ public class ServerServiceImpl implements ServerService {
 	private final List<ServerListener> serverListeners = new ArrayList<>();
 
 	private StompSession session;
+	private String url;
 
 	private StompSession connect(String url) {
 		var client = new StandardWebSocketClient();
@@ -79,9 +80,10 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public boolean connectToServer(String serverAddress) {
-		String url = "ws://" + serverAddress + "/websocket";
+		url = serverAddress;
+		String wsUrl = "ws://" + serverAddress + "/websocket";
 		try {
-			session = connect(url);
+			session = connect(wsUrl);
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
 				notifyListeners(listener -> listener.onQuestion(message));
 			});
@@ -135,9 +137,9 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public List<LeaderboardEntry>  getLeaderboardData(String serverAddress) {
+	public List<LeaderboardEntry> getLeaderboardData() {
 		return ClientBuilder.newClient(new ClientConfig()) //
-				.target("http://" + serverAddress + "/").path("api/leaderboard") //
+				.target("http://" + url + "/").path("api/leaderboard") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<>() {
