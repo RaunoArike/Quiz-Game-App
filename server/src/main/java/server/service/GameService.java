@@ -2,7 +2,6 @@ package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import server.model.Player;
-import server.model.Game;
 
 import java.util.List;
 
@@ -19,22 +18,16 @@ public interface GameService {
 	void startSinglePlayerGame(int playerId, String userName);
 
 	/**
-	 * Submits answer to the current question
-	 *
-	 * @param playerId player id
-	 * @param answer submitted answer
-	 */
-	void submitAnswer(int playerId, QuestionAnswerMessage answer);
-
-	/**
 	 *
 	 * @param listOfPlayers
 	 */
 	void startMultiPlayerGame(List<Player> listOfPlayers);
 
 	/**
-	 * Generates an intermediate leaderboard and sends it to every player
-	 * @param game
+	 * Submits answer to the current question
+	 *
+	 * @param playerId player id
+	 * @param answer submitted answer
 	 */
-	void showIntermediateLeaderboard(Game game);
+	void submitAnswer(int playerId, QuestionAnswerMessage answer);
 }

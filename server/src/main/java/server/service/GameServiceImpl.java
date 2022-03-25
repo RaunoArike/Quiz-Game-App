@@ -16,7 +16,6 @@ import java.util.*;
 public class GameServiceImpl implements GameService {
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
-	private final PlayerService playerService;
 	private final LeaderboardService leaderboardService;
 	private final TimerService timerService;
 
@@ -30,16 +29,17 @@ public class GameServiceImpl implements GameService {
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-			PlayerService playerService, LeaderboardService leaderboardService, TimerService timerService) {
+			LeaderboardService leaderboardService, TimerService timerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
-		this.playerService = playerService;
 		this.leaderboardService = leaderboardService;
 		this.timerService = timerService;
 	}
 
 	/**
 	 * start single-player game
+	 * @param playerId
+	 * @param userName
 	 */
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
@@ -57,6 +57,7 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * start multi-player game
+	 * @param listOfPlayers list of players participating in the new game that is being started
 	 */
 	@Override
 	public void startMultiPlayerGame(List<Player> listOfPlayers) {
@@ -68,16 +69,27 @@ public class GameServiceImpl implements GameService {
 	}
 
 	private void continueMultiPlayerGame(Game game) {
-		//Question number branch logic needed
-		//if next is intermediate, call on an intermediate method
-		game.answers = new HashMap<>();
-		game.times = new HashMap<>();
-		startNewQuestion(game);
-		timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+		if (game.isIntermediateLeaderboardNext()) {
+			showIntermediateLeaderboard(game);
+			//set some delay here or introduce it in the intermediate leaderboard method
+			//before proceeding to the next question
+		}
+		if (!game.isLastQuestion()) {
+			game.answers = new HashMap<>();
+			game.times = new HashMap<>();
+			startNewQuestion(game);
+			timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+		} else {
+			//send end of game message
+			showIntermediateLeaderboard(game);
+			cleanUpGame(game);
+		}
 	}
 
 	/**
 	 * Generic submitAnswer method, calls either single- or multi-player method
+	 * @param playerId player who submits the answer
+	 * @param answer message containing the answer
 	 */
 	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
@@ -92,8 +104,10 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Single-player submitAnswer method
+	 * @param playerId player who submits the answer
+	 * @param answer message containing the answer
 	 */
-	public void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
+	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
 
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
@@ -121,8 +135,10 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Multi-player submitAnswer method
+	 * @param playerId player who submits the answer
+	 * @param answer message containing the answer
 	 */
-	public void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
+	private void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
 		//TO DO
 
 		var game = getPlayerGame(playerId);
@@ -131,7 +147,6 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		//as answers come in, the map will be updated with time and answer
 		game.answers.put(playerId, answer);
 		long timePassed = timerService.getTime() - game.getStartTime();
 		game.times.put(playerId, timePassed);
@@ -139,8 +154,8 @@ public class GameServiceImpl implements GameService {
 
 
 	/**
-	 *  Sends a new question after a preset delay.
-	 * @param game game for which new question is to be generated
+	 *  Sends a new question after a short delay.
+	 * @param game game for which new question is to be sent
 	 */
 	private void startNewQuestion(Game game) {
 		if (game.isFirstQuestion()) {
@@ -152,7 +167,7 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Sends a new question immediately.
-	 * @param game
+	 * @param game game for which new question is to be sent
 	 */
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
@@ -183,7 +198,6 @@ public class GameServiceImpl implements GameService {
 	/**
 	 * Multiplayer leaderboard method
 	 */
-	@Override
 	public void showIntermediateLeaderboard(Game game) {
 		List<Player> players = game.getPlayers();
 		List<LeaderboardEntry> listOfEntries = new ArrayList<LeaderboardEntry>();
@@ -196,6 +210,8 @@ public class GameServiceImpl implements GameService {
 			.toList();
 		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(leaderboard);
 		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
+		//introduce some delay here before this method returns, or within the continueMultiPlayer method
+		//so that the next question is not sent immediately
 	}
 
 	/**
