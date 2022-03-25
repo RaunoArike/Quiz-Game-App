@@ -39,10 +39,14 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	}
 
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
-		String message = "The correct answer was: " + correctAnswer + " kwH. You score " + scoreIncrement + " points.";
+		String message = "The correct answer was: " + correctAnswer + " kwH. "
+						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
+
+
 	}
 	public void resetError() {
 		errorMessage.setText("");
+		answerMessage.setText("");
 	}
 }
