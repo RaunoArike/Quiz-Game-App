@@ -44,7 +44,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 
 		answerMessage.setText(message);
 
-		answerMessage.setWrapText(true);
+
 	}
 
 	public void resetError() {

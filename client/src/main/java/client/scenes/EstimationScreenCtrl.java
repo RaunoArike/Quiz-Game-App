@@ -43,7 +43,7 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
 
-		answerMessage.setWrapText(true);
+
 	}
 	public void resetError() {
 		errorMessage.setText("");

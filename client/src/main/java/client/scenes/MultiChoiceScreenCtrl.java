@@ -27,13 +27,13 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 
 	public void setAnswerOptions(String a, String b, String c) {
 		this.optionA.setText(a);
-		this.optionA.setWrapText(true);
+
 
 		this.optionB.setText(b);
-		this.optionB.setWrapText(true);
+
 
 		this.optionC.setText(c);
-		this.optionC.setWrapText(true);
+
 	}
 
 	public void optionAClicked() {
