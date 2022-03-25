@@ -82,7 +82,7 @@ public class Main extends Application {
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress,
-		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, ending);
+		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, adminScreen, ending);
 
 		INJECTOR.getInstance(MessageLogicService.class);
 	}

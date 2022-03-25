@@ -38,9 +38,6 @@ public class MainCtrl {
 	private OpeningCtrl openingCtrl;
 	private Scene home;
 
-	private AdminCtrl adminCtrl;
-	private Scene adminScreen;
-
 	private UsernameCtrl usernameCtrl;
 	private Scene username;
 
@@ -62,6 +59,9 @@ public class MainCtrl {
 	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
 	private Scene pickEnergyScreen;
 
+	private AdminCtrl adminCtrl;
+	private Scene adminScreen;
+
 	private EndingScreenCtrl endingScreenCtrl;
 	private Scene endingScreen;
 
@@ -77,7 +77,8 @@ public class MainCtrl {
 		Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
 		Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
 		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
-		Pair<AdminCtrl, Parent> adminCtrlParentPair) {
+		Pair<AdminCtrl, Parent> adminCtrlParentPair,
+		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
 			this.primaryStage = primaryStage;
 
 			this.leaderboardCtrl = leaderboardCtrl.getKey();
@@ -110,8 +111,8 @@ public class MainCtrl {
 			this.adminCtrl = adminCtrlParentPair.getKey();
 			this.adminScreen = new Scene(adminCtrlParentPair.getValue());
 
-		this.endingScreenCtrl = endingScreenCtrl.getKey();
-		this.endingScreen = new Scene(endingScreenCtrl.getValue());
+			this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
+			this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
 
 		showServerAddress();
 		primaryStage.show();

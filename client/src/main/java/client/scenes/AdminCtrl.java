@@ -40,10 +40,7 @@ public class AdminCtrl implements Initializable {
 		this.mainCtrl = mainCtrl;
 	}
 
-	ObservableList<Activity> observableList = FXCollections.observableArrayList(new Activity("a", "", 1),
-			new Activity("b", "", 1),
-			new Activity("c", "", 1),
-			new Activity("c", "", 1));
+	ObservableList<Activity> observableList = FXCollections.observableArrayList(new Activity("", "", 0));
 
 	///The option to return home
 	public void returnHome() {
@@ -55,7 +52,8 @@ public class AdminCtrl implements Initializable {
 			case ESCAPE:
 				returnHome();
 				break;
-			case ENTER : addButton();
+			case ENTER:
+				addButton();
 			default:
 				break;
 		}
