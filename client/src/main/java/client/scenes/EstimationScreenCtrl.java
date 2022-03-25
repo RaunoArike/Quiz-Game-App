@@ -33,6 +33,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	public void init() {
 		super.init();
 		resetError();
+		answer.setText("");
 	}
 
 	@Override
@@ -62,6 +63,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 
 
 	}
+
 	public void resetError() {
 		errorMessage.setText("");
 		answerMessage.setText("");

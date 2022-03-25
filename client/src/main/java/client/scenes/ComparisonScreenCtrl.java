@@ -33,6 +33,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	public void init() {
 		super.init();
 		resetError();
+		answer.setText("");
 	}
 
 	@Override
