@@ -80,6 +80,16 @@ public class ActivityServiceImplTest {
 	}
 
 	@Test
+	public void removeActivity_should_delete_one_activity_from_repo() {
+		var service = createService();
+
+		when(activityRepository.getById(0L)).thenReturn(FAKE_ACTIVITY_ENTITY_LIST.get(0));
+		service.removeActivity(0L);
+
+		verify(activityRepository).delete(FAKE_ACTIVITY_ENTITY_LIST.get(0));
+	}
+
+	@Test
 	public void updateActivity_should_update_the_contents_of_an_activity() {
 		var service = createService();
 

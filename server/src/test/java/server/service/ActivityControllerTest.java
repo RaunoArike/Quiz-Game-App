@@ -25,9 +25,20 @@ public class ActivityControllerTest {
 		return new ActivityController(activityService);
 	}
 
+
+	@Test
+	public void deleteActivity_should_throw_exception_for_wrong_id() {
+		var controller = createController();
+
+		doThrow(new EntityNotFoundException()).when(activityService).removeActivity(150000);
+
+		assertThrows(IdNotFoundException.class, () -> controller.removeOneActivity(150000));
+	}
+
 	@Test
 	public void updateActivity_should_throw_exception_for_wrong_id() {
 		var controller = createController();
+
 		doThrow(new EntityNotFoundException()).when(activityService).updateActivity(150000, FAKE_ACTIVITY);
 
 		assertThrows(IdNotFoundException.class, () -> controller.updateActivity(150000, FAKE_ACTIVITY));

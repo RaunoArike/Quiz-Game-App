@@ -49,13 +49,27 @@ public class ActivityController {
 	}
 
 	/**
+	 * Removes one activity from the DB.
+	 *
+	 * @param id the id of the activity to remove
+	 */
+	@DeleteMapping("/api/activities/delete/{id}")
+	public void removeOneActivity(@PathVariable long id) {
+		try {
+			activityService.removeActivity(id);
+		} catch (EntityNotFoundException e) {
+			throw new IdNotFoundException();
+		}
+	}
+
+	/**
 	 * Updates the contents of a single activity.
 	 * Throws an IdNotFoundException if there isn't an activity with the id specified by the user.
 	 *
 	 * @param id the id of the activity to update
 	 * @param activity the activity to replace the old activity with
 	 */
-	@PutMapping("/api/activities/{id}")
+	@PutMapping("/api/activities/update/{id}")
 	public void updateActivity(@PathVariable long id, Activity activity) {
 		try {
 			activityService.updateActivity(id, activity);

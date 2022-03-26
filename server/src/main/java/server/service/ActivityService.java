@@ -28,6 +28,13 @@ public interface ActivityService {
 	void removeAllActivities();
 
 	/**
+	 * Removes one activity.
+	 *
+	 * @param id the id of the activity to remove
+	 */
+	void removeActivity(long id);
+
+	/**
 	 * Updates an activity in the repository.
 	 * If an activity with the given id doesn't exist, adds the provided activity to the repository instead of updating.
 	 *

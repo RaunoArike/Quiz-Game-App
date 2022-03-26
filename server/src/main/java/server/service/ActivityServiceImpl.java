@@ -41,6 +41,12 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
+	public void removeActivity(long id) throws EntityNotFoundException {
+		ActivityEntity toDelete = activityRepository.getById(id);
+		activityRepository.delete(toDelete);
+	}
+
+	@Override
 	public void updateActivity(long activityId, Activity activity) throws EntityNotFoundException {
 		ActivityEntity entity = activityRepository.getById(activityId);
 		entity.setName(activity.name());
