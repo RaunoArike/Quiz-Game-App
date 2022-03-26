@@ -1,10 +1,14 @@
 package server.service;
 
+/**
+ * Waiting room management service
+ */
 public interface WaitingRoomService {
 	/**
-	 *Puts the player in the waiting room if not already
+	 * Puts the player in the waiting room if not already there
+	 *
 	 * @param playerName The name of the player
-	 * @param playerId The id of the palyer
+	 * @param playerId The id of the player
 	 */
 	void joinWaitingRoom(String playerName, int playerId);
 
