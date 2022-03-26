@@ -31,8 +31,12 @@ public class ServerAddressScreenCtrl {
 	@FXML
 	private Button defaultButton;
 
+
+	public static String url;
+
+
 	public void ok() {
-		String url = this.serverAddress.getText();
+		url = this.serverAddress.getText();
 		sendServerAddress(url);
 	}
 
@@ -42,7 +46,8 @@ public class ServerAddressScreenCtrl {
 	}
 
 	public void useDefault() {
-		sendServerAddress(mainCtrl.DEFAULT_SERVER_ADDRESS);
+		url = mainCtrl.DEFAULT_SERVER_ADDRESS;
+		sendServerAddress(url);
 	}
 
 	public void sendServerAddress(String url) {

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface GameService {
 	/**
-	 * Starts a single-player game
+	 * Starts a single-player game.
 	 *
 	 * @param playerId player id, used to identify player throughout the game
 	 * @param userName name of the player, will be used for leaderboard
