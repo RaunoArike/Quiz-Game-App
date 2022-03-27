@@ -1,14 +1,18 @@
 package client.service;
 
+import commons.model.LeaderboardEntry;
 import commons.servermessage.ErrorMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import commons.servermessage.WaitingRoomStateMessage;
 
+import java.util.List;
+
 /**
  * Service for communication with server
  */
 public interface ServerService {
+
 	/**
 	 * Listener for incoming server messages
 	 */
@@ -41,6 +45,7 @@ public interface ServerService {
 		 * @param message message with error details
 		 */
 		void onError(ErrorMessage message);
+
 	}
 
 	/**
@@ -83,4 +88,6 @@ public interface ServerService {
 	 * @param serverListener listener
 	 */
 	void registerListener(ServerListener serverListener);
+
+	List<LeaderboardEntry> getLeaderboardData(String url);
 }

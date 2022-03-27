@@ -19,6 +19,7 @@ public interface QuestionService {
 	 *
 	 * @param question the question that the player answered
 	 * @param answer the answer that the player gave
+	 * @param timeSpent the time the player spent answering the question
 	 * @return the score of the player
 	 */
 	int calculateScore(Question question, Number answer, long timeSpent);

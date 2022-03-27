@@ -11,19 +11,35 @@ public class OpeningCtrl  {
 		this.mainCtrl = mainCtrl;
 	}
 
+
 	public void goToLeaderboard() {
 		mainCtrl.showLeaderboard();
 	}
+
 
 	public void startNewSingleGame() {
 		mainCtrl.showUsername();
 	}
 
+
 	public void startNewMultiGame() {
 		mainCtrl.showJoinWaitingroom();
 	}
 
+
+	public void returnHome() {
+		mainCtrl.showHome();
+	}
+
+
+	public void adminOption() {
+		mainCtrl.showAdminPanel();
+	}
+
+
 	public void connectToServer() {
 		mainCtrl.showServerAddress();
 	}
+
+
 }
