@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -119,5 +120,17 @@ public class IntermediateLeaderboardCtrl implements Initializable {
 
 		intermediaryLeaderboard
 				.setItems(data);
+	}
+
+	public void keyPressed(KeyEvent keyEvent) {
+		switch (keyEvent.getCode()) {
+			case ESCAPE:
+				continueGame();
+				break;
+			case ENTER:
+				continueGame();
+			default:
+				break;
+		}
 	}
 }

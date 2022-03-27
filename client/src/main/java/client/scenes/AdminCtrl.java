@@ -64,6 +64,7 @@ public class AdminCtrl implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		columnOne.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
 		columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x.getValue().energyInWh()));
+
 		table.setItems(observableList);
 	}
 
@@ -71,9 +72,13 @@ public class AdminCtrl implements Initializable {
 		Activity activity = new Activity(nameTextField.getText(),
 				urlTextField.getText(),
 				(float) Double.parseDouble(energyTextField.getText()));
+
 		table.getItems().add(activity);
+
 		nameTextField.clear();
+
 		energyTextField.clear();
+
 		urlTextField.clear();
 	}
 }
