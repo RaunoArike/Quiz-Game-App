@@ -1,20 +1,8 @@
 package server.service;
 
-/**
- * Waiting room management service
- */
 public interface WaitingRoomService {
 	/**
-	 * Check if the given player by their name is in the waiting room
-	 *
-	 * @param playerName The name of the player
-	 * @return true if they are in the waiting room, false otherwise
-	 */
-	boolean isInWaitingRoom(String playerName);
-
-	/**
-	 * Puts the player in the waiting room if not already there
-	 *
+	 *Puts the player in the waiting room if not already
 	 * @param playerName The name of the player
 	 * @param playerId The id of the player
 	 */

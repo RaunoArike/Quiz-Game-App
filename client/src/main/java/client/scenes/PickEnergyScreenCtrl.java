@@ -1,12 +1,14 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.model.QuestionData;
+import client.service.MessageLogicService;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import com.google.inject.Inject;
 
-public class PickEnergyScreenCtrl extends QuestionCtrl {
+public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
 	@FXML
 	private RadioButton optionA;
@@ -26,40 +28,64 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 	@FXML
 	private Label optionCtext;
 
-	private boolean clickedA = false;
-	private boolean clickedB = false;
-	private boolean clickedC = false;
+	private int selectedAnswer = -1;
 
 	@Inject
-	public PickEnergyScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
-	public void setOptions(String a, String b, String c) {
+	@Override
+	public void init() {
+		super.init();
+		optionA.setStyle(null);
+		optionB.setStyle(null);
+		optionC.setStyle(null);
+		optionA.setSelected(false);
+		optionB.setSelected(false);
+		optionC.setSelected(false);
+	}
+
+	@Override
+	public void setQuestion(QuestionData<Question.PickEnergyQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textActivity = question.activity().name();
+		var textQuestion = "How much energy does " + textActivity + " take?";
+		setQuestionText(textQuestion);
+
+		var a = question.answerOptions().get(0).toString();
+		var b = question.answerOptions().get(1).toString();
+		var c = question.answerOptions().get(2).toString();
+		setOptions(a, b, c);
+	}
+
+	private void setOptions(String a, String b, String c) {
 		this.optionAtext.setText(a);
 		this.optionBtext.setText(b);
 		this.optionCtext.setText(c);
 	}
 
-	public void optionAclicked() {
-		server.answerQuestion(0);
+	public void optionAClicked() {
+		messageService.answerQuestion(0);
 		timeStop();
 
-		clickedA = true;
+		selectedAnswer = 0;
 	}
 
-	public void optionBclicked() {
-		server.answerQuestion(1);
+	public void optionBClicked() {
+		messageService.answerQuestion(1);
 		timeStop();
 
-		clickedB = true;
+		selectedAnswer = 1;
 	}
 
-	public void optionCclicked() {
-		server.answerQuestion(2);
+	public void optionCClicked() {
+		messageService.answerQuestion(2);
 		timeStop();
 
-		clickedC = true;
+		selectedAnswer = 2;
 	}
 
 	public void showAnswer(int option) {
@@ -68,12 +94,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 				optionA.setStyle("-fx-background-color: #00c203; ");
 
 
-				if (clickedB) {
+				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
-				} else if (clickedC) {
+				} else if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
 				}
 
 				break;
@@ -81,13 +105,11 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 				optionB.setStyle("-fx-background-color: #00c203; ");
 
 
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
 				}
-				if (clickedC) {
+				if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
 				}
 
 
@@ -96,13 +118,11 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 				optionC.setStyle("-fx-background-color: #00c203; ");
 
 
-				if (clickedB) {
+				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
 				}
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
 				}
 
 				break;

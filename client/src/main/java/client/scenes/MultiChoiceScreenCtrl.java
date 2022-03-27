@@ -1,11 +1,13 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.model.QuestionData;
+import client.service.MessageLogicService;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import com.google.inject.Inject;
 
-public class MultiChoiceScreenCtrl extends QuestionCtrl {
+public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
 	@FXML
 	private Button optionA;
@@ -16,44 +18,57 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	@FXML
 	private Button optionC;
 
-	private boolean clickedA = false;
-	private boolean clickedB = false;
-	private boolean clickedC = false;
+	private int selectedAnswer = -1;
 
 	@Inject
-	public MultiChoiceScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
-	public void setAnswerOptions(String a, String b, String c) {
+	@Override
+	public void init() {
+		super.init();
+		optionA.setStyle(null);
+		optionB.setStyle(null);
+		optionC.setStyle(null);
+	}
+
+	@Override
+	public void setQuestion(QuestionData<Question.MultiChoiceQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textQuestion = "Which of the following takes the most energy?";
+		setQuestionText(textQuestion);
+
+		var a = question.activities().get(0).name();
+		var b = question.activities().get(1).name();
+		var c = question.activities().get(2).name();
+		setAnswerOptions(a, b, c);
+	}
+
+	private void setAnswerOptions(String a, String b, String c) {
 		this.optionA.setText(a);
-
-
 		this.optionB.setText(b);
-
-
 		this.optionC.setText(c);
-
 	}
 
 	public void optionAClicked() {
 		timeStop();
-		clickedA = true;
-		server.answerQuestion(0);
-		//return to a mainctrl answer method with a specific parameter
-
+		selectedAnswer = 0;
+		messageService.answerQuestion(0);
 	}
 
 	public void optionBClicked() {
 		timeStop();
-		clickedB = true;
-		server.answerQuestion(1);
+		selectedAnswer = 1;
+		messageService.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
 		timeStop();
-		clickedC = true;
-		server.answerQuestion(2);
+		selectedAnswer = 2;
+		messageService.answerQuestion(2);
 	}
 
 	public void showAnswer(int option) {
@@ -62,13 +77,11 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
 
 
-				if (clickedB) {
+				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
 				}
-				if (clickedC) {
+				if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
 				}
 
 				break;
@@ -76,25 +89,21 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 				optionB.setStyle("-fx-background-color: #00ff7f; ");
 
 
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
-				} else if (clickedC) {
+				} else if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
-					}
+				}
 
 				break;
 			case 2:
 				optionC.setStyle("-fx-background-color: #00ff7f; ");
 
 
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
-				} else if (clickedB) {
+				} else if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
 				}
 
 				break;
