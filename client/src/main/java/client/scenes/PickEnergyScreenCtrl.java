@@ -1,12 +1,14 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.model.QuestionData;
+import client.service.MessageLogicService;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import com.google.inject.Inject;
 
-public class PickEnergyScreenCtrl extends QuestionCtrl {
+public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
 	@FXML
 	private RadioButton optionA;
@@ -31,32 +33,47 @@ public class PickEnergyScreenCtrl extends QuestionCtrl {
 	private boolean clickedC = false;
 
 	@Inject
-	public PickEnergyScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
-	public void setOptions(String a, String b, String c) {
+	@Override
+	public void setQuestion(QuestionData<Question.PickEnergyQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textActivity = question.activity().name();
+		var textQuestion = "How much energy does " + textActivity + " take?";
+		setQuestionText(textQuestion);
+
+		var a = question.answerOptions().get(0).toString();
+		var b = question.answerOptions().get(1).toString();
+		var c = question.answerOptions().get(2).toString();
+		setOptions(a, b, c);
+	}
+
+	private void setOptions(String a, String b, String c) {
 		this.optionAtext.setText(a);
 		this.optionBtext.setText(b);
 		this.optionCtext.setText(c);
 	}
 
 	public void optionAclicked() {
-		server.answerQuestion(0);
+		messageService.answerQuestion(0);
 		timeStop();
 
 		clickedA = true;
 	}
 
 	public void optionBclicked() {
-		server.answerQuestion(1);
+		messageService.answerQuestion(1);
 		timeStop();
 
 		clickedB = true;
 	}
 
 	public void optionCclicked() {
-		server.answerQuestion(2);
+		messageService.answerQuestion(2);
 		timeStop();
 
 		clickedC = true;

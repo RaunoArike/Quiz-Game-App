@@ -124,6 +124,9 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
+		if (game.isQuestionFinished()) return;
+		game.markCurrentQuestionAsFinished();
+
 		long timePassed = timerService.getTime() - game.getStartTime();
 		var currentQuestion = game.getCurrentQuestion();
 
@@ -169,7 +172,7 @@ public class GameServiceImpl implements GameService {
 	 * @param game game for which new question is to be sent
 	 */
 	private void startNewQuestion(Game game) {
-		if (game.isFirstQuestion()) {
+		if (game.isBeforeFirstQuestion()) {
 			newQuestion(game);
 		} else {
 			timerService.scheduleTimer(game.getGameId(), QUESTION_DELAY, () -> newQuestion(game));

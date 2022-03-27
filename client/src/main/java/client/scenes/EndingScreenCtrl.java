@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import javafx.scene.control.Label;
 import javafx.fxml.FXML;
 
-public class EndingScreenCtrl {
+public class EndingScreenCtrl extends AbstractCtrl {
 
 	private final MainCtrl mainCtrl;
 

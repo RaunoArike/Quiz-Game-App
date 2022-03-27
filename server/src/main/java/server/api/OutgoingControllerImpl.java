@@ -1,9 +1,6 @@
 package server.api;
 
-import commons.servermessage.ScoreMessage;
-import commons.servermessage.IntermediateLeaderboardMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -27,24 +24,33 @@ public class OutgoingControllerImpl implements OutgoingController {
 		}
 	}
 
+	@Override
 	public void sendQuestion(QuestionMessage message, List<Integer> players) {
 		send(message, players, "question");
 	}
 
+	@Override
 	public void sendScore(ScoreMessage message, List<Integer> players) {
 		send(message, players, "score");
 	}
 
+	@Override
 	public void sendEndOfGame(List<Integer> players) {
 		send(new Object(), players, "end-of-game");
 	}
 
+	@Override
 	public void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers) {
-		String destination = new String("waiting-room-state");
-		send(message, listOfPlayers, destination);
+		send(message, listOfPlayers, "waiting-room-state");
 	}
 
+	@Override
 	public void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers) {
 		send(message, listOfPlayers, "intermediate-leaderboard");
+	}
+
+	@Override
+	public void sendError(ErrorMessage message, List<Integer> players) {
+		send(message, players, "error");
 	}
 }
