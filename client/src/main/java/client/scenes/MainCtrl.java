@@ -30,246 +30,246 @@ import commons.model.Question.MultiChoiceQuestion;
 import commons.model.Question.PickEnergyQuestion;
 
 
-//import client.service.MessageLogicService;
+	//import client.service.MessageLogicService;
 
-public class MainCtrl {
+	public class MainCtrl {
 
-	private Stage primaryStage;
+		private Stage primaryStage;
 
-	private LeaderboardCtrl leaderboardCtrl;
-	private Scene leaderboard;
+		private LeaderboardCtrl leaderboardCtrl;
+		private Scene leaderboard;
 
-	private OpeningCtrl openingCtrl;
-	private Scene home;
+		private OpeningCtrl openingCtrl;
+		private Scene home;
 
-	private UsernameCtrl usernameCtrl;
-	private Scene username;
+		private UsernameCtrl usernameCtrl;
+		private Scene username;
 
-	private JoinWaitingroomCtrl joinWaitingroomCtrl;
-	private Scene joinWaitingroom;
+		private JoinWaitingroomCtrl joinWaitingroomCtrl;
+		private Scene joinWaitingroom;
 
-	private WaitingroomCtrl waitingroomCtrl;
-	private Scene waitingroom;
+		private WaitingroomCtrl waitingroomCtrl;
+		private Scene waitingroom;
 
-	private ServerAddressCtrl serverAddressCtrl;
-	private Scene serverAddress;
+		private ServerAddressCtrl serverAddressCtrl;
+		private Scene serverAddress;
 
-	private ComparisonScreenCtrl comparisonScreenCtrl;
-	private Scene comparisonScreen;
+		private ComparisonScreenCtrl comparisonScreenCtrl;
+		private Scene comparisonScreen;
 
-	private EstimationScreenCtrl estimationScreenCtrl;
-	private Scene estimationScreen;
+		private EstimationScreenCtrl estimationScreenCtrl;
+		private Scene estimationScreen;
 
-	private MultiChoiceScreenCtrl multiChoiceScreenCtrl;
-	private Scene multiChoiceScreen;
+		private MultiChoiceScreenCtrl multiChoiceScreenCtrl;
+		private Scene multiChoiceScreen;
 
-	private PickEnergyScreenCtrl pickEnergyScreenCtrl;
-	private Scene pickEnergyScreen;
+		private PickEnergyScreenCtrl pickEnergyScreenCtrl;
+		private Scene pickEnergyScreen;
 
-	private AdminCtrl adminCtrl;
-	private Scene adminScreen;
+		private AdminCtrl adminCtrl;
+		private Scene adminScreen;
 
-	private IntermediateLeaderboardCtrl intermediateLeaderboardCtrl;
-	private Scene intermediateLeaderboardScreen;
+		private IntermediateLeaderboardCtrl intermediateLeaderboardCtrl;
+		private Scene intermediateLeaderboardScreen;
 
-	private EndingScreenCtrl endingScreenCtrl;
-	private Scene endingScreen;
+		private EndingScreenCtrl endingScreenCtrl;
+		private Scene endingScreen;
 
-	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
+		public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
-	public void initialize(Stage primaryStage,
-		Pair<LeaderboardCtrl,
-		Parent> leaderboardCtrl,
-		Pair<OpeningCtrl, Parent> openingCtrl,
-		Pair<UsernameCtrl, Parent> usernameCtrl,
-		Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
-		Pair<WaitingroomCtrl, Parent> waitingroomCtrl,
-		Pair<ServerAddressCtrl, Parent> serverAddressCtrl,
-		Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
-		Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
-		Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
-		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
-		Pair<AdminCtrl, Parent> adminCtrlParentPair,
-		Pair<IntermediateLeaderboardCtrl, Parent> intermediateLeaderboardCtrlParentPair,
-		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
+		public void initialize(Stage primaryStage,
+			Pair<LeaderboardCtrl,
+			Parent> leaderboardCtrl,
+			Pair<OpeningCtrl, Parent> openingCtrl,
+			Pair<UsernameCtrl, Parent> usernameCtrl,
+			Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
+			Pair<WaitingroomCtrl, Parent> waitingroomCtrl,
+			Pair<ServerAddressCtrl, Parent> serverAddressCtrl,
+			Pair<ComparisonScreenCtrl, Parent> comparisonScreenCtrl,
+			Pair<EstimationScreenCtrl, Parent> estimationScreenCtrl,
+			Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
+			Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
+			Pair<AdminCtrl, Parent> adminCtrlParentPair,
+			Pair<IntermediateLeaderboardCtrl, Parent> intermediateLeaderboardCtrlParentPair,
+			Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
 
-			this.primaryStage = primaryStage;
+				this.primaryStage = primaryStage;
 
-			this.leaderboardCtrl = leaderboardCtrl.getKey();
-			this.leaderboard = new Scene(leaderboardCtrl.getValue());
+				this.leaderboardCtrl = leaderboardCtrl.getKey();
+				this.leaderboard = new Scene(leaderboardCtrl.getValue());
 
-			this.openingCtrl = openingCtrl.getKey();
-			this.home = new Scene(openingCtrl.getValue());
+				this.openingCtrl = openingCtrl.getKey();
+				this.home = new Scene(openingCtrl.getValue());
 
-			this.usernameCtrl = usernameCtrl.getKey();
-			this.username = new Scene(usernameCtrl.getValue());
+				this.usernameCtrl = usernameCtrl.getKey();
+				this.username = new Scene(usernameCtrl.getValue());
 
-			this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
-			this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
+				this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
+				this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
 
-			this.waitingroomCtrl = waitingroomCtrl.getKey();
-			this.waitingroom = new Scene(waitingroomCtrl.getValue());
+				this.waitingroomCtrl = waitingroomCtrl.getKey();
+				this.waitingroom = new Scene(waitingroomCtrl.getValue());
 
-			this.serverAddressCtrl = serverAddressCtrl.getKey();
-			this.serverAddress = new Scene(serverAddressCtrl.getValue());
+				this.serverAddressCtrl = serverAddressCtrl.getKey();
+				this.serverAddress = new Scene(serverAddressCtrl.getValue());
 
-			this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
-			this.comparisonScreen = new Scene(comparisonScreenCtrl.getValue());
+				this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
+				this.comparisonScreen = new Scene(comparisonScreenCtrl.getValue());
 
-			this.estimationScreenCtrl = estimationScreenCtrl.getKey();
-			this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
+				this.estimationScreenCtrl = estimationScreenCtrl.getKey();
+				this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
 
-			this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
-			this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
+				this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
+				this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
 
-			this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
-			this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+				this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
+				this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
 
-			this.adminCtrl = adminCtrlParentPair.getKey();
-			this.adminScreen = new Scene(adminCtrlParentPair.getValue());
+				this.adminCtrl = adminCtrlParentPair.getKey();
+				this.adminScreen = new Scene(adminCtrlParentPair.getValue());
 
-			this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
-			this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
+				this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
+				this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
 
-			this.intermediateLeaderboardCtrl = intermediateLeaderboardCtrlParentPair.getKey();
-			this.intermediateLeaderboardScreen = new Scene(intermediateLeaderboardCtrlParentPair.getValue());
+				this.intermediateLeaderboardCtrl = intermediateLeaderboardCtrlParentPair.getKey();
+				this.intermediateLeaderboardScreen = new Scene(intermediateLeaderboardCtrlParentPair.getValue());
 
-			showServerAddress();
-			primaryStage.show();
-	}
-
-	public void showAdminPanel() {
-		primaryStage.setTitle("Admin panel");
-
-		primaryStage.setScene(adminScreen);
-	}
-
-	public void showLeaderboard() {
-		leaderboardCtrl.init();
-
-		primaryStage.setTitle("All-time Leaderboard");
-
-		primaryStage.setScene(leaderboard);
-
-		leaderboardCtrl.refresh();
-	}
-
-	public void showHome() {
-		openingCtrl.init();
-
-		primaryStage.setTitle("Quizz: home");
-
-		primaryStage.setScene(home);
-	}
-
-	public void showUsername() {
-		usernameCtrl.init();
-
-		username.setOnKeyPressed(e -> usernameCtrl.keyPressed(e));
-
-		primaryStage.setTitle("Enter username");
-
-		primaryStage.setScene(username);
-	}
-
-	public void showJoinWaitingroom() {
-		joinWaitingroomCtrl.init();
-
-		joinWaitingroom.setOnKeyPressed(e -> joinWaitingroomCtrl.keyPressed(e));
-
-		primaryStage.setTitle("Join a waiting room");
-
-		primaryStage.setScene(joinWaitingroom);
-	}
-
-	public void showWaitingroom(int noOfPeople) {
-		waitingroomCtrl.init();
-
-		waitingroomCtrl.updateWaitingroomState(noOfPeople);
-
-		waitingroom.setOnKeyPressed(e -> waitingroomCtrl.keyPressed(e));
-
-		primaryStage.setTitle("Join a waiting room");
-
-		primaryStage.setScene(waitingroom);
-	}
-
-	public void showServerAddress() {
-		serverAddressCtrl.init();
-
-		serverAddress.setOnKeyPressed(e -> serverAddressCtrl.keyPressed(e));
-
-		primaryStage.setTitle("Join a server");
-
-		primaryStage.setScene(serverAddress);
-	}
-
-	public void showComparisonQuestion(QuestionData<ComparisonQuestion> questionData) {
-		comparisonScreenCtrl.init();
-
-		comparisonScreenCtrl.setQuestion(questionData);
-
-		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
-
-		primaryStage.setScene(comparisonScreen);
-	}
-
-	public void showEstimationQuestion(QuestionData<EstimationQuestion> questionData) {
-		estimationScreenCtrl.init();
-
-		estimationScreenCtrl.setQuestion(questionData);
-
-		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
-
-		primaryStage.setScene(estimationScreen);
-	}
-
-	public void showMultiChoiceQuestion(QuestionData<MultiChoiceQuestion> questionData) {
-		multiChoiceScreenCtrl.init();
-
-		multiChoiceScreenCtrl.setQuestion(questionData);
-
-		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
-
-		primaryStage.setScene(multiChoiceScreen);
-	}
-
-	public void showPickEnergyQuestion(QuestionData<PickEnergyQuestion> questionData) {
-		pickEnergyScreenCtrl.init();
-
-		pickEnergyScreenCtrl.setQuestion(questionData);
-
-		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
-
-		primaryStage.setScene(pickEnergyScreen);
-	}
-
-	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {
-		if (type == QuestionTypes.COMPARISON) {
-			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+				showServerAddress();
+				primaryStage.show();
 		}
 
-		if (type == QuestionTypes.ESTIMATION) {
-			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+		public void showAdminPanel() {
+			primaryStage.setTitle("Admin panel");
+
+			primaryStage.setScene(adminScreen);
 		}
 
-		if (type == QuestionTypes.MULTI_CHOICE) {
-			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
+		public void showLeaderboard() {
+			leaderboardCtrl.init();
+
+			primaryStage.setTitle("All-time Leaderboard");
+
+			primaryStage.setScene(leaderboard);
+
+			leaderboardCtrl.refresh();
 		}
 
-		if (type == QuestionTypes.PICK_ENERGY) {
-			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
+		public void showHome() {
+			openingCtrl.init();
+
+			primaryStage.setTitle("Quizz: home");
+
+			primaryStage.setScene(home);
 		}
-	}
 
-	public void showEndingScreen(int score) {
-		endingScreenCtrl.init();
+		public void showUsername() {
+			usernameCtrl.init();
 
-		endingScreenCtrl.setScore(score);
+			username.setOnKeyPressed(e -> usernameCtrl.keyPressed(e));
 
-		primaryStage.setTitle("Game over");
+			primaryStage.setTitle("Enter username");
 
-		primaryStage.setScene(endingScreen);
-	}
+			primaryStage.setScene(username);
+		}
+
+		public void showJoinWaitingroom() {
+			joinWaitingroomCtrl.init();
+
+			joinWaitingroom.setOnKeyPressed(e -> joinWaitingroomCtrl.keyPressed(e));
+
+			primaryStage.setTitle("Join a waiting room");
+
+			primaryStage.setScene(joinWaitingroom);
+		}
+
+		public void showWaitingroom(int noOfPeople) {
+			waitingroomCtrl.init();
+
+			waitingroomCtrl.updateWaitingroomState(noOfPeople);
+
+			waitingroom.setOnKeyPressed(e -> waitingroomCtrl.keyPressed(e));
+
+			primaryStage.setTitle("Join a waiting room");
+
+			primaryStage.setScene(waitingroom);
+		}
+
+		public void showServerAddress() {
+			serverAddressCtrl.init();
+
+			serverAddress.setOnKeyPressed(e -> serverAddressCtrl.keyPressed(e));
+
+			primaryStage.setTitle("Join a server");
+
+			primaryStage.setScene(serverAddress);
+		}
+
+		public void showComparisonQuestion(QuestionData<ComparisonQuestion> questionData) {
+			comparisonScreenCtrl.init();
+
+			comparisonScreenCtrl.setQuestion(questionData);
+
+			primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
+
+			primaryStage.setScene(comparisonScreen);
+		}
+
+		public void showEstimationQuestion(QuestionData<EstimationQuestion> questionData) {
+			estimationScreenCtrl.init();
+
+			estimationScreenCtrl.setQuestion(questionData);
+
+			primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
+
+			primaryStage.setScene(estimationScreen);
+		}
+
+		public void showMultiChoiceQuestion(QuestionData<MultiChoiceQuestion> questionData) {
+			multiChoiceScreenCtrl.init();
+
+			multiChoiceScreenCtrl.setQuestion(questionData);
+
+			primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
+
+			primaryStage.setScene(multiChoiceScreen);
+		}
+
+		public void showPickEnergyQuestion(QuestionData<PickEnergyQuestion> questionData) {
+			pickEnergyScreenCtrl.init();
+
+			pickEnergyScreenCtrl.setQuestion(questionData);
+
+			primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
+
+			primaryStage.setScene(pickEnergyScreen);
+		}
+
+		public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {
+			if (type == QuestionTypes.COMPARISON) {
+				this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+			}
+
+			if (type == QuestionTypes.ESTIMATION) {
+				this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+			}
+
+			if (type == QuestionTypes.MULTI_CHOICE) {
+				this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
+			}
+
+			if (type == QuestionTypes.PICK_ENERGY) {
+				this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
+			}
+		}
+
+		public void showEndingScreen(int score) {
+			endingScreenCtrl.init();
+
+			endingScreenCtrl.setScore(score);
+
+			primaryStage.setTitle("Game over");
+
+			primaryStage.setScene(endingScreen);
+		}
 
 }

@@ -18,67 +18,67 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class AdminCtrl implements Initializable {
-	private final ServerService serverServicer;
-	private final MainCtrl mainCtrl;
+	public class AdminCtrl implements Initializable {
+		private final ServerService serverServicer;
+		private final MainCtrl mainCtrl;
 
-	public TextField nameTextField;
-	public TextField energyTextField;
-	public TextField urlTextField;
+		public TextField nameTextField;
+		public TextField energyTextField;
+		public TextField urlTextField;
 
-	@FXML
-	private TableView<Activity> table;
+		@FXML
+		private TableView<Activity> table;
 
-	@FXML
-	private TableColumn<Activity, String> columnOne;
-	@FXML
-	private TableColumn<Activity, Number> columnTwo;
+		@FXML
+		private TableColumn<Activity, String> columnOne;
+		@FXML
+		private TableColumn<Activity, Number> columnTwo;
 
-	@Inject
-	public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
-		this.serverServicer = serverService;
-		this.mainCtrl = mainCtrl;
-	}
-
-	ObservableList<Activity> observableList = FXCollections.observableArrayList(new Activity("", "", 0));
-
-	///The option to return home
-	public void returnHome() {
-		mainCtrl.showHome();
-	}
-
-	public void keyPressed(KeyEvent keyEvent) {
-		switch (keyEvent.getCode()) {
-			case ESCAPE:
-				returnHome();
-				break;
-			case ENTER:
-				addButton();
-			default:
-				break;
+		@Inject
+		public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
+			this.serverServicer = serverService;
+			this.mainCtrl = mainCtrl;
 		}
-	}
+
+		ObservableList<Activity> observableList = FXCollections.observableArrayList(new Activity("", "", 0));
+
+		///The option to return home
+		public void returnHome() {
+			mainCtrl.showHome();
+		}
+
+		public void keyPressed(KeyEvent keyEvent) {
+			switch (keyEvent.getCode()) {
+				case ESCAPE:
+					returnHome();
+					break;
+				case ENTER:
+					addButton();
+				default:
+					break;
+			}
+		}
 
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		columnOne.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
-		columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x.getValue().energyInWh()));
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			columnOne.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
+			columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x.getValue().energyInWh()));
 
-		table.setItems(observableList);
-	}
+			table.setItems(observableList);
+		}
 
-	public void addButton() {
-		Activity activity = new Activity(nameTextField.getText(),
-				urlTextField.getText(),
-				(float) Double.parseDouble(energyTextField.getText()));
+		public void addButton() {
+			Activity activity = new Activity(nameTextField.getText(),
+					urlTextField.getText(),
+					(float) Double.parseDouble(energyTextField.getText()));
 
-		table.getItems().add(activity);
+			table.getItems().add(activity);
 
-		nameTextField.clear();
+			nameTextField.clear();
 
-		energyTextField.clear();
+			energyTextField.clear();
 
-		urlTextField.clear();
-	}
+			urlTextField.clear();
+		}
 }
