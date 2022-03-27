@@ -27,15 +27,15 @@ public class GameServiceImplTest {
 	private static final Question FAKE_QUESTION = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
 
 	private static final List<Player> FAKE_PLAYER_LIST = List.of(
-		new Player("name1", 1, 100),
-		new Player("name2", 2, 200),
-		new Player("name3", 3, 300)
+			new Player("name1", 1, 100),
+			new Player("name2", 2, 200),
+			new Player("name3", 3, 300)
 	);
 
 	private static final List<LeaderboardEntry> FAKE_LEADERBOARD = List.of(
-		new LeaderboardEntry("name3", 300),
-		new LeaderboardEntry("name2", 200),
-		new LeaderboardEntry("name1", 100)
+			new LeaderboardEntry("name3", 300),
+			new LeaderboardEntry("name2", 200),
+			new LeaderboardEntry("name1", 100)
 	);
 
 	private static final List<Integer> FAKE_PLAYER_ID_LIST = List.of(1, 2, 3);
@@ -44,6 +44,7 @@ public class GameServiceImplTest {
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
+	private PlayerService playerService = new PlayerServiceImpl();
 	@Mock
 	private Game game;
 	@Mock
@@ -59,8 +60,8 @@ public class GameServiceImplTest {
 	private ArgumentCaptor<Runnable> runnableCaptor;
 
 	private GameServiceImpl createService(TimerService timerService) {
-		return new GameServiceImpl(questionService, outgoingController,
-			leaderboardService, timerService);
+		return new GameServiceImpl(questionService, outgoingController, playerService,
+				leaderboardService, timerService);
 	}
 
 	@Test

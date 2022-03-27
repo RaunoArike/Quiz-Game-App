@@ -30,7 +30,7 @@ public class GameServiceImpl implements GameService {
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-	                       PlayerService playerService, LeaderboardService leaderboardService, TimerService timerService) {
+						PlayerService playerService, LeaderboardService leaderboardService, TimerService timerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
 		this.playerService = playerService;
