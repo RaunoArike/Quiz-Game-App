@@ -1,14 +1,16 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.model.QuestionData;
+import client.service.MessageLogicService;
 import client.utils.NumberUtils;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
 
-public class EstimationScreenCtrl extends QuestionCtrl {
+public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuestion> {
 
 	@FXML
 	private TextField answer;
@@ -23,14 +25,29 @@ public class EstimationScreenCtrl extends QuestionCtrl {
 	private Label errorMessage;
 
 	@Inject
-	public EstimationScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public EstimationScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		resetError();
+	}
+
+	@Override
+	public void setQuestion(QuestionData<Question.EstimationQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textQuestion = "Estimate the amount of energy it takes to " + question.activity().name();
+		setQuestionText(textQuestion);
 	}
 
 	public void sendAnswer() {
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
-			server.answerQuestion(parsedValue);
+			messageService.answerQuestion(parsedValue);
 			resetError();
 			timeStop();
 		} else {

@@ -89,5 +89,9 @@ public interface ServerService {
 	 */
 	void registerListener(ServerListener serverListener);
 
-	List<LeaderboardEntry> getLeaderboardData(String url);
+	/**
+	 * Retrieves single-player leaderboard entries
+	 * @return top 10 leaderboard entries, sorted
+	 */
+	List<LeaderboardEntry> getLeaderboardData();
 }

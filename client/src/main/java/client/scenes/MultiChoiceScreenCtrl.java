@@ -1,11 +1,13 @@
 package client.scenes;
 
-import client.service.ServerService;
+import client.model.QuestionData;
+import client.service.MessageLogicService;
+import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import com.google.inject.Inject;
 
-public class MultiChoiceScreenCtrl extends QuestionCtrl {
+public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
 	@FXML
 	private Button optionA;
@@ -21,25 +23,34 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	private boolean clickedC = false;
 
 	@Inject
-	public MultiChoiceScreenCtrl(ServerService server, MainCtrl mainCtrl) {
-		super(server, mainCtrl);
+	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+		super(messageService, mainCtrl);
 	}
 
-	public void setAnswerOptions(String a, String b, String c) {
+	@Override
+	public void setQuestion(QuestionData<Question.MultiChoiceQuestion> questionData) {
+		super.setQuestion(questionData);
+
+		var question = questionData.question();
+		var textQuestion = "Which of the following takes the most energy?";
+		setQuestionText(textQuestion);
+
+		var a = question.activities().get(0).name();
+		var b = question.activities().get(1).name();
+		var c = question.activities().get(2).name();
+		setAnswerOptions(a, b, c);
+	}
+
+	private void setAnswerOptions(String a, String b, String c) {
 		this.optionA.setText(a);
-
-
 		this.optionB.setText(b);
-
-
 		this.optionC.setText(c);
-
 	}
 
 	public void optionAClicked() {
 		timeStop();
 		clickedA = true;
-		server.answerQuestion(0);
+		messageService.answerQuestion(0);
 		//return to a mainctrl answer method with a specific parameter
 
 	}
@@ -47,13 +58,13 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl {
 	public void optionBClicked() {
 		timeStop();
 		clickedB = true;
-		server.answerQuestion(1);
+		messageService.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
 		timeStop();
 		clickedC = true;
-		server.answerQuestion(2);
+		messageService.answerQuestion(2);
 	}
 
 	public void showAnswer(int option) {

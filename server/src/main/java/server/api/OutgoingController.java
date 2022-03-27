@@ -1,9 +1,6 @@
 package server.api;
 
-import commons.servermessage.IntermediateLeaderboardMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
-import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.*;
 
 import java.util.List;
 
@@ -41,8 +38,19 @@ public interface OutgoingController {
 
 	/**
 	 * Sends the intermediate leaderboard to the client
-	 * @param leaderboard - list of (maximum) ten LeaderboardEntry objects sorted in descending order
-	 * @param listofPlayers - the players that receive the message
+	 * @param message - list of (maximum) ten LeaderboardEntry objects sorted in descending order
+	 * @param listOfPlayers - the players that receive the message
 	*/
 	void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers);
+
+	/**
+	 * Sends error to the client
+	 * @param message error message
+	 * @param players the players that receive the message
+	 */
+	void sendError(ErrorMessage message, List<Integer> players);
+
+	default void sendError(ErrorMessage.Type errorType, List<Integer> players) {
+		sendError(new ErrorMessage(errorType), players);
+	}
 }
