@@ -1,3 +1,5 @@
+
+
 /*
  * Copyright 2021 Delft University of Technology
  *
@@ -29,6 +31,7 @@ import commons.model.Question.PickEnergyQuestion;
 //import client.service.MessageLogicService;
 
 public class MainCtrl {
+	private static final int QUESTION_RANK = 5;
 
 	private Stage primaryStage;
 
@@ -71,7 +74,8 @@ public class MainCtrl {
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
 	public void initialize(Stage primaryStage,
-		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
+		Pair<LeaderboardCtrl,
+		Parent> leaderboardCtrl,
 		Pair<OpeningCtrl, Parent> openingCtrl,
 		Pair<UsernameCtrl, Parent> usernameCtrl,
 		Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
@@ -82,8 +86,7 @@ public class MainCtrl {
 		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
 		Pair<AdminCtrl, Parent> adminCtrlParentPair,
 		Pair<IntermediateLeaderboardCtrl, Parent> intermediateLeaderboardCtrlParentPair,
-		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair
-		) {
+		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
 			this.primaryStage = primaryStage;
 
 			this.leaderboardCtrl = leaderboardCtrl.getKey();
@@ -122,8 +125,8 @@ public class MainCtrl {
 			this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
 			this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
 
-		showServerAddress();
-		primaryStage.show();
+			showServerAddress();
+			primaryStage.show();
 	}
 
 	public void showAdminPanel() {
@@ -137,6 +140,7 @@ public class MainCtrl {
 
 		primaryStage.setScene(intermediateLeaderboard);
 	}
+
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
 
@@ -201,6 +205,14 @@ public class MainCtrl {
 		this.estimationScreenCtrl.setScore(score);
 		questionNumber++;
 
+		int state = QUESTION_RANK;
+
+		if (questionNumber % state == 0) {
+			primaryStage.setTitle("IntermediateLeaderboard");
+
+			primaryStage.setScene(intermediateLeaderboard);
+		}
+
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(estimationScreen);
 
@@ -225,6 +237,14 @@ public class MainCtrl {
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(multiChoiceScreen);
 
+		int state = QUESTION_RANK;
+
+		if (questionNumber % state == 0) {
+			primaryStage.setTitle("IntermediateLeaderboard");
+
+			primaryStage.setScene(intermediateLeaderboard);
+		}
+
 		multiChoiceScreenCtrl.callTimeLimiter();
 	}
 
@@ -242,6 +262,14 @@ public class MainCtrl {
 		this.pickEnergyScreenCtrl.setScore(score);
 
 		questionNumber++;
+
+		int state = QUESTION_RANK;
+
+		if (questionNumber % state == 0) {
+			primaryStage.setTitle("IntermediateLeaderboard");
+
+			primaryStage.setScene(intermediateLeaderboard);
+		}
 
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(pickEnergyScreen);
@@ -276,3 +304,5 @@ public class MainCtrl {
 	}
 
 }
+
+
