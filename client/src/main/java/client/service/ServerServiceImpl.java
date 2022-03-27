@@ -147,4 +147,25 @@ public class ServerServiceImpl implements ServerService {
 
 				});
 	}
+
+	/**
+	 * Retrieves the multi-payer leaderboard entries
+	 *
+	 * @return top 10 leaderboard entries, sorted
+	 */
+	@Override
+	public List<LeaderboardEntry> getIntermediateLeaderboardData() {
+		return ClientBuilder
+				.newClient(new ClientConfig())
+				.target("http://" + url + "/")
+				.path("api/intermediateLeaderboard")
+				.request(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
+				.get(new GenericType<>() {
+
+
+
+				});
+
+	}
 }

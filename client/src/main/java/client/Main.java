@@ -60,7 +60,7 @@ public class Main extends Application {
 
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-		/*mainCtrl.initialize(primaryStage,
+		mainCtrl.initialize(primaryStage,
 				leaderboard,
 				home,
 				username,
@@ -75,6 +75,5 @@ public class Main extends Application {
 				intermediateLeaderboard,
 				ending);
 
-		 *///test
 	}
 }

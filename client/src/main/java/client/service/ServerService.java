@@ -94,4 +94,10 @@ public interface ServerService {
 	 * @return top 10 leaderboard entries, sorted
 	 */
 	List<LeaderboardEntry> getLeaderboardData();
+
+	/**
+	 * Retrieves the multi-payer leaderboard entries
+	 * @return top 10 leaderboard entries, sorted
+	 */
+	List<LeaderboardEntry> getIntermediateLeaderboardData();
 }

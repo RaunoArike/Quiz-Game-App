@@ -6,22 +6,29 @@ import commons.model.LeaderboardEntry;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import java.util.Timer;
+import java.util.TimerTask;
 public class IntermediateLeaderboardCtrl implements Initializable {
 	private final ServerService server;
-
 	private final MainCtrl mainCtrl;
 
+	private static final int TIME_PASSED = 3000;
 	@FXML
-	private TableView<LeaderboardEntry> multiLeaderboard;
+	private Label state;
+
+	@FXML
+	private TableView<LeaderboardEntry> intermediaryLeaderboard;
 
 	@FXML
 	private TableColumn<LeaderboardEntry, String> colUsername;
@@ -57,7 +64,7 @@ public class IntermediateLeaderboardCtrl implements Initializable {
 		colRanking.setCellValueFactory(x -> {
 			ReadOnlyObjectWrapper<Number> intermediaryRank;
 
-			var rank  = multiLeaderboard.getItems().indexOf(x.getValue()) + 1;
+			var rank  = intermediaryLeaderboard.getItems().indexOf(x.getValue()) + 1;
 
 			intermediaryRank = new ReadOnlyObjectWrapper<>(rank);
 
@@ -66,6 +73,51 @@ public class IntermediateLeaderboardCtrl implements Initializable {
 	}
 
 	public void continueGame() {
+		Timer timer = new Timer();
 
+		timer.schedule(new TimerTask() {
+
+			/**
+			 * Wait for 3 seconds for the leaderboard to be displayed
+			 */
+			@Override
+			public void run() {
+
+				Node current = new Node() {
+					/**
+					 * Convenience method for setting a single Object property that can be
+					 * retrieved at a later date. This is functionally equivalent to calling
+					 * the getProperties().put(Object key, Object value) method. This can later
+					 * be retrieved by calling {@link Node#getUserData()}.
+					 *
+					 * @param value The value to be stored - this can later be retrieved by calling
+					 *              {@link Node#getUserData()}.
+					 */
+
+					@Override
+					public void setUserData(Object value) {
+						super.setUserData(value);
+					}
+				};
+
+				current.setUserData(new String("WAIT FOR 3 SECONDS"));
+
+				state.setLabelFor(current);
+			}
+		}, TIME_PASSED);
+	}
+
+	/**
+	 *
+	 */
+	public void refresh() {
+		var intermediaryLeaderboardEntries = server
+				.getIntermediateLeaderboardData();
+
+		data = FXCollections
+				.observableList(intermediaryLeaderboardEntries);
+
+		intermediaryLeaderboard
+				.setItems(data);
 	}
 }
