@@ -2,10 +2,15 @@ package server.api;
 
 import commons.model.Activity;
 import org.springframework.web.bind.annotation.*;
+import server.exception.IdNotFoundException;
 import server.service.ActivityService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+/**
+ * Controller for admin panel interactions
+ */
 @RestController
 @RequestMapping("/api/activities")
 public class ActivityController {
@@ -13,6 +18,16 @@ public class ActivityController {
 
 	public ActivityController(ActivityService activityService) {
 		this.activityService = activityService;
+	}
+
+	/**
+	 * Provides a list of all activities on the server.
+	 *
+	 * @return returns a list of activities
+	 */
+	@GetMapping("/api/admin")
+	public List<Activity> getActivities() {
+		return activityService.provideActivities();
 	}
 
 	/**
@@ -31,5 +46,35 @@ public class ActivityController {
 	@DeleteMapping
 	public void removeAllActivities() {
 		activityService.removeAllActivities();
+	}
+
+	/**
+	 * Removes one activity from the DB.
+	 *
+	 * @param id the id of the activity to remove
+	 */
+	@DeleteMapping("/api/activities/delete/{id}")
+	public void removeOneActivity(@PathVariable long id) {
+		try {
+			activityService.removeActivity(id);
+		} catch (EntityNotFoundException e) {
+			throw new IdNotFoundException();
+		}
+	}
+
+	/**
+	 * Updates the contents of a single activity.
+	 * Throws an IdNotFoundException if there isn't an activity with the id specified by the user.
+	 *
+	 * @param id the id of the activity to update
+	 * @param activity the activity to replace the old activity with
+	 */
+	@PutMapping("/api/activities/update/{id}")
+	public void updateActivity(@PathVariable long id, Activity activity) {
+		try {
+			activityService.updateActivity(id, activity);
+		} catch (EntityNotFoundException e) {
+			throw new IdNotFoundException();
+		}
 	}
 }

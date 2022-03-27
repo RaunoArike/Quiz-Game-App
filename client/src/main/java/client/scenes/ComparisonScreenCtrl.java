@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.service.ServerService;
+import client.utils.NumberUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -18,19 +19,36 @@ public class ComparisonScreenCtrl extends QuestionCtrl {
 	@FXML
 	private Button ok;
 
+	@FXML
+	private Label errorMessage;
+
 	@Inject
 	public ComparisonScreenCtrl(ServerService server, MainCtrl mainCtrl) {
 		super(server, mainCtrl);
 	}
 
 	public void sendAnswer() {
-		timeStop();
-		server.answerQuestion(Float.parseFloat(answer.getText()));
-		//TO DO - parse the answer given to make sure it is an integer, show error message otherwise
+		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
+		if (parsedValue != null) {
+			server.answerQuestion(parsedValue);
+			resetError();
+			timeStop();
+		} else {
+			errorMessage.setText("Invalid value");
+		}
 	}
 
 	public void showAnswer(Number correctAnswer, int scoreIncrement) {
-		String message = "The correct answer was: " + correctAnswer + " kwH. You score " + scoreIncrement + " points.";
+		String message = "The correct answer was: " + correctAnswer + " times. "
+						+ "\nYou score " + scoreIncrement + " points.";
+
 		answerMessage.setText(message);
+
+
+	}
+
+	public void resetError() {
+		errorMessage.setText("");
+		answerMessage.setText("");
 	}
 }

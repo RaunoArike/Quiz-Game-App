@@ -20,11 +20,11 @@ import static com.google.inject.Guice.createInjector;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+import client.scenes.*;
 import client.service.MessageLogicService;
 import com.google.inject.Injector;
 
 // import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
 // import client.scenes.QuoteOverviewCtrl;
 import client.scenes.JoinWaitingroomCtrl;
 import client.scenes.LeaderboardCtrl;
@@ -32,6 +32,7 @@ import client.scenes.OpeningCtrl;
 import client.scenes.ServerAddressScreenCtrl;
 import client.scenes.UsernameCtrl;
 import client.scenes.ComparisonScreenCtrl;
+import client.scenes.EndingScreenCtrl;
 import client.scenes.EstimationScreenCtrl;
 import client.scenes.MultiChoiceScreenCtrl;
 import client.scenes.PickEnergyScreenCtrl;
@@ -50,23 +51,38 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 
-		//var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes", "QuoteOverview.fxml");
-		//var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
-
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
+
+
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
+
+
 		var username = FXML.load(UsernameCtrl.class, "client", "scenes", "UsernameScreen.fxml");
+
+
 		var joinWaitingroom = FXML.load(JoinWaitingroomCtrl.class, "client", "scenes", "JoinWaitingroomScreen.fxml");
-		//var ending = FXML.load(OpeningCtrl.class, "client", "scenes", "EndingScreen.fxml");
+		var ending = FXML.load(EndingScreenCtrl.class, "client", "scenes", "EndingScreen.fxml");
 		var serverAddress = FXML.load(ServerAddressScreenCtrl.class, "client", "scenes", "ServerAddressScreen.fxml");
+
+
 		var comparisonScreen = FXML.load(ComparisonScreenCtrl.class, "client", "scenes", "ComparisonScreen.fxml");
+
+
 		var estimationScreen = FXML.load(EstimationScreenCtrl.class, "client", "scenes", "EstimationScreen.fxml");
+
+
 		var multiChoiceScreen = FXML.load(MultiChoiceScreenCtrl.class, "client", "scenes", "MultiChoiceScreen.fxml");
+
+
 		var pickEnergyScreen = FXML.load(PickEnergyScreenCtrl.class, "client", "scenes", "PickEnergyScreen.fxml");
 
+
+		var adminScreen = FXML.load(AdminCtrl.class, "client", "scenes", "AdminScreen.fxml");
+
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
+
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress,
-		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen);
+		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, adminScreen, ending);
 
 		INJECTOR.getInstance(MessageLogicService.class);
 	}

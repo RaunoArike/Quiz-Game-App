@@ -80,6 +80,14 @@ public class MessageLogicService implements ServerListener {
 	}
 
 	/**
+	 * Called when an endOfGame message is received from the server
+	 */
+	@Override
+	public void onEndOfGame() {
+		mainCtrl.showEndingScreen(score);
+	}
+
+	/**
 	 * Called when error occurs at the server side
 	 * @param message message with error details
 	 */
@@ -87,4 +95,5 @@ public class MessageLogicService implements ServerListener {
 	public void onError(ErrorMessage message) {
 
 	}
+
 }

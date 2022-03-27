@@ -3,11 +3,15 @@ package client.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
+import commons.model.LeaderboardEntry;
 import commons.servermessage.ErrorMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
 import commons.servermessage.WaitingRoomStateMessage;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.GenericType;
 import javafx.application.Platform;
+import org.glassfish.jersey.client.ClientConfig;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
@@ -23,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
+
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 public class ServerServiceImpl implements ServerService {
 	private final List<ServerListener> serverListeners = new ArrayList<>();
@@ -88,6 +94,9 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
 			});
+			registerForMessages("/user/queue/end-of-game", Object.class, message -> {
+				notifyListeners(listener -> listener.onEndOfGame());
+			});
 		} catch (Exception e) {
 			return false;
 		}
@@ -117,11 +126,23 @@ public class ServerServiceImpl implements ServerService {
 	public void answerQuestion(Number answer) {
 		Integer answerInt = answer instanceof Integer ? (Integer) answer : null;
 		Float answerFloat = answer instanceof Float ? (Float) answer : null;
-		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat, 0));
+		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat));
 	}
+
 
 	@Override
 	public void registerListener(ServerListener serverListener) {
 		serverListeners.add(serverListener);
+	}
+
+	@Override
+	public List<LeaderboardEntry>  getLeaderboardData(String serverAddress) {
+		return ClientBuilder.newClient(new ClientConfig()) //
+				.target("http://" + serverAddress + "/").path("api/leaderboard") //
+				.request(APPLICATION_JSON) //
+				.accept(APPLICATION_JSON) //
+				.get(new GenericType<>() {
+
+				});
 	}
 }

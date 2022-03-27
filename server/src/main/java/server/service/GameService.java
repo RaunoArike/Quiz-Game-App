@@ -10,12 +10,18 @@ import java.util.List;
  */
 public interface GameService {
 	/**
-	 * Starts a single-player game
+	 * Starts a single-player game.
 	 *
 	 * @param playerId player id, used to identify player throughout the game
 	 * @param userName name of the player, will be used for leaderboard
 	 */
 	void startSinglePlayerGame(int playerId, String userName);
+
+	/**
+	 *
+	 * @param listOfPlayers
+	 */
+	void startMultiPlayerGame(List<Player> listOfPlayers);
 
 	/**
 	 * Submits answer to the current question
@@ -24,10 +30,4 @@ public interface GameService {
 	 * @param answer submitted answer
 	 */
 	void submitAnswer(int playerId, QuestionAnswerMessage answer);
-
-	/**
-	 *
-	 * @param listOfPlayers
-	 */
-	void generateNewQuestion(List<Player> listOfPlayers);
 }
