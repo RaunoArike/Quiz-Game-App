@@ -32,6 +32,9 @@ public class MainCtrl {
 
 	private Stage primaryStage;
 
+	private IntermediateLeaderboardCtrl intermediateLeaderboardCtrl;
+	private Scene intermediateLeaderboard;
+
 	private LeaderboardCtrl leaderboardCtrl;
 	private Scene leaderboard;
 
@@ -78,7 +81,9 @@ public class MainCtrl {
 		Pair<MultiChoiceScreenCtrl, Parent> multiChoiceScreenCtrl,
 		Pair<PickEnergyScreenCtrl, Parent> pickEnergyScreenCtrl,
 		Pair<AdminCtrl, Parent> adminCtrlParentPair,
-		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
+		Pair<IntermediateLeaderboardCtrl, Parent> intermediateLeaderboardCtrlParentPair,
+		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair
+		) {
 			this.primaryStage = primaryStage;
 
 			this.leaderboardCtrl = leaderboardCtrl.getKey();
@@ -111,6 +116,9 @@ public class MainCtrl {
 			this.adminCtrl = adminCtrlParentPair.getKey();
 			this.adminScreen = new Scene(adminCtrlParentPair.getValue());
 
+			this.intermediateLeaderboardCtrl = intermediateLeaderboardCtrlParentPair.getKey();
+			this.intermediateLeaderboard = new Scene(intermediateLeaderboardCtrlParentPair.getValue());
+
 			this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
 			this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
 
@@ -120,35 +128,52 @@ public class MainCtrl {
 
 	public void showAdminPanel() {
 		primaryStage.setTitle("Admin panel");
+
 		primaryStage.setScene(adminScreen);
+	}
+
+	public void showIntermediateLeaderboard() {
+		primaryStage.setTitle("Intermediate Leaderboard");
+
+		primaryStage.setScene(intermediateLeaderboard);
 	}
 	public void showLeaderboard() {
 		primaryStage.setTitle("All-time Leaderboard");
+
 		primaryStage.setScene(leaderboard);
+
 		leaderboardCtrl.refresh();
 	}
 
 	public void showHome() {
 		primaryStage.setTitle("Quizz: home");
+
 		primaryStage.setScene(home);
 	}
 
 	public void showUsername() {
 		primaryStage.setTitle("Enter username");
+
 		username.setOnKeyPressed(e -> usernameCtrl.keyPressed(e));
+
 		this.usernameCtrl.clearField();
+
 		primaryStage.setScene(username);
 	}
 
 	public void showJoinWaitingroom() {
 		primaryStage.setTitle("Join a waiting room");
+
 		primaryStage.setScene(joinWaitingroom);
 	}
 
 	public void showServerAddress() {
 		primaryStage.setTitle("Join a server");
+
 		serverAddress.setOnKeyPressed(e -> serverAddressScreenCtrl.keyPressed(e));
+
 		serverAddressScreenCtrl.clear();
+
 		primaryStage.setScene(serverAddress);
 	}
 
@@ -156,9 +181,12 @@ public class MainCtrl {
 		String textActivity1 = q.activities().get(0).name();
 		String textActivity2 = q.activities().get(1).name();
 		String textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
+
 		this.comparisonScreenCtrl.setQuestion(textQuestion);
 		this.comparisonScreenCtrl.setScore(score);
+
 		questionNumber++;
+
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(comparisonScreen);
 
@@ -168,9 +196,11 @@ public class MainCtrl {
 
 	public void showEstimationQuestion(EstimationQuestion q, int questionNumber, int score) {
 		String textQuestion = "Estimate the amount of energy it takes to " + q.activity().name();
+
 		this.estimationScreenCtrl.setQuestion(textQuestion);
 		this.estimationScreenCtrl.setScore(score);
 		questionNumber++;
+
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(estimationScreen);
 
@@ -180,13 +210,18 @@ public class MainCtrl {
 
 	public void showMultiChoiceQuestion(MultiChoiceQuestion q, int questionNumber, int score) {
 		String textQuestion = "Which of the following takes the most energy?";
+
 		this.multiChoiceScreenCtrl.setQuestion(textQuestion);
+
 		String a = q.activities().get(0).name();
 		String b = q.activities().get(1).name();
 		String c = q.activities().get(2).name();
+
 		this.multiChoiceScreenCtrl.setAnswerOptions(a, b, c);
 		this.multiChoiceScreenCtrl.setScore(score);
+
 		questionNumber++;
+
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(multiChoiceScreen);
 
@@ -196,13 +231,18 @@ public class MainCtrl {
 	public void showPickEnergyQuestion(PickEnergyQuestion q, int questionNumber, int score) {
 		String textActivity = q.activity().name();
 		String textQuestion = "How much energy does " + textActivity + " take?";
+
 		this.pickEnergyScreenCtrl.setQuestion(textQuestion);
+
 		String a = q.answerOptions().get(0).toString();
 		String b = q.answerOptions().get(1).toString();
 		String c = q.answerOptions().get(2).toString();
+
 		this.pickEnergyScreenCtrl.setOptions(a, b, c);
 		this.pickEnergyScreenCtrl.setScore(score);
+
 		questionNumber++;
+
 		primaryStage.setTitle("Question " + questionNumber + " of 20");
 		primaryStage.setScene(pickEnergyScreen);
 
@@ -213,12 +253,15 @@ public class MainCtrl {
 		if (type == QuestionTypes.COMPARISON) {
 			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
 		}
+
 		if (type == QuestionTypes.ESTIMATION) {
 			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
 		}
+
 		if (type == QuestionTypes.MULTI_CHOICE) {
 			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
 		}
+
 		if (type == QuestionTypes.PICK_ENERGY) {
 			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
 		}
@@ -226,7 +269,9 @@ public class MainCtrl {
 
 	public void showEndingScreen(int score) {
 		primaryStage.setTitle("Game over");
+
 		endingScreenCtrl.setScore(score);
+
 		primaryStage.setScene(endingScreen);
 	}
 

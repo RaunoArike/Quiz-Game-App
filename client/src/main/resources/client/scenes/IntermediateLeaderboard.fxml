@@ -26,7 +26,7 @@
             <TableColumn prefWidth="100.0" text="Score" />
          </columns>
       </TableView>
-      <Button layoutY="360.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="119.0" text="CONTINUE">
+      <Button layoutY="360.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="34.0" prefWidth="119.0" text="CONTINUE">
          <font>
             <Font size="14.0" />
          </font>

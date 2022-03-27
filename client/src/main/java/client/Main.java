@@ -26,6 +26,7 @@ import com.google.inject.Injector;
 
 // import client.scenes.AddQuoteCtrl;
 // import client.scenes.QuoteOverviewCtrl;
+
 import client.scenes.JoinWaitingroomCtrl;
 import client.scenes.LeaderboardCtrl;
 import client.scenes.OpeningCtrl;
@@ -36,6 +37,7 @@ import client.scenes.EndingScreenCtrl;
 import client.scenes.EstimationScreenCtrl;
 import client.scenes.MultiChoiceScreenCtrl;
 import client.scenes.PickEnergyScreenCtrl;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -53,6 +55,8 @@ public class Main extends Application {
 
 		var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 
+		var intermediateLeaderboard = FXML.load(IntermediateLeaderboardCtrl.class,
+				"client", "scenes", "IntermediateLeaderboard.fxml");
 
 		var home = FXML.load(OpeningCtrl.class, "client", "scenes", "OpeningScreen.fxml");
 
@@ -82,7 +86,8 @@ public class Main extends Application {
 		var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
 		mainCtrl.initialize(primaryStage, leaderboard, home, username, joinWaitingroom, serverAddress,
-		comparisonScreen, estimationScreen, multiChoiceScreen, pickEnergyScreen, adminScreen, ending);
+				comparisonScreen, estimationScreen, multiChoiceScreen,
+				pickEnergyScreen, adminScreen, intermediateLeaderboard, ending);
 
 		INJECTOR.getInstance(MessageLogicService.class);
 	}
