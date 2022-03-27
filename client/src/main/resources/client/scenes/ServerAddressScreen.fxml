@@ -13,18 +13,27 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Label layoutX="121.0" layoutY="175.0" prefHeight="35.0" prefWidth="178.0" text="Server address:">
+      <Label layoutX="106.0" layoutY="176.0" prefHeight="35.0" prefWidth="178.0" text="Server address:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="serverAddress" layoutX="300.0" layoutY="180.0" />
-      <Button fx:id="ok" layoutX="390.0" layoutY="231.0" mnemonicParsing="false" onAction="#ok" prefHeight="26.0" prefWidth="59.0" text="OK " />
+      <TextField fx:id="serverAddress" layoutX="284.0" layoutY="175.0" prefHeight="37.0" prefWidth="231.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Button fx:id="ok" layoutX="435.0" layoutY="227.0" mnemonicParsing="false" onAction="#ok" prefHeight="26.0" prefWidth="80.0" text="OK ">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
       <Label fx:id="errorMessage" layoutX="195.0" layoutY="294.0" prefHeight="35.0" prefWidth="219.0">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="defaultButton" layoutX="267.0" layoutY="226.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="88.0" text="Use default" />
+      <Button fx:id="defaultButton" layoutX="252.0" layoutY="226.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="115.0" text="Use default">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
    </children>
 </AnchorPane>
