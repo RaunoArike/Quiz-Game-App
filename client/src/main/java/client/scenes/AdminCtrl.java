@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.service.ServerService;
+import com.google.inject.Inject;
 import commons.model.Activity;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,13 +13,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import com.google.inject.Inject;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-
-	public class AdminCtrl implements Initializable {
+public class AdminCtrl implements Initializable {
 		private final ServerService serverServicer;
 		private final MainCtrl mainCtrl;
 
@@ -40,7 +41,10 @@ import java.util.ResourceBundle;
 			this.mainCtrl = mainCtrl;
 		}
 
-		ObservableList<Activity> observableList = FXCollections.observableArrayList(new Activity("", "", 0));
+		List<Activity> listActivities = new ArrayList<>();
+
+		ObservableList<Activity> observableList = FXCollections
+				.observableArrayList(listActivities);
 
 		///The option to return home
 		public void returnHome() {
@@ -62,8 +66,14 @@ import java.util.ResourceBundle;
 
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
-			columnOne.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
-			columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x.getValue().energyInWh()));
+			columnOne.setCellValueFactory(x -> new SimpleStringProperty(x
+					.getValue()
+					.name()));
+
+			columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x
+					.getValue()
+					.energyInWh()));
+
 
 			table.setItems(observableList);
 		}
