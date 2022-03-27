@@ -44,7 +44,6 @@ public class GameServiceImplTest {
 	private QuestionService questionService;
 	@Mock
 	private OutgoingController outgoingController;
-	private PlayerService playerService = new PlayerServiceImpl();
 	@Mock
 	private Game game;
 	@Mock
@@ -60,7 +59,7 @@ public class GameServiceImplTest {
 	private ArgumentCaptor<Runnable> runnableCaptor;
 
 	private GameServiceImpl createService(TimerService timerService) {
-		return new GameServiceImpl(questionService, outgoingController, playerService,
+		return new GameServiceImpl(questionService, outgoingController,
 			leaderboardService, timerService);
 	}
 
