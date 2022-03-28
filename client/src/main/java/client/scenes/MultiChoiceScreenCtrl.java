@@ -51,24 +51,40 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		this.optionA.setText(a);
 		this.optionB.setText(b);
 		this.optionC.setText(c);
+
+		optionA.setDisable(false);
+		optionB.setDisable(false);
+		optionC.setDisable(false);
 	}
 
 	public void optionAClicked() {
 		timeStop();
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
+
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 	}
 
 	public void optionBClicked() {
 		timeStop();
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
+
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 	}
 
 	public void optionCClicked() {
 		timeStop();
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
+
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 	}
 
 	public void showAnswer(int option) {

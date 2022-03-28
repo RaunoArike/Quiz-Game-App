@@ -43,9 +43,13 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		var question = questionData.question();
 		var textQuestion = "Estimate the amount of energy it takes to " + question.activity().name();
 		setQuestionText(textQuestion);
+
+		ok.setDisable(false);
 	}
 
 	public void sendAnswer() {
+		ok.setDisable(true);
+
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -53,6 +57,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 			timeStop();
 		} else {
 			errorMessage.setText("Invalid value");
+			ok.setDisable(false);
 		}
 	}
 
