@@ -52,7 +52,7 @@ public class GameServiceImpl implements GameService {
 		players.put(playerId, gameId);
 		games.put(gameId, game);
 
-		startNewQuestion(game);
+		startNewQuestion(game, QUESTION_DELAY);
 	}
 
 	/**
@@ -71,10 +71,10 @@ public class GameServiceImpl implements GameService {
 	}
 
 	private void continueMultiPlayerGame(Game game) {
+		boolean extraDelayForLeaderboard = false;
 		if (game.isIntermediateLeaderboardNext()) {
 			showIntermediateLeaderboard(game);
-			//set some delay here or introduce it in the intermediate leaderboard method
-			//before proceeding to the next question
+			extraDelayForLeaderboard = true;
 		}
 		if (!game.isLastQuestion()) {
 			List<Player> playersinGame = game.getPlayers();
@@ -82,9 +82,12 @@ public class GameServiceImpl implements GameService {
 				p.setLatestAnswer(null); //this case is specially handled when updating score
 				p.setTimeTakenToAnswer((long) 0);
 			}
-			startNewQuestion(game);
+			if (!extraDelayForLeaderboard) {
+				startNewQuestion(game, QUESTION_DELAY);
+			} else {
+				startNewQuestion(game, Game.LEADERBOARD_DELAY);
+			}
 			timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
-			//scoreUpdate will automatically call on the continue method again
 		} else {
 			List<Integer> playersInGame = game.getPlayerIds();
 			outgoingController.sendEndOfGame(playersInGame);
@@ -135,7 +138,7 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
 
 		if (!game.isLastQuestion()) {
-			startNewQuestion(game);
+			startNewQuestion(game, QUESTION_DELAY);
 		} else {
 			outgoingController.sendEndOfGame(game.getPlayerIds());
 			leaderboardService.addToLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
@@ -164,12 +167,13 @@ public class GameServiceImpl implements GameService {
 	/**
 	 *  Sends a new question after a short delay.
 	 * @param game game for which new question is to be sent
+	 * @param questionDelay delay in milliseconds
 	 */
-	private void startNewQuestion(Game game) {
+	private void startNewQuestion(Game game, Long questionDelay) {
 		if (game.isBeforeFirstQuestion()) {
 			newQuestion(game);
 		} else {
-			timerService.scheduleTimer(game.getGameId(), QUESTION_DELAY, () -> newQuestion(game));
+			timerService.scheduleTimer(game.getGameId(), questionDelay, () -> newQuestion(game));
 		}
 	}
 
@@ -193,7 +197,7 @@ public class GameServiceImpl implements GameService {
 	 */
 	private void scoreUpdate(Game game) {
 		for (Player player : game.getPlayers()) {
-		//if latestAnswer was -1 it represents that the player has not given any answer for this question
+		//if latestAnswer was null it represents that the player has not given any answer for this question
 			if (player.getLatestAnswer() != null) {
 				var scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
 					player.getLatestAnswer(), player.getTimeTakenToAnswer());
@@ -220,8 +224,6 @@ public class GameServiceImpl implements GameService {
 			.toList();
 		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(leaderboard);
 		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
-		//introduce some delay here before this method returns, or within the continueMultiPlayer method
-		//so that the next question is not sent immediately
 	}
 
 	/**
