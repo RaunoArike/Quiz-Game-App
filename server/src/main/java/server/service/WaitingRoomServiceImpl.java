@@ -49,7 +49,7 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 	@Override
 	public void startMultiplayerGame() {
 		if (listOfPlayers.isEmpty()) return;
-		gameService.generateNewQuestion(listOfPlayers);
+		gameService.startMultiPlayerGame(listOfPlayers);
 		resetWaitingRoom();
 	}
 
