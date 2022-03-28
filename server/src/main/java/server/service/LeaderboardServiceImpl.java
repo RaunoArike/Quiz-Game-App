@@ -12,46 +12,46 @@ import server.repository.LeaderboardRepository;
 @Service
 public class LeaderboardServiceImpl implements LeaderboardService {
 
-		private final LeaderboardRepository repository;
+	private final LeaderboardRepository repository;
 
-		private final ActivityService activityService;
+	private final ActivityService activityService;
 
-		private static final int NUMBER_OF_TOP_ENTRIES_TO_RETURN = 10;
+	private static final int NUMBER_OF_TOP_ENTRIES_TO_RETURN = 10;
 
-		public LeaderboardServiceImpl(LeaderboardRepository repository,
-			ActivityService activityService) {
+	public LeaderboardServiceImpl(LeaderboardRepository repository,
+		ActivityService activityService) {
 
-			this.repository = repository;
-			this.activityService = activityService;
+		this.repository = repository;
+		this.activityService = activityService;
 
-		}
+	}
 
-		@Override
-		public void addToLeaderboard(LeaderboardEntry entry) {
-			repository.save(LeaderboardEntity.fromModel(entry));
-		}
+	@Override
+	public void addToLeaderboard(LeaderboardEntry entry) {
+		repository.save(LeaderboardEntity.fromModel(entry));
+	}
 
-		@Override
-		public void clearLeaderboard() {
-			repository.deleteAll();
-		}
+	@Override
+	public void clearLeaderboard() {
+		repository.deleteAll();
+	}
 
-		public List<LeaderboardEntry> getTopLeaderboardEntries() {
-			//TO DO - query the repository for the top ten entries, sorted descending
+	public List<LeaderboardEntry> getTopLeaderboardEntries() {
+		//TO DO - query the repository for the top ten entries, sorted descending
 
-			List<Activity> listOfActivities = activityService.provideActivities();
+		List<Activity> listOfActivities = activityService.provideActivities();
 
-			LeaderboardRepository leaderboardRepository = repository;
+		LeaderboardRepository leaderboardRepository = repository;
 
-			List<LeaderboardEntry> entryList = leaderboardRepository.findAll()
-					.stream()
-					.sorted(Comparator.<LeaderboardEntity>comparingInt(entry -> entry.getScore()).reversed())
-					.limit(NUMBER_OF_TOP_ENTRIES_TO_RETURN)
-					.map(LeaderboardEntity::toModel)
-					.toList();
+		List<LeaderboardEntry> entryList = leaderboardRepository.findAll()
+				.stream()
+				.sorted(Comparator.<LeaderboardEntity>comparingInt(entry -> entry.getScore()).reversed())
+				.limit(NUMBER_OF_TOP_ENTRIES_TO_RETURN)
+				.map(LeaderboardEntity::toModel)
+				.toList();
 
 
-			return entryList;
-		}
+		return entryList;
+	}
 
 }
