@@ -18,13 +18,19 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	@FXML
 	private Button optionC;
 
-	private boolean clickedA = false;
-	private boolean clickedB = false;
-	private boolean clickedC = false;
+	private int selectedAnswer = -1;
 
 	@Inject
 	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
 		super(messageService, mainCtrl);
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		optionA.setStyle(null);
+		optionB.setStyle(null);
+		optionC.setStyle(null);
 	}
 
 	@Override
@@ -49,21 +55,19 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	public void optionAClicked() {
 		timeStop();
-		clickedA = true;
+		selectedAnswer = 0;
 		messageService.answerQuestion(0);
-		//return to a mainctrl answer method with a specific parameter
-
 	}
 
 	public void optionBClicked() {
 		timeStop();
-		clickedB = true;
+		selectedAnswer = 1;
 		messageService.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
 		timeStop();
-		clickedC = true;
+		selectedAnswer = 2;
 		messageService.answerQuestion(2);
 	}
 
@@ -73,13 +77,11 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
 
 
-				if (clickedB) {
+				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
 				}
-				if (clickedC) {
+				if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
 				}
 
 				break;
@@ -87,25 +89,21 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 				optionB.setStyle("-fx-background-color: #00ff7f; ");
 
 
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
-				} else if (clickedC) {
+				} else if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
-					}
+				}
 
 				break;
 			case 2:
 				optionC.setStyle("-fx-background-color: #00ff7f; ");
 
 
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
-				} else if (clickedB) {
+				} else if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
 				}
 
 				break;
