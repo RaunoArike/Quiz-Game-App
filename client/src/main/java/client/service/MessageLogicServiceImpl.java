@@ -125,7 +125,9 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onError(ErrorMessage message) {
-
+		if (message.errorType() == ErrorMessage.Type.USERNAME_BUSY) {
+			mainCtrl.showUsernameBusyError();
+		}
 	}
 
 }

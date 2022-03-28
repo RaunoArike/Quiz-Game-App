@@ -226,4 +226,8 @@ public class MainCtrl {
 		primaryStage.setScene(endingScreen);
 	}
 
+	public void showUsernameBusyError() {
+		this.joinWaitingroomCtrl.showUsernameBusyError();
+	}
+
 }

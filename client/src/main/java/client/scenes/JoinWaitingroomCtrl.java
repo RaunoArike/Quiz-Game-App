@@ -47,6 +47,10 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 		this.username.clear();
 	}
 
+	public void showUsernameBusyError() {
+		errorMessage.setText("This username is already taken! Please choose a different username");
+	}
+
 	/**
 	 * Adds key functionality to the textfields - enter to trigger join,
 	 * escape to return to home screen
