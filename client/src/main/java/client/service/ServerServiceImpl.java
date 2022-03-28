@@ -3,6 +3,7 @@ package client.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
+import commons.model.Activity;
 import commons.model.LeaderboardEntry;
 import commons.servermessage.ErrorMessage;
 import commons.servermessage.QuestionMessage;
@@ -139,8 +140,10 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public List<LeaderboardEntry> getLeaderboardData() {
-		return ClientBuilder.newClient(new ClientConfig()) //
-				.target("http://" + url + "/").path("api/leaderboard") //
+		return ClientBuilder
+				.newClient(new ClientConfig()) //
+				.target("http://" + url + "/")
+				.path("api/leaderboard") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
 				.get(new GenericType<>() {
@@ -167,5 +170,23 @@ public class ServerServiceImpl implements ServerService {
 
 				});
 
+	}
+
+	/**
+	 * Returns the list of activities
+	 *
+	 * @return the list of activities
+	 */
+	@Override
+	public List<Activity> getActivities() {
+		return ClientBuilder
+				.newClient(new ClientConfig())
+				.target("http://" + url + "/")
+				.path("api/activities")
+				.request(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
+				.get(new GenericType<>() {
+
+				});
 	}
 }

@@ -1,8 +1,11 @@
 package client.scenes;
 
 import client.service.ServerService;
+
+
 import com.google.inject.Inject;
 import commons.model.Activity;
+
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -19,13 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AdminCtrl implements Initializable {
+
+
+public class AdminCtrl extends AbstractCtrl implements Initializable {
 		private final ServerService serverServicer;
+
 		private final MainCtrl mainCtrl;
 
 		public TextField nameTextField;
+
 		public TextField energyTextField;
+
 		public TextField urlTextField;
+
+		public List<Activity> listActivities;
 
 		@FXML
 		private TableView<Activity> table;
@@ -39,12 +49,8 @@ public class AdminCtrl implements Initializable {
 		public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
 			this.serverServicer = serverService;
 			this.mainCtrl = mainCtrl;
+			listActivities = new ArrayList<>();
 		}
-
-		List<Activity> listActivities = new ArrayList<>();
-
-		ObservableList<Activity> observableList = FXCollections
-				.observableArrayList(listActivities);
 
 		///The option to return home
 		public void returnHome() {
@@ -56,16 +62,17 @@ public class AdminCtrl implements Initializable {
 				case ESCAPE:
 					returnHome();
 					break;
-				case ENTER:
-					addButton();
 				default:
 					break;
 			}
 		}
 
 
+
+
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
+
 			columnOne.setCellValueFactory(x -> new SimpleStringProperty(x
 					.getValue()
 					.name()));
@@ -75,7 +82,6 @@ public class AdminCtrl implements Initializable {
 					.energyInWh()));
 
 
-			table.setItems(observableList);
 		}
 
 		public void addButton() {
@@ -91,4 +97,59 @@ public class AdminCtrl implements Initializable {
 
 			urlTextField.clear();
 		}
+
+		public void updateButton() {
+			Activity activity = new Activity(nameTextField.getText(),
+					urlTextField.getText(),
+					(float) Double.parseDouble(energyTextField.getText()));
+
+			for (Activity activity1 : table.getItems()) {
+				if (activity1.name().equals(activity.name())) {
+					table.getItems().add(activity);
+
+					listActivities.add(activity);
+
+					table.getItems().remove(activity1);
+
+					listActivities.remove(activity1);
+				}
+			}
+			init();
+			nameTextField.clear();
+
+			energyTextField.clear();
+
+			urlTextField.clear();
+		}
+
+		public void removeButton() {
+			Activity activity = new Activity(nameTextField.getText(),
+					urlTextField.getText(),
+					(float) Double.parseDouble(energyTextField.getText()));
+
+			for (Activity activity1 : table.getItems()) {
+				if (activity1.name().equals(activity.name())) {
+					table.getItems().remove(activity1);
+				}
+			}
+			init();
+			nameTextField.clear();
+
+			energyTextField.clear();
+
+			urlTextField.clear();
+		}
+
+	@Override
+	public void init() {
+		super.init();
+		ObservableList<Activity> observableList = FXCollections
+				.observableArrayList(listActivities);
+
+		for (Activity activity : serverServicer.getActivities()) {
+			observableList.add(activity);
+			listActivities.add(activity);
+		}
+		table.setItems(observableList);
+	}
 }

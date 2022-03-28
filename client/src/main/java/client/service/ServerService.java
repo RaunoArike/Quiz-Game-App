@@ -1,5 +1,6 @@
 package client.service;
 
+import commons.model.Activity;
 import commons.model.LeaderboardEntry;
 import commons.servermessage.ErrorMessage;
 import commons.servermessage.QuestionMessage;
@@ -100,4 +101,10 @@ public interface ServerService {
 	 * @return top 10 leaderboard entries, sorted
 	 */
 	List<LeaderboardEntry> getIntermediateLeaderboardData();
+
+	/**
+	 * Returns the list of activities
+	 * @return the list of activities
+	 */
+	List<Activity> getActivities();
 }

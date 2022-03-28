@@ -139,6 +139,7 @@ import commons.model.Question.PickEnergyQuestion;
 		}
 
 		public void showAdminPanel() {
+			adminCtrl.init();
 			primaryStage.setTitle("Admin panel");
 
 			primaryStage.setScene(adminScreen);
