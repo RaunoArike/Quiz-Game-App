@@ -11,6 +11,7 @@ public class Game {
 	public static final int TIMER_DELAY = 100;
 	public static final int QUESTION_DURATION = 20000;
 	public static final long LEADERBOARD_DELAY = 10000;
+	public static final long QUESTION_DELAY = 3000;
 
 	private final int gameId;
 

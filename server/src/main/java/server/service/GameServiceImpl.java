@@ -22,8 +22,6 @@ public class GameServiceImpl implements GameService {
 	private final Map<Integer, Game> games = new HashMap<>(); // Maps gameId to Game
 	private final Map<Integer, Integer> players = new HashMap<>(); // Maps playerId to gameId
 
-	private static final long QUESTION_DELAY = 3000;
-
 	private int nextGameId = 0;
 
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
@@ -52,7 +50,7 @@ public class GameServiceImpl implements GameService {
 		players.put(playerId, gameId);
 		games.put(gameId, game);
 
-		startNewQuestion(game, QUESTION_DELAY);
+		startNewQuestion(game, Game.QUESTION_DELAY);
 	}
 
 	/**
@@ -83,7 +81,7 @@ public class GameServiceImpl implements GameService {
 				p.setTimeTakenToAnswer((long) 0);
 			}
 			if (!extraDelayForLeaderboard) {
-				startNewQuestion(game, QUESTION_DELAY);
+				startNewQuestion(game, Game.QUESTION_DELAY);
 			} else {
 				startNewQuestion(game, Game.LEADERBOARD_DELAY);
 			}
@@ -138,7 +136,7 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
 
 		if (!game.isLastQuestion()) {
-			startNewQuestion(game, QUESTION_DELAY);
+			startNewQuestion(game, Game.QUESTION_DELAY);
 		} else {
 			outgoingController.sendEndOfGame(game.getPlayerIds());
 			leaderboardService.addToLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
