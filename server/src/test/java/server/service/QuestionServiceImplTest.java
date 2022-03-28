@@ -132,7 +132,8 @@ public class QuestionServiceImplTest {
 	public void pick_energy_answer_generator_should_generate_similar_answers() {
 		var service = createService();
 		var answerOptions = service.generatePickOptions(55, 2);
-		assertTrue(answerOptions.get(0) <= answerOptions.get(2)*2 && answerOptions.get(1) <= answerOptions.get(2)*2);
+		assertTrue(answerOptions.get(0) <= answerOptions.get(2) * 2
+				&& answerOptions.get(1) <= answerOptions.get(2) * 2);
 	}
 
 	@Test
@@ -150,8 +151,8 @@ public class QuestionServiceImplTest {
 		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
 		var question = service.generateMC();
 
-		assertTrue(!question.activities().get(0).equals(question.activities().get(1)) &&
-				!question.activities().get(1).equals(question.activities().get(2)));
+		assertTrue(!question.activities().get(0).equals(question.activities().get(1))
+				&& !question.activities().get(1).equals(question.activities().get(2)));
 	}
 
 	@Test
