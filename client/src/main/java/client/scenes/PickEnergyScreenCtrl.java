@@ -65,6 +65,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		this.optionAtext.setText(a);
 		this.optionBtext.setText(b);
 		this.optionCtext.setText(c);
+
+		optionA.setDisable(false);
+		optionB.setDisable(false);
+		optionC.setDisable(false);
 	}
 
 	public void optionAClicked() {
@@ -72,6 +76,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		timeStop();
 
 		selectedAnswer = 0;
+
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 	}
 
 	public void optionBClicked() {
@@ -79,6 +87,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		timeStop();
 
 		selectedAnswer = 1;
+
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 	}
 
 	public void optionCClicked() {
@@ -86,6 +98,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		timeStop();
 
 		selectedAnswer = 2;
+
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 	}
 
 	public void showAnswer(int option) {
