@@ -37,6 +37,8 @@ public class MyModule implements Module {
 
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
 
+		binder.bind(IntermediateLeaderboardCtrl.class).in(Scopes.SINGLETON);
+
 		binder.bind(ServerService.class).to(ServerServiceImpl.class).in(Scopes.SINGLETON);
 
 		binder.bind(MessageLogicService.class).to(MessageLogicServiceImpl.class).in(Scopes.SINGLETON);

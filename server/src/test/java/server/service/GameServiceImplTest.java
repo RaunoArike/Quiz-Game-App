@@ -161,4 +161,25 @@ public class GameServiceImplTest {
 
 		verify(timerService).getTime();
 	}
+
+	@Test
+	public void starting_multi_player_game_should_send_question() {
+		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
+
+		var service = createService(new MockTimerService());
+		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+
+		verify(outgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0), FAKE_PLAYER_ID_LIST);
+	}
+
+	// @Test
+	// public void answering_multiplayer_question_should_save_answer() {
+	// 	var service = createService(new MockTimerService());
+	// 	service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+
+	// 	Player p = FAKE_PLAYER_LIST.get(0);
+	// 	service.submitAnswer(p.getPlayerId(), new QuestionAnswerMessage(10, null));
+
+	// 	assertEquals(10, p.getLatestAnswer());
+	// }
 }

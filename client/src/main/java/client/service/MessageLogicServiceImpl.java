@@ -128,7 +128,19 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onError(ErrorMessage message) {
+		if (message.errorType() == ErrorMessage.Type.USERNAME_BUSY) {
+			mainCtrl.showUsernameBusyError();
+		}
+	}
 
+	/**
+	 * Called to get the intermediate leaderboard
+	 *
+	 * @param intermediateLeaderboardMessage the message of the intermediate leaderboard
+	 */
+	@Override
+	public void onIntermediateLeaderboard(IntermediateLeaderboardMessage intermediateLeaderboardMessage) {
+		mainCtrl.showIntermediateleaderboard();
 	}
 
 }
