@@ -7,7 +7,8 @@ import java.io.IOException;
  */
 public interface ImportService {
 	/**
-	 * Imports activities in ActivityBank format from file [filePath + "\activities.json"] to server specified by [serverUrl].
+	 * Imports activities in ActivityBank format from file [filePath] to server specified by [serverUrl].
+	 * filePath should point to a directory containing an activities.json file rather than to the file itself.
 	 *
 	 * @param serverUrl server activities should be uploaded to
 	 * @param filePath path to file to read activities from
