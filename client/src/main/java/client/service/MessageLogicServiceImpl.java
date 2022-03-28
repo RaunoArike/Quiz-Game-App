@@ -116,7 +116,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onEndOfGame() {
-		mainCtrl.showEndingScreen(score);
+		mainCtrl.showEndingScreen(this.score);
 	}
 
 	/**
