@@ -26,7 +26,7 @@
             <TableColumn fx:id="colScore" prefWidth="100.0" text="Score" />
         </columns>
       </TableView>
-      <Button layoutX="103.0" layoutY="314.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="119.0" text="Return to home">
+      <Button layoutX="103.0" layoutY="314.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="119.0" text="Return Home">
          <font>
             <Font size="14.0" />
          </font>
