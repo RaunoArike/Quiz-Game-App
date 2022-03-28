@@ -79,17 +79,15 @@ public class GameServiceImpl implements GameService {
 		if (!game.isLastQuestion()) {
 			List<Player> playersinGame = game.getPlayers();
 			for (Player p : playersinGame) {
-				p.setLatestAnswer(-1);
-				//needs to be handled. In case a player does not answer, this number will be passed
-				//directly to the score calculatino method
+				p.setLatestAnswer(-1); //this case is specially handled when updating score
 				p.setTimeTakenToAnswer((long) 0);
 			}
-			// game.answers = new HashMap<>();
-			// game.times = new HashMap<>();
 			startNewQuestion(game);
 			timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+			//scoreUpdate will automatically call on the continue method again
 		} else {
-			//send end of game message
+			List<Integer> playersInGame = game.getPlayerIds();
+			outgoingController.sendEndOfGame(playersInGame);
 			showIntermediateLeaderboard(game);
 			cleanUpGame(game);
 		}
@@ -151,8 +149,6 @@ public class GameServiceImpl implements GameService {
 	 * @param answer message containing the answer
 	 */
 	private void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
-		//TO DO
-
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
 
@@ -160,9 +156,7 @@ public class GameServiceImpl implements GameService {
 		if (player == null) throw new RuntimeException("Player not found");
 
 		player.setLatestAnswer(answer.getAnswer());
-		//game.answers.put(playerId, answer);
 		long timePassed = timerService.getTime() - game.getStartTime();
-		//game.times.put(playerId, timePassed);
 		player.setTimeTakenToAnswer(timePassed);
 	}
 
