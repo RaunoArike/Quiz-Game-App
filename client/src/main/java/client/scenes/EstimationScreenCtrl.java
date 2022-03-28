@@ -32,8 +32,9 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	@Override
 	public void init() {
 		super.init();
-		resetError();
 		answer.setText("");
+		resetError();
+		resetCorrectAnswer();
 	}
 
 	@Override
@@ -60,12 +61,13 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		String message = "The correct answer was: " + correctAnswer + " kwH. "
 						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
-
-
 	}
 
-	public void resetError() {
+	private void resetError() {
 		errorMessage.setText("");
+	}
+
+	private void resetCorrectAnswer() {
 		answerMessage.setText("");
 	}
 }

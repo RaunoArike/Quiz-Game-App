@@ -32,8 +32,9 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	@Override
 	public void init() {
 		super.init();
-		resetError();
 		answer.setText("");
+		resetError();
+		resetCorrectAnswer();
 	}
 
 	@Override
@@ -63,12 +64,13 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 						+ "\nYou score " + scoreIncrement + " points.";
 
 		answerMessage.setText(message);
-
-
 	}
 
-	public void resetError() {
+	private void resetError() {
 		errorMessage.setText("");
+	}
+
+	private void resetCorrectAnswer() {
 		answerMessage.setText("");
 	}
 }
