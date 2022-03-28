@@ -96,7 +96,7 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
 			});
-			registerForMessages("/user/queue/end-of-game", Object.class, message -> {
+			registerForMessages("/user/queue/end-of-game", String.class, message -> {
 				notifyListeners(listener -> listener.onEndOfGame());
 			});
 		} catch (Exception e) {

@@ -36,7 +36,7 @@ public class OutgoingControllerImpl implements OutgoingController {
 
 	@Override
 	public void sendEndOfGame(List<Integer> players) {
-		send(new Object(), players, "end-of-game");
+		send("", players, "end-of-game");
 	}
 
 	@Override
