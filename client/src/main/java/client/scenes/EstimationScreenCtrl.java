@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
+import javafx.scene.input.KeyEvent;
+
 
 public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuestion> {
 
@@ -65,5 +67,15 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	public void resetError() {
 		errorMessage.setText("");
 		answerMessage.setText("");
+	}
+
+	public void keyPressed(KeyEvent e) {
+		switch (e.getCode()) {
+			case ENTER:
+				sendAnswer();
+				break;
+			default:
+				break;
+		}
 	}
 }

@@ -176,6 +176,7 @@ public class MainCtrl {
 
 	public void showComparisonQuestion(QuestionData<ComparisonQuestion> questionData) {
 		comparisonScreenCtrl.init();
+		comparisonScreen.setOnKeyPressed(e -> comparisonScreenCtrl.keyPressed(e));
 		comparisonScreenCtrl.setQuestion(questionData);
 		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
 		primaryStage.setScene(comparisonScreen);
@@ -183,6 +184,7 @@ public class MainCtrl {
 
 	public void showEstimationQuestion(QuestionData<EstimationQuestion> questionData) {
 		estimationScreenCtrl.init();
+		estimationScreen.setOnKeyPressed(e -> estimationScreenCtrl.keyPressed(e));
 		estimationScreenCtrl.setQuestion(questionData);
 		primaryStage.setTitle("Question " + (questionData.questionNumber() + 1) + " of 20");
 		primaryStage.setScene(estimationScreen);
