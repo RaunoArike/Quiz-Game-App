@@ -24,10 +24,12 @@ public class TimerServiceImpl implements TimerService {
 	private final Map<Integer, Task> taskMap = new HashMap<>();
 	private final Timer timer = new Timer();
 
+	@Override
 	public long getTime() {
 		return System.currentTimeMillis();
 	}
 
+	@Override
 	public void scheduleTimer(int timerId, long delay, Runnable runnable) {
 		var oldTask = taskMap.get(timerId);
 		if (oldTask != null) oldTask.timerTask.cancel();
@@ -38,6 +40,7 @@ public class TimerServiceImpl implements TimerService {
 		updateTask(task, delay);
 	}
 
+	@Override
 	public void rescheduleTimer(int timerId, long delay) {
 		var task = taskMap.get(timerId);
 		if (task == null) throw new IllegalStateException("Timer with given id is not scheduled.");
@@ -45,6 +48,7 @@ public class TimerServiceImpl implements TimerService {
 		updateTask(task, delay);
 	}
 
+	@Override
 	public long getRemainingTime(int timerId) {
 		var task = taskMap.get(timerId);
 		if (task == null) throw new IllegalStateException("Timer with given id is not scheduled.");

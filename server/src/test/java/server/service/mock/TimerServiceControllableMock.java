@@ -30,6 +30,7 @@ public class TimerServiceControllableMock implements TimerService {
 		return currentTime;
 	}
 
+	@Override
 	public void scheduleTimer(int timerId, long delay, Runnable runnable) {
 		var task = new Task(runnable);
 		taskMap.put(timerId, task);
@@ -37,6 +38,7 @@ public class TimerServiceControllableMock implements TimerService {
 		task.endTime = currentTime + delay;
 	}
 
+	@Override
 	public void rescheduleTimer(int timerId, long delay) {
 		var task = taskMap.get(timerId);
 		if (task == null) throw new IllegalStateException("Timer with given id is not scheduled.");
@@ -44,6 +46,7 @@ public class TimerServiceControllableMock implements TimerService {
 		task.endTime = currentTime + delay;
 	}
 
+	@Override
 	public long getRemainingTime(int timerId) {
 		var task = taskMap.get(timerId);
 		if (task == null) throw new IllegalStateException("Timer with given id is not scheduled.");
@@ -51,6 +54,13 @@ public class TimerServiceControllableMock implements TimerService {
 		return task.endTime - getTime();
 	}
 
+	/**
+	 * Moves the time forward by [timeIncrement].
+	 * If there are any timers that need to be executed in the time frame before and after the increment,
+	 * they are executed in order.
+	 *
+	 * @param timeIncrement time increment
+	 */
 	public void advanceBy(long timeIncrement) {
 		currentTime += timeIncrement;
 

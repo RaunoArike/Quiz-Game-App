@@ -2,6 +2,7 @@ package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.model.LeaderboardEntry;
+import commons.servermessage.EndOfGameMessage;
 import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
 import commons.servermessage.ScoreMessage;
@@ -88,7 +89,7 @@ public class GameServiceImpl implements GameService {
 			timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
 		} else {
 			List<Integer> playersInGame = game.getPlayerIds();
-			outgoingController.sendEndOfGame(playersInGame);
+			outgoingController.sendEndOfGame(new EndOfGameMessage(), playersInGame);
 			showIntermediateLeaderboard(game);
 			cleanUpGame(game);
 		}
@@ -138,7 +139,7 @@ public class GameServiceImpl implements GameService {
 		if (!game.isLastQuestion()) {
 			startNewQuestion(game, Game.QUESTION_DELAY);
 		} else {
-			outgoingController.sendEndOfGame(game.getPlayerIds());
+			outgoingController.sendEndOfGame(new EndOfGameMessage(), game.getPlayerIds());
 			leaderboardService.addToLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
 			cleanUpGame(game);
 		}
