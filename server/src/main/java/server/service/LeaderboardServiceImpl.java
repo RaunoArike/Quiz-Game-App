@@ -3,7 +3,6 @@ package server.service;
 import java.util.Comparator;
 import java.util.List;
 
-import commons.model.Activity;
 import commons.model.LeaderboardEntry;
 import org.springframework.stereotype.Service;
 import server.entity.LeaderboardEntity;
@@ -37,10 +36,6 @@ public class LeaderboardServiceImpl implements LeaderboardService {
 	}
 
 	public List<LeaderboardEntry> getTopLeaderboardEntries() {
-		//TO DO - query the repository for the top ten entries, sorted descending
-
-		List<Activity> listOfActivities = activityService.provideActivities();
-
 		LeaderboardRepository leaderboardRepository = repository;
 
 		List<LeaderboardEntry> entryList = leaderboardRepository.findAll()
