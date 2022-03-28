@@ -7,8 +7,7 @@ public interface LeaderboardService {
 
 	/**
 	 * Add a new leaderboard entry to the repository
-	 * @param name username of the player
-	 * @param score total score from a single-player game
+	 * @param entry the LeaderboardEntry to add
 	 */
 	void addToLeaderboard(LeaderboardEntry entry);
 

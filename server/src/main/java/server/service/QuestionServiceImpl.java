@@ -122,9 +122,6 @@ public class QuestionServiceImpl implements QuestionService {
 		List<Float> answerList = new ArrayList<>();
 		for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
 			float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
-			while (wrongAnswer == 0) {
-				wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
-			}
 			answerList.add(wrongAnswer);
 		}
 		answerList.add(answerNumber, correctAnswerInWh);

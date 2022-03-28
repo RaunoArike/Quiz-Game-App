@@ -23,10 +23,10 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 
 	@Override
 	public void joinWaitingRoom(String playerName, int playerId) {
-		/*
+		/**
 		 * If the player isn't already in the waiting room,
 		 * we add them to the map of players to the current waiting room
-		 * * and to the list of players.
+		 * and to the list of players.
 		 */
 		if (isInWaitingRoom(playerId)) return;
 		if (isInWaitingRoom(playerName)) {
