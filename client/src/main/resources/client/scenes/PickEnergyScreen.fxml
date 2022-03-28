@@ -22,9 +22,9 @@
       <Button fx:id="eliminateOption" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
       <Button fx:id="doublePoints" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="66.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
-      <RadioButton fx:id="optionA" layoutX="348.0" layoutY="178.0" mnemonicParsing="false" onAction="#optionAclicked" text="A" />
-      <RadioButton fx:id="optionB" layoutX="348.0" layoutY="207.0" mnemonicParsing="false" onAction="#optionBclicked" text="B" />
-      <RadioButton fx:id="optionC" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#optionCclicked" text="C" />
+      <RadioButton fx:id="optionA" layoutX="348.0" layoutY="178.0" mnemonicParsing="false" onAction="#optionAClicked" text="A" />
+      <RadioButton fx:id="optionB" layoutX="348.0" layoutY="207.0" mnemonicParsing="false" onAction="#optionBClicked" text="B" />
+      <RadioButton fx:id="optionC" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#optionCClicked" text="C" />
       <Label fx:id="questionText" layoutX="34.0" layoutY="55.0" prefHeight="118.0" prefWidth="543.0" text="How much does X take?" wrapText="true">
          <font>
             <Font size="20.0" />

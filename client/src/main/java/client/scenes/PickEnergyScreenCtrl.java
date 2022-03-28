@@ -28,13 +28,22 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@FXML
 	private Label optionCtext;
 
-	private boolean clickedA = false;
-	private boolean clickedB = false;
-	private boolean clickedC = false;
+	private int selectedAnswer = -1;
 
 	@Inject
 	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
 		super(messageService, mainCtrl);
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		optionA.setStyle(null);
+		optionB.setStyle(null);
+		optionC.setStyle(null);
+		optionA.setSelected(false);
+		optionB.setSelected(false);
+		optionC.setSelected(false);
 	}
 
 	@Override
@@ -58,25 +67,25 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		this.optionCtext.setText(c);
 	}
 
-	public void optionAclicked() {
+	public void optionAClicked() {
 		messageService.answerQuestion(0);
 		timeStop();
 
-		clickedA = true;
+		selectedAnswer = 0;
 	}
 
-	public void optionBclicked() {
+	public void optionBClicked() {
 		messageService.answerQuestion(1);
 		timeStop();
 
-		clickedB = true;
+		selectedAnswer = 1;
 	}
 
-	public void optionCclicked() {
+	public void optionCClicked() {
 		messageService.answerQuestion(2);
 		timeStop();
 
-		clickedC = true;
+		selectedAnswer = 2;
 	}
 
 	public void showAnswer(int option) {
@@ -85,12 +94,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 				optionA.setStyle("-fx-background-color: #00c203; ");
 
 
-				if (clickedB) {
+				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
-				} else if (clickedC) {
+				} else if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
 				}
 
 				break;
@@ -98,13 +105,11 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 				optionB.setStyle("-fx-background-color: #00c203; ");
 
 
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
 				}
-				if (clickedC) {
+				if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
-					clickedC = false;
 				}
 
 
@@ -113,13 +118,11 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 				optionC.setStyle("-fx-background-color: #00c203; ");
 
 
-				if (clickedB) {
+				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
-					clickedB = false;
 				}
-				if (clickedA) {
+				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
-					clickedA = false;
 				}
 
 				break;
