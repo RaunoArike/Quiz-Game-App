@@ -46,6 +46,11 @@ public class IntermediateLeaderboardCtrl implements Initializable {
 	public IntermediateLeaderboardCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
+
+		colUsername = new TableColumn<>();
+		colScore = new TableColumn<>();
+		colRanking = new TableColumn<>();
+
 	}
 
 	/**
