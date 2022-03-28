@@ -13,7 +13,7 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <Button layoutX="398.0" layoutY="320.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="38.0" prefWidth="162.0" text="Return to home ">
+      <Button layoutX="398.0" layoutY="320.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="38.0" prefWidth="162.0" text="Return Home ">
          <font>
             <Font size="14.0" />
          </font>
@@ -24,7 +24,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="398.0" layoutY="247.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="38.0" prefWidth="162.0" text="View leaderboard">
+      <Button layoutX="398.0" layoutY="247.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="38.0" prefWidth="162.0" text="View Leaderboard">
          <font>
             <Font size="14.0" />
          </font>
