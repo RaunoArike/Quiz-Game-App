@@ -38,8 +38,7 @@ public class OutgoingControllerImpl implements OutgoingController {
 
 	@Override
 	public void sendEndOfGame(List<Integer> players) {
-		String message = "";
-		send(message, players, "end-of-game");
+		send("", players, "end-of-game");
 		System.out.println("End of game sent");
 	}
 

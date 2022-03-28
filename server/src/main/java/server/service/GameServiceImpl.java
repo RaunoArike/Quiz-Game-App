@@ -69,10 +69,10 @@ public class GameServiceImpl implements GameService {
 	}
 
 	private void continueMultiPlayerGame(Game game) {
-		boolean extraDelayForLeaderboard = false;
+		//boolean extraDelayForLeaderboard = false;
 		if (game.isIntermediateLeaderboardNext()) {
 			showIntermediateLeaderboard(game);
-			extraDelayForLeaderboard = true;
+			//extraDelayForLeaderboard = true;
 		}
 		if (!game.isLastQuestion()) {
 			List<Player> playersinGame = game.getPlayers();
@@ -80,7 +80,7 @@ public class GameServiceImpl implements GameService {
 				p.setLatestAnswer(null); //this case is specially handled when updating score
 				p.setTimeTakenToAnswer((long) 0);
 			}
-			if (!extraDelayForLeaderboard) {
+			if (!game.isIntermediateLeaderboardNext()) {
 				startNewQuestion(game, Game.QUESTION_DELAY);
 			} else {
 				startNewQuestion(game, Game.LEADERBOARD_DELAY);
@@ -185,7 +185,7 @@ public class GameServiceImpl implements GameService {
 		game.startNewQuestion(question);
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
 				game.getPlayerIds());
-		game.startTimer(timerService.getTime());
+		game.setQuestionStartTime(timerService.getTime());
 	}
 
 	/**

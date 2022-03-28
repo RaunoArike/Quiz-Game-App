@@ -95,7 +95,7 @@ public class Game {
 		return question;
 	}
 
-	public void startTimer(long currentTime) {
+	public void setQuestionStartTime(long currentTime) {
 		this.questionStartTime = currentTime + TIMER_DELAY;
 	}
 
