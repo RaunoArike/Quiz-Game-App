@@ -5,10 +5,7 @@ import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
 import commons.model.Activity;
 import commons.model.LeaderboardEntry;
-import commons.servermessage.ErrorMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
-import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
 import javafx.application.Platform;
@@ -88,6 +85,10 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
 				notifyListeners(listener -> listener.onQuestion(message));
 			});
+			registerForMessages("user/queue/intermediate-leaderboard",
+					IntermediateLeaderboardMessage.class, message -> {
+				notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
+			});
 			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
 				notifyListeners(listener -> listener.onScore(message));
 			});
@@ -149,27 +150,6 @@ public class ServerServiceImpl implements ServerService {
 				.get(new GenericType<>() {
 
 				});
-	}
-
-	/**
-	 * Retrieves the multi-payer leaderboard entries
-	 *
-	 * @return top 10 leaderboard entries, sorted
-	 */
-	@Override
-	public List<LeaderboardEntry> getIntermediateLeaderboardData() {
-		return ClientBuilder
-				.newClient(new ClientConfig())
-				.target("http://" + url + "/")
-				.path("api/intermediateLeaderboard")
-				.request(APPLICATION_JSON)
-				.accept(APPLICATION_JSON)
-				.get(new GenericType<>() {
-
-
-
-				});
-
 	}
 
 	/**

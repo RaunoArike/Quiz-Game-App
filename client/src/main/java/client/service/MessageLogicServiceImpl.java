@@ -128,4 +128,14 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 
 	}
 
+	/**
+	 * Called to get the intermediate leaderboard
+	 *
+	 * @param intermediateLeaderboardMessage the message of the intermediate leaderboard
+	 */
+	@Override
+	public void onIntermediateLeaderboard(IntermediateLeaderboardMessage intermediateLeaderboardMessage) {
+		mainCtrl.showIntermediateleaderboard();
+	}
+
 }

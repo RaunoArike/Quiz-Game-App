@@ -6,7 +6,6 @@ import commons.model.LeaderboardEntry;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-public class IntermediateLeaderboardCtrl implements Initializable {
+public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initializable {
 	private final ServerService server;
 	private final MainCtrl mainCtrl;
 
@@ -116,17 +115,6 @@ public class IntermediateLeaderboardCtrl implements Initializable {
 	/**
 	 *
 	 */
-	public void refresh() {
-		var intermediaryLeaderboardEntries = server
-				.getIntermediateLeaderboardData();
-
-		data = FXCollections
-				.observableList(intermediaryLeaderboardEntries);
-
-		intermediaryLeaderboard
-				.setItems(data);
-	}
-
 	public void keyPressed(KeyEvent keyEvent) {
 		switch (keyEvent.getCode()) {
 			case ESCAPE:
