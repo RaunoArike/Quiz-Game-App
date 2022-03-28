@@ -67,7 +67,7 @@ public class GameServiceImplTest {
 	public void starting_single_player_game_should_send_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(new MockTimerService());
+		var service = createService(new TimerServiceImmediateMock());
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(outgoingController).sendQuestion(
@@ -80,7 +80,7 @@ public class GameServiceImplTest {
 	public void answering_question_should_send_another_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(new MockTimerService());
+		var service = createService(new TimerServiceImmediateMock());
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 
@@ -113,7 +113,7 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
 		when(questionService.calculateScore(any(), eq(11f), anyLong())).thenReturn(23);
 
-		var service = createService(new MockTimerService());
+		var service = createService(new TimerServiceImmediateMock());
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 11f));
@@ -128,7 +128,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {
-		var service = createService(new MockTimerService());
+		var service = createService(new TimerServiceImmediateMock());
 		service.startSinglePlayerGame(30, "abc");
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null));
@@ -144,7 +144,7 @@ public class GameServiceImplTest {
 		when(game.getPlayers()).thenReturn(FAKE_PLAYER_LIST);
 		when(game.getPlayerIds()).thenReturn(List.of(1, 2, 3));
 
-		var service = createService(new MockTimerService());
+		var service = createService(new TimerServiceImmediateMock());
 		service.showIntermediateLeaderboard(game);
 
 		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(FAKE_LEADERBOARD);
@@ -166,7 +166,7 @@ public class GameServiceImplTest {
 	public void starting_multi_player_game_should_send_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(new MockTimerService());
+		var service = createService(new TimerServiceImmediateMock());
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
 		verify(outgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0), FAKE_PLAYER_ID_LIST);

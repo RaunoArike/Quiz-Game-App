@@ -16,7 +16,7 @@ public interface TimerService {
 	 * If a timer with given id is already scheduled, it is cancelled and a new timer is set.
 	 *
 	 * @param timerId the id of the timer
-	 * @param delay the desired delay before running the runnable task
+	 * @param delay the desired delay before running the runnable task, should be bigger than 0
 	 * @param runnable the task to run after the delay
 	 */
 	void scheduleTimer(int timerId, long delay, Runnable runnable);
