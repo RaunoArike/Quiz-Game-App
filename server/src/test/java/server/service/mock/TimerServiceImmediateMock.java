@@ -1,4 +1,6 @@
-package server.service;
+package server.service.mock;
+
+import server.service.TimerService;
 
 /**
  * A mock TimerService class that enables testing without timer delay for methods that use the timer.

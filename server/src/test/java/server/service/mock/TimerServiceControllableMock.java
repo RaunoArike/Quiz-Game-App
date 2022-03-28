@@ -1,4 +1,6 @@
-package server.service;
+package server.service.mock;
+
+import server.service.TimerService;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ public class TimerServiceControllableMock implements TimerService {
 		currentTime += timeIncrement;
 
 		taskMap.entrySet().stream()
-				.filter(entry -> entry.getValue().endTime < currentTime)
+				.filter(entry -> entry.getValue().endTime <= currentTime)
 				.sorted(Comparator.comparingLong(entry -> entry.getValue().endTime))
 				.forEachOrdered(entry -> {
 					entry.getValue().runnable.run();

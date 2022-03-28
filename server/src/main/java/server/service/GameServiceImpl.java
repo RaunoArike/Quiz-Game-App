@@ -195,14 +195,15 @@ public class GameServiceImpl implements GameService {
 	 */
 	private void scoreUpdate(Game game) {
 		for (Player player : game.getPlayers()) {
-		//if latestAnswer was null it represents that the player has not given any answer for this question
+			//if latestAnswer was null it represents that the player has not given any answer for this question
+			var scoreDelta = 0;
 			if (player.getLatestAnswer() != null) {
-				var scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
+				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
 					player.getLatestAnswer(), player.getTimeTakenToAnswer());
 				player.incrementScore(scoreDelta);
-				ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore());
-				outgoingController.sendScore(message, List.of(player.getPlayerId()));
 			}
+			ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore());
+			outgoingController.sendScore(message, List.of(player.getPlayerId()));
 		}
 		continueMultiPlayerGame(game);
 	}
@@ -212,7 +213,7 @@ public class GameServiceImpl implements GameService {
 	 */
 	public void showIntermediateLeaderboard(Game game) {
 		List<Player> players = game.getPlayers();
-		List<LeaderboardEntry> listOfEntries = new ArrayList<LeaderboardEntry>();
+		List<LeaderboardEntry> listOfEntries = new ArrayList<>();
 		for (Player p : players) {
 			listOfEntries.add(new LeaderboardEntry(p.getName(), p.getScore()));
 		}

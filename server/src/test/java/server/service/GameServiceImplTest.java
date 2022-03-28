@@ -16,10 +16,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import server.api.OutgoingController;
 import server.model.Game;
 import server.model.Player;
+import server.service.mock.TimerServiceControllableMock;
+import server.service.mock.TimerServiceImmediateMock;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,6 +43,9 @@ public class GameServiceImplTest {
 
 	private static final List<Integer> FAKE_PLAYER_ID_LIST = List.of(1, 2, 3);
 
+	private final TimerServiceImmediateMock immediateTimer = new TimerServiceImmediateMock();
+	private final TimerServiceControllableMock controllableTimer = new TimerServiceControllableMock();
+
 	@Mock
 	private QuestionService questionService;
 	@Mock
@@ -48,15 +54,11 @@ public class GameServiceImplTest {
 	private Game game;
 	@Mock
 	private LeaderboardService leaderboardService;
-	@Mock
-	private TimerService timerService;
 
 	@Captor
 	private ArgumentCaptor<QuestionMessage> questionMessageCaptor;
 	@Captor
 	private ArgumentCaptor<ScoreMessage> correctAnswerMessageCaptor;
-	@Captor
-	private ArgumentCaptor<Runnable> runnableCaptor;
 
 	private GameServiceImpl createService(TimerService timerService) {
 		return new GameServiceImpl(questionService, outgoingController,
@@ -67,7 +69,7 @@ public class GameServiceImplTest {
 	public void starting_single_player_game_should_send_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(new TimerServiceImmediateMock());
+		var service = createService(immediateTimer);
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(outgoingController).sendQuestion(
@@ -80,7 +82,7 @@ public class GameServiceImplTest {
 	public void answering_question_should_send_another_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(new TimerServiceImmediateMock());
+		var service = createService(immediateTimer);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 
@@ -98,7 +100,7 @@ public class GameServiceImplTest {
 	public void answering_question_should_send_score() {
 		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
 
-		var service = createService(timerService);
+		var service = createService(controllableTimer);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 
@@ -113,7 +115,7 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
 		when(questionService.calculateScore(any(), eq(11f), anyLong())).thenReturn(23);
 
-		var service = createService(new TimerServiceImmediateMock());
+		var service = createService(immediateTimer);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 11f));
@@ -128,7 +130,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {
-		var service = createService(new TimerServiceImmediateMock());
+		var service = createService(immediateTimer);
 		service.startSinglePlayerGame(30, "abc");
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null));
@@ -144,42 +146,63 @@ public class GameServiceImplTest {
 		when(game.getPlayers()).thenReturn(FAKE_PLAYER_LIST);
 		when(game.getPlayerIds()).thenReturn(List.of(1, 2, 3));
 
-		var service = createService(new TimerServiceImmediateMock());
+		var service = createService(immediateTimer);
 		service.showIntermediateLeaderboard(game);
 
 		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(FAKE_LEADERBOARD);
 		verify(outgoingController).sendIntermediateLeaderboard(message, FAKE_PLAYER_ID_LIST);
 	}
 
-	public void starting_game_should_start_the_timer() {
-		var service = createService(timerService);
-		service.startSinglePlayerGame(30, "abc");
-
-		verify(timerService).scheduleTimer(anyInt(), eq(3000L), runnableCaptor.capture());
-
-		runnableCaptor.getValue().run();
-
-		verify(timerService).getTime();
-	}
-
 	@Test
 	public void starting_multi_player_game_should_send_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(new TimerServiceImmediateMock());
+		var service = createService(immediateTimer);
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
 		verify(outgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0), FAKE_PLAYER_ID_LIST);
 	}
 
-	// @Test
-	// public void answering_multiplayer_question_should_save_answer() {
-	// 	var service = createService(new MockTimerService());
-	// 	service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+	@Test
+	public void answering_multiplayer_question_should_save_answer() {
+		var service = createService(controllableTimer);
+		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
-	// 	Player p = FAKE_PLAYER_LIST.get(0);
-	// 	service.submitAnswer(p.getPlayerId(), new QuestionAnswerMessage(10, null));
+		Player p = FAKE_PLAYER_LIST.get(0);
+		service.submitAnswer(p.getPlayerId(), new QuestionAnswerMessage(10, null));
 
-	// 	assertEquals(10, p.getLatestAnswer());
-	// }
+		assertEquals(10, p.getLatestAnswer());
+	}
+
+	@Test
+	public void starting_single_player_game_should_send_question_immediately() {
+		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
+
+		var service = createService(controllableTimer);
+		service.startSinglePlayerGame(30, "abc");
+
+		// Timer not advanced
+
+		verify(outgoingController).sendQuestion(
+				new QuestionMessage(FAKE_QUESTION, 0),
+				List.of(30)
+		);
+	}
+
+	@Test
+	public void in_mp_question_should_be_ended_after_20s() {
+		var service = createService(controllableTimer);
+		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+
+		reset(outgoingController);
+		controllableTimer.advanceBy(19999);
+
+		verifyNoInteractions(outgoingController);
+		controllableTimer.advanceBy(1);
+
+		verify(outgoingController).sendQuestion(
+				new QuestionMessage(FAKE_QUESTION, 0),
+				FAKE_PLAYER_ID_LIST
+		);
+	}
 }
