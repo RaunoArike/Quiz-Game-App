@@ -22,6 +22,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	private QuestionTypes currentType;
 	private Number correctAnswer;
 
+
 	@Inject
 	public MessageLogicServiceImpl(MainCtrl mainCtrl, ServerService server) {
 		this.mainCtrl = mainCtrl;
@@ -90,6 +91,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 			var questionData = new QuestionData<>(q, questionNumber, score, gameType);
 			mainCtrl.showPickEnergyQuestion(questionData);
 		}
+
 	}
 
 	/**
@@ -116,7 +118,8 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onEndOfGame() {
-		mainCtrl.showEndingScreen(score);
+
+			mainCtrl.showEndingScreen(score);
 	}
 
 	/**
