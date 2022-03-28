@@ -27,26 +27,31 @@ public class OutgoingControllerImpl implements OutgoingController {
 	@Override
 	public void sendQuestion(QuestionMessage message, List<Integer> players) {
 		send(message, players, "question");
+		System.out.println("Question sent");
 	}
 
 	@Override
 	public void sendScore(ScoreMessage message, List<Integer> players) {
 		send(message, players, "score");
+		System.out.println("Score sent");
 	}
 
 	@Override
 	public void sendEndOfGame(List<Integer> players) {
-		send(new Object(), players, "end-of-game");
+		send("", players, "end-of-game");
+		System.out.println("End of game sent");
 	}
 
 	@Override
 	public void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers) {
 		send(message, listOfPlayers, "waiting-room-state");
+		System.out.println("Waiting room state sent");
 	}
 
 	@Override
 	public void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers) {
 		send(message, listOfPlayers, "intermediate-leaderboard");
+		System.out.println("Intermediate leaderboard sent");
 	}
 
 	@Override
