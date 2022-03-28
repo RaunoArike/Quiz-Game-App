@@ -79,7 +79,7 @@ public class GameServiceImpl implements GameService {
 		if (!game.isLastQuestion()) {
 			List<Player> playersinGame = game.getPlayers();
 			for (Player p : playersinGame) {
-				p.setLatestAnswer(-1); //this case is specially handled when updating score
+				p.setLatestAnswer(null); //this case is specially handled when updating score
 				p.setTimeTakenToAnswer((long) 0);
 			}
 			startNewQuestion(game);
@@ -194,10 +194,12 @@ public class GameServiceImpl implements GameService {
 	private void scoreUpdate(Game game) {
 		for (Player player : game.getPlayers()) {
 		//if latestAnswer was -1 it represents that the player has not given any answer for this question
-			if ((int) player.getLatestAnswer() != -1) {
+			if (player.getLatestAnswer() != null) {
 				var scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
 					player.getLatestAnswer(), player.getTimeTakenToAnswer());
 				player.incrementScore(scoreDelta);
+				ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore());
+				outgoingController.sendScore(message, List.of(player.getPlayerId()));
 			}
 		}
 		continueMultiPlayerGame(game);
