@@ -52,7 +52,6 @@ public class QuestionServiceImpl implements QuestionService {
 			int no = Math.abs(new Random().nextInt());
 			ActivityEntity act = listActivities.get(no % listActivities.size());
 			if (!visited.contains(act)) {
-				listActivities.add(act);
 				visited.add(act);
 				selectedEntities.add(act);
 				index++;
@@ -124,7 +123,7 @@ public class QuestionServiceImpl implements QuestionService {
 			float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
 			answerList.add(wrongAnswer);
 		}
-		answerList.add(answerNumber, correctAnswerInWh);
+		answerList.set(answerNumber, correctAnswerInWh);
 		return answerList;
 	}
 

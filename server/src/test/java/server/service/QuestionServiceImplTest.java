@@ -6,12 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import server.entity.ActivityEntity;
 import server.repository.ActivityRepository;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionServiceImplTest {
@@ -20,6 +22,11 @@ public class QuestionServiceImplTest {
 			FAKE_ACTIVITY,
 			new Activity("A2", null, 2f),
 			new Activity("A3", null, 3f)
+	);
+	private static final List<ActivityEntity> FAKE_ACTIVITY_ENTITY_LIST = List.of(
+			new ActivityEntity(0, "A1", null, 1f),
+			new ActivityEntity(1, "A2", null, 2f),
+			new ActivityEntity(2, "A3", null, 3f)
 	);
 	private static final List<Float> FAKE_ENERGIES = List.of(0.5f, 15f, 25f);
 
@@ -30,6 +37,7 @@ public class QuestionServiceImplTest {
 	private QuestionServiceImpl createService() {
 		return new QuestionServiceImpl(activityRepository);
 	}
+
 
 	@Test
 	public void correct_answer_for_mc_question_should_give_max_score() {
@@ -118,5 +126,49 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var answerOptions = service.generatePickOptions(55, 2);
 		assertTrue(answerOptions.get(0) > 0 && answerOptions.get(1) > 0 && answerOptions.get(2) > 0);
+	}
+
+	@Test
+	public void pick_energy_answer_generator_should_generate_similar_answers() {
+		var service = createService();
+		var answerOptions = service.generatePickOptions(55, 2);
+		assertTrue(answerOptions.get(0) <= answerOptions.get(2)*2 && answerOptions.get(1) <= answerOptions.get(2)*2);
+	}
+
+	@Test
+	public void generate_MC_question_should_generate_three_activities() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateMC();
+
+		assertEquals(question.activities().size(), 3);
+	}
+
+	@Test
+	public void generate_MC_question_should_generate_distinct_activities() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateMC();
+
+		assertTrue(!question.activities().get(0).equals(question.activities().get(1)) &&
+				!question.activities().get(1).equals(question.activities().get(2)));
+	}
+
+	@Test
+	public void generate_MC_question_should_generate_two_activities() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateComp();
+
+		assertEquals(question.activities().size(), 2);
+	}
+
+	@Test
+	public void generate_comparison_question_should_generate_distinct_activities() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateComp();
+
+		assertNotEquals(question.activities().get(0), question.activities().get(1));
 	}
 }
