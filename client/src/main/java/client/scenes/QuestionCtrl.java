@@ -1,17 +1,17 @@
 package client.scenes;
 
 import client.model.QuestionData;
-import client.service.MessageLogicService;
-import com.google.inject.Inject;
-import commons.model.Question;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.text.Text;
+	import client.service.MessageLogicService;
+	import com.google.inject.Inject;
+	import commons.model.Question;
+	import javafx.fxml.FXML;
+	import javafx.scene.control.Button;
+	import javafx.scene.control.Label;
+	import javafx.scene.control.ProgressBar;
+	import javafx.scene.text.Text;
 
-import java.util.Timer;
-import java.util.TimerTask;
+	import java.util.Timer;
+	import java.util.TimerTask;
 
 public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
