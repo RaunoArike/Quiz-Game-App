@@ -51,7 +51,6 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	}
 
 	public void sendAnswer() {
-		ok.setDisable(true);
 
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
@@ -60,7 +59,6 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 			timeStop();
 		} else {
 			errorMessage.setText("Invalid value");
-			ok.setDisable(false);
 		}
 	}
 
@@ -69,6 +67,8 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 						+ "\nYou score " + scoreIncrement + " points.";
 
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {

@@ -49,7 +49,6 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	}
 
 	public void sendAnswer() {
-		ok.setDisable(true);
 
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
@@ -58,7 +57,6 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 			timeStop();
 		} else {
 			errorMessage.setText("Invalid value");
-			ok.setDisable(false);
 		}
 	}
 
@@ -66,6 +64,8 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		String message = "The correct answer was: " + correctAnswer + " kwH. "
 						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {
