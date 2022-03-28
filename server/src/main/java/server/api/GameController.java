@@ -44,7 +44,7 @@ public class GameController {
 	/**
 	 * Starts a new multi-player game.
 	 */
-	@MessageMapping("/start-multiplayer-player")
+	@MessageMapping("/start-multi-player")
 	public void startMPGame() throws NullPointerException {
 		waitingRoomService.startMultiplayerGame();
 	}

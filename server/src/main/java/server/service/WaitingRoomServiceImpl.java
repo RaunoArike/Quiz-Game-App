@@ -1,5 +1,6 @@
 package server.service;
 
+import commons.servermessage.ErrorMessage;
 import commons.servermessage.WaitingRoomStateMessage;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
@@ -13,15 +14,11 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 	private final List<Player> listOfPlayers;
 	private final OutgoingController outgoingController;
 	private final GameService gameService;
+
 	public WaitingRoomServiceImpl(OutgoingController outgoingController, GameService gameService) {
 		this.outgoingController = outgoingController;
 		listOfPlayers = new ArrayList<>();
 		this.gameService = gameService;
-	}
-
-	@Override
-	public boolean isInWaitingRoom(String playerName) {
-		return listOfPlayers.contains(new Player(playerName, 0));
 	}
 
 	@Override
@@ -31,15 +28,27 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		 * we add them to the map of players to the current waiting room
 		 * * and to the list of players.
 		 */
-		if (!isInWaitingRoom(playerName)) {
-			Player currentPlayer = new Player(playerName, playerId);
-			listOfPlayers.add(currentPlayer);
-			broadcastNotify();
+		if (isInWaitingRoom(playerId)) return;
+		if (isInWaitingRoom(playerName)) {
+			outgoingController.sendError(ErrorMessage.Type.USERNAME_BUSY, List.of(playerId));
+			return;
 		}
+		Player currentPlayer = new Player(playerName, playerId);
+		listOfPlayers.add(currentPlayer);
+		broadcastNotify();
+	}
+
+	private boolean isInWaitingRoom(String playerName) {
+		return listOfPlayers.stream().anyMatch(p -> p.getName().equals(playerName));
+	}
+
+	private boolean isInWaitingRoom(int playerId) {
+		return listOfPlayers.stream().anyMatch(p -> p.getPlayerId() == playerId);
 	}
 
 	@Override
 	public void startMultiplayerGame() {
+		if (listOfPlayers.isEmpty()) return;
 		gameService.startMultiPlayerGame(listOfPlayers);
 		resetWaitingRoom();
 	}
@@ -48,15 +57,8 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		//clears the list of players whilst resetting the number of players
 		listOfPlayers.clear();
 	}
+
 	private void broadcastNotify() {
-		List<Player>  tempListOfPlayers = new ArrayList<>();
-		int i = 0;
-		int numberOfDummies = listOfPlayers.size();
-		while (i < numberOfDummies) {
-			Player currentPlayer = listOfPlayers.get(i);
-			tempListOfPlayers.add(currentPlayer);
-			i++;
-		}
 		int numberOfPlayers = listOfPlayers.size();
 		WaitingRoomStateMessage waitingRoomStateMessage = new WaitingRoomStateMessage(numberOfPlayers);
 		if (numberOfPlayers != 0) {
@@ -67,5 +69,4 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 			outgoingController.sendWaitingRoomState(waitingRoomStateMessage, listOfPlayerIds);
 		}
 	}
-
 }
