@@ -198,7 +198,7 @@ public class GameServiceImplTest {
 	}
 
 	@Test
-	public void in_mp_question_should_be_ended_after_20s() {
+	public void multiplayer_question_should_be_ended_after_20s() {
 		var service = createService(controllableTimer, capturingOutgoingController);
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 		capturingOutgoingController.reset();
