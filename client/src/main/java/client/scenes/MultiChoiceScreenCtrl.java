@@ -51,24 +51,34 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		this.optionA.setText(a);
 		this.optionB.setText(b);
 		this.optionC.setText(c);
+
+		optionA.setDisable(false);
+		optionB.setDisable(false);
+		optionC.setDisable(false);
 	}
 
 	public void optionAClicked() {
 		timeStop();
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
+
+
 	}
 
 	public void optionBClicked() {
 		timeStop();
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
+
+
 	}
 
 	public void optionCClicked() {
 		timeStop();
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
+
+
 	}
 
 	public void showAnswer(int option) {
@@ -76,6 +86,9 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 			case 0:
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
 
+				optionA.setDisable(true);
+				optionB.setDisable(true);
+				optionC.setDisable(true);
 
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
@@ -88,6 +101,9 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 			case 1:
 				optionB.setStyle("-fx-background-color: #00ff7f; ");
 
+				optionA.setDisable(true);
+				optionB.setDisable(true);
+				optionC.setDisable(true);
 
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
@@ -99,6 +115,9 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 			case 2:
 				optionC.setStyle("-fx-background-color: #00ff7f; ");
 
+				optionA.setDisable(true);
+				optionB.setDisable(true);
+				optionC.setDisable(true);
 
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");

@@ -15,16 +15,13 @@
  */
 package client;
 
-import client.scenes.AdminCtrl;
+import client.scenes.*;
 import client.service.MessageLogicService;
 import client.service.MessageLogicServiceImpl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
 
-import client.scenes.OpeningCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.LeaderboardCtrl;
 import client.service.ServerServiceImpl;
 import client.service.ServerService;
 
@@ -40,8 +37,12 @@ public class MyModule implements Module {
 
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
 
+		binder.bind(IntermediateLeaderboardCtrl.class).in(Scopes.SINGLETON);
+
 		binder.bind(ServerService.class).to(ServerServiceImpl.class).in(Scopes.SINGLETON);
 
 		binder.bind(MessageLogicService.class).to(MessageLogicServiceImpl.class).in(Scopes.SINGLETON);
+
+		binder.bind(EndingScreenCtrl.class).in(Scopes.SINGLETON);
 	}
 }

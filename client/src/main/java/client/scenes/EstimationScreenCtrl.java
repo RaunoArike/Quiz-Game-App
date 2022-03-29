@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
+import javafx.scene.input.KeyEvent;
+
 
 public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuestion> {
 
@@ -44,9 +46,12 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		var question = questionData.question();
 		var textQuestion = "Estimate the amount of energy it takes to " + question.activity().name();
 		setQuestionText(textQuestion);
+
+		ok.setDisable(false);
 	}
 
 	public void sendAnswer() {
+
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -61,6 +66,8 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		String message = "The correct answer was: " + correctAnswer + " kwH. "
 						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {
@@ -69,5 +76,15 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 
 	private void resetCorrectAnswer() {
 		answerMessage.setText("");
+	}
+
+	public void keyPressed(KeyEvent e) {
+		switch (e.getCode()) {
+			case ENTER:
+				sendAnswer();
+				break;
+			default:
+				break;
+		}
 	}
 }
