@@ -282,4 +282,8 @@ public class MainCtrl {
 		this.joinWaitingroomCtrl.showUsernameBusyError();
 	}
 
+	public void showNotEnoughPlayersError() {
+		this.waitingroomCtrl.showNotEnoughPlayersError();
+	}
+
 }
