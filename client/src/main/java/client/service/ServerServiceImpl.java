@@ -3,11 +3,9 @@ package client.service;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
+import commons.model.Activity;
 import commons.model.LeaderboardEntry;
-import commons.servermessage.ErrorMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
-import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.*;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.GenericType;
 import javafx.application.Platform;
@@ -87,6 +85,10 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
 				notifyListeners(listener -> listener.onQuestion(message));
 			});
+			registerForMessages("user/queue/intermediate-leaderboard",
+					IntermediateLeaderboardMessage.class, message -> {
+				notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
+			});
 			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
 				notifyListeners(listener -> listener.onScore(message));
 			});
@@ -96,7 +98,7 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
 			});
-			registerForMessages("/user/queue/end-of-game", Object.class, message -> {
+			registerForMessages("/user/queue/end-of-game", String.class, message -> {
 				notifyListeners(listener -> listener.onEndOfGame());
 			});
 		} catch (Exception e) {
@@ -139,10 +141,30 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public List<LeaderboardEntry> getLeaderboardData() {
-		return ClientBuilder.newClient(new ClientConfig()) //
-				.target("http://" + url + "/").path("api/leaderboard") //
+		return ClientBuilder
+				.newClient(new ClientConfig()) //
+				.target("http://" + url + "/")
+				.path("api/leaderboard") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
+				.get(new GenericType<>() {
+
+				});
+	}
+
+	/**
+	 * Returns the list of activities
+	 *
+	 * @return the list of activities
+	 */
+	@Override
+	public List<Activity> getActivities() {
+		return ClientBuilder
+				.newClient(new ClientConfig())
+				.target("http://" + url + "/")
+				.path("api/activities")
+				.request(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
 				.get(new GenericType<>() {
 
 				});

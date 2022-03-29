@@ -1,10 +1,8 @@
 package client.service;
 
+import commons.model.Activity;
 import commons.model.LeaderboardEntry;
-import commons.servermessage.ErrorMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
-import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.*;
 
 import java.util.List;
 
@@ -36,9 +34,10 @@ public interface ServerService {
 		void onWaitingRoomState(WaitingRoomStateMessage message);
 
 		/**
-		 * Called when the endofGame message is received from the server
+		 * Called when the endOfGame message is received from the server
 		 */
 		void onEndOfGame();
+
 
 		/**
 		 * Called when error occurs at the server side
@@ -46,6 +45,11 @@ public interface ServerService {
 		 */
 		void onError(ErrorMessage message);
 
+		/**
+		 * Called to get the intermediate leaderboard
+		 * @param message the message of the intermediate leaderboard
+		 */
+		void onIntermediateLeaderboard(IntermediateLeaderboardMessage message);
 	}
 
 	/**
@@ -94,4 +98,11 @@ public interface ServerService {
 	 * @return top 10 leaderboard entries, sorted
 	 */
 	List<LeaderboardEntry> getLeaderboardData();
+
+
+	/**
+	 * Returns the list of activities
+	 * @return the list of activities
+	 */
+	List<Activity> getActivities();
 }

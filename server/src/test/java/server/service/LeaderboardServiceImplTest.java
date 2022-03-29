@@ -39,6 +39,9 @@ public class LeaderboardServiceImplTest {
 	@Mock
 	private LeaderboardRepository leaderboardRepository;
 
+	@Mock
+	private ActivityService activityService;
+
 	@Captor
 	private ArgumentCaptor<LeaderboardEntity> leaderboardEntityCaptor;
 
@@ -46,7 +49,7 @@ public class LeaderboardServiceImplTest {
 	private ArgumentCaptor<List<LeaderboardEntry>> entriesCaptor;
 
 	private LeaderboardServiceImpl createService() {
-		return new LeaderboardServiceImpl(leaderboardRepository);
+		return new LeaderboardServiceImpl(leaderboardRepository, activityService);
 	}
 
 	@Test

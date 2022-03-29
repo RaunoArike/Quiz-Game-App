@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
+import javafx.scene.input.KeyEvent;
 
 public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuestion> {
 
@@ -46,9 +47,12 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		var textActivity2 = question.activities().get(1).name();
 		var textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
 		setQuestionText(textQuestion);
+
+		ok.setDisable(false);
 	}
 
 	public void sendAnswer() {
+
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -64,6 +68,8 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 						+ "\nYou score " + scoreIncrement + " points.";
 
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {
@@ -73,4 +79,15 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	private void resetCorrectAnswer() {
 		answerMessage.setText("");
 	}
+
+	public void keyPressed(KeyEvent e) {
+		switch (e.getCode()) {
+			case ENTER:
+				sendAnswer();
+				break;
+			default:
+				break;
+		}
+	}
+
 }
