@@ -65,6 +65,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		this.optionAtext.setText(a);
 		this.optionBtext.setText(b);
 		this.optionCtext.setText(c);
+
+		optionA.setDisable(false);
+		optionB.setDisable(false);
+		optionC.setDisable(false);
 	}
 
 	public void optionAClicked() {
@@ -72,6 +76,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		timeStop();
 
 		selectedAnswer = 0;
+
+
 	}
 
 	public void optionBClicked() {
@@ -79,6 +85,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		timeStop();
 
 		selectedAnswer = 1;
+
+
 	}
 
 	public void optionCClicked() {
@@ -86,6 +94,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		timeStop();
 
 		selectedAnswer = 2;
+
+
 	}
 
 	public void showAnswer(int option) {
@@ -93,6 +103,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			case 0:
 				optionA.setStyle("-fx-background-color: #00c203; ");
 
+
+				optionA.setDisable(true);
+				optionB.setDisable(true);
+				optionC.setDisable(true);
 
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
@@ -104,6 +118,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			case 1:
 				optionB.setStyle("-fx-background-color: #00c203; ");
 
+
+				optionA.setDisable(true);
+				optionB.setDisable(true);
+				optionC.setDisable(true);
 
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
@@ -117,6 +135,10 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			case 2:
 				optionC.setStyle("-fx-background-color: #00c203; ");
 
+
+				optionA.setDisable(true);
+				optionB.setDisable(true);
+				optionC.setDisable(true);
 
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
