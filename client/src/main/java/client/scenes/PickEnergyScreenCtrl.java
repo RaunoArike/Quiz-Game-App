@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import com.google.inject.Inject;
+import javafx.scene.control.ToggleGroup;
 
 public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
@@ -30,6 +31,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 
 	private int selectedAnswer = -1;
 
+	private final ToggleGroup toggleGroup = new ToggleGroup();
+
 	@Inject
 	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
 		super(messageService, mainCtrl);
@@ -41,6 +44,11 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		optionA.setStyle(null);
 		optionB.setStyle(null);
 		optionC.setStyle(null);
+
+		optionA.setToggleGroup(toggleGroup);
+		optionB.setToggleGroup(toggleGroup);
+		optionC.setToggleGroup(toggleGroup);
+
 		optionA.setSelected(false);
 		optionB.setSelected(false);
 		optionC.setSelected(false);
