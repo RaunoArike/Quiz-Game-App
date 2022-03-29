@@ -10,49 +10,63 @@ import java.util.TimerTask;
 @Service
 public class TimerServiceImpl implements TimerService {
 
-	Map<Integer, Runnable> taskMap = new HashMap<>();
-	Map<Integer, Timer> timerMap = new HashMap<>();
+	private static class Task {
+		public final Runnable runnable;
 
-	public TimerServiceImpl() {
+		public long endTime;
+		public TimerTask timerTask;
+
+		Task(Runnable runnable) {
+			this.runnable = runnable;
+		}
 	}
 
+	private final Map<Integer, Task> taskMap = new HashMap<>();
+	private final Timer timer = new Timer();
+
+	@Override
 	public long getTime() {
 		return System.currentTimeMillis();
 	}
 
+	@Override
 	public void scheduleTimer(int timerId, long delay, Runnable runnable) {
-		Timer timer = new Timer();
-		taskMap.put(timerId, runnable);
-		timerMap.put(timerId, timer);
+		var oldTask = taskMap.get(timerId);
+		if (oldTask != null) oldTask.timerTask.cancel();
 
-		timer.schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-						runnable.run();
-					}
-				}, delay
-		);
+		var task = new Task(runnable);
+		taskMap.put(timerId, task);
+
+		updateTask(task, delay);
 	}
 
+	@Override
 	public void rescheduleTimer(int timerId, long delay) {
-		Timer timer = new Timer();
-		Runnable runnable = taskMap.get(timerId);
-		timerMap.get(timerId).cancel();
-		timerMap.put(timerId, timer);
+		var task = taskMap.get(timerId);
+		if (task == null) throw new IllegalStateException("Timer with given id is not scheduled.");
 
-		timer.schedule(
-				new TimerTask() {
-					@Override
-					public void run() {
-						runnable.run();
-					}
-				}, delay
-		);
+		updateTask(task, delay);
 	}
 
+	@Override
 	public long getRemainingTime(int timerId) {
-		// TODO
-		return 0;
+		var task = taskMap.get(timerId);
+		if (task == null) throw new IllegalStateException("Timer with given id is not scheduled.");
+
+		return task.endTime - getTime();
+	}
+
+	private void updateTask(Task task, long delay) {
+		if (task.timerTask != null) task.timerTask.cancel();
+
+		task.endTime = getTime() + delay;
+		task.timerTask = new TimerTask() {
+			@Override
+			public void run() {
+				task.runnable.run();
+			}
+		};
+
+		timer.schedule(task.timerTask, delay);
 	}
 }

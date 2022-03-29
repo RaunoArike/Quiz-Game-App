@@ -1,10 +1,11 @@
-package server.service;
+package server.service.mock;
 
+import server.service.TimerService;
 
 /**
  * A mock TimerService class that enables testing without timer delay for methods that use the timer.
  */
-public class MockTimerService implements TimerService {
+public class TimerServiceImmediateMock implements TimerService {
 	@Override
 	public long getTime() {
 		return System.currentTimeMillis();
@@ -17,12 +18,15 @@ public class MockTimerService implements TimerService {
 
 	@Override
 	public void rescheduleTimer(int timerId, long delay) {
-		// TODO
+		throw new RuntimeException(
+				"Operation not supported by this mock. For richer functionality use TimeServiceControllableMock.java"
+		);
 	}
 
 	@Override
 	public long getRemainingTime(int timerId) {
-		// TODO
-		return 0;
+		throw new RuntimeException(
+				"Operation not supported by this mock. For richer functionality use TimeServiceControllableMock.java"
+		);
 	}
 }

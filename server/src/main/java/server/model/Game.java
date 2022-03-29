@@ -78,7 +78,7 @@ public class Game {
 	}
 
 	public boolean isIntermediateLeaderboardNext() {
-		if (questionNumber == 0) return false;
+		if (isBeforeFirstQuestion()) return false;
 		if (isLastQuestion()) return false;
 		return ((questionNumber + 1) % LEADERBOARD_DISPLAY_FREQUENCY) == 0;
 	}

@@ -35,13 +35,13 @@ Submits the answer to the server.
 ### Joker played 
 ```
 {
-    "joker":"eliminateJoker" //string
+    "jokerType":"eliminateJoker" //string
 }
 ```
 ### Emoji sent 
 ```
 {
-    "emoji":2 //number denoting the emoji
+    "emojiNumber":2 //number denoting the emoji
 }
 ```
 
@@ -93,14 +93,14 @@ Informs client that the final question has been sent and the game can be ended.
 Informs players in a multi-player game that their time has been reduced due to another player using a joker
 ```
 {
-    "timeLeft":  //ms
+    "timeLeftMs":
 }
 ```
 
 ### Emoji played
 ```
 {
-    "emoji":2 //number denoting the emoji
+    "emojiNumber":2 //number denoting the emoji
 }
 ```
 
