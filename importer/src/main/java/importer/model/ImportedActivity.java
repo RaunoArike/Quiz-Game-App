@@ -16,7 +16,7 @@ public record ImportedActivity(
 		String source
 ) {
 	public Activity toModel(String filePath) {
-		String path = Path.of(filePath + "\\" + imagePath).toString();
+		String path = Path.of(filePath, imagePath).toString();
 		return new Activity(title, path, energyInWh);
 	}
 }

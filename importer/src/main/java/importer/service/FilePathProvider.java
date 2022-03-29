@@ -7,12 +7,10 @@ import java.nio.file.Path;
 
 public class FilePathProvider {
 
-	public FilePathProvider() {
-	}
-
 	public File checkIfJsonFileExists(String filePath) throws IOException {
 		File file;
-		Path path = Path.of(filePath + "\\" + "activities.json");
+		filePath = new File(filePath).getAbsolutePath();
+		Path path = Path.of(filePath, "activities.json");
 		if (Files.exists(path)) {
 			file = new File(path.toString());
 			return file;

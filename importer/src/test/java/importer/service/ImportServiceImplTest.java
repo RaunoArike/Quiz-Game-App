@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.*;
@@ -27,9 +28,9 @@ public class ImportServiceImplTest {
 			new ImportedActivity("id3", "00", "A3", 3L, null)
 	};
 	private static final List<Activity> FAKE_ACTIVITIES = List.of(
-			new Activity("A1", "filePath\\00", 1f),
-			new Activity("A2", "filePath\\00", 2f),
-			new Activity("A3", "filePath\\00", 3f)
+			new Activity("A1", Path.of("filePath", "00").toString(), 1f),
+			new Activity("A2", Path.of("filePath", "00").toString(), 2f),
+			new Activity("A3", Path.of("filePath", "00").toString(), 3f)
 	);
 
 	private static final File FAKE_FILE = new File("filePath");
