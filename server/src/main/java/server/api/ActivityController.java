@@ -12,7 +12,7 @@ import java.util.List;
  * Controller for admin panel interactions
  */
 @RestController
-@RequestMapping("/api/activities")
+@RequestMapping("api/activities")
 public class ActivityController {
 	private final ActivityService activityService;
 
@@ -25,7 +25,7 @@ public class ActivityController {
 	 *
 	 * @return returns a list of activities
 	 */
-	@GetMapping("/api/admin")
+	@GetMapping
 	public List<Activity> getActivities() {
 		return activityService.provideActivities();
 	}
@@ -53,7 +53,7 @@ public class ActivityController {
 	 *
 	 * @param id the id of the activity to remove
 	 */
-	@DeleteMapping("/api/activities/delete/{id}")
+	@DeleteMapping("/{id}")
 	public void removeOneActivity(@PathVariable long id) {
 		try {
 			activityService.removeActivity(id);
@@ -69,7 +69,7 @@ public class ActivityController {
 	 * @param id the id of the activity to update
 	 * @param activity the activity to replace the old activity with
 	 */
-	@PutMapping("/api/activities/update/{id}")
+	@PutMapping("/{id}")
 	public void updateActivity(@PathVariable long id, Activity activity) {
 		try {
 			activityService.updateActivity(id, activity);

@@ -6,9 +6,8 @@ import commons.model.LeaderboardEntry;
 public interface LeaderboardService {
 
 	/**
-	 * Add a new leaderboard entry to the repository
-	 * @param name username of the player
-	 * @param score total score from a single-player game
+	 * Adds a player to the leaderboard
+	 * @param entry the name of the entry
 	 */
 	void addToLeaderboard(LeaderboardEntry entry);
 
