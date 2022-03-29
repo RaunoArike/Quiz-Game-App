@@ -184,8 +184,9 @@ public class GameServiceImpl implements GameService {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
 		game.startNewQuestion(question);
-		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
-				game.getPlayerIds());
+
+		var questionMessage = new QuestionMessage(question, game.getQuestionNumber(), false, false, false);
+		outgoingController.sendQuestion(questionMessage, game.getPlayerIds());
 		game.setQuestionStartTime(timerService.getTime());
 	}
 
