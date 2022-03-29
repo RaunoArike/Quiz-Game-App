@@ -13,7 +13,7 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <Button layoutX="398.0" layoutY="320.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="38.0" prefWidth="162.0" text="Return to home ">
+      <Button layoutX="398.0" layoutY="320.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="38.0" prefWidth="162.0" text="Return Home ">
          <font>
             <Font size="14.0" />
          </font>
@@ -24,17 +24,17 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="398.0" layoutY="247.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="38.0" prefWidth="162.0" text="View leaderboard">
+      <Button layoutX="398.0" layoutY="247.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="38.0" prefWidth="162.0" text="View Leaderboard">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="226.0" layoutY="257.0" prefHeight="18.0" prefWidth="151.0" text="See how others did...">
+      <Label layoutX="227.0" layoutY="247.0" prefHeight="38.0" prefWidth="162.0" text="See how others did..." wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="136.0" layoutY="326.0" prefHeight="26.0" prefWidth="253.0" text="...and play again for a better score!">
+      <Label layoutX="118.0" layoutY="320.0" prefHeight="38.0" prefWidth="270.0" text="...and play again for a better score!">
          <font>
             <Font size="16.0" />
          </font>

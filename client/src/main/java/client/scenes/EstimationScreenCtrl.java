@@ -57,6 +57,8 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 
 		String url = question.activity().imageUrl();
 		setActivityImages(url);
+
+		ok.setDisable(false);
 	}
 
 
@@ -69,6 +71,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	}
 
 	public void sendAnswer() {
+
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -83,6 +86,8 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		String message = "The correct answer was: " + correctAnswer + " kwH. "
 						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {

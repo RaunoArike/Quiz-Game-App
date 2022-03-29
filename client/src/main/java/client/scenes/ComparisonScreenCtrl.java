@@ -62,6 +62,8 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		var imageA = question.activities().get(0).imageUrl();
 		var imageB = question.activities().get(1).imageUrl();
 		setActivityImages(imageA, imageB);
+
+		ok.setDisable(false);
 	}
 
 
@@ -80,6 +82,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	}
 
 	public void sendAnswer() {
+
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -95,6 +98,8 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 						+ "\nYou score " + scoreIncrement + " points.";
 
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {
