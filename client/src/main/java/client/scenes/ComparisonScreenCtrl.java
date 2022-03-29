@@ -47,9 +47,12 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		var textActivity2 = question.activities().get(1).name();
 		var textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
 		setQuestionText(textQuestion);
+
+		ok.setDisable(false);
 	}
 
 	public void sendAnswer() {
+
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -65,6 +68,8 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 						+ "\nYou score " + scoreIncrement + " points.";
 
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {

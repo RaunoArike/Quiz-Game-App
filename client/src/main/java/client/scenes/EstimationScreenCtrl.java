@@ -46,9 +46,12 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		var question = questionData.question();
 		var textQuestion = "Estimate the amount of energy it takes to " + question.activity().name();
 		setQuestionText(textQuestion);
+
+		ok.setDisable(false);
 	}
 
 	public void sendAnswer() {
+
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
@@ -63,6 +66,8 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		String message = "The correct answer was: " + correctAnswer + " kwH. "
 						+ "\nYou score " + scoreIncrement + " points.";
 		answerMessage.setText(message);
+
+		ok.setDisable(true);
 	}
 
 	private void resetError() {
