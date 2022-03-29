@@ -19,7 +19,7 @@ public class FilePathProvider {
 		}
 	}
 
-	public String provideAbsolutePath(String filePath) {
-		return new File(filePath).getAbsolutePath();
+	public String provideAbsolutePath(String filePath) throws IOException {
+			return new File(filePath).getCanonicalPath();
 	}
 }
