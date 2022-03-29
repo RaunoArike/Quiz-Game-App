@@ -25,9 +25,10 @@ public interface OutgoingController {
 	/**
 	 * Sends an empty message to the client, signifying that the game has ended
 	 * and no more questions will be sent by the server
+	 * @param message - empty end of game message
 	 * @param players - the players that receive the message
 	 */
-	void sendEndOfGame(List<Integer> players);
+	void sendEndOfGame(EndOfGameMessage message, List<Integer> players);
 
 	/**
 	 * Sends the client the waiting room state
