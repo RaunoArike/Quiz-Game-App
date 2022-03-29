@@ -22,9 +22,10 @@ public class ImportServiceImpl implements ImportService {
 
 	@Override
 	public void importServicesFromFile(String serverUrl, String filePath) throws IOException {
-		File file = fileProvider.checkIfJsonFileExists(filePath);
+		String absolutePath = fileProvider.provideAbsolutePath(filePath);
+		File file = fileProvider.checkIfJsonFileExists(absolutePath);
 		var rawActivities = mapper.readValue(file, ImportedActivity[].class);
-		var activities = Arrays.stream(rawActivities).map(activity -> activity.toModel(filePath)).toList();
+		var activities = Arrays.stream(rawActivities).map(activity -> activity.toModel(absolutePath)).toList();
 		activityApi.addActivities(serverUrl, activities);
 	}
 

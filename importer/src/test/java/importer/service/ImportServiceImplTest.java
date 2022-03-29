@@ -51,6 +51,7 @@ public class ImportServiceImplTest {
 	public void importServicesFromFile_should_add_activities_via_api() throws IOException {
 		when(objectMapper.readValue(ArgumentMatchers.<File>any(), eq(ImportedActivity[].class)))
 				.thenReturn(FAKE_IMPORTED_ACTIVITIES);
+		when(filePathProvider.provideAbsolutePath(anyString())).thenReturn("filePath");
 		when(filePathProvider.checkIfJsonFileExists(anyString())).thenReturn(FAKE_FILE);
 
 		var service = createService();

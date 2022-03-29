@@ -9,7 +9,6 @@ public class FilePathProvider {
 
 	public File checkIfJsonFileExists(String filePath) throws IOException {
 		File file;
-		filePath = new File(filePath).getAbsolutePath();
 		Path path = Path.of(filePath, "activities.json");
 		if (Files.exists(path)) {
 			file = new File(path.toString());
@@ -18,5 +17,9 @@ public class FilePathProvider {
 			throw new IOException("Cannot find an activities.json file from the provided file path. "
 					+ "Please provide a path to a directory containing an activities.json file.");
 		}
+	}
+
+	public String provideAbsolutePath(String filePath) {
+		return new File(filePath).getAbsolutePath();
 	}
 }
