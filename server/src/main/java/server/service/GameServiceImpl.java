@@ -37,7 +37,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * start single-player game
+	 * Start a new single-player game.
+	 *
 	 * @param playerId
 	 * @param userName
 	 */
@@ -56,7 +57,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * start multi-player game
+	 * Start a new multi-player game.
+	 *
 	 * @param listOfPlayers list of players participating in the new game that is being started
 	 */
 	@Override
@@ -96,7 +98,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Generic submitAnswer method, calls either single- or multi-player method
+	 * Generic submitAnswer method, calls either single- or multi-player method.
+	 *
 	 * @param playerId player who submits the answer
 	 * @param answer message containing the answer
 	 */
@@ -112,7 +115,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Single-player submitAnswer method
+	 * Single-player submitAnswer method.
+	 *
 	 * @param playerId player who submits the answer
 	 * @param answer message containing the answer
 	 */
@@ -146,7 +150,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Multi-player submitAnswer method
+	 * Multi-player submitAnswer method.
+	 *
 	 * @param playerId player who submits the answer
 	 * @param answer message containing the answer
 	 */
@@ -168,7 +173,8 @@ public class GameServiceImpl implements GameService {
 
 
 	/**
-	 *  Sends a new question after a short delay.
+	 * Sends a new question after a short delay.
+	 *
 	 * @param game game for which new question is to be sent
 	 */
 	private void startNewQuestion(Game game) {
@@ -181,6 +187,7 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Sends a new question immediately.
+	 *
 	 * @param game game for which new question is to be sent
 	 */
 	private void newQuestion(Game game) {
@@ -194,7 +201,8 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Updates the scores of all the players in a multi-player game when the timer of a question elapses
-	 * based on the latest answer that they submitted
+	 * based on the latest answer that they submitted.
+	 *
 	 * @param game
 	 */
 	private void scoreUpdate(Game game) {
@@ -208,9 +216,9 @@ public class GameServiceImpl implements GameService {
 		}
 		continueMultiPlayerGame(game);
 	}
-
+//TO DO - query the repository for the top ten entries, sorted descending
 	/**
-	 * Multiplayer leaderboard method
+	 * Multiplayer leaderboard method.
 	 */
 	public void showIntermediateLeaderboard(Game game) {
 		List<Player> players = game.getPlayers();
@@ -229,7 +237,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Generic cleanup method
+	 * Generic cleanup method.
+	 *
 	 * @param game
 	 */
 	private void cleanUpGame(Game game) {
@@ -238,7 +247,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Generic get method
+	 * Generic get method.
+	 *
 	 * @param playerId
 	 * @return which game a player is in
 	 */

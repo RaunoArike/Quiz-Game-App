@@ -44,6 +44,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 2, 1000L);
+
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -52,6 +53,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 1, 1000L);
+
 		assertEquals(0, score);
 	}
 
@@ -60,6 +62,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
 		var score = service.calculateScore(question, 95f, 1000L);
+
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -68,6 +71,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
 		var score = service.calculateScore(question, 40f, 1000L);
+
 		assertEquals(0, score);
 	}
 
@@ -76,6 +80,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
 		var score = service.calculateScore(question, 70f, 1000L);
+
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
 	}
@@ -85,6 +90,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
 		var score = service.calculateScore(question, 1.1f, 1000L);
+
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -93,6 +99,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
 		var score = service.calculateScore(question, 2.1f, 1000L);
+
 		assertEquals(0, score);
 	}
 
@@ -101,6 +108,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
 		var score = service.calculateScore(question, 1.5f, 1000L);
+
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
 	}
@@ -110,6 +118,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
 		var score = service.calculateScore(question, 2, 1000L);
+
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
@@ -118,6 +127,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
 		var score = service.calculateScore(question, 1, 1000L);
+
 		assertEquals(0, score);
 	}
 
@@ -125,13 +135,16 @@ public class QuestionServiceImplTest {
 	public void pick_energy_answer_generator_should_generate_positive_answers() {
 		var service = createService();
 		var answerOptions = service.generatePickOptions(55, 2);
-		assertTrue(answerOptions.get(0) > 0 && answerOptions.get(1) > 0 && answerOptions.get(2) > 0);
+
+		assertTrue(answerOptions.get(0) > 0 && answerOptions.get(1) > 0
+				&& answerOptions.get(2) > 0);
 	}
 
 	@Test
 	public void pick_energy_answer_generator_should_generate_similar_answers() {
 		var service = createService();
 		var answerOptions = service.generatePickOptions(55, 2);
+
 		assertTrue(answerOptions.get(0) <= answerOptions.get(2) * 2
 				&& answerOptions.get(1) <= answerOptions.get(2) * 2);
 	}
