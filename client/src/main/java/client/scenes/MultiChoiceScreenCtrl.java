@@ -61,24 +61,18 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		timeStop();
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
-
-
 	}
 
 	public void optionBClicked() {
 		timeStop();
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
-
-
 	}
 
 	public void optionCClicked() {
 		timeStop();
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
-
-
 	}
 
 	public void showAnswer(int option) {
@@ -129,12 +123,4 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		}
 		timeStop();
 	}
-
-	public void useEliminateOption() {
-	}
-
-	public void useDoublePoints() {
-	}
-
-
 }

@@ -21,8 +21,9 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="eliminateOption" layoutX="193.0" layoutY="353.0" mnemonicParsing="false" onAction="#useEliminateOption" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button fx:id="doublePoints" layoutX="321.0" layoutY="353.0" mnemonicParsing="false" onAction="#useDoublePoints" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
       <ImageView fitHeight="131.0" fitWidth="168.0" layoutX="18.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="131.0" fitWidth="168.0" layoutX="217.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="131.0" fitWidth="168.0" layoutX="27.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
