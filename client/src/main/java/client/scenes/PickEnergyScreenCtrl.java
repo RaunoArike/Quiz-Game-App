@@ -7,6 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import com.google.inject.Inject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 
 public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
@@ -28,7 +32,13 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@FXML
 	private Label optionCtext;
 
+	@FXML
+	private ImageView imageView;
+
 	private int selectedAnswer = -1;
+
+	private final int fitWidth = 200;
+	private final int fitHeight = 150;
 
 	@Inject
 	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -59,12 +69,23 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		var b = question.answerOptions().get(1).toString();
 		var c = question.answerOptions().get(2).toString();
 		setOptions(a, b, c);
+
+		String url = question.activity().imageUrl();
+		setActivityImages(url);
 	}
 
 	private void setOptions(String a, String b, String c) {
 		this.optionAtext.setText(a);
 		this.optionBtext.setText(b);
 		this.optionCtext.setText(c);
+	}
+
+	public void setActivityImages(String url) {
+		Image image =  new Image(url);
+
+		imageView.setFitWidth(fitWidth);
+		imageView.setFitHeight(fitHeight);
+		imageView.setImage(image);
 	}
 
 	public void optionAClicked() {

@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
 public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuestion> {
@@ -24,6 +26,15 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 
 	@FXML
 	private Label errorMessage;
+
+	@FXML
+	private ImageView activityA;
+
+	@FXML
+	private ImageView activityB;
+
+	private final int fitWidth = 217;
+	private final int fitHeight = 93;
 
 	@Inject
 	public ComparisonScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -47,6 +58,25 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		var textActivity2 = question.activities().get(1).name();
 		var textQuestion = "Instead of " + textActivity1 + " , you can " + textActivity2 + " how many times?";
 		setQuestionText(textQuestion);
+
+		var imageA = question.activities().get(0).imageUrl();
+		var imageB = question.activities().get(1).imageUrl();
+		setActivityImages(imageA, imageB);
+	}
+
+
+	public void setActivityImages(String a, String b) {
+		Image imageA = new Image(a);
+
+		activityA.setFitWidth(fitWidth);
+		activityA.setFitHeight(fitHeight);
+		activityA.setImage(imageA);
+
+		Image imageB = new Image(b);
+
+		activityB.setFitWidth(fitWidth);
+		activityB.setFitHeight(fitHeight);
+		activityB.setImage(imageB);
 	}
 
 	public void sendAnswer() {

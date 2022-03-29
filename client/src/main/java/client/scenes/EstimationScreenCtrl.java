@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import com.google.inject.Inject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
 
@@ -24,7 +26,13 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	private Button ok;
 
 	@FXML
+	private ImageView imageView;
+
+	@FXML
 	private Label errorMessage;
+
+	private final int fitWidth = 208;
+	private final int fitHeight = 145;
 
 	@Inject
 	public EstimationScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -46,6 +54,18 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		var question = questionData.question();
 		var textQuestion = "Estimate the amount of energy it takes to " + question.activity().name();
 		setQuestionText(textQuestion);
+
+		String url = question.activity().imageUrl();
+		setActivityImages(url);
+	}
+
+
+	public void setActivityImages(String url) {
+		Image image =  new Image(url);
+
+		imageView.setFitWidth(fitWidth);
+		imageView.setFitHeight(fitHeight);
+		imageView.setImage(image);
 	}
 
 	public void sendAnswer() {

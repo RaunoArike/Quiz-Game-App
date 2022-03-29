@@ -6,6 +6,8 @@ import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import com.google.inject.Inject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
@@ -19,6 +21,18 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	private Button optionC;
 
 	private int selectedAnswer = -1;
+
+	@FXML
+	private ImageView activityA;
+
+	@FXML
+	private ImageView activityB;
+
+	@FXML
+	private ImageView activityC;
+
+	private final int fitWidth = 168;
+	private final int fitHeight = 112;
 
 	@Inject
 	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -45,6 +59,12 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		var b = question.activities().get(1).name();
 		var c = question.activities().get(2).name();
 		setAnswerOptions(a, b, c);
+
+		var imageA = question.activities().get(0).imageUrl();
+		var imageB = question.activities().get(1).imageUrl();
+		var imageC = question.activities().get(2).imageUrl();
+		setActivityImages(imageA, imageB, imageC);
+
 	}
 
 	private void setAnswerOptions(String a, String b, String c) {
@@ -52,6 +72,28 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		this.optionB.setText(b);
 		this.optionC.setText(c);
 	}
+
+
+	public void setActivityImages(String a, String b, String c) {
+		Image imageA = new Image(a);
+
+		activityA.setFitWidth(fitWidth);
+		activityA.setFitHeight(fitHeight);
+		activityA.setImage(imageA);
+
+		Image imageB = new Image(b);
+
+		activityB.setFitWidth(fitWidth);
+		activityB.setFitHeight(fitHeight);
+		activityB.setImage(imageB);
+
+		Image imageC = new Image(c);
+
+		activityC.setFitWidth(fitWidth);
+		activityC.setFitHeight(fitHeight);
+		activityC.setImage(imageC);
+	}
+
 
 	public void optionAClicked() {
 		timeStop();
