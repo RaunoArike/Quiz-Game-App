@@ -159,6 +159,17 @@ public class QuestionServiceImplTest {
 	}
 
 	@Test
+	public void generate_MC_question_should_generate_activities() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateMC();
+
+		assertTrue(FAKE_ACTIVITY_LIST.contains(question.activities().get(0))
+				&& FAKE_ACTIVITY_LIST.contains(question.activities().get(1))
+				&& FAKE_ACTIVITY_LIST.contains(question.activities().get(2)));
+	}
+
+	@Test
 	public void generate_MC_question_should_generate_distinct_activities() {
 		var service = createService();
 		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
@@ -169,12 +180,22 @@ public class QuestionServiceImplTest {
 	}
 
 	@Test
-	public void generate_MC_question_should_generate_two_activities() {
+	public void generate_comparison_question_should_generate_two_activities() {
 		var service = createService();
 		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
 		var question = service.generateComp();
 
 		assertEquals(question.activities().size(), 2);
+	}
+
+	@Test
+	public void generate_comparison_question_should_generate_activities() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateComp();
+
+		assertTrue(FAKE_ACTIVITY_LIST.contains(question.activities().get(0))
+				&& FAKE_ACTIVITY_LIST.contains(question.activities().get(1)));
 	}
 
 	@Test
@@ -184,5 +205,23 @@ public class QuestionServiceImplTest {
 		var question = service.generateComp();
 
 		assertNotEquals(question.activities().get(0), question.activities().get(1));
+	}
+
+	@Test
+	public void generate_estimation_question_should_generate_an_activity() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generateEst();
+
+		assertTrue(FAKE_ACTIVITY_LIST.contains(question.activity()));
+	}
+
+	@Test
+	public void generate_pick_energy_question_should_generate_an_activity() {
+		var service = createService();
+		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
+		var question = service.generatePick();
+
+		assertTrue(FAKE_ACTIVITY_LIST.contains(question.activity()));
 	}
 }
