@@ -1,5 +1,7 @@
 package client.service;
 
+import commons.model.JokerType;
+
 public interface MessageLogicService {
 	/**
 	 * Start a single player game.
@@ -24,4 +26,10 @@ public interface MessageLogicService {
 	 * 0, 1 or 2 for choice questions, float answer for open-ended questions
 	 */
 	void answerQuestion(Number answer);
+
+	/**
+	 * Sends a joker usage request to the server
+	 * @param type type of the joker played
+	 */
+	void sendJoker(JokerType type);
 }

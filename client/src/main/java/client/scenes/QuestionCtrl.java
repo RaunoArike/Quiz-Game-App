@@ -61,7 +61,6 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	protected void setQuestionText(String questionText) {
 		this.questionText.setText(questionText);
-
 	}
 
 	public void setScore(int scoreNumber) {
@@ -69,7 +68,11 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		this.score.setText(scoreText);
 	}
 
-	public void callTimeLimiter() {
+	public void notifyReduceTimePlayed(long timeLeftMs) {
+		// TODO
+	}
+
+	private void callTimeLimiter() {
 		timeStop();
 		timerTask = new TimerTask() {
 			double timeLeft = 1;
@@ -89,7 +92,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		timer.schedule(timerTask, 0, TIMER_UPDATE_PERIOD);
 	}
 
-	public void timeStop() {
+	protected void timeStop() {
 		if (timerTask != null) {
 			timerTask.cancel();
 		}

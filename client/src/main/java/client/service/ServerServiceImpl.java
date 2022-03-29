@@ -1,9 +1,11 @@
 package client.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
 import commons.model.Activity;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.servermessage.*;
 import jakarta.ws.rs.client.ClientBuilder;
@@ -85,21 +87,23 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
 				notifyListeners(listener -> listener.onQuestion(message));
 			});
-			registerForMessages("user/queue/intermediate-leaderboard",
-					IntermediateLeaderboardMessage.class, message -> {
-				notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
-			});
 			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
 				notifyListeners(listener -> listener.onScore(message));
 			});
 			registerForMessages("/user/queue/waiting-room-state", WaitingRoomStateMessage.class, message -> {
 				notifyListeners(listener -> listener.onWaitingRoomState(message));
 			});
+			registerForMessages("/user/queue/end-of-game", EndOfGameMessage.class, message -> {
+				notifyListeners(listener -> listener.onEndOfGame());
+			});
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
 			});
-			registerForMessages("/user/queue/end-of-game", EndOfGameMessage.class, message -> {
-				notifyListeners(listener -> listener.onEndOfGame());
+			registerForMessages("/user/queue/intermediate-leaderboard", IntermediateLeaderboardMessage.class, m -> {
+				notifyListeners(listener -> listener.onIntermediateLeaderboard(m));
+			});
+			registerForMessages("/user/queue/reduce-time-played", ReduceTimePlayedMessage.class, message -> {
+				notifyListeners(listener -> listener.onReduceTimePlayed(message));
 			});
 		} catch (Exception e) {
 			return false;
@@ -133,6 +137,10 @@ public class ServerServiceImpl implements ServerService {
 		session.send("/app/submit-answer", new QuestionAnswerMessage(answerInt, answerFloat));
 	}
 
+	@Override
+	public void sendJoker(JokerType type) {
+		session.send("/app/send-joker", new SendJokerMessage(type));
+	}
 
 	@Override
 	public void registerListener(ServerListener serverListener) {
