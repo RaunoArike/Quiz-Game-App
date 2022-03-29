@@ -18,6 +18,7 @@ Secretary:		Rauno Arike
 Information about the status of the development from the perspective of the team:
 - Which epics are closed or almost closed
 - Which epics will be finished by the end of the project
+- Which user stories (must haves, should haves, could haves) from the example backlog do our epics correspond to?
 
 ## TA's feedback on team's progress
 Information about the status of the development from the perspective of the TA:
