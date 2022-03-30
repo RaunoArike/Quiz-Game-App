@@ -119,15 +119,19 @@ public class MainCtrl {
 
 		this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
 		this.comparisonScreen = new Scene(comparisonScreenCtrl.getValue());
+		this.comparisonScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
 		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
+		this.estimationScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
 		this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
+		this.multiChoiceScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
 		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+		this.pickEnergyScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.adminCtrl = adminCtrlParentPair.getKey();
 		this.adminScreen = new Scene(adminCtrlParentPair.getValue());

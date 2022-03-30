@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
    <children>
-      <ProgressBar fx:id="timerProgress" layoutX="178.0" layoutY="323.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" />
+      <ProgressBar fx:id="timerProgress" layoutX="178.0" layoutY="323.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
       <Text layoutX="107.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
       <Text fx:id="timerNumber" layoutX="145.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
       <Text layoutX="39.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
