@@ -143,6 +143,7 @@ public class MainCtrl {
 
 		this.intermediateLeaderboardCtrl = intermediateLeaderboardCtrlParentPair.getKey();
 		this.intermediateLeaderboardScreen = new Scene(intermediateLeaderboardCtrlParentPair.getValue());
+		this.intermediateLeaderboardScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		showServerAddress();
 		primaryStage.show();

@@ -9,45 +9,47 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
+<AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
    <children>
-      <ProgressBar fx:id="timerProgress" layoutX="178.0" layoutY="323.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
-      <Text layoutX="107.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
-      <Text fx:id="timerNumber" layoutX="145.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
-      <Text layoutX="39.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
+      <ProgressBar fx:id="timerProgress" layoutX="208.0" layoutY="343.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
+      <Text layoutX="137.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
+      <Text fx:id="timerNumber" layoutX="175.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
+      <Text layoutX="39.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="217.0" layoutX="37.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="questionText" layoutX="19.0" layoutY="50.0" prefHeight="93.0" prefWidth="562.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
+      <Button layoutX="198.0" layoutY="383.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button layoutX="326.0" layoutY="383.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <ImageView fx:id="activityA" fitHeight="102.0" fitWidth="188.0" layoutX="98.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="questionText" layoutX="19.0" layoutY="20.0" prefHeight="94.0" prefWidth="637.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
          <font>
-            <Font size="16.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="score" layoutX="482.0" layoutY="30.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
+      <Label fx:id="score" layoutX="562.0" layoutY="10.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="answer" layoutX="397.0" layoutY="172.0" />
-      <Label fx:id="questionText1" layoutX="300.0" layoutY="159.0" prefHeight="50.0" prefWidth="100.0" text="Your answer:">
+      <TextField fx:id="answer" layoutX="467.0" layoutY="112.0" />
+      <Label fx:id="questionText1" layoutX="370.0" layoutY="99.0" prefHeight="50.0" prefWidth="100.0" text="Your answer:">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="258.0" layoutY="239.0" prefHeight="70.0" prefWidth="301.0" text="Answer Message" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Button fx:id="ok" layoutX="467.0" layoutY="208.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
-      <Label fx:id="errorMessage" alignment="TOP_LEFT" layoutX="412.0" layoutY="239.0" prefHeight="26.0" prefWidth="147.0" text="Error message" wrapText="true">
+      <Button fx:id="ok" layoutX="527.0" layoutY="148.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
+      <Label fx:id="errorMessage" alignment="TOP_LEFT" layoutX="382.0" layoutY="149.0" prefHeight="26.0" prefWidth="128.0" text="Error message" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="activityB" fitHeight="93.0" fitWidth="217.0" layoutX="36.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="102.0" fitWidth="188.0" layoutX="102.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="456.0" layoutY="383.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Reduce time" />
+      <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="358.0" layoutY="219.0" text="Answer Message" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

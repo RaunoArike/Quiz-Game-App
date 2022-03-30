@@ -128,46 +128,29 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	}
 
 	public void showAnswer(int option) {
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 		switch (option) {
 			case 0:
 				optionA.setStyle("-fx-background-color: #00c203; ");
-
-
-				optionA.setDisable(true);
-				optionB.setDisable(true);
-				optionC.setDisable(true);
-
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
 				} else if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
 				}
-
 				break;
 			case 1:
 				optionB.setStyle("-fx-background-color: #00c203; ");
-
-
-				optionA.setDisable(true);
-				optionB.setDisable(true);
-				optionC.setDisable(true);
-
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
 				}
 				if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
 				}
-
-
 				break;
 			case 2:
 				optionC.setStyle("-fx-background-color: #00c203; ");
-
-
-				optionA.setDisable(true);
-				optionB.setDisable(true);
-				optionC.setDisable(true);
 
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
@@ -175,7 +158,6 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
 				}
-
 				break;
 		}
 	}
