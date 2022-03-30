@@ -35,6 +35,18 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private Button eliminateOption;
 
 	@FXML
+	private Button emoji1;
+
+	@FXML
+	private Button emoji2;
+
+	@FXML
+	private Button emoji3;
+
+	@FXML
+	private Button emoji4;
+
+	@FXML
 	private ProgressBar timerProgress;
 
 	@FXML
