@@ -9,6 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
    <children>
       <ProgressBar fx:id="timerProgress" layoutX="178.0" layoutY="323.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" />
@@ -50,5 +51,35 @@
          </font>
       </Label>
       <ImageView fx:id="activityB" fitHeight="93.0" fitWidth="217.0" layoutX="36.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="lolEmoji" fitHeight="70.0" fitWidth="95.0" layoutX="438.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../emojis/lol_emoji.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sunglassesEmoji" fitHeight="70.0" fitWidth="95.0" layoutX="172.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../emojis/sunglasses_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="likeEmoji" fitHeight="70.0" fitWidth="95.0" layoutX="177.0" layoutY="167.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../emojis/like_emoji.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dislikeEmoji" fitHeight="70.0" fitWidth="95.0" layoutX="204.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../emojis/dislike_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="angryEmoji" fitHeight="70.0" fitWidth="95.0" layoutX="407.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../emojis/angry_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vomitEmoji" fitHeight="70.0" fitWidth="95.0" layoutX="331.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../emojis/vomit_emoji.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 import java.util.Set;
@@ -20,6 +22,9 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
+	private static final int DISLIKE_EMOJI_TYPE = 3;
+	private static final int ANGRY_EMOJI_TYPE = 4;
+	private static final int VOMIT_EMOJI_TYPE = 5;
 
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
@@ -40,16 +45,22 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private Button eliminateOptionJoker;
 
 	@FXML
-	private Button emoji1;
+	private ImageView lolEmoji;
 
 	@FXML
-	private Button emoji2;
+	private ImageView sunglassesEmoji;
 
 	@FXML
-	private Button emoji3;
+	private ImageView likeEmoji;
 
 	@FXML
-	private Button emoji4;
+	private ImageView dislikeEmoji;
+
+	@FXML
+	private ImageView angryEmoji;
+
+	@FXML
+	private ImageView vomitEmoji;
 
 	@FXML
 	private ProgressBar timerProgress;
@@ -59,6 +70,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private final Timer timer = new Timer();
 	private TimerTask timerTask;
+
 
 	@Inject
 	public QuestionCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -118,6 +130,49 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		}
 	}
 
+	private void handleLolEmojiClicks() {
+		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			useEmoji(0);
+			System.out.println("Emoji pressed");
+			event.consume();
+		});
+	}
+
+	private void handleSunglassesEmojiClicks() {
+		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			useEmoji(1);
+			event.consume();
+		});
+	}
+
+	private void handleLikeEmojiClicks() {
+		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			useEmoji(2);
+			event.consume();
+		});
+	}
+
+	private void handleDislikeEmojiClicks() {
+		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			useEmoji(DISLIKE_EMOJI_TYPE);
+			event.consume();
+		});
+	}
+
+	private void handleAngryEmojiClicks() {
+		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			useEmoji(ANGRY_EMOJI_TYPE);
+			event.consume();
+		});
+	}
+
+	private void handleEmojiClicks() {
+		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+			useEmoji(ANGRY_EMOJI_TYPE);
+			event.consume();
+		});
+	}
+
 	public void notifyReduceTimePlayed(long timeLeftMs) {
 		callTimeLimiter(timeLeftMs);
 	}
@@ -135,5 +190,22 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void useEliminateOptionJoker() {
 		messageService.sendJoker(JokerType.ELIMINATE_MC_OPTION);
 		eliminateOptionJoker.setDisable(true);
+	}
+
+	public void useEmoji(int emojiType) {
+		switch (emojiType) {
+			case 0:
+				messageService.sendEmoji(0);
+			case 1:
+				messageService.sendEmoji(1);
+			case 2:
+				messageService.sendEmoji(2);
+			case DISLIKE_EMOJI_TYPE:
+				messageService.sendEmoji(DISLIKE_EMOJI_TYPE);
+			case ANGRY_EMOJI_TYPE:
+				messageService.sendEmoji(ANGRY_EMOJI_TYPE);
+			case VOMIT_EMOJI_TYPE:
+				messageService.sendEmoji(VOMIT_EMOJI_TYPE);
+		}
 	}
 }

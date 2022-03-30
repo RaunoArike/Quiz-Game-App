@@ -67,6 +67,11 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 		server.sendJoker(type);
 	}
 
+	@Override
+	public void sendEmoji(int emojiType) {
+		server.sendEmoji(emojiType);
+	}
+
 	/**
 	 * Called when new question starts
 	 * @param message message with new question details

@@ -100,10 +100,16 @@ public interface ServerService {
 	void answerQuestion(Number answer);
 
 	/**
-	 * Sends information about a joker being is used to the server
+	 * Sends information about a joker being used to the server
 	 * @param type type of the used joker
 	 */
 	void sendJoker(JokerType type);
+
+	/**
+	 * Sends information about an emoji having been sent to the server
+	 * @param emojiType type of the used emoji
+	 */
+	void sendEmoji(int emojiType);
 
 	/**
 	 * Registers a listener for server messages.
