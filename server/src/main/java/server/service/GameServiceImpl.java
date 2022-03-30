@@ -134,7 +134,7 @@ public class GameServiceImpl implements GameService {
 				timePassed);
 		player.incrementScore(scoreDelta);
 
-		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
+		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
 
 		if (!game.isLastQuestion()) {
 			startNewQuestion(game, Game.QUESTION_DELAY);
@@ -202,8 +202,11 @@ public class GameServiceImpl implements GameService {
 				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
 					player.getLatestAnswer(), player.getTimeTakenToAnswer());
 				player.incrementScore(scoreDelta);
+				if (scoreDelta > 0) {
+					game.incrementNumberOfPlayersScored();
+				}
 			}
-			ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore());
+			ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore(), game.getNumberOfPlayersScored());
 			outgoingController.sendScore(message, List.of(player.getPlayerId()));
 		}
 		continueMultiPlayerGame(game);

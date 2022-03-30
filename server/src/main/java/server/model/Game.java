@@ -17,15 +17,11 @@ public class Game {
 
 	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
 
-	//Used in a multiplayer game to keep track of answer submissions and answering times of each player,
-	//mapped to by playerId.
-	//public Map<Integer, QuestionAnswerMessage> answers = new HashMap<>();
-	//public Map<Integer, Long> times = new HashMap<>();
-
 	private int questionNumber = -1;
 	private long questionStartTime = 0;
 	private Question question;
 	private boolean questionFinished;
+	private int numberOfPlayersScored = 0;
 
 	public Game(int gameId) {
 		this.gameId = gameId;
@@ -105,5 +101,13 @@ public class Game {
 
 	public boolean isQuestionFinished() {
 		return questionFinished;
+	}
+
+	public int getNumberOfPlayersScored() {
+		return numberOfPlayersScored;
+	}
+
+	public void incrementNumberOfPlayersScored() {
+		numberOfPlayersScored++;
 	}
 }

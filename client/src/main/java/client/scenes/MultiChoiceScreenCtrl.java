@@ -5,6 +5,7 @@ import client.service.MessageLogicService;
 import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import com.google.inject.Inject;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +32,9 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	@FXML
 	private ImageView activityC;
 
+	@FXML
+	private Label scoreMessage;
+
 	private final int fitWidth = 168;
 	private final int fitHeight = 112;
 
@@ -45,6 +49,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		optionA.setStyle(null);
 		optionB.setStyle(null);
 		optionC.setStyle(null);
+		scoreMessage.setText("");
 	}
 
 	@Override
@@ -123,7 +128,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	}
 
-	public void showAnswer(int option) {
+	public void showAnswer(int option, int numberOfPlayersScored) {
 		switch (option) {
 			case 0:
 				optionA.setStyle("-fx-background-color: #00ff7f; ");
@@ -168,6 +173,9 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 				}
 
 				break;
+		}
+		if (numberOfPlayersScored != -1) {
+			scoreMessage.setText(numberOfPlayersScored + " players scored on this question.");
 		}
 		timeStop();
 	}

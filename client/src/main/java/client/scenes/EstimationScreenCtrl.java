@@ -82,11 +82,13 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		}
 	}
 
-	public void showAnswer(Number correctAnswer, int scoreIncrement) {
+	public void showAnswer(Number correctAnswer, int scoreIncrement, int numberOfPlayersScored) {
 		String message = "The correct answer was: " + correctAnswer + " kwH. "
 						+ "\nYou score " + scoreIncrement + " points.";
+		if (numberOfPlayersScored != -1) {
+			message += "\n" + numberOfPlayersScored + " players scored on this question.";
+		}
 		answerMessage.setText(message);
-
 		ok.setDisable(true);
 	}
 
