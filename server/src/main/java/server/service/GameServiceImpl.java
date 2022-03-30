@@ -88,7 +88,6 @@ public class GameServiceImpl implements GameService {
 			} else {
 				startNewQuestion(game, Game.LEADERBOARD_DELAY);
 			}
-			timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
 		} else {
 			List<Integer> playersInGame = game.getPlayerIds();
 			outgoingController.sendEndOfGame(new EndOfGameMessage(), playersInGame);
@@ -194,6 +193,8 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendQuestion(new QuestionMessage(question, game.getQuestionNumber()),
 				game.getPlayerIds());
 		game.setQuestionStartTime(timerService.getTime());
+
+		timerService.scheduleTimer(game.getGameId(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
 	}
 
 	/**

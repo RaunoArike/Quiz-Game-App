@@ -90,9 +90,10 @@ public class GameServiceImplTest {
 	public void answering_question_should_send_another_question() {
 		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION);
 
-		var service = createService(immediateTimer, mockitoOutgoingController);
+		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
+		controllableTimer.advanceBy(3000);
 
 		verify(mockitoOutgoingController, times(2)).sendQuestion(
 				questionMessageCaptor.capture(),
@@ -123,10 +124,12 @@ public class GameServiceImplTest {
 		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
 		when(questionService.calculateScore(any(), eq(11f), anyLong())).thenReturn(23);
 
-		var service = createService(immediateTimer, mockitoOutgoingController);
+		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
+		controllableTimer.advanceBy(3000);
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 11f));
+		controllableTimer.advanceBy(3000);
 
 		verify(mockitoOutgoingController, times(2)).sendScore(
 				correctAnswerMessageCaptor.capture(),
@@ -138,10 +141,11 @@ public class GameServiceImplTest {
 
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {
-		var service = createService(immediateTimer, mockitoOutgoingController);
+		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
 		for (int i = 0; i < Game.QUESTIONS_PER_GAME; i++) {
 			service.submitAnswer(30, new QuestionAnswerMessage(null, null));
+			controllableTimer.advanceBy(3000);
 		}
 		verify(leaderboardService).addToLeaderboard(new LeaderboardEntry("abc", 0));
 		assertThrows(Exception.class, () -> {
