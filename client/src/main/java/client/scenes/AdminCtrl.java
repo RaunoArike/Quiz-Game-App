@@ -22,123 +22,117 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
-
 public class AdminCtrl extends AbstractCtrl implements Initializable {
-		private final ServerService serverServicer;
+	private final ServerService serverService;
+	private final MainCtrl mainCtrl;
 
-		private final MainCtrl mainCtrl;
+	@FXML
+	private TextField nameTextField;
 
-		public TextField nameTextField;
+	@FXML
+	private TextField energyTextField;
 
-		public TextField energyTextField;
+	@FXML
+	private TextField urlTextField;
 
-		public TextField urlTextField;
+	private List<Activity> listActivities;
 
-		public List<Activity> listActivities;
+	@FXML
+	private TableView<Activity> table;
 
-		@FXML
-		private TableView<Activity> table;
+	@FXML
+	private TableColumn<Activity, String> columnOne;
+	@FXML
+	private TableColumn<Activity, Number> columnTwo;
 
-		@FXML
-		private TableColumn<Activity, String> columnOne;
-		@FXML
-		private TableColumn<Activity, Number> columnTwo;
+	@Inject
+	public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
+		this.serverService = serverService;
+		this.mainCtrl = mainCtrl;
+		listActivities = new ArrayList<>();
+	}
 
-		@Inject
-		public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
-			this.serverServicer = serverService;
-			this.mainCtrl = mainCtrl;
-			listActivities = new ArrayList<>();
+	///The option to return home
+	public void returnHome() {
+		mainCtrl.showHome();
+	}
+
+	public void keyPressed(KeyEvent keyEvent) {
+		switch (keyEvent.getCode()) {
+			case ESCAPE:
+				returnHome();
+				break;
+			default:
+				break;
 		}
+	}
 
-		///The option to return home
-		public void returnHome() {
-			mainCtrl.showHome();
-		}
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		columnOne.setCellValueFactory(x -> new SimpleStringProperty(x
+				.getValue()
+				.name()));
 
-		public void keyPressed(KeyEvent keyEvent) {
-			switch (keyEvent.getCode()) {
-				case ESCAPE:
-					returnHome();
-					break;
-				default:
-					break;
+		columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x
+				.getValue()
+				.energyInWh()));
+	}
+
+	public void addButton() {
+		Activity activity = new Activity(nameTextField.getText(),
+				urlTextField.getText(),
+				(float) Double.parseDouble(energyTextField.getText()));
+
+		table.getItems().add(activity);
+
+		nameTextField.clear();
+
+		energyTextField.clear();
+
+		urlTextField.clear();
+	}
+
+	public void updateButton() {
+		Activity activity = new Activity(nameTextField.getText(),
+				urlTextField.getText(),
+				(float) Double.parseDouble(energyTextField.getText()));
+
+		for (Activity activity1 : table.getItems()) {
+			if (activity1.name().equals(activity.name())) {
+				table.getItems().add(activity);
+
+				listActivities.add(activity);
+
+				table.getItems().remove(activity1);
+
+				listActivities.remove(activity1);
 			}
 		}
+		init();
+		nameTextField.clear();
 
+		energyTextField.clear();
 
+		urlTextField.clear();
+	}
 
+	public void removeButton() {
+		Activity activity = new Activity(nameTextField.getText(),
+				urlTextField.getText(),
+				(float) Double.parseDouble(energyTextField.getText()));
 
-		@Override
-		public void initialize(URL location, ResourceBundle resources) {
-
-			columnOne.setCellValueFactory(x -> new SimpleStringProperty(x
-					.getValue()
-					.name()));
-
-			columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x
-					.getValue()
-					.energyInWh()));
-
-
-		}
-
-		public void addButton() {
-			Activity activity = new Activity(nameTextField.getText(),
-					urlTextField.getText(),
-					(float) Double.parseDouble(energyTextField.getText()));
-
-			table.getItems().add(activity);
-
-			nameTextField.clear();
-
-			energyTextField.clear();
-
-			urlTextField.clear();
-		}
-
-		public void updateButton() {
-			Activity activity = new Activity(nameTextField.getText(),
-					urlTextField.getText(),
-					(float) Double.parseDouble(energyTextField.getText()));
-
-			for (Activity activity1 : table.getItems()) {
-				if (activity1.name().equals(activity.name())) {
-					table.getItems().add(activity);
-
-					listActivities.add(activity);
-
-					table.getItems().remove(activity1);
-
-					listActivities.remove(activity1);
-				}
+		for (Activity activity1 : table.getItems()) {
+			if (activity1.name().equals(activity.name())) {
+				table.getItems().remove(activity1);
 			}
-			init();
-			nameTextField.clear();
-
-			energyTextField.clear();
-
-			urlTextField.clear();
 		}
+		init();
+		nameTextField.clear();
 
-		public void removeButton() {
-			Activity activity = new Activity(nameTextField.getText(),
-					urlTextField.getText(),
-					(float) Double.parseDouble(energyTextField.getText()));
+		energyTextField.clear();
 
-			for (Activity activity1 : table.getItems()) {
-				if (activity1.name().equals(activity.name())) {
-					table.getItems().remove(activity1);
-				}
-			}
-			init();
-			nameTextField.clear();
-
-			energyTextField.clear();
-
-			urlTextField.clear();
-		}
+		urlTextField.clear();
+	}
 
 	@Override
 	public void init() {
@@ -146,7 +140,7 @@ public class AdminCtrl extends AbstractCtrl implements Initializable {
 		ObservableList<Activity> observableList = FXCollections
 				.observableArrayList(listActivities);
 
-		for (Activity activity : serverServicer.getActivities()) {
+		for (Activity activity : serverService.getActivities()) {
 			observableList.add(activity);
 			listActivities.add(activity);
 		}
