@@ -45,7 +45,7 @@ public class QuestionServiceImplTest {
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 2, 1000L);
 
-		assertEquals(33, score);
+		assertEquals(100, score);
 	}
 
 	@Test
@@ -119,7 +119,7 @@ public class QuestionServiceImplTest {
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
 		var score = service.calculateScore(question, 2, 1000L);
 
-		assertEquals(33, score);
+		assertEquals(100, score);
 	}
 
 	@Test

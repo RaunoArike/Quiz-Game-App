@@ -8,7 +8,6 @@ import server.util.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -26,11 +25,13 @@ public class QuestionServiceImpl implements QuestionService {
 	private static final double TIME_RATIO_GOOD = 0.85;
 	private static final double TIME_RATIO_AVERAGE = 0.55;
 	private static final double TIME_RATIO_BAD = 0.33;
+	private static final double TIME_RATIO_POOR = 0.45;
 
-	private static final int TIME_PERIOD_1 = 5;
-	private static final int TIME_PERIOD_2 = 10;
-	private static final int TIME_PERIOD_3 = 15;
-	private static final int TOTAL_TIME = 20;
+	private static final int TIME_PERIOD_1 = 5000;
+	private static final int TIME_PERIOD_2 = 10000;
+	private static final int TIME_PERIOD_3 = 15000;
+	private static final int TOTAL_TIME = 20000;
+
 	private static final int DEFAULT = 0;
 	private final List<ActivityEntity> visited = new ArrayList<>();
 	private final ActivityRepository activityRepository;
@@ -161,32 +162,6 @@ public class QuestionServiceImpl implements QuestionService {
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
-		/*
-		 * If the time spent for the question is less than time period 1, we give the player the maximum score
-		 * If it is greater but smaller than time period 2, we still give them a fairly high score
-		 * to make the game competitive
-		 */
-		if (answer == question.correctAnswer()) {
-			if (timeSpent < TOTAL_TIME - TIME_PERIOD_1) {
-				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
-			}
-
-			if (timeSpent > TOTAL_TIME - TIME_PERIOD_1
-					&& timeSpent < TIME_PERIOD_2) {
-				return (int) (MAX_SCORE * TIME_RATIO_GOOD);
-			}
-
-			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
-					&& timeSpent < TIME_PERIOD_3) {
-				return (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
-			} else {
-				return (int) (MAX_SCORE * TIME_RATIO_BAD);
-			}
-
-		}
-		return DEFAULT;
-	}
 
 
 	// TODO
@@ -227,20 +202,45 @@ public class QuestionServiceImpl implements QuestionService {
 		 */
 
 
-		if (Objects.equals(new Integer(answer),
-				new Integer(question.correctAnswer()))) {
-
-			if (timeSpent < TOTAL_TIME - TIME_PERIOD_1) {
+		if (answer == question.correctAnswer()) {
+			if (timeSpent < TIME_PERIOD_1) {
 				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
 			}
 
-			if (timeSpent > TOTAL_TIME - TIME_PERIOD_1
-					&& timeSpent < TOTAL_TIME - TIME_PERIOD_2) {
+			if (timeSpent > TIME_PERIOD_1
+					&& timeSpent < TIME_PERIOD_2) {
 				return (int) (MAX_SCORE * TIME_RATIO_GOOD);
 			}
 
 			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
-					&& timeSpent < TOTAL_TIME - TIME_PERIOD_3) {
+					&& timeSpent < TIME_PERIOD_3) {
+				return (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
+			} else {
+				return (int) (MAX_SCORE * TIME_RATIO_BAD);
+			}
+
+		}
+		return DEFAULT;
+	}
+
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
+		/*
+		 * If the time spent for the question is less than time period 1, we give the player the maximum score
+		 * If it is greater but smaller than time period 2, we still give them a fairly high score
+		 * to make the game competitive
+		 */
+		if (answer == question.correctAnswer()) {
+			if (timeSpent < TIME_PERIOD_1) {
+				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
+			}
+
+			if (timeSpent > TIME_PERIOD_1
+					&& timeSpent < TIME_PERIOD_2) {
+				return (int) (MAX_SCORE * TIME_RATIO_GOOD);
+			}
+
+			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
+					&& timeSpent < TIME_PERIOD_3) {
 				return (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
 			} else {
 				return (int) (MAX_SCORE * TIME_RATIO_BAD);
