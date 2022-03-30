@@ -52,7 +52,7 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	}
 
 	/**
-	 * Adds key functionality to the textfields - enter to trigger join,
+	 * Adds key functionality to the text fields - enter to trigger join,
 	 * escape to return to home screen
 	 */
 	public void keyPressed(KeyEvent e) {

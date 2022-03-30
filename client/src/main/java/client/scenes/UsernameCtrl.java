@@ -7,10 +7,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+
 public class UsernameCtrl extends AbstractCtrl {
 
 	/**
-	 * This controller class refers to the username input screen for starting a singleplayer game.
+	 * This controller class refers to the username input screen for starting a single-player game.
 	 * For multiplayer game refer to JoinWaitingRoomCtrl.
 	 */
 	private final MessageLogicService messageService;
@@ -39,6 +43,14 @@ public class UsernameCtrl extends AbstractCtrl {
 		String username = this.username.getText();
 		if (username != null && !username.isEmpty()) {
 			this.messageService.startSingleGame(username);
+			try {
+				Writer writer = new FileWriter("@../../resources/usernames.txt");
+				writer.write(username + "\n");
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		} else {
 			this.errorMessage.setText("Please enter a valid username: ");
 		}
