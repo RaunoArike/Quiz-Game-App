@@ -1,0 +1,26 @@
+.root {
+	-fx-background-color: #63B1FF;
+}
+
+.label {
+    /* Styling for all Control with the class of 'label' */
+    -fx-padding: 2px;
+    -fx-start-margin: 2px;
+    -fx-end-margin: 2px;
+    -fx-text-fill: #0A1520;
+	-fx-border-radius: 50;
+}
+
+#errorMessage {
+	-fx-background-color: #63B1FF;
+	-fx-text-fill:  #0A1520;
+}
+
+.button {
+	-fx-padding: 2px;
+    -fx-start-margin: 2px;
+    -fx-end-margin: 2px;
+    -fx-text-fill: #63B1FF;
+	-fx-background-color:#0A1520;
+	-fx-border-radius: 50;
+}
