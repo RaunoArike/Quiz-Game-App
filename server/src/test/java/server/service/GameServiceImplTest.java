@@ -1,14 +1,11 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
-import commons.clientmessage.SendJokerMessage;
 import commons.model.Activity;
-import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.model.Question;
 import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
-import commons.servermessage.ReduceTimePlayedMessage;
 import commons.servermessage.ScoreMessage;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -172,8 +169,9 @@ public class GameServiceImplTest {
 		var service = createService(immediateTimer, mockitoOutgoingController);
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
-		for(Player p: FAKE_PLAYER_LIST) {
-			verify(mockitoOutgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0), List.of(p.getPlayerId()));
+		for (Player p: FAKE_PLAYER_LIST) {
+			verify(mockitoOutgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0),
+					List.of(p.getPlayerId()));
 		}
 	}
 
