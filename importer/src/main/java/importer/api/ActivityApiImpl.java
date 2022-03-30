@@ -1,32 +1,39 @@
 package importer.api;
 
 import commons.model.Activity;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import org.glassfish.jersey.client.ClientConfig;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.util.List;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
 public class ActivityApiImpl implements ActivityApi {
-	private final Client client = ClientBuilder.newClient(new ClientConfig());
+	private final RestTemplate restTemplate = new RestTemplate();
 
 	@Override
 	public void addActivities(String serverUrl, List<Activity> activities) {
-		client.target(serverUrl)
-				.path("api/activities")
-				.request(APPLICATION_JSON)
-				.accept(APPLICATION_JSON)
-				.post(Entity.entity(activities, APPLICATION_JSON));
+		restTemplate.postForEntity(serverUrl + "/api/activities", activities, Object.class);
+	}
+
+	@Override
+	public void uploadImage(String serverUrl, String imagePath, File image) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		body.add("file", image);
+
+		HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+		restTemplate.postForEntity(serverUrl + "/images", requestEntity, Object.class);
 	}
 
 	@Override
 	public void deleteAllActivities(String serverUrl) {
-		client.target(serverUrl)
-				.path("api/activities")
-				.request()
-				.delete();
+		restTemplate.delete(serverUrl + "/api/activities");
 	}
 }
