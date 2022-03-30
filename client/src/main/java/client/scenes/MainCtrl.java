@@ -75,8 +75,7 @@ public class MainCtrl {
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
 	public void initialize(Stage primaryStage,
-		Pair<LeaderboardCtrl,
-		Parent> leaderboardCtrl,
+		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 		Pair<OpeningCtrl, Parent> openingCtrl,
 		Pair<UsernameCtrl, Parent> usernameCtrl,
 		Pair<JoinWaitingroomCtrl, Parent> joinWaitingroomCtrl,
@@ -142,7 +141,7 @@ public class MainCtrl {
 		primaryStage.setScene(adminScreen);
 	}
 
-	public void showIntermediateleaderboard() {
+	public void showIntermediateLeaderboard() {
 		intermediateLeaderboardCtrl.init();
 
 		primaryStage.setTitle("Intermediate Leaderboard");
@@ -251,20 +250,20 @@ public class MainCtrl {
 	}
 
 	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement, int numberOfPlayersScored) {
-		if (type == QuestionTypes.COMPARISON) {
-			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
+		switch (type) {
+			case COMPARISON -> comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
+			case ESTIMATION -> estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
+			case MULTI_CHOICE -> multiChoiceScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
+			case PICK_ENERGY -> pickEnergyScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
 		}
+	}
 
-		if (type == QuestionTypes.ESTIMATION) {
-			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
-		}
-
-		if (type == QuestionTypes.MULTI_CHOICE) {
-			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
-		}
-
-		if (type == QuestionTypes.PICK_ENERGY) {
-			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
+	public void notifyReduceTimePlayed(QuestionTypes type, long timeLeftMs) {
+		switch (type) {
+			case COMPARISON -> comparisonScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
+			case ESTIMATION -> estimationScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
+			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
+			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 		}
 	}
 
