@@ -21,7 +21,6 @@ public class Game {
 	private long questionStartTime = 0;
 	private Question question;
 	private boolean questionFinished;
-	private int numberOfPlayersScored = 0;
 
 	public Game(int gameId) {
 		this.gameId = gameId;
@@ -101,13 +100,5 @@ public class Game {
 
 	public boolean isQuestionFinished() {
 		return questionFinished;
-	}
-
-	public int getNumberOfPlayersScored() {
-		return numberOfPlayersScored;
-	}
-
-	public void incrementNumberOfPlayersScored() {
-		numberOfPlayersScored++;
 	}
 }

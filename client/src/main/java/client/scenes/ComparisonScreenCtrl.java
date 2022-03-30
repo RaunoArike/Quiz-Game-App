@@ -97,7 +97,11 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		String message = "The correct answer was: " + correctAnswer + " times. "
 						+ "\nYou score " + scoreIncrement + " points.";
 		if (numberOfPlayersScored != -1) {
-			message += "\n" + numberOfPlayersScored + " players scored on this question.";
+			if (numberOfPlayersScored == 1) {
+				message += "\n" + numberOfPlayersScored + " player scored on this question.";
+			} else {
+				message += "\n" + numberOfPlayersScored + " players scored on this question.";
+			}
 		}
 		answerMessage.setText(message);
 		ok.setDisable(true);

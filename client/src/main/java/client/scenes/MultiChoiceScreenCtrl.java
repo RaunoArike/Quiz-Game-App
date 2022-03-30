@@ -174,9 +174,15 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 				break;
 		}
+		String message = "";
 		if (numberOfPlayersScored != -1) {
-			scoreMessage.setText(numberOfPlayersScored + " players scored on this question.");
+			if (numberOfPlayersScored == 1) {
+				message += "\n" + numberOfPlayersScored + " player scored on this question.";
+			} else {
+				message += "\n" + numberOfPlayersScored + " players scored on this question.";
+			}
 		}
+		scoreMessage.setText(message);
 		timeStop();
 	}
 
