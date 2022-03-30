@@ -60,6 +60,5 @@ public interface OutgoingController {
 	 * @param message REDUCE_TIME JokerPlayed message
 	 * @param players the players that receive the message
 	 */
-
 	void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players);
 }

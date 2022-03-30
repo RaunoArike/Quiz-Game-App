@@ -180,7 +180,11 @@ public class GameServiceImpl implements GameService {
 		}
 	}
 
-
+	/**
+	 * Single player jokerPlayed method
+	 * @param playerId player who uses the joker
+	 * @param jokerMessage message containing which joker is played
+	 */
 	private void jokerPlayedSinglePlayer(int playerId, SendJokerMessage jokerMessage) {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
@@ -202,7 +206,11 @@ public class GameServiceImpl implements GameService {
 
 	}
 
-
+	/**
+	 * Multi-player jokerPlayed method
+	 * @param playerId player who use the joker
+	 * @param jokerMessage message containing which joker is used
+	 */
 	private void jokerPlayedMultiPlayer(int playerId, SendJokerMessage jokerMessage) {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
