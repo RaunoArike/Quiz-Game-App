@@ -250,21 +250,21 @@ public class MainCtrl {
 		primaryStage.setScene(pickEnergyScreen);
 	}
 
-	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {
+	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement, int numberOfPlayersScored) {
 		if (type == QuestionTypes.COMPARISON) {
-			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+			this.comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
 		}
 
 		if (type == QuestionTypes.ESTIMATION) {
-			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
+			this.estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
 		}
 
 		if (type == QuestionTypes.MULTI_CHOICE) {
-			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
+			this.multiChoiceScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
 		}
 
 		if (type == QuestionTypes.PICK_ENERGY) {
-			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
+			this.pickEnergyScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
 		}
 	}
 

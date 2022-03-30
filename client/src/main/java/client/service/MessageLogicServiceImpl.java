@@ -46,6 +46,11 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	}
 
 	@Override
+	public void exitWaitingRoom() {
+		server.exitWaitingRoom();
+	}
+
+	@Override
 	public void startMultiGame() {
 		server.startMultiGame();
 	}
@@ -101,7 +106,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	@Override
 	public void onScore(ScoreMessage message) {
 		this.score = message.totalScore();
-		mainCtrl.showAnswer(currentType, correctAnswer, message.questionScore());
+		mainCtrl.showAnswer(currentType, correctAnswer, message.questionScore(), message.numberOfPlayersScored());
 	}
 
 	/**

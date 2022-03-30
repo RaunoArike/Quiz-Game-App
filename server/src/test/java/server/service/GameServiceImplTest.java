@@ -114,7 +114,7 @@ public class GameServiceImplTest {
 		service.submitAnswer(30, new QuestionAnswerMessage(null, 5f));
 
 		verify(mockitoOutgoingController).sendScore(
-				new ScoreMessage(77, 77),
+				new ScoreMessage(77, 77, -1),
 				List.of(30)
 		);
 	}
@@ -136,7 +136,7 @@ public class GameServiceImplTest {
 				eq(List.of(30))
 		);
 
-		assertEquals(new ScoreMessage(23, 100), correctAnswerMessageCaptor.getAllValues().get(1));
+		assertEquals(new ScoreMessage(23, 100, -1), correctAnswerMessageCaptor.getAllValues().get(1));
 	}
 
 	@Test
@@ -213,7 +213,7 @@ public class GameServiceImplTest {
 		controllableTimer.advanceBy(1);
 		FAKE_PLAYER_ID_LIST.forEach(player -> {
 			assertThat(capturingOutgoingController.getSentMessagesForPlayer(player), Matchers.contains(
-					new ScoreMessage(0, 0)
+					new ScoreMessage(0, 0, 0)
 			));
 		});
 	}
