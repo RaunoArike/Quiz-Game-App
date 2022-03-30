@@ -24,9 +24,9 @@
       <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
       <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
       <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="27.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="215.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="405.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="27.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="215.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="405.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="score" layoutX="489.0" layoutY="23.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
          <font>
             <Font size="15.0" />
@@ -35,6 +35,11 @@
       <Label fx:id="questionText" layoutX="34.0" layoutY="45.0" prefHeight="82.0" prefWidth="527.0" text="This is the question" wrapText="true">
          <font>
             <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreMessage" layoutX="444.0" layoutY="318.0" prefHeight="76.0" prefWidth="154.0" wrapText="true">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
    </children>

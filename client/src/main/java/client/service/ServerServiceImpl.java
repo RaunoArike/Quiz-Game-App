@@ -1,9 +1,6 @@
 package client.service;
 
-import commons.clientmessage.QuestionAnswerMessage;
-import commons.clientmessage.SendJokerMessage;
-import commons.clientmessage.SinglePlayerGameStartMessage;
-import commons.clientmessage.WaitingRoomJoinMessage;
+import commons.clientmessage.*;
 import commons.model.Activity;
 import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
@@ -128,6 +125,11 @@ public class ServerServiceImpl implements ServerService {
 	@Override
 	public void startMultiGame() {
 		session.send("/app/start-multi-player", "");
+	}
+
+	@Override
+	public void exitWaitingRoom() {
+		session.send("/app/exit-waiting-room", new WaitingRoomExitMessage());
 	}
 
 	@Override

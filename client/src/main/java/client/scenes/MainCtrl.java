@@ -249,12 +249,12 @@ public class MainCtrl {
 		primaryStage.setScene(pickEnergyScreen);
 	}
 
-	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement) {
+	public void showAnswer(QuestionTypes type, Number correctAnswer, int scoreIncrement, int numberOfPlayersScored) {
 		switch (type) {
-			case COMPARISON -> comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
-			case ESTIMATION -> estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement);
-			case MULTI_CHOICE -> multiChoiceScreenCtrl.showAnswer((int) correctAnswer);
-			case PICK_ENERGY -> pickEnergyScreenCtrl.showAnswer((int) correctAnswer);
+			case COMPARISON -> comparisonScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
+			case ESTIMATION -> estimationScreenCtrl.showAnswer(correctAnswer, scoreIncrement, numberOfPlayersScored);
+			case MULTI_CHOICE -> multiChoiceScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
+			case PICK_ENERGY -> pickEnergyScreenCtrl.showAnswer((int) correctAnswer, numberOfPlayersScored);
 		}
 	}
 

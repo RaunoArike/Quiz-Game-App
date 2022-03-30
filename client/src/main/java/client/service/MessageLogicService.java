@@ -16,6 +16,11 @@ public interface MessageLogicService {
 	void joinWaitingRoom(String username);
 
 	/**
+	 * Exits the waiting room.
+	 */
+	void exitWaitingRoom();
+
+	/**
 	 * Starts a multiplayer game, the player must already be in a waiting room.
 	 */
 	void startMultiGame();

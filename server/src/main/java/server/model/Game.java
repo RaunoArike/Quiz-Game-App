@@ -17,11 +17,6 @@ public class Game {
 
 	private final Map<Integer, Player> players = new HashMap<>(); // Maps playerId to Player
 
-	//Used in a multiplayer game to keep track of answer submissions and answering times of each player,
-	//mapped to by playerId.
-	//public Map<Integer, QuestionAnswerMessage> answers = new HashMap<>();
-	//public Map<Integer, Long> times = new HashMap<>();
-
 	private int questionNumber = -1;
 	private long questionStartTime = 0;
 	private Question question;

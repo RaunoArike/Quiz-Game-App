@@ -137,7 +137,7 @@ public class GameServiceImpl implements GameService {
 				timePassed);
 		player.incrementScore(scoreDelta);
 
-		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore()), List.of(playerId));
+		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
 
 		if (!game.isLastQuestion()) {
 			startNewQuestion(game, Game.QUESTION_DELAY);
@@ -205,6 +205,10 @@ public class GameServiceImpl implements GameService {
 	 * @param game
 	 */
 	private void scoreUpdate(Game game) {
+		int numberOfPlayersScored = 0;
+		Map<Integer, Integer> playerScores = new HashMap<>(); //maps each player to their scoreDelta
+
+		//First loop - to calculate everyone's scores and store them, while counting how many have scored
 		for (Player player : game.getPlayers()) {
 			//if latestAnswer was null it represents that the player has not given any answer for this question
 			var scoreDelta = 0;
@@ -212,13 +216,22 @@ public class GameServiceImpl implements GameService {
 				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
 					player.getLatestAnswer(), player.getTimeTakenToAnswer());
 				player.incrementScore(scoreDelta);
+				if (scoreDelta > 0) {
+					numberOfPlayersScored++;
+				}
 			}
-			ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore());
+			playerScores.put(player.getPlayerId(), scoreDelta);
+		}
+		//Second loop - send each player their score along with the total number of people who have scored
+		for (Player player : game.getPlayers()) {
+			var scoreDelta = playerScores.get(player.getPlayerId());
+			ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore(), numberOfPlayersScored);
 			outgoingController.sendScore(message, List.of(player.getPlayerId()));
 		}
+		numberOfPlayersScored = 0;
 		continueMultiPlayerGame(game);
 	}
-//TO DO - query the repository for the top ten entries, sorted descending
+
 	/**
 	 * Multiplayer leaderboard method.
 	 */

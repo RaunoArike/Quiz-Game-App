@@ -86,6 +86,12 @@ public interface ServerService {
 	void startMultiGame();
 
 	/**
+	 * Exits the waiting room.
+	 * Can only be called if connected to server.
+	 */
+	void exitWaitingRoom();
+
+	/**
 	 * Submits answer to the current question.
 	 * Can only be called if connected to server.
 	 * @param answer answer; Integer or Float depending on the question type
@@ -117,4 +123,5 @@ public interface ServerService {
 	 * @return the list of activities
 	 */
 	List<Activity> getActivities();
+
 }
