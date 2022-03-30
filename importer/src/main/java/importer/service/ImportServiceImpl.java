@@ -10,6 +10,8 @@ import java.util.Arrays;
 
 
 public class ImportServiceImpl implements ImportService {
+	private static final String IMAGE_URL_PREFIX = "http://${SERVER_ADDRESS}/images/";
+
 	private final ActivityApi activityApi;
 	private final ObjectMapper mapper;
 	private final FilePathProvider fileProvider;
@@ -22,10 +24,9 @@ public class ImportServiceImpl implements ImportService {
 
 	@Override
 	public void importServicesFromFile(String serverUrl, String filePath) throws IOException {
-		String absolutePath = fileProvider.provideAbsolutePath(filePath);
-		File file = fileProvider.checkIfJsonFileExists(absolutePath);
+		File file = fileProvider.checkIfJsonFileExists(filePath);
 		var rawActivities = mapper.readValue(file, ImportedActivity[].class);
-		var activities = Arrays.stream(rawActivities).map(activity -> activity.toModel(absolutePath)).toList();
+		var activities = Arrays.stream(rawActivities).map(activity -> activity.toModel(IMAGE_URL_PREFIX)).toList();
 		activityApi.addActivities(serverUrl, activities);
 	}
 

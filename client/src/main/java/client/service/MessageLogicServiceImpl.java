@@ -7,7 +7,7 @@ import client.scenes.MainCtrl;
 import client.service.ServerService.ServerListener;
 import client.usecase.ResolveImageUrlsUseCase;
 import com.google.inject.Inject;
-import commons.model.Question;
+import commons.model.JokerType;
 import commons.model.Question.ComparisonQuestion;
 import commons.model.Question.EstimationQuestion;
 import commons.model.Question.MultiChoiceQuestion;

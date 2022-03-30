@@ -12,28 +12,26 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 
 @ExtendWith(MockitoExtension.class)
 public class ImportServiceImplTest {
 	private static final ImportedActivity[] FAKE_IMPORTED_ACTIVITIES = new ImportedActivity[] {
-			new ImportedActivity("id1", "00", "A1", 1L, null),
-			new ImportedActivity("id2", "00", "A2", 2L, null),
-			new ImportedActivity("id3", "00", "A3", 3L, null)
+			new ImportedActivity("id1", "01/image1.jpg", "A1", 1L, null),
+			new ImportedActivity("id2", "02/image2.jpg", "A2", 2L, null),
+			new ImportedActivity("id3", "03/image3.jpg", "A3", 3L, null)
 	};
 	private static final List<Activity> FAKE_ACTIVITIES = List.of(
-			new Activity("A1", Path.of("filePath", "00").toString(), 1f),
-			new Activity("A2", Path.of("filePath", "00").toString(), 2f),
-			new Activity("A3", Path.of("filePath", "00").toString(), 3f)
+			new Activity("A1", "http://${SERVER_ADDRESS}/images/01/image1.jpg", 1f),
+			new Activity("A2", "http://${SERVER_ADDRESS}/images/02/image2.jpg", 2f),
+			new Activity("A3", "http://${SERVER_ADDRESS}/images/03/image3.jpg", 3f)
 	);
 
-	private static final File FAKE_FILE = new File("filePath");
+	private static final File FAKE_FILE = new File("dir/activities.json");
 
 	@Mock
 	private ActivityApi activityApi;
@@ -46,17 +44,15 @@ public class ImportServiceImplTest {
 		return new ImportServiceImpl(activityApi, objectMapper, filePathProvider);
 	}
 
-
 	@Test
 	public void importServicesFromFile_should_add_activities_via_api() throws IOException {
 		when(objectMapper.readValue(ArgumentMatchers.<File>any(), eq(ImportedActivity[].class)))
 				.thenReturn(FAKE_IMPORTED_ACTIVITIES);
-		when(filePathProvider.provideAbsolutePath(anyString())).thenReturn("filePath");
-		when(filePathProvider.checkIfJsonFileExists(anyString())).thenReturn(FAKE_FILE);
+		when(filePathProvider.checkIfJsonFileExists("dir")).thenReturn(FAKE_FILE);
 
 		var service = createService();
 
-		service.importServicesFromFile("url", "filePath");
+		service.importServicesFromFile("url", "dir");
 
 		verify(activityApi).addActivities("url", FAKE_ACTIVITIES);
 	}
