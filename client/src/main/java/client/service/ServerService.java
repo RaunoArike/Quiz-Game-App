@@ -112,6 +112,12 @@ public interface ServerService {
 	void registerListener(ServerListener serverListener);
 
 	/**
+	 * Returns current server address
+	 * @return current server address, or null if not connected
+	 */
+	String getServerAddress();
+
+	/**
 	 * Retrieves single-player leaderboard entries
 	 * @return top 10 leaderboard entries, sorted
 	 */
