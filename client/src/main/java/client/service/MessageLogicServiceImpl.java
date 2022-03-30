@@ -46,6 +46,11 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	}
 
 	@Override
+	public void exitWaitingRoom() {
+		server.exitWaitingRoom();
+	}
+
+	@Override
 	public void startMultiGame() {
 		server.startMultiGame();
 	}
