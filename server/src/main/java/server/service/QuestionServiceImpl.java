@@ -201,7 +201,9 @@ public class QuestionServiceImpl implements QuestionService {
 		 * to make the game competitive
 		 */
 
-
+		/**
+		 *
+		 */
 		if (answer == question.correctAnswer()) {
 			if (timeSpent < TIME_PERIOD_1) {
 				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
