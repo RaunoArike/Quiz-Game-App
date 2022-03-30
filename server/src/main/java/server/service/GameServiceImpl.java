@@ -88,7 +88,6 @@ public class GameServiceImpl implements GameService {
 			} else {
 				startNewQuestion(game, Game.LEADERBOARD_DELAY);
 			}
-			//timerService.scheduleTimer(game.getQuestionNumber(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
 		} else {
 			List<Integer> playersInGame = game.getPlayerIds();
 			outgoingController.sendEndOfGame(new EndOfGameMessage(), playersInGame);
