@@ -1,6 +1,7 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
 import server.model.Player;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface GameService {
 	 * @param answer submitted answer
 	 */
 	void submitAnswer(int playerId, QuestionAnswerMessage answer);
+
+	void jokerPlayed(int playerId, SendJokerMessage jokerMessage);
 }

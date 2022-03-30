@@ -1,11 +1,11 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
-import commons.servermessage.EndOfGameMessage;
-import commons.servermessage.IntermediateLeaderboardMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
+import commons.model.Question;
+import commons.servermessage.*;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
@@ -43,7 +43,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
 		var player = new Player(userName, playerId);
-
+		player.init();
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
 		game.addPlayer(playerId, player);
@@ -65,6 +65,7 @@ public class GameServiceImpl implements GameService {
 		games.put(newGameId, game);
 		for (Player p : listOfPlayers) {
 			players.put(p.getPlayerId(), newGameId);
+			p.init();
 		}
 		continueMultiPlayerGame(game);
 	}
@@ -110,6 +111,7 @@ public class GameServiceImpl implements GameService {
 			submitAnswerMultiPlayer(playerId, answer);
 		}
 	}
+
 
 	/**
 	 * Single-player submitAnswer method
@@ -162,6 +164,69 @@ public class GameServiceImpl implements GameService {
 		player.setTimeTakenToAnswer(timePassed);
 	}
 
+	/**
+	 * Generic jokerPlayed method, calls either single- or multi-player method
+	 * @param playerId player who uses the joker
+	 * @param jokerMessage message containing which joker is played
+	 */
+	@Override
+	public void jokerPlayed(int playerId, SendJokerMessage jokerMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+		if (game.isSinglePlayer()) {
+			jokerPlayedSinglePlayer(playerId, jokerMessage);
+		} else {
+			jokerPlayedMultiPlayer(playerId, jokerMessage);
+		}
+	}
+
+
+	private void jokerPlayedSinglePlayer(int playerId, SendJokerMessage jokerMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+
+		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
+		}
+		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+			if (game.getCurrentQuestion() instanceof Question.MultiChoiceQuestion) {
+				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
+			} else {
+				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, true);
+			}
+		}
+
+	}
+
+
+	private void jokerPlayedMultiPlayer(int playerId, SendJokerMessage jokerMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
+		}
+		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+			if (game.getCurrentQuestion() instanceof Question.MultiChoiceQuestion) {
+				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
+			} else {
+				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, true);
+			}
+		}
+		if (jokerMessage.getJokerType() == JokerType.REDUCE_TIME) {
+			player.setJokerAvailability(JokerType.REDUCE_TIME, false);
+			outgoingController.sendTimeReduced(new ReduceTimePlayedMessage(timerService.getTime()),
+												game.getPlayerIds());
+		}
+
+	}
 
 	/**
 	 *  Sends a new question after a short delay.
@@ -185,8 +250,13 @@ public class GameServiceImpl implements GameService {
 		var question = questionService.generateQuestion(gameId);
 		game.startNewQuestion(question);
 
-		var questionMessage = new QuestionMessage(question, game.getQuestionNumber(), false, false, false);
-		outgoingController.sendQuestion(questionMessage, game.getPlayerIds());
+		for (Player player: game.getPlayers()) {
+			var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
+					player.getJokerAvailability().get(JokerType.REDUCE_TIME),
+					player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
+					player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION));
+			outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
+		}
 		game.setQuestionStartTime(timerService.getTime());
 	}
 

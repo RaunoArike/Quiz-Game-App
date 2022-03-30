@@ -54,4 +54,12 @@ public interface OutgoingController {
 	default void sendError(ErrorMessage.Type errorType, List<Integer> players) {
 		sendError(new ErrorMessage(errorType), players);
 	}
+
+	/**
+	 * Sends REDUCE_TIME Joker usage message to client
+	 * @param message REDUCE_TIME JokerPlayed message
+	 * @param players the players that receive the message
+	 */
+
+	void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players);
 }

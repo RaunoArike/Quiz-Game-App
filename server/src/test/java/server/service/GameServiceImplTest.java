@@ -1,11 +1,14 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
 import commons.model.Activity;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.model.Question;
 import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
+import commons.servermessage.ReduceTimePlayedMessage;
 import commons.servermessage.ScoreMessage;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -85,6 +88,7 @@ public class GameServiceImplTest {
 				List.of(30)
 		);
 	}
+
 
 	@Test
 	public void answering_question_should_send_another_question() {
@@ -168,7 +172,9 @@ public class GameServiceImplTest {
 		var service = createService(immediateTimer, mockitoOutgoingController);
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
-		verify(mockitoOutgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0), FAKE_PLAYER_ID_LIST);
+		for(Player p: FAKE_PLAYER_LIST) {
+			verify(mockitoOutgoingController).sendQuestion(new QuestionMessage(FAKE_QUESTION, 0), List.of(p.getPlayerId()));
+		}
 	}
 
 	@Test
@@ -213,4 +219,10 @@ public class GameServiceImplTest {
 			));
 		});
 	}
+
+	@Test
+	public void reduce_time_played_message_should_be_sent() {
+
+	}
+
 }
