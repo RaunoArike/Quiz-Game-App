@@ -139,6 +139,9 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 		if (message.errorType() == ErrorMessage.Type.USERNAME_BUSY) {
 			mainCtrl.showUsernameBusyError();
 		}
+		if (message.errorType() == ErrorMessage.Type.NOT_ENOUGH_PLAYERS) {
+			mainCtrl.showNotEnoughPlayersError();
+		}
 	}
 
 	/**

@@ -22,7 +22,7 @@
       <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
       <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
       <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="66.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="57.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" />
       <RadioButton fx:id="optionA" layoutX="348.0" layoutY="178.0" mnemonicParsing="false" onAction="#optionAClicked" text="A" />
       <RadioButton fx:id="optionB" layoutX="348.0" layoutY="207.0" mnemonicParsing="false" onAction="#optionBClicked" text="B" />
       <RadioButton fx:id="optionC" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#optionCClicked" text="C" />
@@ -36,17 +36,17 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="optionAtext" layoutX="393.0" layoutY="171.0" prefHeight="32.0" prefWidth="106.0" text="OptionA">
+      <Label fx:id="optionAtext" layoutX="393.0" layoutY="177.0" prefHeight="32.0" prefWidth="106.0" text="OptionA">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="optionBtext" layoutX="393.0" layoutY="200.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
+      <Label fx:id="optionBtext" layoutX="393.0" layoutY="206.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="optionCtext" layoutX="393.0" layoutY="230.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
+      <Label fx:id="optionCtext" layoutX="393.0" layoutY="236.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
          <font>
             <Font size="14.0" />
          </font>
