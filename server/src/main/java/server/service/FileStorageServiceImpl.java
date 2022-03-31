@@ -4,22 +4,13 @@ import java.nio.file.Files;
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.IOException;
 import org.springframework.util.FileSystemUtils;
 
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
-	private final Path root = Paths.get("uploads");
-
-	@Override
-	public void init() {
-		try {
-			Files.createDirectory(root);
-		} catch (IOException e) {
-			throw new RuntimeException("Could not initialize folder for upload!");
-		}
-	}
+	//root should point to src/main/resources/static/images
+	private final Path root = Paths.get("files:resources/static/images");
 
 	@Override
 	public void save(MultipartFile file) {
