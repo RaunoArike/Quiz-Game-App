@@ -30,15 +30,17 @@ public class QuestionServiceImpl implements QuestionService {
 
 	public Question generateQuestion(int gameId) {
 
-		int no = Math.abs(new Random().nextInt());
+		return generatePick();
 
-		switch (no % NUMBER_OF_QUESTION_TYPES) {
-			case 0:	return generateMC();
-			case 1: return generateEst();
-			case 2: return generateComp();
-			case NUMBER_OF_CASES: return generatePick();
-		}
-		return null;
+		// int no = Math.abs(new Random().nextInt());
+
+		// switch (no % NUMBER_OF_QUESTION_TYPES) {
+		// 	case 0:	return generateMC();
+		// 	case 1: return generateEst();
+		// 	case 2: return generateComp();
+		// 	case NUMBER_OF_CASES: return generatePick();
+		// }
+		// return null;
 	}
 
 	private List<ActivityEntity> generateActivities() {

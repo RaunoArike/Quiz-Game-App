@@ -36,17 +36,17 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="optionAtext" layoutX="473.0" layoutY="161.0" prefHeight="32.0" prefWidth="106.0" text="OptionA">
+      <Label fx:id="optionAtext" alignment="CENTER" layoutX="453.0" layoutY="161.0" prefHeight="32.0" prefWidth="106.0" text="OptionA" textAlignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="optionBtext" layoutX="473.0" layoutY="190.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
+      <Label fx:id="optionBtext" alignment="CENTER" layoutX="453.0" layoutY="190.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="optionCtext" layoutX="473.0" layoutY="220.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
+      <Label fx:id="optionCtext" alignment="CENTER" layoutX="453.0" layoutY="220.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
          <font>
             <Font size="14.0" />
          </font>
