@@ -167,4 +167,9 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	public void onReduceTimePlayed(ReduceTimePlayedMessage message) {
 		mainCtrl.notifyReduceTimePlayed(currentType, message.timeLeftMs());
 	}
+
+	@Override
+	public void onEmojiPlayed(EmojiPlayedMessage message) {
+
+	}
 }

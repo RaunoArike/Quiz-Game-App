@@ -56,6 +56,8 @@ public interface ServerService {
 		 * @param message message about the joker played
 		 */
 		void onReduceTimePlayed(ReduceTimePlayedMessage message);
+
+		void onEmojiPlayed(EmojiPlayedMessage message);
 	}
 
 	/**

@@ -102,6 +102,9 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/reduce-time-played", ReduceTimePlayedMessage.class, message -> {
 				notifyListeners(listener -> listener.onReduceTimePlayed(message));
 			});
+			registerForMessages("/user/queue/emoji-played", EmojiPlayedMessage.class, message -> {
+				notifyListeners(listener -> listener.onEmojiPlayed(message));
+			});
 		} catch (Exception e) {
 			return false;
 		}

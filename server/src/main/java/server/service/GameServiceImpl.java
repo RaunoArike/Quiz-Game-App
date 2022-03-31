@@ -1,6 +1,7 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendEmojiMessage;
 import commons.clientmessage.SendJokerMessage;
 import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
@@ -175,6 +176,18 @@ public class GameServiceImpl implements GameService {
 		player.setTimeTakenToAnswer(timePassed);
 	}
 
+	@Override
+	public void emojiPlayed(int playerId, SendEmojiMessage emojiMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+		var emojiPlayedMessage = new EmojiPlayedMessage(emojiMessage.emojiNumber());
+		outgoingController.sendEmojiPlayed(emojiPlayedMessage, game.getPlayerIds());
+	}
+
 	/**
 	 * Generic jokerPlayed method, calls either single- or multi-player method
 	 *
@@ -195,6 +208,7 @@ public class GameServiceImpl implements GameService {
 
 		}
 	}
+
 
 	/**
 	 * Single player jokerPlayed method

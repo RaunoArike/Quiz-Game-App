@@ -64,4 +64,10 @@ public class OutgoingControllerImpl implements OutgoingController {
 		send(message, players, "reduce-time-played");
 		System.out.println("ReduceTimePlayed Message sent");
 	}
+
+	@Override
+	public void sendEmojiPlayed(EmojiPlayedMessage message, List<Integer> players) {
+		send(message, players, "emoji-played");
+		System.out.println("EmojiPlayed Message sent");
+	}
 }
