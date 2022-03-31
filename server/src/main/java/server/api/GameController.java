@@ -1,6 +1,10 @@
 package server.api;
 
 import commons.clientmessage.*;
+import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
+import commons.clientmessage.SinglePlayerGameStartMessage;
+import commons.clientmessage.WaitingRoomJoinMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Controller;
@@ -75,5 +79,17 @@ public class GameController {
 	public void submitAnswer(@Payload QuestionAnswerMessage answerMessage, Principal principal) {
 		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
 		gameService.submitAnswer(playerId, answerMessage);
+	}
+
+	/**
+	 *Sends the joker used to the server
+	 *
+	 * @param jokerMessage
+	 * @param principal
+	 */
+	@MessageMapping("/send-joker")
+	public void jokerPlayed(@Payload SendJokerMessage jokerMessage, Principal principal) {
+		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
+		gameService.jokerPlayed(playerId, jokerMessage);
 	}
 }
