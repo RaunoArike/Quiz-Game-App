@@ -86,8 +86,8 @@ public class ServerServiceImpl implements ServerService {
 			});
 			registerForMessages("/user/queue/intermediate-leaderboard",
 					IntermediateLeaderboardMessage.class, message -> {
-				notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
-			});
+						notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
+					});
 			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
 				notifyListeners(listener -> listener.onScore(message));
 			});
@@ -165,6 +165,8 @@ public class ServerServiceImpl implements ServerService {
 
 				});
 	}
+
+
 
 	/**
 	 * Returns the list of activities

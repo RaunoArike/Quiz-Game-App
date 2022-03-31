@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,8 +16,6 @@ import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initializable {
 	private final ServerService server;
 	private final MainCtrl mainCtrl;
@@ -78,49 +75,11 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 		});
 	}
 
-	public void continueGame() {
-		Timer timer = new Timer();
-
-		timer.schedule(new TimerTask() {
-
-			/**
-			 * Wait for 3 seconds for the leaderboard to be displayed
-			 */
-			public void run() {
-
-				Node current = new Node() {
-					/**
-					 * Convenience method for setting a single Object property that can be
-					 * retrieved at a later date. This is functionally equivalent to calling
-					 * the getProperties().put(Object key, Object value) method. This can later
-					 * be retrieved by calling {@link Node#getUserData()}.
-					 *
-					 * @param value The value to be stored - this can later be retrieved by calling
-					 *              {@link Node#getUserData()}.
-					 */
-
-					@Override
-					public void setUserData(Object value) {
-						super.setUserData(value);
-					}
-				};
-
-				current.setUserData(new String("WAIT FOR 3 SECONDS"));
-
-			}
-		}, TIME_PASSED);
-		mainCtrl.showIntermediateLeaderboard();
-	}
 
 
 
 	public void keyPressed(KeyEvent keyEvent) {
 		switch (keyEvent.getCode()) {
-			case ESCAPE:
-				continueGame();
-				break;
-			case ENTER:
-				continueGame();
 			default:
 				break;
 		}

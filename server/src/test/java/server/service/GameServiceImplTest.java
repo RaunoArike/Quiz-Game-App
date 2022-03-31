@@ -105,8 +105,12 @@ public class GameServiceImplTest {
 		verify(questionService, times(2)).generateQuestion(anyInt());
 	}
 
+	/**
+	 * <strong>TO BE CONTINUED WHEN JOKER FUNCTIONALITY IS IMPLEMENTED </strong>
+	 */
+
 	/*@Test
-	public void answering_question_should_send_score() {
+		public void answering_question_should_send_score() {
 		when(questionService.calculateScore(any(), eq(5f), anyLong(), false)).thenReturn(77);
 
 		var service = createService(controllableTimer, mockitoOutgoingController);
@@ -121,6 +125,11 @@ public class GameServiceImplTest {
 
 
 	 */
+
+	/**
+	 * <strong>TO BE CONTINUED WHEN JOKER FUNCTIONALITY IS IMPLEMENTED </strong>
+	 */
+
 	/*@Test
 	public void answering_second_question_should_send_increased_total_score() {
 		when(questionService.calculateScore(any(), eq(5f), anyLong(), false)).thenReturn(77);
