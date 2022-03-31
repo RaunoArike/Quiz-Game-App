@@ -27,7 +27,7 @@ public class GameServiceImpl implements GameService {
 
 	private boolean doublePoints = false;
 
-	private final double TIME_JOKER_EFFECT = 0.75;
+	private static final double TIME_JOKER_EFFECT = 0.75;
 
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
