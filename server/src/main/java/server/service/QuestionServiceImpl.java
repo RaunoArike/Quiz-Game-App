@@ -129,7 +129,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 	@Override
-	public int calculateScore(Question question, Number answer, long timeSpent) {
+	public int calculateScore(Question question, Number answer, long timeSpent, boolean doublePoints) {
 		if (question instanceof Question.MultiChoiceQuestion mc) {
 			return calculateScoreMC(mc, answer.intValue(), timeSpent);
 		} else if (question instanceof Question.EstimationQuestion est) {

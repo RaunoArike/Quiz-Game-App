@@ -25,6 +25,10 @@ public class GameServiceImpl implements GameService {
 
 	private int nextGameId = 0;
 
+	private boolean doublePoints = false;
+
+	private final double TIME_JOKER_EFFECT = 0.75;
+
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
@@ -136,7 +140,8 @@ public class GameServiceImpl implements GameService {
 		var currentQuestion = game.getCurrentQuestion();
 
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed);
+				timePassed, doublePoints);
+		doublePoints = false;
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
@@ -196,16 +201,13 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-
 		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
+			doublePoints = true;
 		}
+
 		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
-			if (game.getCurrentQuestion() instanceof Question.MultiChoiceQuestion) {
-				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
-			} else {
-				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, true);
-			}
+			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
 
 	}
@@ -224,18 +226,21 @@ public class GameServiceImpl implements GameService {
 
 		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
+			doublePoints = true;
 		}
+
 		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
-			if (game.getCurrentQuestion() instanceof Question.MultiChoiceQuestion) {
-				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
-			} else {
-				player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, true);
-			}
+			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
+
 		if (jokerMessage.getJokerType() == JokerType.REDUCE_TIME) {
 			player.setJokerAvailability(JokerType.REDUCE_TIME, false);
-			outgoingController.sendTimeReduced(new ReduceTimePlayedMessage(timerService.getTime()),
-												game.getPlayerIds());
+
+			long currentTimeLefts = timerService.getRemainingTime(game.getGameId());
+			long timeReduced = (long) (currentTimeLefts * TIME_JOKER_EFFECT);
+			timerService.rescheduleTimer(game.getGameId(), timeReduced);
+
+			outgoingController.sendTimeReduced(new ReduceTimePlayedMessage(timeReduced), game.getPlayerIds());
 		}
 
 	}
@@ -265,11 +270,22 @@ public class GameServiceImpl implements GameService {
 		game.startNewQuestion(question);
 
 		for (Player player: game.getPlayers()) {
-			var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
-					player.getJokerAvailability().get(JokerType.REDUCE_TIME),
-					player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
-					player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION));
-			outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
+			if (question instanceof Question.MultiChoiceQuestion) {
+				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
+						player.getJokerAvailability().get(JokerType.REDUCE_TIME),
+						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
+						player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION));
+
+				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
+			} else {
+				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
+						player.getJokerAvailability().get(JokerType.REDUCE_TIME),
+						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
+						false);
+
+				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
+			}
+
 		}
 		game.setQuestionStartTime(timerService.getTime());
 
@@ -292,7 +308,8 @@ public class GameServiceImpl implements GameService {
 			var scoreDelta = 0;
 			if (player.getLatestAnswer() != null) {
 				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
-					player.getLatestAnswer(), player.getTimeTakenToAnswer());
+					player.getLatestAnswer(), player.getTimeTakenToAnswer(), doublePoints);
+				doublePoints = false;
 				player.incrementScore(scoreDelta);
 				if (scoreDelta > 0) {
 					numberOfPlayersScored++;

@@ -87,7 +87,7 @@ public class GameController {
 	 * @param jokerMessage
 	 * @param principal
 	 */
-	@MessageMapping("/jokerplayed")
+	@MessageMapping("/send-joker")
 	public void jokerPlayed(@Payload SendJokerMessage jokerMessage, Principal principal) {
 		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
 		gameService.jokerPlayed(playerId, jokerMessage);

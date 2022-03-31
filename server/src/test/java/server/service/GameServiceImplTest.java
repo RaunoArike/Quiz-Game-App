@@ -1,11 +1,14 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
 import commons.model.Activity;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.model.Question;
 import commons.servermessage.IntermediateLeaderboardMessage;
 import commons.servermessage.QuestionMessage;
+import commons.servermessage.ReduceTimePlayedMessage;
 import commons.servermessage.ScoreMessage;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -108,7 +111,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void answering_question_should_send_score() {
-		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
+		when(questionService.calculateScore(any(), eq(5f), anyLong(), true)).thenReturn(77);
 
 		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
@@ -122,8 +125,8 @@ public class GameServiceImplTest {
 
 	@Test
 	public void answering_second_question_should_send_increased_total_score() {
-		when(questionService.calculateScore(any(), eq(5f), anyLong())).thenReturn(77);
-		when(questionService.calculateScore(any(), eq(11f), anyLong())).thenReturn(23);
+		when(questionService.calculateScore(any(), eq(5f), anyLong(), true)).thenReturn(77);
+		when(questionService.calculateScore(any(), eq(11f), anyLong(), true)).thenReturn(23);
 
 		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
@@ -224,7 +227,15 @@ public class GameServiceImplTest {
 
 	@Test
 	public void reduce_time_played_message_should_be_sent() {
+		var service = createService(controllableTimer, mockitoOutgoingController);
+		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
+		SendJokerMessage messages = new SendJokerMessage(JokerType.REDUCE_TIME);
+
+		service.jokerPlayed(1, messages);
+
+		ReduceTimePlayedMessage message = new ReduceTimePlayedMessage(15000);
+		verify(mockitoOutgoingController).sendTimeReduced(message, FAKE_PLAYER_ID_LIST);
 	}
 
 }
