@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-
 public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
 	@FXML
@@ -36,6 +35,9 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@FXML
 	private ImageView imageView;
 
+	@FXML
+	private Label scoreMessage;
+
 	private int selectedAnswer = -1;
 
 	private final ToggleGroup toggleGroup = new ToggleGroup();
@@ -51,6 +53,7 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@Override
 	public void init() {
 		super.init();
+		scoreMessage.setText("");
 		optionA.setStyle(null);
 		optionB.setStyle(null);
 		optionC.setStyle(null);
@@ -94,7 +97,6 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 
 	public void setActivityImages(String url) {
 		Image image =  new Image(url);
-
 		imageView.setFitWidth(fitWidth);
 		imageView.setFitHeight(fitHeight);
 		imageView.setImage(image);
@@ -103,31 +105,22 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	public void optionAClicked() {
 		messageService.answerQuestion(0);
 		timeStop();
-
 		selectedAnswer = 0;
-
-
 	}
 
 	public void optionBClicked() {
 		messageService.answerQuestion(1);
 		timeStop();
-
 		selectedAnswer = 1;
-
-
 	}
 
 	public void optionCClicked() {
 		messageService.answerQuestion(2);
 		timeStop();
-
 		selectedAnswer = 2;
-
-
 	}
 
-	public void showAnswer(int option) {
+	public void showAnswer(int option, int numberOfPlayersScored) {
 		optionA.setDisable(true);
 		optionB.setDisable(true);
 		optionC.setDisable(true);
@@ -140,6 +133,7 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 					optionC.setStyle("-fx-background-color: #fd4119; ");
 				}
 				break;
+
 			case 1:
 				optionB.setStyle("-fx-background-color: #00c203; ");
 				if (selectedAnswer == 0) {
@@ -149,9 +143,9 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 					optionC.setStyle("-fx-background-color: #fd4119; ");
 				}
 				break;
-			case 2:
-				optionC.setStyle("-fx-background-color: #00c203; ");
 
+				case 2:
+				optionC.setStyle("-fx-background-color: #00c203; ");
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
 				}
@@ -160,5 +154,14 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 				}
 				break;
 		}
+		String message = "";
+		if (numberOfPlayersScored != -1) {
+			if (numberOfPlayersScored == 1) {
+				message += "\n" + numberOfPlayersScored + " player scored on this question.";
+			} else {
+				message += "\n" + numberOfPlayersScored + " players scored on this question.";
+			}
+		}
+		scoreMessage.setText(message);
 	}
 }

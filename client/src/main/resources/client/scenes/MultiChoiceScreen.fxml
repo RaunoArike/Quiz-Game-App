@@ -21,12 +21,13 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="eliminateOption" layoutX="203.0" layoutY="383.0" mnemonicParsing="false" onAction="#useEliminateOption" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button fx:id="doublePoints" layoutX="341.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePoints" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="57.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="245.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="435.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="score" layoutX="569.0" layoutY="13.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
+      <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
+      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="27.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="215.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="405.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="score" layoutX="489.0" layoutY="23.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
          <font>
             <Font size="15.0" />
          </font>
@@ -36,6 +37,10 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="doublePoints1" layoutX="481.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePoints" prefHeight="32.0" prefWidth="106.0" text="Reduce time" />
+      <Label fx:id="scoreMessage" layoutX="444.0" layoutY="318.0" prefHeight="76.0" prefWidth="154.0" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
