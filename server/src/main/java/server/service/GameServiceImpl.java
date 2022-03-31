@@ -34,7 +34,7 @@ public class GameServiceImpl implements GameService {
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-			LeaderboardService leaderboardService, TimerService timerService) {
+							LeaderboardService leaderboardService, TimerService timerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
 		this.leaderboardService = leaderboardService;
@@ -107,7 +107,7 @@ public class GameServiceImpl implements GameService {
 	 * Generic submitAnswer method, calls either single- or multi-player method.
 	 *
 	 * @param playerId player who submits the answer
-	 * @param answer message containing the answer
+	 * @param answer   message containing the answer
 	 */
 	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
@@ -125,7 +125,7 @@ public class GameServiceImpl implements GameService {
 	 * Single-player submitAnswer method.
 	 *
 	 * @param playerId player who submits the answer
-	 * @param answer message containing the answer
+	 * @param answer   message containing the answer
 	 */
 	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
 
@@ -161,7 +161,7 @@ public class GameServiceImpl implements GameService {
 	 * Multi-player submitAnswer method.
 	 *
 	 * @param playerId player who submits the answer
-	 * @param answer message containing the answer
+	 * @param answer   message containing the answer
 	 */
 	private void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
 		var game = getPlayerGame(playerId);
@@ -177,7 +177,8 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Generic jokerPlayed method, calls either single- or multi-player method
-	 * @param playerId player who uses the joker
+	 *
+	 * @param playerId     player who uses the joker
 	 * @param jokerMessage message containing which joker is played
 	 */
 	@Override
@@ -197,7 +198,8 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Single player jokerPlayed method
-	 * @param playerId player who uses the joker
+	 *
+	 * @param playerId     player who uses the joker
 	 * @param jokerMessage message containing which joker is played
 	 */
 	private void jokerPlayedSinglePlayer(int playerId, SendJokerMessage jokerMessage) {
@@ -220,7 +222,8 @@ public class GameServiceImpl implements GameService {
 
 	/**
 	 * Multi-player jokerPlayed method
-	 * @param playerId player who use the joker
+	 *
+	 * @param playerId     player who use the joker
 	 * @param jokerMessage message containing which joker is used
 	 */
 	private void jokerPlayedMultiPlayer(int playerId, SendJokerMessage jokerMessage) {
@@ -254,7 +257,7 @@ public class GameServiceImpl implements GameService {
 	/**
 	 * Sends a new question after a short delay.
 	 *
-	 * @param game game for which new question is to be sent
+	 * @param game          game for which new question is to be sent
 	 * @param questionDelay delay in milliseconds
 	 */
 	private void startNewQuestion(Game game, Long questionDelay) {
@@ -278,11 +281,11 @@ public class GameServiceImpl implements GameService {
 
 		if (game.isSinglePlayer()) {
 			timeJokerStatus = false;
-		}else{
+		} else {
 			timeJokerStatus = true;
 		}
 
-		for (Player player: game.getPlayers()) {
+		for (Player player : game.getPlayers()) {
 			if (question instanceof Question.MultiChoiceQuestion) {
 				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
 						timeJokerStatus,
@@ -321,7 +324,7 @@ public class GameServiceImpl implements GameService {
 			var scoreDelta = 0;
 			if (player.getLatestAnswer() != null) {
 				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
-					player.getLatestAnswer(), player.getTimeTakenToAnswer(), doublePoints);
+						player.getLatestAnswer(), player.getTimeTakenToAnswer(), doublePoints);
 				doublePoints = false;
 				player.incrementScore(scoreDelta);
 				if (scoreDelta > 0) {
@@ -350,9 +353,9 @@ public class GameServiceImpl implements GameService {
 			listOfEntries.add(new LeaderboardEntry(p.getName(), p.getScore()));
 		}
 		List<LeaderboardEntry> leaderboard = listOfEntries.stream()
-			.sorted(Comparator.<LeaderboardEntry>comparingInt(entry -> entry.score()).reversed())
-			.limit(NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD)
-			.toList();
+				.sorted(Comparator.<LeaderboardEntry>comparingInt(entry -> entry.score()).reversed())
+				.limit(NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD)
+				.toList();
 		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(leaderboard);
 		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
 	}

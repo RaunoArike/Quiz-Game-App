@@ -142,19 +142,22 @@ public class QuestionServiceImpl implements QuestionService {
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent, boolean doublePoints) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent,
+								boolean doublePoints) {
 		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
 
 	// TODO Consider improving the formula
-	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent, boolean doublePoints) {
+	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent,
+								boolean doublePoints) {
 		var error = Math.abs(answer - question.correctAnswer());
 		var errorRatio = error / question.correctAnswer();
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent, boolean doublePoints) {
+	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent,
+								boolean doublePoints) {
 		float errorRatio;
 		if (answer < question.correctAnswer()) {
 			errorRatio = 1 - (answer / question.correctAnswer());
@@ -174,7 +177,8 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent, boolean doublePoints) {
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent,
+									boolean doublePoints) {
 		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
