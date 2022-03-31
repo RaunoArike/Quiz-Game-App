@@ -10,34 +10,34 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiChoiceScreenCtrl">
    <children>
-      <Button fx:id="optionA" alignment="CENTER" layoutX="52.0" layoutY="234.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="59.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="optionB" alignment="CENTER" layoutX="247.0" layoutY="234.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="59.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="optionC" alignment="CENTER" layoutX="435.0" layoutY="234.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="59.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true" />
-      <ProgressBar fx:id="timerProgress" layoutX="232.0" layoutY="338.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
-      <Text layoutX="161.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
-      <Text fx:id="timerNumber" layoutX="199.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
+      <Button fx:id="optionA" alignment="CENTER" layoutX="52.0" layoutY="244.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="59.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="optionB" alignment="CENTER" layoutX="257.0" layoutY="244.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="59.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="optionC" alignment="CENTER" layoutX="445.0" layoutY="244.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="59.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true" />
+      <ProgressBar fx:id="timerProgress" layoutX="232.0" layoutY="348.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
+      <Text layoutX="161.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
+      <Text fx:id="timerNumber" layoutX="199.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
       <Text layoutX="44.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="27.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="215.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="405.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="score" layoutX="489.0" layoutY="23.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
+      <Button fx:id="eliminateOptionJoker" layoutX="208.0" layoutY="383.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" layoutX="336.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" layoutX="465.0" layoutY="383.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
+      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="57.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="255.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="445.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="score" layoutX="559.0" layoutY="13.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="questionText" layoutX="34.0" layoutY="3.0" prefHeight="82.0" prefWidth="527.0" text="This is the question" wrapText="true">
+      <Label fx:id="questionText" layoutX="66.0" layoutY="25.0" prefHeight="82.0" prefWidth="527.0" text="This is the question" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="scoreMessage" layoutX="444.0" layoutY="318.0" prefHeight="76.0" prefWidth="154.0" wrapText="true">
+      <Label fx:id="scoreMessage" layoutX="444.0" layoutY="278.0" prefHeight="76.0" prefWidth="154.0" wrapText="true">
          <font>
             <Font size="15.0" />
          </font>

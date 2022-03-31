@@ -19,14 +19,14 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="57.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" />
-      <RadioButton fx:id="optionA" layoutX="348.0" layoutY="178.0" mnemonicParsing="false" onAction="#optionAClicked" text="A" />
-      <RadioButton fx:id="optionB" layoutX="348.0" layoutY="207.0" mnemonicParsing="false" onAction="#optionBClicked" text="B" />
-      <RadioButton fx:id="optionC" layoutX="348.0" layoutY="237.0" mnemonicParsing="false" onAction="#optionCClicked" text="C" />
-      <Label fx:id="questionText" layoutX="34.0" layoutY="55.0" prefHeight="118.0" prefWidth="543.0" text="How much does X take?" wrapText="true">
+      <Button fx:id="eliminateOptionJoker" layoutX="218.0" layoutY="383.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" layoutX="346.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" layoutX="475.0" layoutY="383.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="147.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true" />
+      <RadioButton fx:id="optionA" layoutX="418.0" layoutY="168.0" mnemonicParsing="false" onAction="#optionAClicked" text="A" />
+      <RadioButton fx:id="optionB" layoutX="418.0" layoutY="197.0" mnemonicParsing="false" onAction="#optionBClicked" text="B" />
+      <RadioButton fx:id="optionC" layoutX="418.0" layoutY="227.0" mnemonicParsing="false" onAction="#optionCClicked" text="C" />
+      <Label fx:id="questionText" layoutX="54.0" layoutY="35.0" prefHeight="118.0" prefWidth="543.0" text="How much does X take?" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
@@ -36,22 +36,22 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="optionAtext" layoutX="483.0" layoutY="141.0" prefHeight="32.0" prefWidth="106.0" text="OptionA">
+      <Label fx:id="optionAtext" layoutX="473.0" layoutY="161.0" prefHeight="32.0" prefWidth="106.0" text="OptionA">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="optionBtext" layoutX="483.0" layoutY="170.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
+      <Label fx:id="optionBtext" layoutX="473.0" layoutY="190.0" prefHeight="32.0" prefWidth="106.0" text="OptionB">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="optionCtext" layoutX="483.0" layoutY="200.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
+      <Label fx:id="optionCtext" layoutX="473.0" layoutY="220.0" prefHeight="32.0" prefWidth="106.0" text="OptionC">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="scoreMessage" layoutX="455.0" layoutY="314.0" prefHeight="59.0" prefWidth="135.0" wrapText="true">
+      <Label fx:id="scoreMessage" layoutX="475.0" layoutY="344.0" prefHeight="59.0" prefWidth="135.0" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>

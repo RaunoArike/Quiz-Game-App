@@ -11,17 +11,17 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EstimationScreenCtrl">
    <children>
-            <ProgressBar fx:id="timerProgress" layoutX="217.0" layoutY="336.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
-            <Text layoutX="149.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
+            <ProgressBar fx:id="timerProgress" layoutX="227.0" layoutY="346.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
+            <Text layoutX="159.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
             <Text layoutX="69.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="228.0" layoutY="383.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-            <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-            <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-            <Text layoutX="313.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your guess:" wrappingWidth="91.20000000000005">
+            <Button fx:id="eliminateOptionJoker" layoutX="228.0" layoutY="383.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+            <Button fx:id="doublePointsJoker" layoutX="356.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+            <Button fx:id="reduceTimeJoker" layoutX="485.0" layoutY="383.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
+            <Text layoutX="383.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your guess:" wrappingWidth="91.20000000000005">
                <font>
                   <Font size="15.0" />
                </font>
@@ -33,17 +33,17 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="280.0" layoutY="238.0" prefHeight="60.0" prefWidth="310.0" text="Answer Message" wrapText="true">
+            <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="320.0" layoutY="248.0" prefHeight="60.0" prefWidth="310.0" text="Answer Message" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Text fx:id="timerNumber" layoutX="189.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
-            <Label fx:id="errorMessage" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="396.0" layoutY="187.0" prefHeight="26.0" prefWidth="138.0" text="Error message" wrapText="true">
+            <Text fx:id="timerNumber" layoutX="199.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
+            <Label fx:id="errorMessage" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="386.0" layoutY="187.0" prefHeight="26.0" prefWidth="138.0" text="Error message" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="190.0" layoutX="61.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView" fitHeight="175.0" fitWidth="232.0" layoutX="61.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="score" layoutX="562.0" layoutY="10.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
          <font>
             <Font size="15.0" />
