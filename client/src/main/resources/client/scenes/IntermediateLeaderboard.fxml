@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.IntermediateLeaderboardCtrl">
-   <children>
-      <Label layoutX="15.0" layoutY="52.0" prefHeight="75.0" prefWidth="221.0" text="Int. Leaderboard">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.IntermediateLeaderboardCtrl">
+      <Label layoutX="3.0" layoutY="-1.0" prefHeight="196.0" prefWidth="298.0"  text="Intermediary Leaderboard">
          <font>
-            <Font size="26.0" />
+            <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="90.0" prefHeight="75.0" prefWidth="278.0" text="Temporary Top 10 scores">
+      <Label layoutX="14.0" layoutY="283.0" prefHeight="75.0" prefWidth="278.0" text="Temporary Top 10 scores">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <TableView layoutX="293.0" layoutY="10.0" prefHeight="380.0" prefWidth="298.0">
+      <TableView layoutX="293.0" layoutY="10.0" prefHeight="380.0" prefWidth="298.0" fx:id="intermediaryLeaderboard">
          <columns>
-            <TableColumn prefWidth="50.0" text="#" />
-            <TableColumn prefWidth="150.0" text="Username" />
-            <TableColumn prefWidth="100.0" text="Score" />
+            <TableColumn prefWidth="50.0" fx:id="colRanking" text="Rank"  />
+            <TableColumn prefWidth="150.0" fx:id="colUsername" text="Username" />
+            <TableColumn prefWidth="100.0" fx:id="colScore" text="Score" />
          </columns>
       </TableView>
-      <Button layoutY="360.0" mnemonicParsing="false" onAction="#continueGame" prefHeight="34.0" prefWidth="119.0" text="CONTINUE">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
-   </children>
 </Pane>

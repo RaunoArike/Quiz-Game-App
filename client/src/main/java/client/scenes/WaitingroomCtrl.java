@@ -29,6 +29,7 @@ public class WaitingroomCtrl extends AbstractCtrl {
 
 	// Links to the cancel button
 	public void returnHome() {
+		messageService.exitWaitingRoom();
 		mainCtrl.showHome();
 	}
 

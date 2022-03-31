@@ -1,6 +1,7 @@
 package client.service;
 
 import commons.model.Activity;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.servermessage.*;
 
@@ -38,7 +39,6 @@ public interface ServerService {
 		 */
 		void onEndOfGame();
 
-
 		/**
 		 * Called when error occurs at the server side
 		 * @param message message with error details
@@ -46,10 +46,16 @@ public interface ServerService {
 		void onError(ErrorMessage message);
 
 		/**
-		 * Called to get the intermediate leaderboard
+		 * Called when the intermediate leaderboard should be shown
 		 * @param message the message of the intermediate leaderboard
 		 */
 		void onIntermediateLeaderboard(IntermediateLeaderboardMessage message);
+
+		/**
+		 * Called when a time reduction joker was played by one of the players
+		 * @param message message about the joker played
+		 */
+		void onReduceTimePlayed(ReduceTimePlayedMessage message);
 	}
 
 	/**
@@ -80,12 +86,24 @@ public interface ServerService {
 	void startMultiGame();
 
 	/**
+	 * Exits the waiting room.
+	 * Can only be called if connected to server.
+	 */
+	void exitWaitingRoom();
+
+	/**
 	 * Submits answer to the current question.
 	 * Can only be called if connected to server.
 	 * @param answer answer; Integer or Float depending on the question type
 	 * 0, 1 or 2 for choice questions, float answer for open-ended questions
 	 */
 	void answerQuestion(Number answer);
+
+	/**
+	 * Sends information about a joker being is used to the server
+	 * @param type type of the used joker
+	 */
+	void sendJoker(JokerType type);
 
 	/**
 	 * Registers a listener for server messages.
@@ -105,4 +123,5 @@ public interface ServerService {
 	 * @return the list of activities
 	 */
 	List<Activity> getActivities();
+
 }

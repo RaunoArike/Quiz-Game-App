@@ -3,32 +3,34 @@ package client.scenes;
 import client.service.ServerService;
 import com.google.inject.Inject;
 import commons.model.LeaderboardEntry;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
 public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initializable {
 	private final ServerService server;
 	private final MainCtrl mainCtrl;
-
 	private static final int TIME_PASSED = 3000;
 	@FXML
 	private Label state;
 
+	public List<LeaderboardEntry> intermediateList;
+
 	@FXML
-	private TableView<LeaderboardEntry> intermediaryLeaderboard;
+	public TableView<LeaderboardEntry> intermediaryLeaderboard;
+
+	@FXML
+	private TableColumn<LeaderboardEntry, Number> colRanking;
 
 	@FXML
 	private TableColumn<LeaderboardEntry, String> colUsername;
@@ -36,8 +38,6 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 	@FXML
 	private TableColumn<LeaderboardEntry, Number> colScore;
 
-	@FXML
-	private TableColumn<LeaderboardEntry, Number> colRanking;
 
 	private ObservableList<LeaderboardEntry> data;
 
@@ -45,11 +45,6 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 	public IntermediateLeaderboardCtrl(ServerService server, MainCtrl mainCtrl) {
 		this.server = server;
 		this.mainCtrl = mainCtrl;
-
-		colUsername = new TableColumn<>();
-		colScore = new TableColumn<>();
-		colRanking = new TableColumn<>();
-
 	}
 
 	/**
@@ -62,68 +57,24 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		colUsername.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
+		colUsername.setCellValueFactory(q -> new SimpleStringProperty(q.getValue().name()));
+		colScore.setCellValueFactory(q -> new SimpleIntegerProperty(q.getValue().score()));
 
-		colScore.setCellValueFactory(x -> new SimpleIntegerProperty(x.getValue().score()));
-
-		colRanking.setCellValueFactory(x -> {
-			ReadOnlyObjectWrapper<Number> intermediaryRank;
-
-			var rank  = intermediaryLeaderboard.getItems().indexOf(x.getValue()) + 1;
-
-			intermediaryRank = new ReadOnlyObjectWrapper<>(rank);
-
-			return intermediaryRank;
+		colRanking.setCellValueFactory(q -> {
+			ReadOnlyObjectWrapper<Number> finalRank;
+			finalRank = new ReadOnlyObjectWrapper<>(intermediaryLeaderboard.getItems().indexOf(q.getValue()) + 1);
+			return finalRank;
 		});
 	}
+	@Override
+	public void init() {
+		super.init();
+		/*ObservableList<LeaderboardEntry> observableList = FXCollections
+				.observableArrayList(intermediateList);
 
-	public void continueGame() {
-		Timer timer = new Timer();
+		intermediaryLeaderboard.setItems(observableList);
 
-		timer.schedule(new TimerTask() {
-
-			/**
-			 * Wait for 3 seconds for the leaderboard to be displayed
-			 */
-			@Override
-			public void run() {
-
-				Node current = new Node() {
-					/**
-					 * Convenience method for setting a single Object property that can be
-					 * retrieved at a later date. This is functionally equivalent to calling
-					 * the getProperties().put(Object key, Object value) method. This can later
-					 * be retrieved by calling {@link Node#getUserData()}.
-					 *
-					 * @param value The value to be stored - this can later be retrieved by calling
-					 *              {@link Node#getUserData()}.
-					 */
-
-					@Override
-					public void setUserData(Object value) {
-						super.setUserData(value);
-					}
-				};
-
-				current.setUserData(new String("WAIT FOR 3 SECONDS"));
-
-				state.setLabelFor(current);
-			}
-		}, TIME_PASSED);
+		 */
 	}
 
-	/**
-	 *
-	 */
-	public void keyPressed(KeyEvent keyEvent) {
-		switch (keyEvent.getCode()) {
-			case ESCAPE:
-				continueGame();
-				break;
-			case ENTER:
-				continueGame();
-			default:
-				break;
-		}
-	}
 }

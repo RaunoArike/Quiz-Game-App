@@ -1,8 +1,6 @@
 package server.api;
 
-import commons.clientmessage.QuestionAnswerMessage;
-import commons.clientmessage.SinglePlayerGameStartMessage;
-import commons.clientmessage.WaitingRoomJoinMessage;
+import commons.clientmessage.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Controller;
@@ -59,6 +57,12 @@ public class GameController {
 	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, Principal principal) {
 		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
 		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username(), playerId);
+	}
+
+	@MessageMapping("/exit-waiting-room")
+	public void exitWaitingRoom(@Payload WaitingRoomExitMessage waitingRoomExitMessage, Principal principal) {
+		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
+		waitingRoomService.exitWaitingRoom(playerId);
 	}
 
 	/**

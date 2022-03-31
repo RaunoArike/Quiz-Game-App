@@ -30,7 +30,6 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		 * we add them to the map of players to the current waiting room
 		 * and to the list of players.
 		 */
-		if (isInWaitingRoom(playerId)) return;
 		if (isInWaitingRoom(playerName)) {
 			outgoingController.sendError(ErrorMessage.Type.USERNAME_BUSY, List.of(playerId));
 			return;
@@ -42,10 +41,6 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 
 	private boolean isInWaitingRoom(String playerName) {
 		return listOfPlayers.stream().anyMatch(p -> p.getName().equals(playerName));
-	}
-
-	private boolean isInWaitingRoom(int playerId) {
-		return listOfPlayers.stream().anyMatch(p -> p.getPlayerId() == playerId);
 	}
 
 	@Override
@@ -75,5 +70,16 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 			}
 			outgoingController.sendWaitingRoomState(waitingRoomStateMessage, listOfPlayerIds);
 		}
+	}
+
+	@Override
+	public void exitWaitingRoom(int playerId) {
+		for (Player p : listOfPlayers) {
+			if (p.getPlayerId() == playerId) {
+				listOfPlayers.remove(p);
+				break;
+			}
+		}
+		broadcastNotify();
 	}
 }
