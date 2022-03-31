@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,38 +8,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminCtrl">
    <children>
-      <Label alignment="CENTER" layoutX="-26.0" layoutY="27.0" prefHeight="62.0" prefWidth="242.0" text="Admin" textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+      <Label alignment="CENTER" layoutX="2.0" layoutY="-3.0" prefHeight="62.0" prefWidth="154.0" text="Admin" textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS" wrapText="true">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <ButtonBar layoutX="61.0" layoutY="246.0" prefHeight="40.0" prefWidth="68.0" />
-      <ButtonBar layoutX="257.0" layoutY="246.0" prefHeight="40.0" prefWidth="57.0" />
-      <ButtonBar layoutX="453.0" layoutY="246.0" prefHeight="40.0" prefWidth="76.0" />
-    <Button cancelButton="true" layoutX="36.0" layoutY="414.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="26.0" prefWidth="118.0" text="Return home">
+    <Button cancelButton="true" layoutX="36.0" layoutY="398.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="26.0" prefWidth="118.0" text="Return home">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="470.0" layoutY="413.0" mnemonicParsing="false" onAction="#removeButton" prefHeight="26.0" prefWidth="130.0" text="Delete activity">
+      <Button layoutX="470.0" layoutY="397.0" mnemonicParsing="false" onAction="#removeButton" prefHeight="26.0" prefWidth="130.0" text="Delete activity">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button layoutX="315.0" layoutY="413.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="26.0" prefWidth="130.0" text="Update activity">
+      <Button layoutX="315.0" layoutY="397.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="26.0" prefWidth="130.0" text="Update activity">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <TableView fx:id="table" layoutX="192.0" layoutY="27.0" prefHeight="348.0" prefWidth="570.0">
+      <TableView fx:id="table" layoutX="160.0" layoutY="7.0" prefHeight="351.0" prefWidth="495.0">
         <columns>
-            <TableColumn fx:id="columnOne" prefWidth="476.7999572753906" text="Name" />
-            <TableColumn fx:id="columnTwo" prefWidth="91.199951171875" text="Energy" />
+            <TableColumn fx:id="columnOne" prefWidth="400.0" text="Name" />
+            <TableColumn fx:id="columnTwo" prefWidth="90.0" text="Energy" />
         </columns>
       </TableView>
-      <TextField fx:id="nameTextField" layoutX="31.0" layoutY="106.0" prefHeight="26.0" prefWidth="146.0" promptText="Name" />
-      <TextField fx:id="energyTextField" layoutX="30.0" layoutY="186.0" prefHeight="26.0" prefWidth="109.0" promptText="Energy" />
-       <TextField fx:id="urlTextField" layoutX="31.0" layoutY="147.0" prefHeight="26.0" prefWidth="146.0" promptText="URL" />
-      <Button layoutX="31.0" layoutY="233.0" mnemonicParsing="false" onAction="#addButton" text="Save">
+      <TextField fx:id="nameTextField" layoutX="11.0" layoutY="106.0" prefHeight="26.0" prefWidth="146.0" promptText="Name" />
+      <TextField fx:id="energyTextField" layoutX="10.0" layoutY="186.0" prefHeight="26.0" prefWidth="109.0" promptText="Energy" />
+       <TextField fx:id="urlTextField" layoutX="11.0" layoutY="147.0" prefHeight="26.0" prefWidth="146.0" promptText="URL" />
+      <Button layoutX="11.0" layoutY="233.0" mnemonicParsing="false" onAction="#addButton" text="Save">
          <font>
             <Font size="15.0" />
          </font></Button>

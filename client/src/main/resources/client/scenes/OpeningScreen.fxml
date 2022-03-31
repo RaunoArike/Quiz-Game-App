@@ -6,48 +6,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OpeningCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.OpeningCtrl">
    <children>
-      <Button layoutX="86.0" layoutY="256.0" mnemonicParsing="false" onAction="#startNewSingleGame" prefHeight="72.0" prefWidth="165.0" text="Start new game">
+      <Button layoutX="106.0" layoutY="316.0" mnemonicParsing="false" onAction="#startNewSingleGame" prefHeight="72.0" prefWidth="165.0" text="Start new game">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button layoutX="336.0" layoutY="256.0" mnemonicParsing="false" onAction="#startNewMultiGame" prefHeight="72.0" prefWidth="174.0" text="Join waiting room">
+      <Button layoutX="386.0" layoutY="316.0" mnemonicParsing="false" onAction="#startNewMultiGame" prefHeight="72.0" prefWidth="174.0" text="Join waiting room">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="67.0" layoutY="34.0" prefHeight="100.0" prefWidth="202.0" text="Quizzz...!" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="67.0" layoutY="44.0" prefHeight="100.0" prefWidth="202.0" text="Quizzz...!" textAlignment="CENTER">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <Label layoutX="87.0" layoutY="207.0" prefHeight="34.0" prefWidth="174.0" text="Play a single-player game">
+      <Label layoutX="107.0" layoutY="267.0" prefHeight="34.0" prefWidth="174.0" text="Play a single-player game">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="336.0" layoutY="207.0" prefHeight="34.0" prefWidth="174.0" text="Play a multi-player game">
+      <Label layoutX="386.0" layoutY="267.0" prefHeight="34.0" prefWidth="174.0" text="Play a multi-player game">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="417.0" layoutY="33.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="34.0" prefWidth="165.0" text="Change Server">
+      <Button layoutX="467.0" layoutY="33.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="34.0" prefWidth="165.0" text="Change Server">
          <font>
             <Font size="16.0" />
          </font></Button>
-      <Label layoutX="95.0" layoutY="109.0" prefHeight="34.0" prefWidth="159.0" text="The Energy quiz game">
+      <Label layoutX="95.0" layoutY="119.0" prefHeight="34.0" prefWidth="159.0" text="The Energy quiz game">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="417.0" layoutY="76.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="34.0" prefWidth="166.0" text="View Leaderboard">
+      <Button layoutX="467.0" layoutY="86.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="34.0" prefWidth="166.0" text="View Leaderboard">
          <font>
             <Font size="16.0" />
          </font></Button>
       <ButtonBar layoutX="412.0" layoutY="143.0" prefHeight="40.0" prefWidth="174.0" />
-      <Button layoutX="417.0" layoutY="119.0" mnemonicParsing="false" onAction="#adminOption" prefHeight="34.0" prefWidth="166.0" text="Admin Panel">
+      <Button layoutX="467.0" layoutY="139.0" mnemonicParsing="false" onAction="#adminOption" prefHeight="34.0" prefWidth="166.0" text="Admin Panel">
          <font>
             <Font size="16.0" />
          </font>
