@@ -123,11 +123,27 @@ public interface ServerService {
 	 */
 	List<LeaderboardEntry> getLeaderboardData();
 
-
 	/**
-	 * Returns the list of activities
+	 * Fetches all activities from the server
 	 * @return the list of activities
 	 */
 	List<Activity> getActivities();
 
+	/**
+	 * Adds a new activity to the server
+	 * @param activity activity to ad
+	 */
+	void addActivity(Activity activity);
+
+	/**
+	 * Updates an existing activity on the server (based on the id of the passed activity)
+	 * @param activity activity to update
+	 */
+	void updateActivity(Activity activity);
+
+	/**
+	 * Removes an activity from the server by id
+	 * @param id id of the activity to remove
+	 */
+	void removeActivity(long id);
 }
