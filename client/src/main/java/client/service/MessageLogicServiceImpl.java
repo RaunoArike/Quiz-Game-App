@@ -67,6 +67,11 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 		server.sendJoker(type);
 	}
 
+	@Override
+	public void sendEmoji(int emojiType) {
+		server.sendEmoji(emojiType);
+	}
+
 	/**
 	 * Called when new question starts
 	 * @param message message with new question details
@@ -166,5 +171,14 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	@Override
 	public void onReduceTimePlayed(ReduceTimePlayedMessage message) {
 		mainCtrl.notifyReduceTimePlayed(currentType, message.timeLeftMs());
+	}
+
+	/**
+	 * Called when an emoji was sent by one of the players
+	 * @param message message about the emoji played
+	 */
+	@Override
+	public void onEmojiPlayed(EmojiPlayedMessage message) {
+		mainCtrl.notifyEmojiPlayed(currentType, message.emojiNumber());
 	}
 }

@@ -56,6 +56,12 @@ public interface ServerService {
 		 * @param message message about the joker played
 		 */
 		void onReduceTimePlayed(ReduceTimePlayedMessage message);
+
+		/**
+		 * Called when an emoji was sent by one of the players
+		 * @param message message about the emoji played
+		 */
+		void onEmojiPlayed(EmojiPlayedMessage message);
 	}
 
 	/**
@@ -100,10 +106,16 @@ public interface ServerService {
 	void answerQuestion(Number answer);
 
 	/**
-	 * Sends information about a joker being is used to the server
+	 * Sends information about a joker being used to the server
 	 * @param type type of the used joker
 	 */
 	void sendJoker(JokerType type);
+
+	/**
+	 * Sends information about an emoji having been sent to the server
+	 * @param emojiType type of the used emoji
+	 */
+	void sendEmoji(int emojiType);
 
 	/**
 	 * Registers a listener for server messages.

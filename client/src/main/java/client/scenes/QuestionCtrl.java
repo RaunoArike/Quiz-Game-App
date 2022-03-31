@@ -5,11 +5,14 @@ import client.service.MessageLogicService;
 import com.google.inject.Inject;
 import commons.model.JokerType;
 import commons.model.Question;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.Set;
 import java.util.Timer;
@@ -20,6 +23,10 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
+	private static final int DISLIKE_EMOJI_TYPE = 3;
+	private static final int ANGRY_EMOJI_TYPE = 4;
+	private static final int VOMIT_EMOJI_TYPE = 5;
+	private static final int MOVE_EMOJI = -150;
 
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
@@ -42,6 +49,24 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private Button eliminateOptionJoker;
 
 	@FXML
+	private ImageView lolEmoji;
+
+	@FXML
+	private ImageView sunglassesEmoji;
+
+	@FXML
+	private ImageView likeEmoji;
+
+	@FXML
+	private ImageView dislikeEmoji;
+
+	@FXML
+	private ImageView angryEmoji;
+
+	@FXML
+	private ImageView vomitEmoji;
+
+	@FXML
 	private ProgressBar timerProgress;
 
 	@FXML
@@ -49,6 +74,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private QuestionData<Q> questionData;
 	private TimerTask timerTask;
+
 
 	@Inject
 	public QuestionCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -113,6 +139,36 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		}
 	}
 
+	public void handleLolEmojiClicks() {
+		useEmoji(0);
+		animateEmoji(lolEmoji);
+	}
+
+	public void handleSunglassesEmojiClicks() {
+		useEmoji(1);
+		animateEmoji(sunglassesEmoji);
+	}
+
+	public void handleLikeEmojiClicks() {
+		useEmoji(2);
+		animateEmoji(likeEmoji);
+	}
+
+	public void handleDislikeEmojiClicks() {
+		useEmoji(DISLIKE_EMOJI_TYPE);
+		animateEmoji(dislikeEmoji);
+	}
+
+	public void handleAngryEmojiClicks() {
+		useEmoji(ANGRY_EMOJI_TYPE);
+		animateEmoji(angryEmoji);
+	}
+
+	public void handleVomitEmojiClicks() {
+		useEmoji(VOMIT_EMOJI_TYPE);
+		animateEmoji(vomitEmoji);
+	}
+
 	public void notifyReduceTimePlayed(long timeLeftMs) {
 		callTimeLimiter(timeLeftMs);
 	}
@@ -134,5 +190,49 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	protected QuestionData<Q> getQuestionData() {
 		return questionData;
+	}
+
+	private void useEmoji(int emojiType) {
+		switch (emojiType) {
+			case 0:
+				messageService.sendEmoji(0);
+			case 1:
+				messageService.sendEmoji(1);
+			case 2:
+				messageService.sendEmoji(2);
+			case DISLIKE_EMOJI_TYPE:
+				messageService.sendEmoji(DISLIKE_EMOJI_TYPE);
+			case ANGRY_EMOJI_TYPE:
+				messageService.sendEmoji(ANGRY_EMOJI_TYPE);
+			case VOMIT_EMOJI_TYPE:
+				messageService.sendEmoji(VOMIT_EMOJI_TYPE);
+		}
+	}
+
+	public void notifyEmojiPlayed(int emojiType) {
+		switch (emojiType) {
+			case 0:
+				animateEmoji(lolEmoji);
+			case 1:
+				animateEmoji(sunglassesEmoji);
+			case 2:
+				animateEmoji(likeEmoji);
+			case DISLIKE_EMOJI_TYPE:
+				animateEmoji(dislikeEmoji);
+			case ANGRY_EMOJI_TYPE:
+				animateEmoji(angryEmoji);
+			case VOMIT_EMOJI_TYPE:
+				animateEmoji(vomitEmoji);
+		}
+	}
+
+	private void animateEmoji(ImageView emojiType) {
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(emojiType);
+		translate.setDuration(Duration.millis(TIMER_SECOND));
+		translate.setByY(MOVE_EMOJI);
+		translate.setCycleCount(2);
+		translate.setAutoReverse(true);
+		translate.play();
 	}
 }

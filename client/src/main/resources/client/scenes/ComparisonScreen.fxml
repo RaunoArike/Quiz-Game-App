@@ -51,5 +51,77 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <ImageView fx:id="activityB" fitHeight="93.0" fitWidth="217.0" layoutX="36.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="39.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="React to the question!" wrappingWidth="182.05072021484375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="190.0" layoutX="61.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="39.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="React to the question!" wrappingWidth="182.05072021484375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="215.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/lol_emoji.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sunglassesEmojiStatic" fitHeight="42.0" fitWidth="46.0" layoutX="272.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/sunglasses_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="likeEmojiStatic" fitHeight="49.0" fitWidth="46.0" layoutX="324.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/like_emoji.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dislikeEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="379.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/dislike_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="angryEmojiStatic" fitHeight="46.0" fitWidth="55.0" layoutX="432.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/angry_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vomitEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="483.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/vomit_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lolEmoji" fitHeight="42.0" fitWidth="48.0" layoutX="215.0" layoutY="22.0" onMouseClicked="#handleLolEmojiClicks" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/lol_emoji.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sunglassesEmoji" fitHeight="42.0" fitWidth="46.0" layoutX="272.0" layoutY="20.0" onMouseClicked="#handleSunglassesEmojiClicks" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/sunglasses_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="likeEmoji" fitHeight="49.0" fitWidth="46.0" layoutX="324.0" layoutY="20.0" onMouseClicked="#handleLikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/like_emoji.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dislikeEmoji" fitHeight="46.0" fitWidth="48.0" layoutX="379.0" layoutY="20.0" onMouseClicked="#handleDislikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/dislike_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="angryEmoji" fitHeight="46.0" fitWidth="55.0" layoutX="432.0" layoutY="20.0" onMouseClicked="#handleAngryEmojiClicks" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/angry_emoji.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="vomitEmoji" fitHeight="46.0" fitWidth="48.0" layoutX="483.0" layoutY="20.0" onMouseClicked="#handleVomitEmojiClicks" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@/emojis/vomit_emoji.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
