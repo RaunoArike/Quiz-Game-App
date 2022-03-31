@@ -183,7 +183,6 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	private void useEmoji(int emojiType) {
-		System.out.println("Emoji used");
 		switch (emojiType) {
 			case 0:
 				messageService.sendEmoji(0);
