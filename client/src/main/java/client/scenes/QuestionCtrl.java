@@ -134,46 +134,33 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void handleLolEmojiClicks() {
-		lolEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			useEmoji(0);
-			animateEmoji(lolEmoji);
-			event.consume();
-		});
+		useEmoji(0);
+		animateEmoji(lolEmoji);
 	}
 
 	public void handleSunglassesEmojiClicks() {
-		sunglassesEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			useEmoji(1);
-			event.consume();
-		});
+		useEmoji(1);
+		animateEmoji(sunglassesEmoji);
 	}
 
 	public void handleLikeEmojiClicks() {
-		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			useEmoji(2);
-			event.consume();
-		});
+		useEmoji(2);
+		animateEmoji(likeEmoji);
 	}
 
 	public void handleDislikeEmojiClicks() {
-		dislikeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			useEmoji(DISLIKE_EMOJI_TYPE);
-			event.consume();
-		});
+		useEmoji(DISLIKE_EMOJI_TYPE);
+		animateEmoji(dislikeEmoji);
 	}
 
 	public void handleAngryEmojiClicks() {
-		angryEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			useEmoji(ANGRY_EMOJI_TYPE);
-			event.consume();
-		});
+		useEmoji(ANGRY_EMOJI_TYPE);
+		animateEmoji(angryEmoji);
 	}
 
 	public void handleVomitEmojiClicks() {
-		vomitEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			useEmoji(ANGRY_EMOJI_TYPE);
-			event.consume();
-		});
+		useEmoji(VOMIT_EMOJI_TYPE);
+		animateEmoji(vomitEmoji);
 	}
 
 	public void notifyReduceTimePlayed(long timeLeftMs) {

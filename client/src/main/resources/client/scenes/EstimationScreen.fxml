@@ -52,6 +52,36 @@
                   <Font size="18.0" />
                </font>
             </Text>
+            <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="215.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/lol_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="sunglassesEmojiStatic" fitHeight="42.0" fitWidth="46.0" layoutX="272.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/sunglasses_emoji.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="likeEmojiStatic" fitHeight="49.0" fitWidth="46.0" layoutX="324.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/like_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dislikeEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="379.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/dislike_emoji.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="angryEmojiStatic" fitHeight="46.0" fitWidth="55.0" layoutX="432.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/angry_emoji.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="vomitEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="483.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/vomit_emoji.jpg" />
+               </image>
+            </ImageView>
             <ImageView fx:id="lolEmoji" fitHeight="42.0" fitWidth="48.0" layoutX="215.0" layoutY="22.0" onMouseClicked="#handleLolEmojiClicks" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@/emojis/lol_emoji.png" />
