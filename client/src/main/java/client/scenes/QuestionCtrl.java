@@ -17,6 +17,9 @@ import javafx.util.Duration;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
@@ -65,6 +68,24 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private ImageView vomitEmoji;
 
 	@FXML
+	private ImageView lolEmojiStatic;
+
+	@FXML
+	private ImageView sunglassesEmojiStatic;
+
+	@FXML
+	private ImageView likeEmojiStatic;
+
+	@FXML
+	private ImageView dislikeEmojiStatic;
+
+	@FXML
+	private ImageView angryEmojiStatic;
+
+	@FXML
+	private ImageView vomitEmojiStatic;
+
+	@FXML
 	private ProgressBar timerProgress;
 
 	@FXML
@@ -85,6 +106,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		super.init();
 		callTimeLimiter(TIMER_DEFAULT_TIME);
 	}
+
 
 	public void setQuestion(QuestionData<Q> questionData) {
 		setScore(questionData.currentScore());
@@ -134,32 +156,32 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	public void handleLolEmojiClicks() {
 		useEmoji(0);
-		animateEmoji(lolEmoji);
+		notifyEmojiPlayed(0);
 	}
 
 	public void handleSunglassesEmojiClicks() {
 		useEmoji(1);
-		animateEmoji(sunglassesEmoji);
+		notifyEmojiPlayed(1);
 	}
 
 	public void handleLikeEmojiClicks() {
 		useEmoji(2);
-		animateEmoji(likeEmoji);
+		notifyEmojiPlayed(2);
 	}
 
 	public void handleDislikeEmojiClicks() {
 		useEmoji(DISLIKE_EMOJI_TYPE);
-		animateEmoji(dislikeEmoji);
+		notifyEmojiPlayed(DISLIKE_EMOJI_TYPE);
 	}
 
 	public void handleAngryEmojiClicks() {
 		useEmoji(ANGRY_EMOJI_TYPE);
-		animateEmoji(angryEmoji);
+		notifyEmojiPlayed(ANGRY_EMOJI_TYPE);
 	}
 
 	public void handleVomitEmojiClicks() {
 		useEmoji(VOMIT_EMOJI_TYPE);
-		animateEmoji(vomitEmoji);
+		notifyEmojiPlayed(VOMIT_EMOJI_TYPE);
 	}
 
 	public void notifyReduceTimePlayed(long timeLeftMs) {
@@ -185,14 +207,24 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		switch (emojiType) {
 			case 0:
 				messageService.sendEmoji(0);
+				break;
+
 			case 1:
 				messageService.sendEmoji(1);
+				break;
+
 			case 2:
 				messageService.sendEmoji(2);
+				break;
+
 			case DISLIKE_EMOJI_TYPE:
 				messageService.sendEmoji(DISLIKE_EMOJI_TYPE);
+				break;
+
 			case ANGRY_EMOJI_TYPE:
 				messageService.sendEmoji(ANGRY_EMOJI_TYPE);
+				break;
+
 			case VOMIT_EMOJI_TYPE:
 				messageService.sendEmoji(VOMIT_EMOJI_TYPE);
 		}
@@ -201,21 +233,34 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void notifyEmojiPlayed(int emojiType) {
 		switch (emojiType) {
 			case 0:
-				animateEmoji(lolEmoji);
+				animateEmoji(lolEmoji, lolEmojiStatic);
+				break;
+
 			case 1:
-				animateEmoji(sunglassesEmoji);
+				animateEmoji(sunglassesEmoji, sunglassesEmojiStatic);
+				break;
+
 			case 2:
-				animateEmoji(likeEmoji);
+				animateEmoji(likeEmoji, likeEmojiStatic);
+				break;
+
 			case DISLIKE_EMOJI_TYPE:
-				animateEmoji(dislikeEmoji);
+				animateEmoji(dislikeEmoji, dislikeEmojiStatic);
+				break;
+
 			case ANGRY_EMOJI_TYPE:
-				animateEmoji(angryEmoji);
+				animateEmoji(angryEmoji, angryEmojiStatic);
+				break;
+
 			case VOMIT_EMOJI_TYPE:
-				animateEmoji(vomitEmoji);
+				animateEmoji(vomitEmoji, vomitEmojiStatic);
+				break;
 		}
 	}
 
-	private void animateEmoji(ImageView emojiType) {
+	private void animateEmoji(ImageView emojiType, ImageView toDisable) {
+		toDisable.setDisable(true);
+
 		TranslateTransition translate = new TranslateTransition();
 		translate.setNode(emojiType);
 		translate.setDuration(Duration.millis(TIMER_SECOND));
@@ -223,5 +268,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		translate.setCycleCount(2);
 		translate.setAutoReverse(true);
 		translate.play();
+
+		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+		executorService.schedule(() -> toDisable.setDisable(false), 2, TimeUnit.SECONDS);
 	}
 }
