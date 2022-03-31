@@ -44,7 +44,7 @@ public class UsernameCtrl extends AbstractCtrl {
 		if (username != null && !username.isEmpty()) {
 			this.messageService.startSingleGame(username);
 			try {
-				Writer writer = new FileWriter("@../../resources/usernames.txt");
+				Writer writer = new FileWriter("@/client/resources/usernames.txt", true);
 				writer.write(username + "\n");
 				writer.close();
 			} catch (IOException e) {
