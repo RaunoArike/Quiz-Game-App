@@ -29,6 +29,8 @@ public class GameServiceImpl implements GameService {
 
 	private static final double TIME_JOKER_EFFECT = 0.75;
 
+	private boolean timeJokerStatus;
+
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
@@ -183,9 +185,13 @@ public class GameServiceImpl implements GameService {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
 		if (game.isSinglePlayer()) {
+
 			jokerPlayedSinglePlayer(playerId, jokerMessage);
+			timeJokerStatus = false;
 		} else {
+
 			jokerPlayedMultiPlayer(playerId, jokerMessage);
+			timeJokerStatus = true;
 		}
 	}
 
@@ -267,19 +273,20 @@ public class GameServiceImpl implements GameService {
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
+		
 		game.startNewQuestion(question);
 
 		for (Player player: game.getPlayers()) {
 			if (question instanceof Question.MultiChoiceQuestion) {
 				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
-						player.getJokerAvailability().get(JokerType.REDUCE_TIME),
+						timeJokerStatus,
 						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
 						player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION));
 
 				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
 			} else {
 				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
-						player.getJokerAvailability().get(JokerType.REDUCE_TIME),
+						timeJokerStatus,
 						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
 						false);
 
