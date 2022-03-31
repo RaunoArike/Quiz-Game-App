@@ -24,6 +24,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
 
+	private final Timer timer = new Timer();
+
 	@FXML
 	private Label questionText;
 
@@ -45,7 +47,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	@FXML
 	private Text timerNumber;
 
-	private final Timer timer = new Timer();
+	private QuestionData<Q> questionData;
 	private TimerTask timerTask;
 
 	@Inject
@@ -61,6 +63,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void setQuestion(QuestionData<Q> questionData) {
+		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
 	}
@@ -123,5 +126,9 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void useEliminateOptionJoker() {
 		messageService.sendJoker(JokerType.ELIMINATE_MC_OPTION);
 		eliminateOptionJoker.setDisable(true);
+	}
+
+	protected QuestionData<Q> getQuestionData() {
+		return questionData;
 	}
 }

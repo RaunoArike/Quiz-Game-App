@@ -2,15 +2,19 @@ package client.scenes;
 
 import client.model.QuestionData;
 import client.service.MessageLogicService;
+import com.google.inject.Inject;
 import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import com.google.inject.Inject;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Random;
+
 public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
+
+	private static final int ANSWERS = 3;
 
 	@FXML
 	private Button optionA;
@@ -178,5 +182,23 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		}
 		scoreMessage.setText(message);
 		timeStop();
+	}
+
+	@Override
+	public void useEliminateOptionJoker() {
+		super.useEliminateOptionJoker();
+
+		var correctAnswer = getQuestionData().question().correctAnswer();
+		switch (correctAnswer) {
+			case 0 -> disableOneOf(optionB, optionC);
+			case 1 -> disableOneOf(optionA, optionC);
+			case 2 -> disableOneOf(optionA, optionB);
+		}
+	}
+
+	private void disableOneOf(Button option1, Button option2) {
+		var randomBool = new Random().nextBoolean();
+		var randomOption = randomBool ? option1 : option2;
+		randomOption.setDisable(true);
 	}
 }

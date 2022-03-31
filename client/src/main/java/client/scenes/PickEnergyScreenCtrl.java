@@ -2,14 +2,16 @@ package client.scenes;
 
 import client.model.QuestionData;
 import client.service.MessageLogicService;
+import com.google.inject.Inject;
 import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import com.google.inject.Inject;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.Random;
 
 
 public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
@@ -169,5 +171,23 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			}
 		}
 		scoreMessage.setText(message);
+	}
+
+	@Override
+	public void useEliminateOptionJoker() {
+		super.useEliminateOptionJoker();
+
+		var correctAnswer = getQuestionData().question().correctAnswer();
+		switch (correctAnswer) {
+			case 0 -> disableOneOf(optionB, optionC);
+			case 1 -> disableOneOf(optionA, optionC);
+			case 2 -> disableOneOf(optionA, optionB);
+		}
+	}
+
+	private void disableOneOf(RadioButton option1, RadioButton option2) {
+		var randomBool = new Random().nextBoolean();
+		var randomOption = randomBool ? option1 : option2;
+		randomOption.setDisable(true);
 	}
 }
