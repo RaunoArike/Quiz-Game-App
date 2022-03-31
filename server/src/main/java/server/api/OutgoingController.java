@@ -62,5 +62,11 @@ public interface OutgoingController {
 	 */
 	void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players);
 
+	/**
+	 * Sends EmojiPlayedMessage to client
+	 *
+	 * @param message EmojiPlayed message
+	 * @param players the players that receive the message
+	 */
 	void sendEmojiPlayed(EmojiPlayedMessage message, List<Integer> players);
 }

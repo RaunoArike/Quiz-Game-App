@@ -176,6 +176,14 @@ public class GameServiceImpl implements GameService {
 		player.setTimeTakenToAnswer(timePassed);
 	}
 
+	/**
+	 * EmojiPlayed method
+	 * Receiving emojiMessage from the frontend and
+	 * Send emojiPlayed message back to client
+	 *
+	 * @param playerId player who played the emoji
+	 * @param emojiMessage message containing which emoji is used
+	 */
 	@Override
 	public void emojiPlayed(int playerId, SendEmojiMessage emojiMessage) {
 		var game = getPlayerGame(playerId);

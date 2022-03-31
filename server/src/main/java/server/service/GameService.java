@@ -42,5 +42,11 @@ public interface GameService {
 	 */
 	void jokerPlayed(int playerId, SendJokerMessage jokerMessage);
 
+	/**
+	 * Send emoji usage message to server
+	 *
+	 * @param playerId player who played the emoji
+	 * @param emojiMessage message containing which emoji is used
+	 */
 	void emojiPlayed(int playerId, SendEmojiMessage emojiMessage);
 }
