@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.IntermediateLeaderboardCtrl">
-      <Label layoutX="3.0" layoutY="-1.0" prefHeight="196.0" prefWidth="298.0" text="Intermediary Leaderboard">
+      <Label layoutX="3.0" layoutY="-1.0" prefHeight="196.0" prefWidth="298.0"  text="Intermediary Leaderboard">
          <font>
             <Font size="24.0" />
          </font>
@@ -15,11 +15,11 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TableView layoutX="293.0" layoutY="10.0" prefHeight="380.0" prefWidth="298.0">
+      <TableView layoutX="293.0" layoutY="10.0" prefHeight="380.0" prefWidth="298.0" fx:id="intermediaryLeaderboard">
          <columns>
-            <TableColumn prefWidth="50.0" text="Rank" />
-            <TableColumn prefWidth="150.0" text="Username" />
-            <TableColumn prefWidth="100.0" text="Score" />
+            <TableColumn prefWidth="50.0" fx:id="colRanking" text="Rank"  />
+            <TableColumn prefWidth="150.0" fx:id="colUsername" text="Username" />
+            <TableColumn prefWidth="100.0" fx:id="colScore" text="Score" />
          </columns>
       </TableView>
 </Pane>
