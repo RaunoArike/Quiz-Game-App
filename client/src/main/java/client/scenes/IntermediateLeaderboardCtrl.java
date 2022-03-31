@@ -46,6 +46,7 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 		this.server = server;
 		this.mainCtrl = mainCtrl;
 
+		intermediaryLeaderboard = new TableView<>();
 		colUsername = new TableColumn<>();
 		colScore = new TableColumn<>();
 		colRanking = new TableColumn<>();
@@ -85,7 +86,6 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 			/**
 			 * Wait for 3 seconds for the leaderboard to be displayed
 			 */
-			@Override
 			public void run() {
 
 				Node current = new Node() {
@@ -107,14 +107,13 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 
 				current.setUserData(new String("WAIT FOR 3 SECONDS"));
 
-				state.setLabelFor(current);
 			}
 		}, TIME_PASSED);
+		mainCtrl.showIntermediateLeaderboard();
 	}
 
-	/**
-	 *
-	 */
+
+
 	public void keyPressed(KeyEvent keyEvent) {
 		switch (keyEvent.getCode()) {
 			case ESCAPE:
