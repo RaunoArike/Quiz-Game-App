@@ -14,6 +14,6 @@ public record ImportedActivity(
 		String source
 ) {
 	public Activity toModel(String imageUrlPrefix) {
-		return new Activity(title, imageUrlPrefix + imagePath, energyInWh);
+		return new Activity(-1, title, imageUrlPrefix + imagePath, energyInWh);
 	}
 }

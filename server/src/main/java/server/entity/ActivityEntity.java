@@ -33,11 +33,11 @@ public class ActivityEntity {
 	private float energyInWh;
 
 	public static ActivityEntity fromModel(Activity activity) {
-		return new ActivityEntity(-1, activity.name(), activity.imageUrl(), activity.energyInWh());
+		return new ActivityEntity(activity.id(), activity.name(), activity.imageUrl(), activity.energyInWh());
 	}
 
 	public Activity toModel() {
-		return new Activity(name, imageUrl, energyInWh);
+		return new Activity(id, name, imageUrl, energyInWh);
 	}
 
 	public void setName(@NonNull String name) {
