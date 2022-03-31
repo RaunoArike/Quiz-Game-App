@@ -2,14 +2,16 @@ package client.service;
 
 import client.model.GameType;
 import client.model.QuestionData;
-import client.service.ServerService.ServerListener;
-import commons.model.Question;
-import commons.model.Question.*;
-import commons.servermessage.*;
-import client.scenes.MainCtrl;
 import client.model.QuestionTypes;
-
+import client.scenes.MainCtrl;
+import client.service.ServerService.ServerListener;
 import com.google.inject.Inject;
+import commons.model.JokerType;
+import commons.model.Question.ComparisonQuestion;
+import commons.model.Question.EstimationQuestion;
+import commons.model.Question.MultiChoiceQuestion;
+import commons.model.Question.PickEnergyQuestion;
+import commons.servermessage.*;
 
 
 public class MessageLogicServiceImpl implements MessageLogicService, ServerListener {
@@ -46,6 +48,11 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	}
 
 	@Override
+	public void exitWaitingRoom() {
+		server.exitWaitingRoom();
+	}
+
+	@Override
 	public void startMultiGame() {
 		server.startMultiGame();
 	}
@@ -55,40 +62,47 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 		server.answerQuestion(answer);
 	}
 
+	@Override
+	public void sendJoker(JokerType type) {
+		server.sendJoker(type);
+	}
+
 	/**
 	 * Called when new question starts
 	 * @param message message with new question details
 	 */
 	@Override
 	public void onQuestion(QuestionMessage message) {
-		int questionNumber = message.questionNumber();
-		Question question = message.question();
+		var questionNumber = message.questionNumber();
+		var question = message.question();
+		var availableJokers = message.getAvailableJokers();
+
 		if (question instanceof ComparisonQuestion q) {
 			currentType = QuestionTypes.COMPARISON;
 			correctAnswer = q.correctAnswer();
 
-			var questionData = new QuestionData<>(q, questionNumber, score, gameType);
+			var questionData = new QuestionData<>(q, questionNumber, score, gameType, availableJokers);
 			mainCtrl.showComparisonQuestion(questionData);
 		}
 		if (question instanceof EstimationQuestion q) {
 			currentType = QuestionTypes.ESTIMATION;
 			correctAnswer = q.correctAnswer();
 
-			var questionData = new QuestionData<>(q, questionNumber, score, gameType);
+			var questionData = new QuestionData<>(q, questionNumber, score, gameType, availableJokers);
 			mainCtrl.showEstimationQuestion(questionData);
 		}
 		if (question instanceof MultiChoiceQuestion q) {
 			currentType = QuestionTypes.MULTI_CHOICE;
 			correctAnswer = q.correctAnswer();
 
-			var questionData = new QuestionData<>(q, questionNumber, score, gameType);
+			var questionData = new QuestionData<>(q, questionNumber, score, gameType, availableJokers);
 			mainCtrl.showMultiChoiceQuestion(questionData);
 		}
 		if (question instanceof PickEnergyQuestion q) {
 			currentType = QuestionTypes.PICK_ENERGY;
 			correctAnswer = q.correctAnswer();
 
-			var questionData = new QuestionData<>(q, questionNumber, score, gameType);
+			var questionData = new QuestionData<>(q, questionNumber, score, gameType, availableJokers);
 			mainCtrl.showPickEnergyQuestion(questionData);
 		}
 
@@ -101,7 +115,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	@Override
 	public void onScore(ScoreMessage message) {
 		this.score = message.totalScore();
-		mainCtrl.showAnswer(currentType, correctAnswer, message.questionScore());
+		mainCtrl.showAnswer(currentType, correctAnswer, message.questionScore(), message.numberOfPlayersScored());
 	}
 
 	/**
@@ -118,8 +132,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onEndOfGame() {
-
-			mainCtrl.showEndingScreen(score);
+		mainCtrl.showEndingScreen(score);
 	}
 
 	/**
@@ -131,6 +144,9 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 		if (message.errorType() == ErrorMessage.Type.USERNAME_BUSY) {
 			mainCtrl.showUsernameBusyError();
 		}
+		if (message.errorType() == ErrorMessage.Type.NOT_ENOUGH_PLAYERS) {
+			mainCtrl.showNotEnoughPlayersError();
+		}
 	}
 
 	/**
@@ -140,7 +156,15 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onIntermediateLeaderboard(IntermediateLeaderboardMessage intermediateLeaderboardMessage) {
-		mainCtrl.showIntermediateleaderboard();
+		mainCtrl.showIntermediateLeaderboard();
 	}
 
+	/**
+	 * Called when a time reduction joker was played by one of the players
+	 * @param message message about the joker played
+	 */
+	@Override
+	public void onReduceTimePlayed(ReduceTimePlayedMessage message) {
+		mainCtrl.notifyReduceTimePlayed(currentType, message.timeLeftMs());
+	}
 }

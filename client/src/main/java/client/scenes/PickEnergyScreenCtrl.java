@@ -8,6 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import com.google.inject.Inject;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
 
@@ -29,9 +32,18 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@FXML
 	private Label optionCtext;
 
+	@FXML
+	private ImageView imageView;
+
+	@FXML
+	private Label scoreMessage;
+
 	private int selectedAnswer = -1;
 
 	private final ToggleGroup toggleGroup = new ToggleGroup();
+
+	private final int fitWidth = 200;
+	private final int fitHeight = 150;
 
 	@Inject
 	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -41,6 +53,7 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	@Override
 	public void init() {
 		super.init();
+		scoreMessage.setText("");
 		optionA.setStyle(null);
 		optionB.setStyle(null);
 		optionC.setStyle(null);
@@ -67,6 +80,9 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		var b = question.answerOptions().get(1).toString();
 		var c = question.answerOptions().get(2).toString();
 		setOptions(a, b, c);
+
+		String url = question.activity().imageUrl();
+		setActivityImages(url);
 	}
 
 	private void setOptions(String a, String b, String c) {
@@ -79,83 +95,79 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		optionC.setDisable(false);
 	}
 
+	public void setActivityImages(String url) {
+		Image image =  new Image(url);
+		imageView.setFitWidth(fitWidth);
+		imageView.setFitHeight(fitHeight);
+		imageView.setImage(image);
+	}
+
 	public void optionAClicked() {
 		messageService.answerQuestion(0);
 		timeStop();
-
 		selectedAnswer = 0;
-
-
 	}
 
 	public void optionBClicked() {
 		messageService.answerQuestion(1);
 		timeStop();
-
 		selectedAnswer = 1;
-
-
 	}
 
 	public void optionCClicked() {
 		messageService.answerQuestion(2);
 		timeStop();
-
 		selectedAnswer = 2;
-
-
 	}
 
-	public void showAnswer(int option) {
+	public void showAnswer(int option, int numberOfPlayersScored) {
 		switch (option) {
 			case 0:
 				optionA.setStyle("-fx-background-color: #00c203; ");
-
-
 				optionA.setDisable(true);
 				optionB.setDisable(true);
 				optionC.setDisable(true);
-
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
 				} else if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
 				}
-
 				break;
+
 			case 1:
 				optionB.setStyle("-fx-background-color: #00c203; ");
-
-
 				optionA.setDisable(true);
 				optionB.setDisable(true);
 				optionC.setDisable(true);
-
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
 				}
 				if (selectedAnswer == 2) {
 					optionC.setStyle("-fx-background-color: #fd4119; ");
 				}
-
-
 				break;
-			case 2:
+
+				case 2:
 				optionC.setStyle("-fx-background-color: #00c203; ");
-
-
 				optionA.setDisable(true);
 				optionB.setDisable(true);
 				optionC.setDisable(true);
-
 				if (selectedAnswer == 1) {
 					optionB.setStyle("-fx-background-color: #fd4119; ");
 				}
 				if (selectedAnswer == 0) {
 					optionA.setStyle("-fx-background-color: #fd4119; ");
 				}
-
 				break;
 		}
+		String message = "";
+		if (numberOfPlayersScored != -1) {
+			if (numberOfPlayersScored == 1) {
+				message += "\n" + numberOfPlayersScored + " player scored on this question.";
+			} else {
+				message += "\n" + numberOfPlayersScored + " players scored on this question.";
+			}
+		}
+		scoreMessage.setText(message);
 	}
 }

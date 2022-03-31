@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.clientmessage.*;
 import commons.clientmessage.QuestionAnswerMessage;
 import commons.clientmessage.SendJokerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
@@ -60,6 +61,12 @@ public class GameController {
 	public void joinWaitingRoom(@Payload WaitingRoomJoinMessage waitingRoomJoinMessage, Principal principal) {
 		int playerId = connectionRegistry.createPlayerIdForConnectionId(principal.getName());
 		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username(), playerId);
+	}
+
+	@MessageMapping("/exit-waiting-room")
+	public void exitWaitingRoom(@Payload WaitingRoomExitMessage waitingRoomExitMessage, Principal principal) {
+		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
+		waitingRoomService.exitWaitingRoom(playerId);
 	}
 
 	/**

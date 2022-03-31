@@ -2,6 +2,8 @@ package server.service;
 
 import commons.servermessage.ErrorMessage;
 import commons.servermessage.WaitingRoomStateMessage;
+import commons.servermessage.ErrorMessage.Type;
+
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Player;
@@ -23,12 +25,11 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 
 	@Override
 	public void joinWaitingRoom(String playerName, int playerId) {
-		/*
+		/**
 		 * If the player isn't already in the waiting room,
 		 * we add them to the map of players to the current waiting room
-		 * * and to the list of players.
+		 * and to the list of players.
 		 */
-		if (isInWaitingRoom(playerId)) return;
 		if (isInWaitingRoom(playerName)) {
 			outgoingController.sendError(ErrorMessage.Type.USERNAME_BUSY, List.of(playerId));
 			return;
@@ -42,15 +43,16 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 		return listOfPlayers.stream().anyMatch(p -> p.getName().equals(playerName));
 	}
 
-	private boolean isInWaitingRoom(int playerId) {
-		return listOfPlayers.stream().anyMatch(p -> p.getPlayerId() == playerId);
-	}
-
 	@Override
 	public void startMultiplayerGame() {
 		if (listOfPlayers.isEmpty()) return;
-		gameService.startMultiPlayerGame(listOfPlayers);
-		resetWaitingRoom();
+		if (listOfPlayers.size() < 2) {
+			List<Integer> listOfPlayerIDs = listOfPlayers.stream().map(Player::getPlayerId).toList();
+			outgoingController.sendError(new ErrorMessage(Type.NOT_ENOUGH_PLAYERS), listOfPlayerIDs);
+		} else {
+			gameService.startMultiPlayerGame(listOfPlayers);
+			resetWaitingRoom();
+		}
 	}
 
 	private void resetWaitingRoom() {
@@ -68,5 +70,16 @@ public class WaitingRoomServiceImpl implements WaitingRoomService {
 			}
 			outgoingController.sendWaitingRoomState(waitingRoomStateMessage, listOfPlayerIds);
 		}
+	}
+
+	@Override
+	public void exitWaitingRoom(int playerId) {
+		for (Player p : listOfPlayers) {
+			if (p.getPlayerId() == playerId) {
+				listOfPlayers.remove(p);
+				break;
+			}
+		}
+		broadcastNotify();
 	}
 }

@@ -13,6 +13,12 @@ public interface WaitingRoomService {
 	void joinWaitingRoom(String playerName, int playerId);
 
 	/**
+	 * Removes a player from a waiting room if they choose to exit
+	 * @param playerId
+	 */
+	void exitWaitingRoom(int playerId);
+
+	/**
 	 * The game of the given waiting room is started by one of the players
 	 */
 	void startMultiplayerGame();

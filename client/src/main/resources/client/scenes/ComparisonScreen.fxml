@@ -19,12 +19,13 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <ImageView fitHeight="32.0" fitWidth="204.0" layoutX="66.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="questionText" layoutX="36.0" layoutY="50.0" prefHeight="103.0" prefWidth="542.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
+      <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
+      <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="217.0" layoutX="37.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="questionText" layoutX="19.0" layoutY="50.0" prefHeight="93.0" prefWidth="562.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
          <font>
-            <Font size="20.0" />
+            <Font size="16.0" />
          </font>
       </Label>
       <Label fx:id="score" layoutX="482.0" layoutY="30.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
@@ -38,7 +39,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="244.0" layoutY="239.0" prefHeight="70.0" prefWidth="315.0" text="Answer Message" wrapText="true">
+      <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="258.0" layoutY="239.0" prefHeight="70.0" prefWidth="301.0" text="Answer Message" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -48,5 +49,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <ImageView fx:id="activityB" fitHeight="93.0" fitWidth="217.0" layoutX="36.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

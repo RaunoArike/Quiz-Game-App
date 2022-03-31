@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiChoiceScreenCtrl">
    <children>
-      <Button fx:id="optionA" alignment="CENTER" layoutX="22.0" layoutY="238.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="59.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="optionB" alignment="CENTER" layoutX="217.0" layoutY="238.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="59.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="optionC" alignment="CENTER" layoutX="405.0" layoutY="238.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="59.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="optionA" alignment="CENTER" layoutX="22.0" layoutY="254.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="59.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="optionB" alignment="CENTER" layoutX="217.0" layoutY="254.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="59.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="optionC" alignment="CENTER" layoutX="405.0" layoutY="254.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="59.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true" />
       <ProgressBar fx:id="timerProgress" layoutX="172.0" layoutY="328.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" />
       <Text layoutX="111.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
       <Text fx:id="timerNumber" layoutX="149.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
@@ -21,11 +21,12 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="eliminateOption" layoutX="193.0" layoutY="353.0" mnemonicParsing="false" onAction="#useEliminateOption" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-      <Button fx:id="doublePoints" layoutX="321.0" layoutY="353.0" mnemonicParsing="false" onAction="#useDoublePoints" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-      <ImageView fitHeight="131.0" fitWidth="168.0" layoutX="18.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="131.0" fitWidth="168.0" layoutX="217.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="131.0" fitWidth="168.0" layoutX="27.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="eliminateOptionJoker" onAction="#useEliminateOptionJoker" layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" onAction="#useDoublePointsJoker" layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" onAction="#useReduceTimeJoker" layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
+      <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="27.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="215.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="405.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="score" layoutX="489.0" layoutY="23.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
          <font>
             <Font size="15.0" />
@@ -33,7 +34,12 @@
       </Label>
       <Label fx:id="questionText" layoutX="34.0" layoutY="45.0" prefHeight="82.0" prefWidth="527.0" text="This is the question" wrapText="true">
          <font>
-            <Font size="20.0" />
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreMessage" layoutX="444.0" layoutY="318.0" prefHeight="76.0" prefWidth="154.0" wrapText="true">
+         <font>
+            <Font size="15.0" />
          </font>
       </Label>
    </children>

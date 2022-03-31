@@ -13,14 +13,23 @@ public class WaitingroomCtrl extends AbstractCtrl {
 	@FXML
 	private Label noOfPeopleText;
 
+	@FXML
+	private Label errorMessageText;
+
 	@Inject
 	public WaitingroomCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
 		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
 	}
 
+	@Override
+	public void init() {
+		errorMessageText.setText("");
+	}
+
 	// Links to the cancel button
 	public void returnHome() {
+		messageService.exitWaitingRoom();
 		mainCtrl.showHome();
 	}
 
@@ -33,9 +42,14 @@ public class WaitingroomCtrl extends AbstractCtrl {
 		noOfPeopleText.setText("Number of players in the waiting room: " + noOfPeople);
 	}
 
+	public void showNotEnoughPlayersError() {
+		errorMessageText.setText("Not enough players to start the game!");
+	}
+
 	public void keyPressed(KeyEvent e) {
 		switch (e.getCode()) {
 			case ESCAPE:
+				errorMessageText.setText("");
 				returnHome();
 				break;
 			default:

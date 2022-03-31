@@ -26,7 +26,7 @@ public interface GameService {
 	void startMultiPlayerGame(List<Player> listOfPlayers);
 
 	/**
-	 * Submits answer to the current question
+	 * Submits answer to the current question.
 	 *
 	 * @param playerId player id
 	 * @param answer submitted answer
