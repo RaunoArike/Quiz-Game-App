@@ -231,12 +231,12 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+		if (jokerMessage.jokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
 			doublePoints = true;
 		}
 
-		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+		if (jokerMessage.jokerType() == JokerType.ELIMINATE_MC_OPTION) {
 			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
 
@@ -255,16 +255,16 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+		if (jokerMessage.jokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
 			doublePoints = true;
 		}
 
-		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+		if (jokerMessage.jokerType() == JokerType.ELIMINATE_MC_OPTION) {
 			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
 
-		if (jokerMessage.getJokerType() == JokerType.REDUCE_TIME) {
+		if (jokerMessage.jokerType() == JokerType.REDUCE_TIME) {
 			player.setJokerAvailability(JokerType.REDUCE_TIME, false);
 
 			long currentTimeLefts = timerService.getRemainingTime(game.getGameId());
