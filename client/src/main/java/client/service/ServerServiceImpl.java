@@ -100,9 +100,6 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
 			});
-			registerForMessages("/user/queue/intermediate-leaderboard", IntermediateLeaderboardMessage.class, m -> {
-				notifyListeners(listener -> listener.onIntermediateLeaderboard(m));
-			});
 			registerForMessages("/user/queue/reduce-time-played", ReduceTimePlayedMessage.class, message -> {
 				notifyListeners(listener -> listener.onReduceTimePlayed(message));
 			});
