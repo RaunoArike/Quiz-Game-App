@@ -132,11 +132,12 @@ public class GameServiceImpl implements GameService {
 
 		long timePassed = timerService.getTime() - game.getStartTime();
 		var currentQuestion = game.getCurrentQuestion();
-
-		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
+		var scoreDelta = 0;
+		if (answer != null) {
+			scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
 				timePassed);
-		player.incrementScore(scoreDelta);
-
+			player.incrementScore(scoreDelta);
+		}
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
 
 		if (!game.isLastQuestion()) {
@@ -195,7 +196,14 @@ public class GameServiceImpl implements GameService {
 		outgoingController.sendQuestion(questionMessage, game.getPlayerIds());
 		game.setQuestionStartTime(timerService.getTime());
 
-		timerService.scheduleTimer(game.getGameId(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+		if (!game.isSinglePlayer()) {
+			timerService.scheduleTimer(game.getGameId(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+		} else {
+			int playerId = game.getPlayers().get(0).getPlayerId();
+			timerService.scheduleTimer(game.getGameId(),
+									Game.QUESTION_DURATION, () -> submitAnswerSinglePlayer(playerId, null));
+		}
+
 	}
 
 	/**
