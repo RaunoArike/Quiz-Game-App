@@ -131,30 +131,30 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public int calculateScore(Question question, Number answer, long timeSpent, boolean doublePoints) {
 		if (question instanceof Question.MultiChoiceQuestion mc) {
-			return calculateScoreMC(mc, answer.intValue(), timeSpent);
+			return calculateScoreMC(mc, answer.intValue(), timeSpent, doublePoints);
 		} else if (question instanceof Question.EstimationQuestion est) {
-			return calculateScoreEst(est, answer.floatValue(), timeSpent);
+			return calculateScoreEst(est, answer.floatValue(), timeSpent, doublePoints);
 		} else if (question instanceof Question.ComparisonQuestion comp) {
-			return calculateScoreComp(comp, answer.floatValue(), timeSpent);
+			return calculateScoreComp(comp, answer.floatValue(), timeSpent, doublePoints);
 		} else if (question instanceof Question.PickEnergyQuestion pick) {
-			return calculateScorePick(pick, answer.intValue(), timeSpent);
+			return calculateScorePick(pick, answer.intValue(), timeSpent, doublePoints);
 		}
 		return 0;
 	}
 
-	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent, boolean doublePoints) {
 		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}
 
 	// TODO Consider improving the formula
-	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent) {
+	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent, boolean doublePoints) {
 		var error = Math.abs(answer - question.correctAnswer());
 		var errorRatio = error / question.correctAnswer();
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent) {
+	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent, boolean doublePoints) {
 		float errorRatio;
 		if (answer < question.correctAnswer()) {
 			errorRatio = 1 - (answer / question.correctAnswer());
@@ -174,7 +174,7 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent) {
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent, boolean doublePoints) {
 		if (question.correctAnswer() == answer) return MAX_SCORE;
 		else return 0;
 	}

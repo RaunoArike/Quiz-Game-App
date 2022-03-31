@@ -187,11 +187,11 @@ public class GameServiceImpl implements GameService {
 		if (game.isSinglePlayer()) {
 
 			jokerPlayedSinglePlayer(playerId, jokerMessage);
-			timeJokerStatus = false;
+
 		} else {
 
 			jokerPlayedMultiPlayer(playerId, jokerMessage);
-			timeJokerStatus = true;
+
 		}
 	}
 
@@ -273,8 +273,14 @@ public class GameServiceImpl implements GameService {
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
-		
+
 		game.startNewQuestion(question);
+
+		if (game.isSinglePlayer()) {
+			timeJokerStatus = false;
+		}else{
+			timeJokerStatus = true;
+		}
 
 		for (Player player: game.getPlayers()) {
 			if (question instanceof Question.MultiChoiceQuestion) {

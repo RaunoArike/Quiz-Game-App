@@ -46,7 +46,7 @@ public class OutgoingControllerMock implements OutgoingController {
 
 	@Override
 	public void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players) {
-
+		saveMessage(message, players);
 	}
 
 	private void saveMessage(Object message, List<Integer> players) {
