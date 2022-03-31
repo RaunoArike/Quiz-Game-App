@@ -52,7 +52,7 @@ public class AdminCtrl extends AbstractCtrl implements Initializable {
 			listActivities = new ArrayList<>();
 		}
 
-		///The option to return home
+		//The option to return home
 		public void returnHome() {
 			mainCtrl.showHome();
 		}

@@ -5,6 +5,7 @@ import client.service.MessageLogicService;
 import com.google.inject.Inject;
 import commons.model.JokerType;
 import commons.model.Question;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.Set;
 import java.util.Timer;
@@ -25,6 +27,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final int DISLIKE_EMOJI_TYPE = 3;
 	private static final int ANGRY_EMOJI_TYPE = 4;
 	private static final int VOMIT_EMOJI_TYPE = 5;
+	private static final int MOVE_EMOJI = -150;
 
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
@@ -130,44 +133,44 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		}
 	}
 
-	private void handleLolEmojiClicks() {
-		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	public void handleLolEmojiClicks() {
+		lolEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			useEmoji(0);
-			System.out.println("Emoji pressed");
+			animateEmoji(lolEmoji);
 			event.consume();
 		});
 	}
 
-	private void handleSunglassesEmojiClicks() {
-		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	public void handleSunglassesEmojiClicks() {
+		sunglassesEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			useEmoji(1);
 			event.consume();
 		});
 	}
 
-	private void handleLikeEmojiClicks() {
+	public void handleLikeEmojiClicks() {
 		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			useEmoji(2);
 			event.consume();
 		});
 	}
 
-	private void handleDislikeEmojiClicks() {
-		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	public void handleDislikeEmojiClicks() {
+		dislikeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			useEmoji(DISLIKE_EMOJI_TYPE);
 			event.consume();
 		});
 	}
 
-	private void handleAngryEmojiClicks() {
-		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	public void handleAngryEmojiClicks() {
+		angryEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			useEmoji(ANGRY_EMOJI_TYPE);
 			event.consume();
 		});
 	}
 
-	private void handleEmojiClicks() {
-		likeEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+	public void handleVomitEmojiClicks() {
+		vomitEmoji.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			useEmoji(ANGRY_EMOJI_TYPE);
 			event.consume();
 		});
@@ -192,7 +195,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		eliminateOptionJoker.setDisable(true);
 	}
 
-	public void useEmoji(int emojiType) {
+	private void useEmoji(int emojiType) {
+		System.out.println("Emoji used");
 		switch (emojiType) {
 			case 0:
 				messageService.sendEmoji(0);
@@ -207,5 +211,32 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 			case VOMIT_EMOJI_TYPE:
 				messageService.sendEmoji(VOMIT_EMOJI_TYPE);
 		}
+	}
+
+	public void notifyEmojiPlayed(int emojiType) {
+		switch (emojiType) {
+			case 0:
+				animateEmoji(lolEmoji);
+			case 1:
+				animateEmoji(sunglassesEmoji);
+			case 2:
+				animateEmoji(likeEmoji);
+			case DISLIKE_EMOJI_TYPE:
+				animateEmoji(dislikeEmoji);
+			case ANGRY_EMOJI_TYPE:
+				animateEmoji(angryEmoji);
+			case VOMIT_EMOJI_TYPE:
+				animateEmoji(vomitEmoji);
+		}
+	}
+
+	private void animateEmoji(ImageView emojiType) {
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(emojiType);
+		translate.setDuration(Duration.millis(TIMER_SECOND));
+		translate.setByY(MOVE_EMOJI);
+		translate.setCycleCount(2);
+		translate.setAutoReverse(true);
+		translate.play();
 	}
 }

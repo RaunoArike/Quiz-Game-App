@@ -172,4 +172,13 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	public void onReduceTimePlayed(ReduceTimePlayedMessage message) {
 		mainCtrl.notifyReduceTimePlayed(currentType, message.timeLeftMs());
 	}
+
+	/**
+	 * Called when an emoji was sent by one of the players
+	 * @param message message about the emoji played
+	 */
+	@Override
+	public void onEmojiPlayed(EmojiPlayedMessage message) {
+		mainCtrl.notifyEmojiPlayed(currentType, message.emojiNumber());
+	}
 }
