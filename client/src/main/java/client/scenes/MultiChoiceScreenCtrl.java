@@ -182,6 +182,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		}
 		scoreMessage.setText(message);
 		timeStop();
+		disableJokers();
 	}
 
 	@Override

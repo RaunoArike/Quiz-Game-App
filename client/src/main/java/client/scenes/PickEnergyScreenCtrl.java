@@ -171,6 +171,7 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			}
 		}
 		scoreMessage.setText(message);
+		disableJokers();
 	}
 
 	@Override

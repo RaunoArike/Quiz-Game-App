@@ -83,6 +83,10 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		eliminateOptionJoker.setDisable(!availableJokers.contains(JokerType.ELIMINATE_MC_OPTION));
 	}
 
+	protected void disableJokers() {
+		setJokerAvailability(Set.of());
+	}
+
 	private void callTimeLimiter(long initialTimeLeftMs) {
 		timeStop();
 		timerTask = new TimerTask() {
