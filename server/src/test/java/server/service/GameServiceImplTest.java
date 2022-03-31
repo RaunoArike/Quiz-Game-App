@@ -24,7 +24,7 @@ import server.model.Player;
 import server.service.mock.TimerServiceControllableMock;
 import server.service.mock.TimerServiceImmediateMock;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,12 +36,12 @@ public class GameServiceImplTest {
 	private static final Question FAKE_QUESTION_EST = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
 
 	private static final List<Activity> FAKE_ACTIVITIES_LIST = List.of(
-			new Activity("a","b",42f),
-			new Activity("d", "e",42f),
-			new Activity("g","h",42f)
+			new Activity("a", "b", 42f),
+			new Activity("d", "e", 42f),
+			new Activity("g", "h", 42f)
 	);
 
-	private static final Question FAKE_QUESTION_MC = new Question.MultiChoiceQuestion(FAKE_ACTIVITIES_LIST, 0 );
+	private static final Question FAKE_QUESTION_MC = new Question.MultiChoiceQuestion(FAKE_ACTIVITIES_LIST, 0);
 
 	private static final List<Player> FAKE_PLAYER_LIST = List.of(
 			new Player("name1", 1, 0),
@@ -55,9 +55,9 @@ public class GameServiceImplTest {
 	);
 
 	private static final List<LeaderboardEntry> FAKE_LEADERBOARD = List.of(
-		new LeaderboardEntry("name3", 300),
-		new LeaderboardEntry("name2", 200),
-		new LeaderboardEntry("name1", 100)
+			new LeaderboardEntry("name3", 300),
+			new LeaderboardEntry("name2", 200),
+			new LeaderboardEntry("name1", 100)
 	);
 
 	private static final List<Integer> FAKE_PLAYER_ID_LIST = List.of(1, 2, 3);
@@ -82,7 +82,7 @@ public class GameServiceImplTest {
 
 	private GameServiceImpl createService(TimerService timerService, OutgoingController outgoingController) {
 		return new GameServiceImpl(questionService, outgoingController,
-			leaderboardService, timerService);
+				leaderboardService, timerService);
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class GameServiceImplTest {
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_EST, 0,false,true,false),
+				new QuestionMessage(FAKE_QUESTION_EST, 0, false, true, false),
 				List.of(30)
 		);
 	}
@@ -106,7 +106,7 @@ public class GameServiceImplTest {
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_MC, 0,false,true,true),
+				new QuestionMessage(FAKE_QUESTION_MC, 0, false, true, true),
 				List.of(30)
 		);
 	}
@@ -124,8 +124,10 @@ public class GameServiceImplTest {
 				questionMessageCaptor.capture(),
 				eq(List.of(30))
 		);
-		assertEquals(new QuestionMessage(FAKE_QUESTION_EST, 0, false,true,false), questionMessageCaptor.getAllValues().get(0));
-		assertEquals(new QuestionMessage(FAKE_QUESTION_EST, 1,false,true,false), questionMessageCaptor.getAllValues().get(1));
+		assertEquals(new QuestionMessage(FAKE_QUESTION_EST, 0, false, true, false),
+				questionMessageCaptor.getAllValues().get(0));
+		assertEquals(new QuestionMessage(FAKE_QUESTION_EST, 1, false, true, false),
+				questionMessageCaptor.getAllValues().get(1));
 
 		verify(questionService, times(2)).generateQuestion(anyInt());
 	}
@@ -197,9 +199,9 @@ public class GameServiceImplTest {
 		var service = createService(controllableTimer, capturingOutgoingController);
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
-		for (Player p: FAKE_PLAYER_LIST) {
-			assertThat(capturingOutgoingController.getSentMessagesForPlayer(p.getPlayerId()),Matchers.contains(
-					new QuestionMessage(FAKE_QUESTION_EST, 0, true, true,false))
+		for (Player p : FAKE_PLAYER_LIST) {
+			assertThat(capturingOutgoingController.getSentMessagesForPlayer(p.getPlayerId()), Matchers.contains(
+					new QuestionMessage(FAKE_QUESTION_EST, 0, true, true, false))
 			);
 
 		}
@@ -213,9 +215,9 @@ public class GameServiceImplTest {
 		var service = createService(controllableTimer, capturingOutgoingController);
 		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
 
-		for (Player p: FAKE_PLAYER_LIST) {
-			assertThat(capturingOutgoingController.getSentMessagesForPlayer(p.getPlayerId()),Matchers.contains(
-					new QuestionMessage(FAKE_QUESTION_MC, 0, true, true,true))
+		for (Player p : FAKE_PLAYER_LIST) {
+			assertThat(capturingOutgoingController.getSentMessagesForPlayer(p.getPlayerId()), Matchers.contains(
+					new QuestionMessage(FAKE_QUESTION_MC, 0, true, true, true))
 			);
 		}
 
@@ -242,7 +244,7 @@ public class GameServiceImplTest {
 		// Timer not advanced
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_EST, 0, false, true,false),
+				new QuestionMessage(FAKE_QUESTION_EST, 0, false, true, false),
 				List.of(30)
 		);
 	}
@@ -257,7 +259,7 @@ public class GameServiceImplTest {
 		// Timer not advanced
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_MC, 0, false, true,true),
+				new QuestionMessage(FAKE_QUESTION_MC, 0, false, true, true),
 				List.of(30)
 		);
 	}
