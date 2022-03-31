@@ -107,7 +107,7 @@ public class GameServiceImpl implements GameService {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
 		if (game.isSinglePlayer()) {
-			submitAnswerSinglePlayer(playerId, answer);
+			submitAnswerSinglePlayer(playerId, answer, false);
 		} else {
 			submitAnswerMultiPlayer(playerId, answer);
 		}
@@ -119,7 +119,7 @@ public class GameServiceImpl implements GameService {
 	 * @param playerId player who submits the answer
 	 * @param answer message containing the answer
 	 */
-	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
+	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer, boolean doublePoints) {
 
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
@@ -134,7 +134,7 @@ public class GameServiceImpl implements GameService {
 		var currentQuestion = game.getCurrentQuestion();
 
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed);
+				timePassed, doublePoints);
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
@@ -214,7 +214,7 @@ public class GameServiceImpl implements GameService {
 			var scoreDelta = 0;
 			if (player.getLatestAnswer() != null) {
 				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
-					player.getLatestAnswer(), player.getTimeTakenToAnswer());
+					player.getLatestAnswer(), player.getTimeTakenToAnswer(), false);
 				player.incrementScore(scoreDelta);
 				if (scoreDelta > 0) {
 					numberOfPlayersScored++;

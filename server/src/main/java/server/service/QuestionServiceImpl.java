@@ -47,10 +47,14 @@ public class QuestionServiceImpl implements QuestionService {
 		int no = Math.abs(new Random().nextInt());
 
 		switch (no % NUMBER_OF_QUESTION_TYPES) {
-			case 0:	return generateMC();
-			case 1: return generateEst();
-			case 2: return generateComp();
-			case NUMBER_OF_CASES: return generatePick();
+			case 0:
+				return generateMC();
+			case 1:
+				return generateEst();
+			case 2:
+				return generateComp();
+			case NUMBER_OF_CASES:
+				return generatePick();
 		}
 		return null;
 	}
@@ -143,19 +147,19 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 	@Override
-	public int calculateScore(Question question, Number answer, long timeSpent) {
+	public int calculateScore(Question question, Number answer, long timeSpent, boolean doublePoints) {
 		if (question
 				instanceof Question.MultiChoiceQuestion mc) {
-			return calculateScoreMC(mc, answer.intValue(), timeSpent);
+			return calculateScoreMC(mc, answer.intValue(), timeSpent, doublePoints);
 		} else if (question
 				instanceof Question.EstimationQuestion est) {
-			return calculateScoreEst(est, answer.floatValue(), timeSpent);
+			return calculateScoreEst(est, answer.floatValue(), timeSpent, doublePoints);
 		} else if (question
 				instanceof Question.ComparisonQuestion comp) {
-			return calculateScoreComp(comp, answer.floatValue(), timeSpent);
+			return calculateScoreComp(comp, answer.floatValue(), timeSpent, doublePoints);
 		} else if (question
 				instanceof Question.PickEnergyQuestion pick) {
-			return calculateScorePick(pick, answer.intValue(), timeSpent);
+			return calculateScorePick(pick, answer.intValue(), timeSpent, doublePoints);
 		}
 		return 0;
 	}
@@ -174,57 +178,8 @@ public class QuestionServiceImpl implements QuestionService {
 		}
 	}
 
-	private int estimationScoring(Question.EstimationQuestion question, float answer, long timeSpent) {
-
-
-		if (answer == question.correctAnswer()) {
-			if (timeSpent < TIME_PERIOD_1) {
-				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
-			}
-
-			if (timeSpent > TIME_PERIOD_1
-					&& timeSpent < TIME_PERIOD_2) {
-				return (int) (MAX_SCORE * TIME_RATIO_GOOD);
-			}
-
-			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
-					&& timeSpent < TIME_PERIOD_3) {
-				return (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
-			} else {
-				return (int) (MAX_SCORE * TIME_RATIO_BAD);
-			}
-		}
-		double limit1 = answer - Math.pow(MAX_SCORE, 1 / BASE);
-		double limit2 = answer + Math.pow(MAX_SCORE, 1 / BASE);
-
-		float base = answer - question.correctAnswer();
-		float value = 1;
-		for (int i = 0; i < BASE; i++) {
-			value *= base;
-		}
-		value = MAX_SCORE - value;
-		if (answer < limit1) {
-			return 0;
-		}
-
-		if (answer > limit2) {
-			return 0;
-		}
-
-		if (question.correctAnswer() < 1) {
-			float base2 = answer - question.correctAnswer() + 1;
-			float value2 = 1;
-			for (int i = 0; i < BASE; i++) {
-				value *= base2;
-			}
-			value = MAX_SCORE - value;
-			return (int) value;
-		}
-		return (int) value;
-	}
-
-	private int comparisonScoring(Question.ComparisonQuestion question, float answer, long timeSpent) {
-
+	private int estimationScoring(Question.EstimationQuestion question, float answer,
+									long timeSpent, boolean doublePoints) {
 
 		if (answer == question.correctAnswer()) {
 			if (timeSpent < TIME_PERIOD_1) {
@@ -272,7 +227,56 @@ public class QuestionServiceImpl implements QuestionService {
 		return (int) value;
 	}
 
-	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent) {
+	private int comparisonScoring(Question.ComparisonQuestion question,
+									float answer, long timeSpent, boolean doublePoints) {
+		if (answer == question.correctAnswer()) {
+			if (timeSpent < TIME_PERIOD_1) {
+				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
+			}
+
+			if (timeSpent > TIME_PERIOD_1
+					&& timeSpent < TIME_PERIOD_2) {
+				return (int) (MAX_SCORE * TIME_RATIO_GOOD);
+			}
+
+			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
+					&& timeSpent < TIME_PERIOD_3) {
+				return (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
+			} else {
+				return (int) (MAX_SCORE * TIME_RATIO_BAD);
+			}
+		}
+		double limit1 = answer - Math.pow(MAX_SCORE, 1 / BASE);
+		double limit2 = answer + Math.pow(MAX_SCORE, 1 / BASE);
+
+		float base = answer - question.correctAnswer();
+		float value = 1;
+		for (int i = 0; i < BASE; i++) {
+			value *= base;
+		}
+		value = MAX_SCORE - value;
+		if (answer < limit1) {
+			return 0;
+		}
+
+		if (answer > limit2) {
+			return 0;
+		}
+
+		if (question.correctAnswer() < 1) {
+			float base2 = answer - question.correctAnswer() + 1;
+			float value2 = 1;
+			for (int i = 0; i < BASE; i++) {
+				value *= base2;
+			}
+			value = MAX_SCORE - value;
+			return (int) value;
+		}
+		return (int) value;
+	}
+
+	private int calculateScorePick(Question.PickEnergyQuestion question,
+									int answer, long timeSpent, boolean doublePoints) {
 		/*
 		 * If the time spent for the question is less than time period 1, we give the player the maximum score
 		 * If it is greater but smaller than time period 2, we still give them a fairly high score
@@ -303,7 +307,8 @@ public class QuestionServiceImpl implements QuestionService {
 		return DEFAULT;
 	}
 
-	private int calculateScoreMC(Question.MultiChoiceQuestion question, int answer, long timeSpent) {
+	private int calculateScoreMC(Question.MultiChoiceQuestion question,
+								int answer, long timeSpent, boolean doublePoints) {
 		/*
 		 * If the time spent for the question is less than time period 1, we give the player the maximum score
 		 * If it is greater but smaller than time period 2, we still give them a fairly high score
@@ -331,13 +336,15 @@ public class QuestionServiceImpl implements QuestionService {
 	}
 
 
-	private int calculateScoreEst(Question.EstimationQuestion question, float answer, long timeSpent) {
+	private int calculateScoreEst(Question.EstimationQuestion question,
+									float answer, long timeSpent, boolean doublePoints) {
 		var error = Math.abs(answer - question.correctAnswer());
 		var errorRatio = error / question.correctAnswer();
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
-	private int calculateScoreComp(Question.ComparisonQuestion question, float answer, long timeSpent) {
+	private int calculateScoreComp(Question.ComparisonQuestion question,
+									float answer, long timeSpent, boolean doublePoints) {
 		float errorRatio;
 		if (answer < question.correctAnswer()) {
 			errorRatio = 1 - (answer / question.correctAnswer());
