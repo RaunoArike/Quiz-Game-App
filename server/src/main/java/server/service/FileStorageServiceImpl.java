@@ -9,8 +9,7 @@ import org.springframework.util.FileSystemUtils;
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
-	//root should point to src/main/resources/static/images
-	private final Path root = Paths.get("files:resources/static/images");
+	private final Path root = Paths.get("images/");
 
 	@Override
 	public void save(MultipartFile file) {
