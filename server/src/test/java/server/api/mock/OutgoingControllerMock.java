@@ -51,7 +51,7 @@ public class OutgoingControllerMock implements OutgoingController {
 
 	@Override
 	public void sendEmojiPlayed(EmojiPlayedMessage message, List<Integer> players) {
-
+		saveMessage(message, players);
 	}
 
 	private void saveMessage(Object message, List<Integer> players) {
