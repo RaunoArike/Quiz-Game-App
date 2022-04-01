@@ -147,11 +147,7 @@ public class GameServiceImplTest {
 		);
 	}
 
-	/**
-	 * <strong>TO BE CONTINUED WHEN JOKER FUNCTIONALITY IS IMPLEMENTED </strong>
-	 */
-
-	/*@Test
+	@Test
 	public void answering_second_question_should_send_increased_total_score() {
 		when(questionService.calculateScore(any(), eq(5f), anyLong(), eq(false))).thenReturn(77);
 		when(questionService.calculateScore(any(), eq(11f), anyLong(), eq(false))).thenReturn(23);
@@ -172,7 +168,6 @@ public class GameServiceImplTest {
 	}
 
 
-	 */
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {
 		var service = createService(controllableTimer, mockitoOutgoingController);

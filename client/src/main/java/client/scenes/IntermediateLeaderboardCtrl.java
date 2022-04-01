@@ -72,9 +72,4 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 			return finalRank;
 		});
 	}
-	@Override
-	public void init() {
-		super.init();
-	}
-
 }

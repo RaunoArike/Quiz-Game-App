@@ -268,7 +268,6 @@ public class QuestionServiceImpl implements QuestionService {
 			if (doublePoints) {
 				return 2 * scoreToTime(timeSpent);
 			}
-
 			return scoreToTime(timeSpent);
 		}
 		return DEFAULT;
@@ -307,6 +306,9 @@ public class QuestionServiceImpl implements QuestionService {
 									float answer, long timeSpent, boolean doublePoints) {
 		var error = Math.abs(answer - question.correctAnswer());
 		var errorRatio = error / question.correctAnswer();
+		if (doublePoints) {
+			return 2 * calculateScoreShared(errorRatio, timeSpent);
+		}
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
@@ -318,6 +320,9 @@ public class QuestionServiceImpl implements QuestionService {
 		} else {
 			errorRatio = 1 - (question.correctAnswer() / answer);
 		}
+		if (doublePoints) {
+			return 2 * calculateScoreShared(errorRatio, timeSpent);
+		}
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
@@ -327,8 +332,23 @@ public class QuestionServiceImpl implements QuestionService {
 		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
 			return 0;
 		} else {
-			return Math.round(MathUtil.linearMap(errorRatio,
+			int intermediaryResult = Math.round(MathUtil.linearMap(errorRatio,
 					EST_SCORE_RATIO_GOOD, EST_SCORE_RATIO_BAD, MAX_SCORE, 0));
+			if (timeSpent < TIME_PERIOD_1) {
+				return (int) (intermediaryResult * TIME_RATIO_PERFECT);
+			}
+
+			if (timeSpent > TIME_PERIOD_1
+					&& timeSpent < TIME_PERIOD_2) {
+				return (int) (intermediaryResult * TIME_RATIO_GOOD);
+			}
+
+			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
+					&& timeSpent < TIME_PERIOD_3) {
+				return (int) (intermediaryResult * TIME_RATIO_AVERAGE);
+			} else {
+				return (int) (intermediaryResult * TIME_RATIO_BAD);
+			}
 		}
 	}
 }

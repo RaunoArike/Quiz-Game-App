@@ -114,7 +114,7 @@ public class GameServiceImpl implements GameService {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
 		if (game.isSinglePlayer()) {
-			submitAnswerSinglePlayer(playerId, answer, false);
+			submitAnswerSinglePlayer(playerId, answer);
 		} else {
 			submitAnswerMultiPlayer(playerId, answer);
 		}
@@ -127,7 +127,7 @@ public class GameServiceImpl implements GameService {
 	 * @param playerId player who submits the answer
 	 * @param answer   message containing the answer
 	 */
-	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer, boolean doublePoints) {
+	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
 
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
