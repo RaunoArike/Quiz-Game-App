@@ -148,17 +148,13 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public int calculateScore(Question question, Number answer, long timeSpent, boolean doublePoints) {
-		if (question
-				instanceof Question.MultiChoiceQuestion mc) {
+		if (question instanceof Question.MultiChoiceQuestion mc) {
 			return calculateScoreMC(mc, answer.intValue(), timeSpent, doublePoints);
-		} else if (question
-				instanceof Question.EstimationQuestion est) {
+		} else if (question instanceof Question.EstimationQuestion est) {
 			return calculateScoreEst(est, answer.floatValue(), timeSpent, doublePoints);
-		} else if (question
-				instanceof Question.ComparisonQuestion comp) {
+		} else if (question instanceof Question.ComparisonQuestion comp) {
 			return calculateScoreComp(comp, answer.floatValue(), timeSpent, doublePoints);
-		} else if (question
-				instanceof Question.PickEnergyQuestion pick) {
+		} else if (question instanceof Question.PickEnergyQuestion pick) {
 			return calculateScorePick(pick, answer.intValue(), timeSpent, doublePoints);
 		}
 		return 0;
@@ -354,4 +350,19 @@ public class QuestionServiceImpl implements QuestionService {
 		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
+	private int calculateScoreShared(float errorRatio, long timeSpent) {
+		if (errorRatio < EST_SCORE_RATIO_GOOD) {
+			return MAX_SCORE;
+		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
+			return 0;
+		} else {
+			return Math.round(MathUtil.linearMap(errorRatio, EST_SCORE_RATIO_GOOD, EST_SCORE_RATIO_BAD, MAX_SCORE, 0));
+		}
+	}
+
+	private int calculateScorePick(Question.PickEnergyQuestion question, int answer, long timeSpent,
+									boolean doublePoints) {
+		if (question.correctAnswer() == answer) return MAX_SCORE;
+		else return 0;
+	}
 }

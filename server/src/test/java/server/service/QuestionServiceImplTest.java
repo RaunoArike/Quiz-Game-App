@@ -44,6 +44,7 @@ public class QuestionServiceImplTest {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
 		var score = service.calculateScore(question, 2, 1000L, false);
+
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
 
