@@ -1,11 +1,11 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
-import commons.servermessage.EndOfGameMessage;
-import commons.servermessage.IntermediateLeaderboardMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ScoreMessage;
+import commons.model.Question;
+import commons.servermessage.*;
 import org.springframework.stereotype.Service;
 import server.api.OutgoingController;
 import server.model.Game;
@@ -25,10 +25,16 @@ public class GameServiceImpl implements GameService {
 
 	private int nextGameId = 0;
 
+	private boolean doublePoints = false;
+
+	private static final double TIME_JOKER_EFFECT = 0.75;
+
+	private boolean timeJokerStatus;
+
 	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
-			LeaderboardService leaderboardService, TimerService timerService) {
+							LeaderboardService leaderboardService, TimerService timerService) {
 		this.questionService = questionService;
 		this.outgoingController = outgoingController;
 		this.leaderboardService = leaderboardService;
@@ -44,7 +50,7 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
 		var player = new Player(userName, playerId);
-
+		player.init();
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
 		game.addPlayer(playerId, player);
@@ -67,6 +73,7 @@ public class GameServiceImpl implements GameService {
 		games.put(newGameId, game);
 		for (Player p : listOfPlayers) {
 			players.put(p.getPlayerId(), newGameId);
+			p.init();
 		}
 		continueMultiPlayerGame(game);
 	}
@@ -100,7 +107,7 @@ public class GameServiceImpl implements GameService {
 	 * Generic submitAnswer method, calls either single- or multi-player method.
 	 *
 	 * @param playerId player who submits the answer
-	 * @param answer message containing the answer
+	 * @param answer   message containing the answer
 	 */
 	@Override
 	public void submitAnswer(int playerId, QuestionAnswerMessage answer) {
@@ -113,11 +120,12 @@ public class GameServiceImpl implements GameService {
 		}
 	}
 
+
 	/**
 	 * Single-player submitAnswer method.
 	 *
 	 * @param playerId player who submits the answer
-	 * @param answer message containing the answer
+	 * @param answer   message containing the answer
 	 */
 	private void submitAnswerSinglePlayer(int playerId, QuestionAnswerMessage answer) {
 
@@ -134,7 +142,8 @@ public class GameServiceImpl implements GameService {
 		var currentQuestion = game.getCurrentQuestion();
 
 		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed);
+				timePassed, doublePoints);
+		doublePoints = false;
 		player.incrementScore(scoreDelta);
 
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
@@ -152,7 +161,7 @@ public class GameServiceImpl implements GameService {
 	 * Multi-player submitAnswer method.
 	 *
 	 * @param playerId player who submits the answer
-	 * @param answer message containing the answer
+	 * @param answer   message containing the answer
 	 */
 	private void submitAnswerMultiPlayer(int playerId, QuestionAnswerMessage answer) {
 		var game = getPlayerGame(playerId);
@@ -166,11 +175,89 @@ public class GameServiceImpl implements GameService {
 		player.setTimeTakenToAnswer(timePassed);
 	}
 
+	/**
+	 * Generic jokerPlayed method, calls either single- or multi-player method
+	 *
+	 * @param playerId     player who uses the joker
+	 * @param jokerMessage message containing which joker is played
+	 */
+	@Override
+	public void jokerPlayed(int playerId, SendJokerMessage jokerMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+		if (game.isSinglePlayer()) {
+
+			jokerPlayedSinglePlayer(playerId, jokerMessage);
+
+		} else {
+
+			jokerPlayedMultiPlayer(playerId, jokerMessage);
+
+		}
+	}
+
+	/**
+	 * Single player jokerPlayed method
+	 *
+	 * @param playerId     player who uses the joker
+	 * @param jokerMessage message containing which joker is played
+	 */
+	private void jokerPlayedSinglePlayer(int playerId, SendJokerMessage jokerMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
+			doublePoints = true;
+		}
+
+		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
+		}
+
+	}
+
+	/**
+	 * Multi-player jokerPlayed method
+	 *
+	 * @param playerId     player who use the joker
+	 * @param jokerMessage message containing which joker is used
+	 */
+	private void jokerPlayedMultiPlayer(int playerId, SendJokerMessage jokerMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
+			doublePoints = true;
+		}
+
+		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
+		}
+
+		if (jokerMessage.getJokerType() == JokerType.REDUCE_TIME) {
+			player.setJokerAvailability(JokerType.REDUCE_TIME, false);
+
+			long currentTimeLefts = timerService.getRemainingTime(game.getGameId());
+			long timeReduced = (long) (currentTimeLefts * TIME_JOKER_EFFECT);
+			timerService.rescheduleTimer(game.getGameId(), timeReduced);
+
+			outgoingController.sendTimeReduced(new ReduceTimePlayedMessage(timeReduced), game.getPlayerIds());
+		}
+
+	}
 
 	/**
 	 * Sends a new question after a short delay.
 	 *
-	 * @param game game for which new question is to be sent
+	 * @param game          game for which new question is to be sent
 	 * @param questionDelay delay in milliseconds
 	 */
 	private void startNewQuestion(Game game, Long questionDelay) {
@@ -189,10 +276,33 @@ public class GameServiceImpl implements GameService {
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
+
 		game.startNewQuestion(question);
 
-		var questionMessage = new QuestionMessage(question, game.getQuestionNumber(), false, false, false);
-		outgoingController.sendQuestion(questionMessage, game.getPlayerIds());
+		if (game.isSinglePlayer()) {
+			timeJokerStatus = false;
+		} else {
+			timeJokerStatus = true;
+		}
+
+		for (Player player : game.getPlayers()) {
+			if (question instanceof Question.MultiChoiceQuestion) {
+				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
+						timeJokerStatus,
+						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
+						player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION));
+
+				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
+			} else {
+				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
+						timeJokerStatus,
+						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
+						false);
+
+				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
+			}
+
+		}
 		game.setQuestionStartTime(timerService.getTime());
 
 		timerService.scheduleTimer(game.getGameId(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
@@ -214,7 +324,8 @@ public class GameServiceImpl implements GameService {
 			var scoreDelta = 0;
 			if (player.getLatestAnswer() != null) {
 				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
-					player.getLatestAnswer(), player.getTimeTakenToAnswer());
+						player.getLatestAnswer(), player.getTimeTakenToAnswer(), doublePoints);
+				doublePoints = false;
 				player.incrementScore(scoreDelta);
 				if (scoreDelta > 0) {
 					numberOfPlayersScored++;
@@ -242,9 +353,9 @@ public class GameServiceImpl implements GameService {
 			listOfEntries.add(new LeaderboardEntry(p.getName(), p.getScore()));
 		}
 		List<LeaderboardEntry> leaderboard = listOfEntries.stream()
-			.sorted(Comparator.<LeaderboardEntry>comparingInt(entry -> entry.score()).reversed())
-			.limit(NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD)
-			.toList();
+				.sorted(Comparator.<LeaderboardEntry>comparingInt(entry -> entry.score()).reversed())
+				.limit(NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD)
+				.toList();
 		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(leaderboard);
 		outgoingController.sendIntermediateLeaderboard(message, game.getPlayerIds());
 	}

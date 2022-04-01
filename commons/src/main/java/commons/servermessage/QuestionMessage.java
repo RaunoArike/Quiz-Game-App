@@ -14,7 +14,7 @@ public record QuestionMessage(
 		boolean eliminateMCOptionAvailable
 ) {
 	public QuestionMessage(Question question, int questionNumber) {
-		this(question, questionNumber, false, false, false);
+		this(question, questionNumber, true, true, true);
 	}
 
 	public Set<JokerType> getAvailableJokers() {

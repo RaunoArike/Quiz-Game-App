@@ -21,8 +21,11 @@ public class ActivityControllerTest {
 	@Mock
 	private ActivityService activityService;
 
+	@Mock
+	private FileStorageService fileStorageService;
+
 	private ActivityController createController() {
-		return new ActivityController(activityService);
+		return new ActivityController(activityService, fileStorageService);
 	}
 
 
