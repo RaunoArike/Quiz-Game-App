@@ -7,6 +7,7 @@ import commons.model.LeaderboardEntry;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,10 +25,10 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 	@FXML
 	private Label state;
 
-	public List<LeaderboardEntry> intermediateList;
+	private List<LeaderboardEntry> intermediateList;
 
 	@FXML
-	public TableView<LeaderboardEntry> intermediaryLeaderboard;
+	private TableView<LeaderboardEntry> intermediateLeaderboard;
 
 	@FXML
 	private TableColumn<LeaderboardEntry, Number> colRanking;
@@ -47,6 +48,11 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 		this.mainCtrl = mainCtrl;
 	}
 
+	public void setIntermediateList(List<LeaderboardEntry> list) {
+		intermediateLeaderboard
+				.setItems(FXCollections.observableList(list));
+	}
+
 	/**
 	 * Called to initialize a controller after its root element has been
 	 * completely processed.
@@ -62,7 +68,7 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 
 		colRanking.setCellValueFactory(q -> {
 			ReadOnlyObjectWrapper<Number> finalRank;
-			finalRank = new ReadOnlyObjectWrapper<>(intermediaryLeaderboard.getItems().indexOf(q.getValue()) + 1);
+			finalRank = new ReadOnlyObjectWrapper<>(intermediateLeaderboard.getItems().indexOf(q.getValue()) + 1);
 			return finalRank;
 		});
 	}

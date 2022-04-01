@@ -18,7 +18,6 @@ package client.scenes;
 import client.model.QuestionData;
 
 import commons.model.LeaderboardEntry;
-import javafx.collections.FXCollections;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -146,9 +145,7 @@ public class MainCtrl {
 	}
 
 	public void showIntermediateLeaderboard(List<LeaderboardEntry> leaderboardEntryList) {
-		intermediateLeaderboardCtrl
-				.intermediaryLeaderboard
-				.setItems(FXCollections.observableList(leaderboardEntryList));
+		intermediateLeaderboardCtrl.setIntermediateList(leaderboardEntryList);
 
 		intermediateLeaderboardCtrl.init();
 
