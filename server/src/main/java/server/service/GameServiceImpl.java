@@ -15,6 +15,10 @@ import java.util.*;
 
 @Service
 public class GameServiceImpl implements GameService {
+	private static final double TIME_JOKER_EFFECT = 0.75;
+
+	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
+
 	private final QuestionService questionService;
 	private final OutgoingController outgoingController;
 	private final LeaderboardService leaderboardService;
@@ -26,12 +30,6 @@ public class GameServiceImpl implements GameService {
 	private int nextGameId = 0;
 
 	private boolean doublePoints = false;
-
-	private static final double TIME_JOKER_EFFECT = 0.75;
-
-	private boolean timeJokerStatus;
-
-	private static final int NUMBER_OF_ENTRIES_INTERMEDIATE_LEADERBOARD = 10;
 
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
 							LeaderboardService leaderboardService, TimerService timerService) {
@@ -276,32 +274,22 @@ public class GameServiceImpl implements GameService {
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
+		var multiChoiceQuestion = question instanceof Question.MultiChoiceQuestion
+				|| question instanceof Question.PickEnergyQuestion;
 
 		game.startNewQuestion(question);
 
-		if (game.isSinglePlayer()) {
-			timeJokerStatus = false;
-		} else {
-			timeJokerStatus = true;
-		}
-
 		for (Player player : game.getPlayers()) {
-			if (question instanceof Question.MultiChoiceQuestion) {
-				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
-						timeJokerStatus,
-						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
-						player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION));
+			var reduceTimeAvailable = player.getJokerAvailability().get(JokerType.REDUCE_TIME)
+					&& !game.isSinglePlayer();
+			var doublePointsAvailable = player.getJokerAvailability().get(JokerType.DOUBLE_POINTS);
+			var eliminateOptionAvailable = player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION)
+					&& multiChoiceQuestion;
 
-				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
-			} else {
-				var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
-						timeJokerStatus,
-						player.getJokerAvailability().get(JokerType.DOUBLE_POINTS),
-						false);
+			var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
+					reduceTimeAvailable, doublePointsAvailable, eliminateOptionAvailable);
 
-				outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
-			}
-
+			outgoingController.sendQuestion(questionMessage, List.of(player.getPlayerId()));
 		}
 		game.setQuestionStartTime(timerService.getTime());
 
