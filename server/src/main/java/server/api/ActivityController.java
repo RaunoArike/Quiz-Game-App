@@ -88,9 +88,7 @@ public class ActivityController {
 
 	@PostMapping("/imageUpload")
 	public ResponseEntity<String> uploadFile(@RequestParam("files") MultipartFile file) {
-		String message = "";
-			storageService.save(file);
-			message = "Uploaded successfully : " + file.getOriginalFilename();
-			return ResponseEntity.status(HttpStatus.OK).body(message);
+		storageService.save(file);
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 }
