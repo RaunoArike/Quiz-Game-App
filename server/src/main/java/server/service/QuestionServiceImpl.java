@@ -1,17 +1,17 @@
-	package server.service;
+package server.service;
 
-	import commons.model.Question;
-	import org.springframework.stereotype.Service;
-	import server.entity.ActivityEntity;
-	import server.repository.ActivityRepository;
-	import server.util.MathUtil;
+import commons.model.Question;
+import org.springframework.stereotype.Service;
+import server.entity.ActivityEntity;
+import server.repository.ActivityRepository;
+import server.util.MathUtil;
 
-	import java.util.ArrayList;
-	import java.util.List;
-	import java.util.Random;
-	import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
-	@Service
+@Service
 public class QuestionServiceImpl implements QuestionService {
 	public static final int MAX_SCORE = 100;
 
@@ -257,6 +257,7 @@ public class QuestionServiceImpl implements QuestionService {
 			return (int) (MAX_SCORE * TIME_RATIO_BAD);
 		}
 	}
+
 	private int calculateScorePick(Question.PickEnergyQuestion question,
 									int answer, long timeSpent, boolean doublePoints) {
 		/*
@@ -282,19 +283,27 @@ public class QuestionServiceImpl implements QuestionService {
 		 */
 		if (answer == question.correctAnswer()) {
 			if (timeSpent < TIME_PERIOD_1) {
-				return (int) (MAX_SCORE * TIME_RATIO_PERFECT);
+				return doublePoints
+						? 2 * (int) (MAX_SCORE * TIME_RATIO_PERFECT)
+						: (int) (MAX_SCORE * TIME_RATIO_PERFECT);
 			}
 
 			if (timeSpent > TIME_PERIOD_1
 					&& timeSpent < TIME_PERIOD_2) {
-				return (int) (MAX_SCORE * TIME_RATIO_GOOD);
+				return doublePoints
+						? 2 * (int) (MAX_SCORE * TIME_RATIO_GOOD)
+						: (int) (MAX_SCORE * TIME_RATIO_GOOD);
 			}
 
 			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
 					&& timeSpent < TIME_PERIOD_3) {
-				return (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
+				return doublePoints
+						? 2 * (int) (MAX_SCORE * TIME_RATIO_AVERAGE)
+						: (int) (MAX_SCORE * TIME_RATIO_AVERAGE);
 			} else {
-				return (int) (MAX_SCORE * TIME_RATIO_BAD);
+				return doublePoints
+						? 2 * (int) (MAX_SCORE * TIME_RATIO_BAD)
+						: (int) (MAX_SCORE * TIME_RATIO_BAD);
 			}
 
 		}
@@ -303,7 +312,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 
 	private int calculateScoreEst(Question.EstimationQuestion question,
-									float answer, long timeSpent, boolean doublePoints) {
+								float answer, long timeSpent, boolean doublePoints) {
 		var error = Math.abs(answer - question.correctAnswer());
 		var errorRatio = error / question.correctAnswer();
 		if (doublePoints) {
