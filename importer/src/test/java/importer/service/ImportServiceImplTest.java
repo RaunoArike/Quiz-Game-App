@@ -66,7 +66,7 @@ public class ImportServiceImplTest {
 
 		var service = createService();
 
-		service.importServicesFromFile("url", "dir");
+		service.importActivitiesFromFile("url", "dir");
 
 		verify(activityApi).addActivities("url", FAKE_ACTIVITIES);
 	}
@@ -78,7 +78,7 @@ public class ImportServiceImplTest {
 
 		var service = createService();
 
-		service.importServicesFromFile("url", "dir");
+		service.importActivitiesFromFile("url", "dir");
 
 		verify(activityApi, times(FAKE_IMPORTED_ACTIVITIES.length))
 				.uploadImage(eq("url"), stringCaptor.capture(), fileCaptor.capture());

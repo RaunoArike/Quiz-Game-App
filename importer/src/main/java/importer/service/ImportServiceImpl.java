@@ -5,7 +5,6 @@ import importer.api.ActivityApi;
 import importer.model.ImportedActivity;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class ImportServiceImpl implements ImportService {
@@ -22,14 +21,18 @@ public class ImportServiceImpl implements ImportService {
 	}
 
 	@Override
-	public void importServicesFromFile(String serverUrl, String filePath) throws IOException {
-		var file = fileProvider.checkIfJsonFileExists(filePath);
-		var rawActivities = mapper.readValue(file, ImportedActivity[].class);
-		var activities = Arrays.stream(rawActivities).map(activity -> activity.toModel(IMAGE_URL_PREFIX)).toList();
-		activityApi.addActivities(serverUrl, activities);
-		for (var activity : rawActivities) {
-			var imageFile = new File(filePath, activity.imagePath());
-			activityApi.uploadImage(serverUrl, activity.imagePath(), imageFile);
+	public void importActivitiesFromFile(String serverUrl, String filePath) {
+		try {
+			var file = fileProvider.checkIfJsonFileExists(filePath);
+			var rawActivities = mapper.readValue(file, ImportedActivity[].class);
+			var activities = Arrays.stream(rawActivities).map(activity -> activity.toModel(IMAGE_URL_PREFIX)).toList();
+			activityApi.addActivities(serverUrl, activities);
+			for (var activity : rawActivities) {
+				var imageFile = new File(filePath, activity.imagePath());
+				activityApi.uploadImage(serverUrl, activity.imagePath(), imageFile);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("Importing failed", e);
 		}
 	}
 
