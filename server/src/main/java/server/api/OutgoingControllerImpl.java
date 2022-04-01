@@ -58,4 +58,10 @@ public class OutgoingControllerImpl implements OutgoingController {
 	public void sendError(ErrorMessage message, List<Integer> players) {
 		send(message, players, "error");
 	}
+
+	@Override
+	public void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players) {
+		send(message, players, "reduce-time-played");
+		System.out.println("ReduceTimePlayed Message sent");
+	}
 }
