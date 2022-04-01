@@ -84,6 +84,10 @@ public class ServerServiceImpl implements ServerService {
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
 				notifyListeners(listener -> listener.onQuestion(message));
 			});
+			registerForMessages("/user/queue/intermediate-leaderboard",
+					IntermediateLeaderboardMessage.class, message -> {
+						notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
+					});
 			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
 				notifyListeners(listener -> listener.onScore(message));
 			});
@@ -95,9 +99,6 @@ public class ServerServiceImpl implements ServerService {
 			});
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
-			});
-			registerForMessages("/user/queue/intermediate-leaderboard", IntermediateLeaderboardMessage.class, m -> {
-				notifyListeners(listener -> listener.onIntermediateLeaderboard(m));
 			});
 			registerForMessages("/user/queue/reduce-time-played", ReduceTimePlayedMessage.class, message -> {
 				notifyListeners(listener -> listener.onReduceTimePlayed(message));
@@ -161,6 +162,8 @@ public class ServerServiceImpl implements ServerService {
 
 				});
 	}
+
+
 
 	/**
 	 * Returns the list of activities

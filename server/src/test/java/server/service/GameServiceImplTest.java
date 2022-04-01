@@ -33,7 +33,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
-	private static final Question FAKE_QUESTION_EST = new Question.EstimationQuestion(new Activity("a", "b", 42f), 4f);
+	private static final Question FAKE_QUESTION_EST = new Question.EstimationQuestion(
+			new Activity("a", "b", 42f), 4f);
 
 	private static final List<Activity> FAKE_ACTIVITIES_LIST = List.of(
 			new Activity("a", "b", 42f),
@@ -165,6 +166,7 @@ public class GameServiceImplTest {
 
 		assertEquals(new ScoreMessage(23, 100, -1), correctAnswerMessageCaptor.getAllValues().get(1));
 	}
+
 
 	@Test
 	public void after_answering_last_question_game_should_not_exist() {

@@ -156,7 +156,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onIntermediateLeaderboard(IntermediateLeaderboardMessage intermediateLeaderboardMessage) {
-		mainCtrl.showIntermediateLeaderboard();
+		mainCtrl.showIntermediateLeaderboard(intermediateLeaderboardMessage.leaderboard());
 	}
 
 	/**
