@@ -69,12 +69,6 @@ public class IntermediateLeaderboardCtrl extends AbstractCtrl implements Initial
 	@Override
 	public void init() {
 		super.init();
-		/*ObservableList<LeaderboardEntry> observableList = FXCollections
-				.observableArrayList(intermediateList);
-
-		intermediaryLeaderboard.setItems(observableList);
-
-		 */
 	}
 
 }
