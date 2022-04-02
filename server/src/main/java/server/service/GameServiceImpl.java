@@ -274,7 +274,7 @@ public class GameServiceImpl implements GameService {
 	private void newQuestion(Game game) {
 		var gameId = game.getGameId();
 		var question = questionService.generateQuestion(gameId);
-		var multiChoiceQuestion = question instanceof Question.MultiChoiceQuestion
+		var isSelectionQuestion = question instanceof Question.MultiChoiceQuestion
 				|| question instanceof Question.PickEnergyQuestion;
 
 		game.startNewQuestion(question);
@@ -284,7 +284,7 @@ public class GameServiceImpl implements GameService {
 					&& !game.isSinglePlayer();
 			var doublePointsAvailable = player.getJokerAvailability().get(JokerType.DOUBLE_POINTS);
 			var eliminateOptionAvailable = player.getJokerAvailability().get(JokerType.ELIMINATE_MC_OPTION)
-					&& multiChoiceQuestion;
+					&& isSelectionQuestion;
 
 			var questionMessage = new QuestionMessage(question, game.getQuestionNumber(),
 					reduceTimeAvailable, doublePointsAvailable, eliminateOptionAvailable);
