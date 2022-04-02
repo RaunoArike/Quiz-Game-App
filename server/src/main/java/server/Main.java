@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 package server;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 
 @SpringBootApplication
 @EntityScan(basePackages = { "commons", "server" })
@@ -30,9 +30,6 @@ public class Main implements WebMvcConfigurer  {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/files/**").addResourceLocations("file:images/");
+		registry.addResourceHandler("/images/**").addResourceLocations("file:images/");
 	}
-
-
-
 }

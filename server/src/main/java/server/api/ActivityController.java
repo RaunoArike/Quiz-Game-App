@@ -2,16 +2,16 @@ package server.api;
 
 import commons.model.Activity;
 import org.springframework.web.bind.annotation.*;
+import server.exception.DuplicateFileException;
 import server.exception.IdNotFoundException;
 import server.service.ActivityService;
 import server.service.FileStorageService;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import javax.persistence.EntityNotFoundException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 
 /**
@@ -54,6 +54,7 @@ public class ActivityController {
 	@DeleteMapping
 	public void removeAllActivities() {
 		activityService.removeAllActivities();
+		storageService.deleteAll();
 	}
 
 	/**
@@ -86,9 +87,17 @@ public class ActivityController {
 		}
 	}
 
+	/**
+	 * Uploads a file (such as activity's image) and saves it on the server
+	 *
+	 * @param file uploaded multipart file
+	 */
 	@PostMapping("/imageUpload")
-	public ResponseEntity<String> uploadFile(@RequestParam("files") MultipartFile file) {
-		storageService.save(file);
-		return ResponseEntity.status(HttpStatus.OK).body("");
+	public void uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String imagePath) {
+		try {
+			storageService.save(file, imagePath);
+		} catch (FileAlreadyExistsException e) {
+			throw new DuplicateFileException();
+		}
 	}
 }
