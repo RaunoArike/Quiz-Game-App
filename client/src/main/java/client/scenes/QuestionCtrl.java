@@ -26,10 +26,14 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
+
+	private static final int LOL_EMOJI_TYPE = 0;
+	private static final int SUNGLASSES_EMOJI_TYPE = 1;
+	private static final int LIKE_EMOJI_TYPE = 2;
 	private static final int DISLIKE_EMOJI_TYPE = 3;
 	private static final int ANGRY_EMOJI_TYPE = 4;
 	private static final int VOMIT_EMOJI_TYPE = 5;
-	private static final int MOVE_EMOJI = -150;
+	private static final int EMOJI_MOVEMENT_RANGE = -150;
 
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
@@ -155,18 +159,18 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void handleLolEmojiClicks() {
-		useEmoji(0);
-		notifyEmojiPlayed(0);
+		useEmoji(LOL_EMOJI_TYPE);
+		notifyEmojiPlayed(LOL_EMOJI_TYPE);
 	}
 
 	public void handleSunglassesEmojiClicks() {
-		useEmoji(1);
-		notifyEmojiPlayed(1);
+		useEmoji(SUNGLASSES_EMOJI_TYPE);
+		notifyEmojiPlayed(SUNGLASSES_EMOJI_TYPE);
 	}
 
 	public void handleLikeEmojiClicks() {
-		useEmoji(2);
-		notifyEmojiPlayed(2);
+		useEmoji(LIKE_EMOJI_TYPE);
+		notifyEmojiPlayed(LIKE_EMOJI_TYPE);
 	}
 
 	public void handleDislikeEmojiClicks() {
@@ -205,16 +209,16 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private void useEmoji(int emojiType) {
 		switch (emojiType) {
-			case 0:
-				messageService.sendEmoji(0);
+			case LOL_EMOJI_TYPE:
+				messageService.sendEmoji(LOL_EMOJI_TYPE);
 				break;
 
-			case 1:
-				messageService.sendEmoji(1);
+			case SUNGLASSES_EMOJI_TYPE:
+				messageService.sendEmoji(SUNGLASSES_EMOJI_TYPE);
 				break;
 
-			case 2:
-				messageService.sendEmoji(2);
+			case LIKE_EMOJI_TYPE:
+				messageService.sendEmoji(LIKE_EMOJI_TYPE);
 				break;
 
 			case DISLIKE_EMOJI_TYPE:
@@ -232,15 +236,15 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	public void notifyEmojiPlayed(int emojiType) {
 		switch (emojiType) {
-			case 0:
+			case LOL_EMOJI_TYPE:
 				animateEmoji(lolEmoji, lolEmojiStatic);
 				break;
 
-			case 1:
+			case SUNGLASSES_EMOJI_TYPE:
 				animateEmoji(sunglassesEmoji, sunglassesEmojiStatic);
 				break;
 
-			case 2:
+			case LIKE_EMOJI_TYPE:
 				animateEmoji(likeEmoji, likeEmojiStatic);
 				break;
 
@@ -264,7 +268,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		TranslateTransition translate = new TranslateTransition();
 		translate.setNode(emojiType);
 		translate.setDuration(Duration.millis(TIMER_SECOND));
-		translate.setByY(MOVE_EMOJI);
+		translate.setByY(EMOJI_MOVEMENT_RANGE);
 		translate.setCycleCount(2);
 		translate.setAutoReverse(true);
 		translate.play();
