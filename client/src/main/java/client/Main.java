@@ -19,6 +19,13 @@ import client.scenes.*;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.stage.WindowEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 import static com.google.inject.Guice.createInjector;
 
@@ -75,5 +82,19 @@ public class Main extends Application {
 				intermediateLeaderboard,
 				ending);
 
+		primaryStage.setOnCloseRequest(this.confirmCloseRequest);
 	}
+
+	private EventHandler<WindowEvent> confirmCloseRequest = event -> {
+		Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,
+				"Are you sure you want to exit? Your game progress might be lost!");
+		Button exitButton = (Button) confirmation.getDialogPane().lookupButton(ButtonType.OK);
+		Optional<ButtonType> closeResponse = confirmation.showAndWait();
+		if (!ButtonType.OK.equals(closeResponse.get())) {
+			event.consume();
+		} else {
+			Platform.exit();
+			System.exit(0);
+		}
+	};
 }
