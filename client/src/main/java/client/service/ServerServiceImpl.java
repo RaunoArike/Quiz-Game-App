@@ -186,13 +186,14 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
-	public void addActivity(Activity activity) {
-		ClientBuilder.newClient(new ClientConfig())
+	public Activity addActivity(Activity activity) {
+		var activities = ClientBuilder.newClient(new ClientConfig())
 				.target("http://" + serverAddress + "/")
 				.path("api/activities")
 				.request(APPLICATION_JSON)
 				.accept(APPLICATION_JSON)
-				.post(Entity.entity(activity, APPLICATION_JSON));
+				.post(Entity.entity(List.of(activity), APPLICATION_JSON), new GenericType<List<Activity>>() { });
+		return activities.size() == 1 ? activities.get(0) : null;
 	}
 
 	@Override

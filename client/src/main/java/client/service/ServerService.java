@@ -131,9 +131,10 @@ public interface ServerService {
 
 	/**
 	 * Adds a new activity to the server
-	 * @param activity activity to ad
+	 * @param activity activity to add
+	 * @return created activity
 	 */
-	void addActivity(Activity activity);
+	Activity addActivity(Activity activity);
 
 	/**
 	 * Updates an existing activity on the server (based on the id of the passed activity)

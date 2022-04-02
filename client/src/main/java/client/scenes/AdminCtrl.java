@@ -3,6 +3,7 @@ package client.scenes;
 import client.service.ServerService;
 
 
+import client.utils.NumberUtils;
 import com.google.inject.Inject;
 import commons.model.Activity;
 
@@ -12,14 +13,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminCtrl extends AbstractCtrl implements Initializable {
@@ -27,123 +25,153 @@ public class AdminCtrl extends AbstractCtrl implements Initializable {
 	private final MainCtrl mainCtrl;
 
 	@FXML
+	private TextField idTextField;
+	@FXML
 	private TextField nameTextField;
-
 	@FXML
 	private TextField energyTextField;
-
 	@FXML
 	private TextField urlTextField;
 
-	private List<Activity> listActivities;
+	@FXML
+	private Button saveButton;
+	@FXML
+	private Button removeButton;
+
+	@FXML
+	private Label errorLabel;
 
 	@FXML
 	private TableView<Activity> table;
-
 	@FXML
 	private TableColumn<Activity, String> columnOne;
 	@FXML
 	private TableColumn<Activity, Number> columnTwo;
 
+	private final ObservableList<Activity> activities = FXCollections.observableArrayList();
+
+	private Long selectedActivityId;
+
 	@Inject
 	public AdminCtrl(ServerService serverService, MainCtrl mainCtrl) {
 		this.serverService = serverService;
 		this.mainCtrl = mainCtrl;
-		listActivities = new ArrayList<>();
 	}
 
-	///The option to return home
+	// Called by JavaFX while initializing the scene
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		columnOne.setCellValueFactory(x -> new SimpleStringProperty(x.getValue().name()));
+		columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x.getValue().energyInWh()));
+
+		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> onItemClick(newSel));
+		table.setItems(activities);
+	}
+
+	// Called by MainCtrl when entering the scene
+	@Override
+	public void init() {
+		super.init();
+		activities.setAll(serverService.getActivities());
+		onItemClick(null);
+	}
+
+	public void keyPressed(KeyEvent keyEvent) {
+		if (keyEvent.getCode() == KeyCode.ESCAPE) returnHome();
+	}
+
 	public void returnHome() {
 		mainCtrl.showHome();
 	}
 
-	public void keyPressed(KeyEvent keyEvent) {
-		switch (keyEvent.getCode()) {
-			case ESCAPE:
-				returnHome();
-				break;
-			default:
-				break;
+	private void onItemClick(Activity activity) {
+		selectedActivityId = activity != null ? activity.id() : null;
+
+		if (selectedActivityId != null) {
+			idTextField.setText(String.valueOf(selectedActivityId));
+			nameTextField.setText(activity.name());
+			energyTextField.setText(String.valueOf(activity.energyInWh()));
+			urlTextField.setText(activity.imageUrl());
+
+			saveButton.setText("Update activity");
+			removeButton.setDisable(false);
+		} else {
+			clearEditFields();
+
+			saveButton.setText("Add activity");
+			removeButton.setDisable(true);
+		}
+
+		resetError();
+	}
+
+	public void onNewClick() {
+		unselectActivity();
+	}
+
+	public void onSaveClick() {
+		var name = nameTextField.getText();
+		var url = urlTextField.getText();
+		var energy = NumberUtils.parseFloatOrNull(energyTextField.getText());
+
+		if (energy == null) {
+			errorLabel.setText("Invalid energy value");
+			return;
+		} else {
+			resetError();
+		}
+
+		if (selectedActivityId == null) {
+			var activity = new Activity(-1, name, url, energy);
+			addActivity(activity);
+		} else {
+			var activity = new Activity(selectedActivityId, name, url, energy);
+			updateActivity(activity);
 		}
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		columnOne.setCellValueFactory(x -> new SimpleStringProperty(x
-				.getValue()
-				.name()));
-
-		columnTwo.setCellValueFactory(x -> new SimpleFloatProperty(x
-				.getValue()
-				.energyInWh()));
+	public void onRemoveClick() {
+		if (selectedActivityId == null) return;
+		removeActivity(selectedActivityId);
+		unselectActivity();
 	}
 
-	public void addButton() {
-		Activity activity = new Activity(nameTextField.getText(),
-				urlTextField.getText(),
-				(float) Double.parseDouble(energyTextField.getText()));
+	private void addActivity(Activity activity) {
+		var addedActivity = serverService.addActivity(activity);
+		if (addedActivity != null) {
+			activities.add(addedActivity);
+			selectActivity(addedActivity);
+		}
+	}
 
-		table.getItems().add(activity);
+	private void updateActivity(Activity updatedActivity) {
+		activities.replaceAll(a -> a.id() == updatedActivity.id() ? updatedActivity : a);
+		serverService.updateActivity(updatedActivity);
+		selectActivity(updatedActivity);
+	}
 
+	private void removeActivity(long id) {
+		activities.removeIf(a -> a.id() == id);
+		serverService.removeActivity(id);
+		unselectActivity();
+	}
+
+	private void clearEditFields() {
+		idTextField.clear();
 		nameTextField.clear();
-
 		energyTextField.clear();
-
 		urlTextField.clear();
 	}
 
-	public void updateButton() {
-		Activity activity = new Activity(nameTextField.getText(),
-				urlTextField.getText(),
-				(float) Double.parseDouble(energyTextField.getText()));
-
-		for (Activity activity1 : table.getItems()) {
-			if (activity1.name().equals(activity.name())) {
-				table.getItems().add(activity);
-
-				listActivities.add(activity);
-
-				table.getItems().remove(activity1);
-
-				listActivities.remove(activity1);
-			}
-		}
-		init();
-		nameTextField.clear();
-
-		energyTextField.clear();
-
-		urlTextField.clear();
+	private void resetError() {
+		errorLabel.setText("");
 	}
 
-	public void removeButton() {
-		Activity activity = new Activity(nameTextField.getText(),
-				urlTextField.getText(),
-				(float) Double.parseDouble(energyTextField.getText()));
-
-		for (Activity activity1 : table.getItems()) {
-			if (activity1.name().equals(activity.name())) {
-				table.getItems().remove(activity1);
-			}
-		}
-		init();
-		nameTextField.clear();
-
-		energyTextField.clear();
-
-		urlTextField.clear();
+	private void selectActivity(Activity activity) {
+		table.getSelectionModel().select(activity);
 	}
 
-	@Override
-	public void init() {
-		super.init();
-		ObservableList<Activity> observableList = FXCollections
-				.observableArrayList(listActivities);
-
-		for (Activity activity : serverService.getActivities()) {
-			observableList.add(activity);
-			listActivities.add(activity);
-		}
-		table.setItems(observableList);
+	private void unselectActivity() {
+		table.getSelectionModel().clearSelection();
 	}
 }
