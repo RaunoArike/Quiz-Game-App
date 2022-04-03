@@ -32,12 +32,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
 	private static final Question FAKE_QUESTION_EST = new Question.EstimationQuestion(
-			new Activity("a", "b", 42f), 4f);
+			new Activity(420, "a", "b", 42f), 4f);
 
 	private static final List<Activity> FAKE_ACTIVITIES_LIST = List.of(
-			new Activity("a", "b", 42f),
-			new Activity("d", "e", 42f),
-			new Activity("g", "h", 42f)
+			new Activity(421, "a", "b", 42f),
+			new Activity(422, "d", "e", 42f),
+			new Activity(423, "g", "h", 42f)
 	);
 
 	private static final Question FAKE_QUESTION_MC = new Question.MultiChoiceQuestion(FAKE_ACTIVITIES_LIST, 0);

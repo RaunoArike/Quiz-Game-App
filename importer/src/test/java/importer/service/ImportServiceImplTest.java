@@ -26,9 +26,9 @@ public class ImportServiceImplTest {
 			new ImportedActivity("id3", "03/image3.jpg", "A3", 3L, null)
 	};
 	private static final List<Activity> FAKE_ACTIVITIES = List.of(
-			new Activity("A1", "http://${SERVER_ADDRESS}/images/01/image1.jpg", 1f),
-			new Activity("A2", "http://${SERVER_ADDRESS}/images/02/image2.jpg", 2f),
-			new Activity("A3", "http://${SERVER_ADDRESS}/images/03/image3.jpg", 3f)
+			new Activity(-1, "A1", "http://${SERVER_ADDRESS}/images/01/image1.jpg", 1f),
+			new Activity(-1, "A2", "http://${SERVER_ADDRESS}/images/02/image2.jpg", 2f),
+			new Activity(-1, "A3", "http://${SERVER_ADDRESS}/images/03/image3.jpg", 3f)
 	);
 	private static final List<String> FAKE_RELATIVE_IMAGE_PATHS = List.of(
 			"01/image1.jpg",

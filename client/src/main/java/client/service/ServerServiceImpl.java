@@ -6,6 +6,7 @@ import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.servermessage.*;
 import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import javafx.application.Platform;
 import org.glassfish.jersey.client.ClientConfig;
@@ -176,8 +177,6 @@ public class ServerServiceImpl implements ServerService {
 				});
 	}
 
-
-
 	/**
 	 * Returns the list of activities
 	 *
@@ -191,8 +190,37 @@ public class ServerServiceImpl implements ServerService {
 				.path("api/activities")
 				.request(APPLICATION_JSON)
 				.accept(APPLICATION_JSON)
-				.get(new GenericType<>() {
+				.get(new GenericType<>() { });
+	}
 
-				});
+	@Override
+	public Activity addActivity(Activity activity) {
+		var activities = ClientBuilder.newClient(new ClientConfig())
+				.target("http://" + serverAddress + "/")
+				.path("api/activities")
+				.request(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
+				.post(Entity.entity(List.of(activity), APPLICATION_JSON), new GenericType<List<Activity>>() { });
+		return activities.size() == 1 ? activities.get(0) : null;
+	}
+
+	@Override
+	public void updateActivity(Activity activity) {
+		ClientBuilder.newClient(new ClientConfig())
+				.target("http://" + serverAddress + "/")
+				.path("api/activities/" + activity.id())
+				.request(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
+				.put(Entity.entity(activity, APPLICATION_JSON));
+	}
+
+	@Override
+	public void removeActivity(long id) {
+		ClientBuilder.newClient(new ClientConfig())
+				.target("http://" + serverAddress + "/")
+				.path("api/activities/" + id)
+				.request(APPLICATION_JSON)
+				.accept(APPLICATION_JSON)
+				.delete();
 	}
 }
