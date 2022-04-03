@@ -77,6 +77,7 @@ public class MainCtrl {
 
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
+
 	public void initialize(Stage primaryStage,
 		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 		Pair<OpeningCtrl, Parent> openingCtrl,
@@ -269,6 +270,15 @@ public class MainCtrl {
 			case ESTIMATION -> estimationScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
+		}
+	}
+
+	public void notifyEmojiPlayed(QuestionTypes type, int emojiType) {
+		switch (type) {
+			case COMPARISON -> comparisonScreenCtrl.notifyEmojiPlayed(emojiType);
+			case ESTIMATION -> estimationScreenCtrl.notifyEmojiPlayed(emojiType);
+			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyEmojiPlayed(emojiType);
+			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyEmojiPlayed(emojiType);
 		}
 	}
 

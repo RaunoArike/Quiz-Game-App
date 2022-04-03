@@ -146,6 +146,11 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
+	public void sendEmoji(int emojiType) {
+		session.send("/app/send-emoji", new SendEmojiMessage(emojiType));
+	}
+
+	@Override
 	public void registerListener(ServerListener serverListener) {
 		serverListeners.add(serverListener);
 	}
