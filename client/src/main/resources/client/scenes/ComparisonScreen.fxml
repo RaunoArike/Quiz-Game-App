@@ -48,17 +48,7 @@
          </font>
       </Label>
       <ImageView fx:id="activityB" fitHeight="93.0" fitWidth="217.0" layoutX="36.0" layoutY="228.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="159.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="React to the question!" wrappingWidth="182.05072021484375">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
       <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="190.0" layoutX="61.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="159.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="React to the question!" wrappingWidth="182.05072021484375">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Text>
       <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="335.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@/emojis/lol_emoji.png" />
