@@ -18,6 +18,7 @@ package client;
 import client.scenes.*;
 import com.google.inject.Injector;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.stage.WindowEvent;

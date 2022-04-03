@@ -18,6 +18,8 @@ package client;
 import client.scenes.*;
 import client.service.MessageLogicService;
 import client.service.MessageLogicServiceImpl;
+import client.usecase.ResolveImageUrlsUseCase;
+import client.usecase.ResolveImageUrlsUseCaseImpl;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
@@ -30,19 +32,13 @@ public class MyModule implements Module {
 	@Override
 	public void configure(Binder binder) {
 		binder.bind(MainCtrl.class).in(Scopes.SINGLETON);
-
 		binder.bind(OpeningCtrl.class).in(Scopes.SINGLETON);
-
 		binder.bind(AdminCtrl.class).in(Scopes.SINGLETON);
-
 		binder.bind(LeaderboardCtrl.class).in(Scopes.SINGLETON);
-
 		binder.bind(IntermediateLeaderboardCtrl.class).in(Scopes.SINGLETON);
-
 		binder.bind(ServerService.class).to(ServerServiceImpl.class).in(Scopes.SINGLETON);
-
 		binder.bind(MessageLogicService.class).to(MessageLogicServiceImpl.class).in(Scopes.SINGLETON);
-
 		binder.bind(EndingScreenCtrl.class).in(Scopes.SINGLETON);
+		binder.bind(ResolveImageUrlsUseCase.class).to(ResolveImageUrlsUseCaseImpl.class).in(Scopes.SINGLETON);
 	}
 }

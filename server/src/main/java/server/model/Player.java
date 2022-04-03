@@ -1,6 +1,10 @@
 package server.model;
 
+import commons.model.JokerType;
 import lombok.Getter;
+
+import java.util.HashMap;
+
 
 @Getter
 public class Player {
@@ -9,6 +13,14 @@ public class Player {
 	private Number latestAnswer;
 	private long timeTakenToAnswer;
 	private int score = 0;
+	private HashMap<JokerType, Boolean> jokerAvailability = new HashMap<>();
+
+	public void init() {
+			jokerAvailability.put(JokerType.REDUCE_TIME, true);
+			jokerAvailability.put(JokerType.DOUBLE_POINTS, true);
+			jokerAvailability.put(JokerType.ELIMINATE_MC_OPTION, true);
+
+	}
 
 	public Player(String name, int playerId, int score) {
 		this.name = name;
@@ -31,5 +43,9 @@ public class Player {
 
 	public void setTimeTakenToAnswer(Long time) {
 		this.timeTakenToAnswer = time;
+	}
+
+	public void setJokerAvailability(JokerType type, boolean isAvailabe) {
+		jokerAvailability.put(type, isAvailabe);
 	}
 }
