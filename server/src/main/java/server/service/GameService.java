@@ -1,6 +1,7 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendEmojiMessage;
 import commons.clientmessage.SendJokerMessage;
 import server.model.Player;
 
@@ -40,4 +41,12 @@ public interface GameService {
 	 * @param jokerMessage jokerType played
 	 */
 	void jokerPlayed(int playerId, SendJokerMessage jokerMessage);
+
+	/**
+	 * Send emoji usage message to server
+	 *
+	 * @param playerId player who played the emoji
+	 * @param emojiMessage message containing which emoji is used
+	 */
+	void emojiPlayed(int playerId, SendEmojiMessage emojiMessage);
 }
