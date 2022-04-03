@@ -14,7 +14,7 @@ public interface ImportService {
 	 * @param filePath path to file to read activities from
 	 * @throws IOException in case of unsuccessful file access
 	 */
-	void importServicesFromFile(String serverUrl, String filePath) throws IOException;
+	void importActivitiesFromFile(String serverUrl, String filePath) throws IOException;
 
 	/**
 	 * Deletes all activities on the server.

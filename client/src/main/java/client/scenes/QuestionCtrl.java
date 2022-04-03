@@ -38,6 +38,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
 
+	private final Timer timer = new Timer();
+
 	@FXML
 	private Label questionText;
 
@@ -95,7 +97,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	@FXML
 	private Text timerNumber;
 
-	private final Timer timer = new Timer();
+	private QuestionData<Q> questionData;
 	private TimerTask timerTask;
 
 
@@ -113,6 +115,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 
 	public void setQuestion(QuestionData<Q> questionData) {
+		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
 	}
@@ -130,6 +133,10 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		reduceTimeJoker.setDisable(!availableJokers.contains(JokerType.REDUCE_TIME));
 		doublePointsJoker.setDisable(!availableJokers.contains(JokerType.DOUBLE_POINTS));
 		eliminateOptionJoker.setDisable(!availableJokers.contains(JokerType.ELIMINATE_MC_OPTION));
+	}
+
+	protected void disableJokers() {
+		setJokerAvailability(Set.of());
 	}
 
 	private void callTimeLimiter(long initialTimeLeftMs) {
@@ -275,5 +282,9 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.schedule(() -> toDisable.setDisable(false), 2, TimeUnit.SECONDS);
+	}
+
+	protected QuestionData<Q> getQuestionData() {
+		return questionData;
 	}
 }

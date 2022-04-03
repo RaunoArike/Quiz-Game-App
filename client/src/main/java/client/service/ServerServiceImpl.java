@@ -31,7 +31,7 @@ public class ServerServiceImpl implements ServerService {
 	private final List<ServerListener> serverListeners = new ArrayList<>();
 
 	private StompSession session;
-	private String url;
+	private String serverAddress;
 
 	private StompSession connect(String url) {
 		var client = new StandardWebSocketClient();
@@ -77,13 +77,17 @@ public class ServerServiceImpl implements ServerService {
 
 	@Override
 	public boolean connectToServer(String serverAddress) {
-		url = serverAddress;
+		this.serverAddress = serverAddress;
 		String wsUrl = "ws://" + serverAddress + "/websocket";
 		try {
 			session = connect(wsUrl);
 			registerForMessages("/user/queue/question", QuestionMessage.class, message -> {
 				notifyListeners(listener -> listener.onQuestion(message));
 			});
+			registerForMessages("/user/queue/intermediate-leaderboard",
+					IntermediateLeaderboardMessage.class, message -> {
+						notifyListeners(listener -> listener.onIntermediateLeaderboard(message));
+					});
 			registerForMessages("/user/queue/score", ScoreMessage.class, message -> {
 				notifyListeners(listener -> listener.onScore(message));
 			});
@@ -95,9 +99,6 @@ public class ServerServiceImpl implements ServerService {
 			});
 			registerForMessages("/user/queue/error", ErrorMessage.class, message -> {
 				notifyListeners(listener -> listener.onError(message));
-			});
-			registerForMessages("/user/queue/intermediate-leaderboard", IntermediateLeaderboardMessage.class, m -> {
-				notifyListeners(listener -> listener.onIntermediateLeaderboard(m));
 			});
 			registerForMessages("/user/queue/reduce-time-played", ReduceTimePlayedMessage.class, message -> {
 				notifyListeners(listener -> listener.onReduceTimePlayed(message));
@@ -155,10 +156,15 @@ public class ServerServiceImpl implements ServerService {
 	}
 
 	@Override
+	public String getServerAddress() {
+		return serverAddress;
+	}
+
+	@Override
 	public List<LeaderboardEntry> getLeaderboardData() {
 		return ClientBuilder
 				.newClient(new ClientConfig()) //
-				.target("http://" + url + "/")
+				.target("http://" + serverAddress + "/")
 				.path("api/leaderboard") //
 				.request(APPLICATION_JSON) //
 				.accept(APPLICATION_JSON) //
@@ -166,6 +172,8 @@ public class ServerServiceImpl implements ServerService {
 
 				});
 	}
+
+
 
 	/**
 	 * Returns the list of activities
@@ -176,7 +184,7 @@ public class ServerServiceImpl implements ServerService {
 	public List<Activity> getActivities() {
 		return ClientBuilder
 				.newClient(new ClientConfig())
-				.target("http://" + url + "/")
+				.target("http://" + serverAddress + "/")
 				.path("api/activities")
 				.request(APPLICATION_JSON)
 				.accept(APPLICATION_JSON)

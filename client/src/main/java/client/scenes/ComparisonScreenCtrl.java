@@ -105,6 +105,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		}
 		answerMessage.setText(message);
 		ok.setDisable(true);
+		disableJokers();
 	}
 
 	private void resetError() {

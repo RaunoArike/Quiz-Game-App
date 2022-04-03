@@ -5,6 +5,7 @@ import client.model.QuestionData;
 import client.model.QuestionTypes;
 import client.scenes.MainCtrl;
 import client.service.ServerService.ServerListener;
+import client.usecase.ResolveImageUrlsUseCase;
 import com.google.inject.Inject;
 import commons.model.JokerType;
 import commons.model.Question.ComparisonQuestion;
@@ -13,22 +14,26 @@ import commons.model.Question.MultiChoiceQuestion;
 import commons.model.Question.PickEnergyQuestion;
 import commons.servermessage.*;
 
-
 public class MessageLogicServiceImpl implements MessageLogicService, ServerListener {
 
 	private final MainCtrl mainCtrl;
 	private final ServerService server;
+	private final ResolveImageUrlsUseCase resolveImageUrlsUseCase;
 
 	private GameType gameType;
 	private int score;
 	private QuestionTypes currentType;
 	private Number correctAnswer;
 
-
 	@Inject
-	public MessageLogicServiceImpl(MainCtrl mainCtrl, ServerService server) {
+	public MessageLogicServiceImpl(
+			MainCtrl mainCtrl,
+			ServerService server,
+			ResolveImageUrlsUseCase resolveImageUrlsUseCase
+	) {
 		this.mainCtrl = mainCtrl;
 		this.server = server;
+		this.resolveImageUrlsUseCase = resolveImageUrlsUseCase;
 
 		this.score = 0;
 
@@ -79,7 +84,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	@Override
 	public void onQuestion(QuestionMessage message) {
 		var questionNumber = message.questionNumber();
-		var question = message.question();
+		var question = resolveImageUrlsUseCase.resolveImageUrls(message.question());
 		var availableJokers = message.getAvailableJokers();
 
 		if (question instanceof ComparisonQuestion q) {
@@ -110,7 +115,6 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 			var questionData = new QuestionData<>(q, questionNumber, score, gameType, availableJokers);
 			mainCtrl.showPickEnergyQuestion(questionData);
 		}
-
 	}
 
 	/**
@@ -161,7 +165,7 @@ public class MessageLogicServiceImpl implements MessageLogicService, ServerListe
 	 */
 	@Override
 	public void onIntermediateLeaderboard(IntermediateLeaderboardMessage intermediateLeaderboardMessage) {
-		mainCtrl.showIntermediateLeaderboard();
+		mainCtrl.showIntermediateLeaderboard(intermediateLeaderboardMessage.leaderboard());
 	}
 
 	/**
