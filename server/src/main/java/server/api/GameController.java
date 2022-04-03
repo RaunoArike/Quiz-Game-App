@@ -99,7 +99,7 @@ public class GameController {
 	 * @param emojiMessage a message containing the player's owner
 	 * @param principal contains the connection id
 	 */
-	@MessageMapping("send-emoji")
+	@MessageMapping("/send-emoji")
 	public void emojiPlayed(@Payload SendEmojiMessage emojiMessage, Principal principal) {
 		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
 		gameService.emojiPlayed(playerId, emojiMessage);
