@@ -5,15 +5,21 @@ import client.service.MessageLogicService;
 import com.google.inject.Inject;
 import commons.model.JokerType;
 import commons.model.Question;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
@@ -21,8 +27,18 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
 
+	private static final int LOL_EMOJI_TYPE = 0;
+	private static final int SUNGLASSES_EMOJI_TYPE = 1;
+	private static final int LIKE_EMOJI_TYPE = 2;
+	private static final int DISLIKE_EMOJI_TYPE = 3;
+	private static final int ANGRY_EMOJI_TYPE = 4;
+	private static final int VOMIT_EMOJI_TYPE = 5;
+	private static final int EMOJI_MOVEMENT_RANGE = -150;
+
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
+
+	private final Timer timer = new Timer();
 
 	@FXML
 	private Label questionText;
@@ -40,13 +56,50 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private Button eliminateOptionJoker;
 
 	@FXML
+	private ImageView lolEmoji;
+
+	@FXML
+	private ImageView sunglassesEmoji;
+
+	@FXML
+	private ImageView likeEmoji;
+
+	@FXML
+	private ImageView dislikeEmoji;
+
+	@FXML
+	private ImageView angryEmoji;
+
+	@FXML
+	private ImageView vomitEmoji;
+
+	@FXML
+	private ImageView lolEmojiStatic;
+
+	@FXML
+	private ImageView sunglassesEmojiStatic;
+
+	@FXML
+	private ImageView likeEmojiStatic;
+
+	@FXML
+	private ImageView dislikeEmojiStatic;
+
+	@FXML
+	private ImageView angryEmojiStatic;
+
+	@FXML
+	private ImageView vomitEmojiStatic;
+
+	@FXML
 	private ProgressBar timerProgress;
 
 	@FXML
 	private Text timerNumber;
 
-	private final Timer timer = new Timer();
+	private QuestionData<Q> questionData;
 	private TimerTask timerTask;
+
 
 	@Inject
 	public QuestionCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -60,7 +113,9 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		callTimeLimiter(TIMER_DEFAULT_TIME);
 	}
 
+
 	public void setQuestion(QuestionData<Q> questionData) {
+		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
 	}
@@ -78,6 +133,10 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		reduceTimeJoker.setDisable(!availableJokers.contains(JokerType.REDUCE_TIME));
 		doublePointsJoker.setDisable(!availableJokers.contains(JokerType.DOUBLE_POINTS));
 		eliminateOptionJoker.setDisable(!availableJokers.contains(JokerType.ELIMINATE_MC_OPTION));
+	}
+
+	protected void disableJokers() {
+		setJokerAvailability(Set.of());
 	}
 
 	private void callTimeLimiter(long initialTimeLeftMs) {
@@ -106,6 +165,36 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		}
 	}
 
+	public void handleLolEmojiClicks() {
+		useEmoji(LOL_EMOJI_TYPE);
+		notifyEmojiPlayed(LOL_EMOJI_TYPE);
+	}
+
+	public void handleSunglassesEmojiClicks() {
+		useEmoji(SUNGLASSES_EMOJI_TYPE);
+		notifyEmojiPlayed(SUNGLASSES_EMOJI_TYPE);
+	}
+
+	public void handleLikeEmojiClicks() {
+		useEmoji(LIKE_EMOJI_TYPE);
+		notifyEmojiPlayed(LIKE_EMOJI_TYPE);
+	}
+
+	public void handleDislikeEmojiClicks() {
+		useEmoji(DISLIKE_EMOJI_TYPE);
+		notifyEmojiPlayed(DISLIKE_EMOJI_TYPE);
+	}
+
+	public void handleAngryEmojiClicks() {
+		useEmoji(ANGRY_EMOJI_TYPE);
+		notifyEmojiPlayed(ANGRY_EMOJI_TYPE);
+	}
+
+	public void handleVomitEmojiClicks() {
+		useEmoji(VOMIT_EMOJI_TYPE);
+		notifyEmojiPlayed(VOMIT_EMOJI_TYPE);
+	}
+
 	public void notifyReduceTimePlayed(long timeLeftMs) {
 		callTimeLimiter(timeLeftMs);
 	}
@@ -123,5 +212,79 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void useEliminateOptionJoker() {
 		messageService.sendJoker(JokerType.ELIMINATE_MC_OPTION);
 		eliminateOptionJoker.setDisable(true);
+	}
+
+	private void useEmoji(int emojiType) {
+		switch (emojiType) {
+			case LOL_EMOJI_TYPE:
+				messageService.sendEmoji(LOL_EMOJI_TYPE);
+				break;
+
+			case SUNGLASSES_EMOJI_TYPE:
+				messageService.sendEmoji(SUNGLASSES_EMOJI_TYPE);
+				break;
+
+			case LIKE_EMOJI_TYPE:
+				messageService.sendEmoji(LIKE_EMOJI_TYPE);
+				break;
+
+			case DISLIKE_EMOJI_TYPE:
+				messageService.sendEmoji(DISLIKE_EMOJI_TYPE);
+				break;
+
+			case ANGRY_EMOJI_TYPE:
+				messageService.sendEmoji(ANGRY_EMOJI_TYPE);
+				break;
+
+			case VOMIT_EMOJI_TYPE:
+				messageService.sendEmoji(VOMIT_EMOJI_TYPE);
+		}
+	}
+
+	public void notifyEmojiPlayed(int emojiType) {
+		switch (emojiType) {
+			case LOL_EMOJI_TYPE:
+				animateEmoji(lolEmoji, lolEmojiStatic);
+				break;
+
+			case SUNGLASSES_EMOJI_TYPE:
+				animateEmoji(sunglassesEmoji, sunglassesEmojiStatic);
+				break;
+
+			case LIKE_EMOJI_TYPE:
+				animateEmoji(likeEmoji, likeEmojiStatic);
+				break;
+
+			case DISLIKE_EMOJI_TYPE:
+				animateEmoji(dislikeEmoji, dislikeEmojiStatic);
+				break;
+
+			case ANGRY_EMOJI_TYPE:
+				animateEmoji(angryEmoji, angryEmojiStatic);
+				break;
+
+			case VOMIT_EMOJI_TYPE:
+				animateEmoji(vomitEmoji, vomitEmojiStatic);
+				break;
+		}
+	}
+
+	private void animateEmoji(ImageView emojiType, ImageView toDisable) {
+		toDisable.setDisable(true);
+
+		TranslateTransition translate = new TranslateTransition();
+		translate.setNode(emojiType);
+		translate.setDuration(Duration.millis(TIMER_SECOND));
+		translate.setByY(EMOJI_MOVEMENT_RANGE);
+		translate.setCycleCount(2);
+		translate.setAutoReverse(true);
+		translate.play();
+
+		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+		executorService.schedule(() -> toDisable.setDisable(false), 2, TimeUnit.SECONDS);
+	}
+
+	protected QuestionData<Q> getQuestionData() {
+		return questionData;
 	}
 }

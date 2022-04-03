@@ -91,7 +91,7 @@ public class QuestionServiceImplTest {
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
 		var score = service.calculateScore(question, 1.1f, 1000L, false);
 
-		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
+		assertEquals(96, score);
 	}
 
 	@Test

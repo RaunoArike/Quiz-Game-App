@@ -18,12 +18,18 @@ package server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EntityScan(basePackages = { "commons", "server" })
-public class Main {
-
+public class Main implements WebMvcConfigurer  {
 	public static void main(String[] args) {
 		SpringApplication.run(Main.class, args);
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/images/**").addResourceLocations("file:images/");
 	}
 }

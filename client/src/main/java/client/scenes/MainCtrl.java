@@ -17,6 +17,7 @@ package client.scenes;
 
 import client.model.QuestionData;
 
+import commons.model.LeaderboardEntry;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -28,6 +29,8 @@ import commons.model.Question.ComparisonQuestion;
 import commons.model.Question.EstimationQuestion;
 import commons.model.Question.MultiChoiceQuestion;
 import commons.model.Question.PickEnergyQuestion;
+
+import java.util.List;
 
 public class MainCtrl {
 
@@ -73,6 +76,7 @@ public class MainCtrl {
 	private Scene endingScreen;
 
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
+
 
 	public void initialize(Stage primaryStage,
 		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
@@ -141,7 +145,9 @@ public class MainCtrl {
 		primaryStage.setScene(adminScreen);
 	}
 
-	public void showIntermediateLeaderboard() {
+	public void showIntermediateLeaderboard(List<LeaderboardEntry> leaderboardEntryList) {
+		intermediateLeaderboardCtrl.setIntermediateList(leaderboardEntryList);
+
 		intermediateLeaderboardCtrl.init();
 
 		primaryStage.setTitle("Intermediate Leaderboard");
@@ -264,6 +270,15 @@ public class MainCtrl {
 			case ESTIMATION -> estimationScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
+		}
+	}
+
+	public void notifyEmojiPlayed(QuestionTypes type, int emojiType) {
+		switch (type) {
+			case COMPARISON -> comparisonScreenCtrl.notifyEmojiPlayed(emojiType);
+			case ESTIMATION -> estimationScreenCtrl.notifyEmojiPlayed(emojiType);
+			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyEmojiPlayed(emojiType);
+			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyEmojiPlayed(emojiType);
 		}
 	}
 

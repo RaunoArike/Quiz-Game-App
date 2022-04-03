@@ -94,6 +94,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		}
 		answerMessage.setText(message);
 		ok.setDisable(true);
+		disableJokers();
 	}
 
 	private void resetError() {

@@ -5,11 +5,10 @@ import importer.api.ActivityApiImpl;
 import importer.service.FilePathProvider;
 import importer.service.ImportServiceImpl;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		if (args.length < 2) throw new IllegalArgumentException("Not enough arguments provided");
 		var serverUrl = args[0];
 		var filePath = args[1];
@@ -19,6 +18,6 @@ public class Main {
 
 		if (flags.contains("-D")) service.deleteAllActivities(serverUrl);
 
-		service.importServicesFromFile(serverUrl, filePath);
+		service.importActivitiesFromFile(serverUrl, filePath);
 	}
 }
