@@ -1,12 +1,9 @@
 package client.scenes;
 
 import client.service.ServerService;
-
-
 import client.utils.NumberUtils;
 import com.google.inject.Inject;
 import commons.model.Activity;
-
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

@@ -1,15 +1,13 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendEmojiMessage;
 import commons.clientmessage.SendJokerMessage;
 import commons.model.Activity;
 import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.model.Question;
-import commons.servermessage.IntermediateLeaderboardMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ReduceTimePlayedMessage;
-import commons.servermessage.ScoreMessage;
+import commons.servermessage.*;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -296,4 +294,16 @@ public class GameServiceImplTest {
 		verify(mockitoOutgoingController).sendTimeReduced(message, FAKE_PLAYER_ID_LIST);
 	}
 
+	@Test
+	public void emoji_played_message_should_be_sent() {
+		var service = createService(controllableTimer, mockitoOutgoingController);
+		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+
+		SendEmojiMessage messages = new SendEmojiMessage(3);
+
+		service.emojiPlayed(2, messages);
+
+		EmojiPlayedMessage message = new EmojiPlayedMessage(messages.emojiNumber());
+		verify(mockitoOutgoingController).sendEmojiPlayed(message, FAKE_PLAYER_ID_LIST);
+	}
 }

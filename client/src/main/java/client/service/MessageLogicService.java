@@ -37,4 +37,10 @@ public interface MessageLogicService {
 	 * @param type type of the joker played
 	 */
 	void sendJoker(JokerType type);
+
+	/**
+	 * Sends an emoji sending request to the server
+	 * @param emojiType type of emoji being sent
+	 */
+	void sendEmoji(int emojiType);
 }
