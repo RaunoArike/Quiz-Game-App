@@ -141,7 +141,7 @@ public class GameServiceImpl implements GameService {
 		var scoreDelta = 0;
 		if (answer != null) {
 			scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed);
+				timePassed, false); //TO DO - final boolean should be whether or not doublePoints have been played
 			player.incrementScore(scoreDelta);
 		}
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
