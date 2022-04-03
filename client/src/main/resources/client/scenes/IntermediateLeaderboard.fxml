@@ -15,7 +15,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <TableView layoutX="293.0" layoutY="10.0" prefHeight="380.0" prefWidth="298.0" fx:id="intermediaryLeaderboard">
+      <TableView layoutX="293.0" layoutY="10.0" prefHeight="380.0" prefWidth="298.0" fx:id="intermediateLeaderboard">
          <columns>
             <TableColumn prefWidth="50.0" fx:id="colRanking" text="Rank"  />
             <TableColumn prefWidth="150.0" fx:id="colUsername" text="Username" />
