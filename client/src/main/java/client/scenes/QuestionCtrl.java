@@ -118,6 +118,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
+		///based on single or multi show or hide emojis
 	}
 
 	protected void setQuestionText(String questionText) {
