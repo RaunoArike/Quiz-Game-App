@@ -30,8 +30,6 @@ public class GameServiceImpl implements GameService {
 
 	private int nextGameId = 0;
 
-	private boolean doublePoints = false;
-
 	public GameServiceImpl(QuestionService questionService, OutgoingController outgoingController,
 							LeaderboardService leaderboardService, TimerService timerService) {
 		this.questionService = questionService;
@@ -43,13 +41,12 @@ public class GameServiceImpl implements GameService {
 	/**
 	 * Start a new single-player game.
 	 *
-	 * @param playerId
-	 * @param userName
+	 * @param playerId id of player starting game
+	 * @param userName username
 	 */
 	@Override
 	public void startSinglePlayerGame(int playerId, String userName) {
 		var player = new Player(userName, playerId);
-		player.init();
 		var gameId = nextGameId++;
 		var game = new Game(gameId);
 		game.addPlayer(playerId, player);
@@ -72,20 +69,17 @@ public class GameServiceImpl implements GameService {
 		games.put(newGameId, game);
 		for (Player p : listOfPlayers) {
 			players.put(p.getPlayerId(), newGameId);
-			p.init();
 		}
 		continueMultiPlayerGame(game);
 	}
 
 	private void continueMultiPlayerGame(Game game) {
-		//boolean extraDelayForLeaderboard = false;
 		if (game.isIntermediateLeaderboardNext()) {
 			showIntermediateLeaderboard(game);
-			//extraDelayForLeaderboard = true;
 		}
 		if (!game.isLastQuestion()) {
-			List<Player> playersinGame = game.getPlayers();
-			for (Player p : playersinGame) {
+			List<Player> playersInGame = game.getPlayers();
+			for (Player p : playersInGame) {
 				p.setLatestAnswer(null); //this case is specially handled when updating score
 				p.setTimeTakenToAnswer((long) 0);
 			}
@@ -142,7 +136,7 @@ public class GameServiceImpl implements GameService {
 		var scoreDelta = 0;
 		if (answer != null) {
 			scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed, false); //TO DO - final boolean should be whether or not doublePoints have been played
+				timePassed, player.isDoublePointsForCurrentQuestion());
 			player.incrementScore(scoreDelta);
 		}
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
@@ -195,83 +189,37 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Generic jokerPlayed method, calls either single- or multi-player method
+	 * Called when a joker was played by a player
 	 *
-	 * @param playerId     player who uses the joker
-	 * @param jokerMessage message containing which joker is played
+	 * @param playerId     player who used the joker
+	 * @param jokerMessage message containing which joker is used
 	 */
 	@Override
 	public void jokerPlayed(int playerId, SendJokerMessage jokerMessage) {
 		var game = getPlayerGame(playerId);
 		if (game == null) throw new RuntimeException("Game not found");
-		if (game.isSinglePlayer()) {
-
-			jokerPlayedSinglePlayer(playerId, jokerMessage);
-
-		} else {
-
-			jokerPlayedMultiPlayer(playerId, jokerMessage);
-
-		}
-	}
-
-
-	/**
-	 * Single player jokerPlayed method
-	 *
-	 * @param playerId     player who uses the joker
-	 * @param jokerMessage message containing which joker is played
-	 */
-	private void jokerPlayedSinglePlayer(int playerId, SendJokerMessage jokerMessage) {
-		var game = getPlayerGame(playerId);
-		if (game == null) throw new RuntimeException("Game not found");
 
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
 		if (jokerMessage.jokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
-			doublePoints = true;
+			player.setDoublePointsForCurrentQuestion(true);
 		}
 
 		if (jokerMessage.jokerType() == JokerType.ELIMINATE_MC_OPTION) {
 			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
 
-	}
-
-	/**
-	 * Multi-player jokerPlayed method
-	 *
-	 * @param playerId     player who use the joker
-	 * @param jokerMessage message containing which joker is used
-	 */
-	private void jokerPlayedMultiPlayer(int playerId, SendJokerMessage jokerMessage) {
-		var game = getPlayerGame(playerId);
-		if (game == null) throw new RuntimeException("Game not found");
-
-		var player = game.getPlayer(playerId);
-		if (player == null) throw new RuntimeException("Player not found");
-
-		if (jokerMessage.jokerType() == JokerType.DOUBLE_POINTS) {
-			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
-			doublePoints = true;
-		}
-
-		if (jokerMessage.jokerType() == JokerType.ELIMINATE_MC_OPTION) {
-			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
-		}
-
-		if (jokerMessage.jokerType() == JokerType.REDUCE_TIME) {
+		if (jokerMessage.jokerType() == JokerType.REDUCE_TIME && !game.isSinglePlayer()) {
 			player.setJokerAvailability(JokerType.REDUCE_TIME, false);
 
-			long currentTimeLefts = timerService.getRemainingTime(game.getGameId());
-			long timeReduced = (long) (currentTimeLefts * TIME_JOKER_EFFECT);
+			long currentTimeLeft = timerService.getRemainingTime(game.getGameId());
+			long timeReduced = (long) (currentTimeLeft * TIME_JOKER_EFFECT);
 			timerService.rescheduleTimer(game.getGameId(), timeReduced);
 
 			outgoingController.sendTimeReduced(new ReduceTimePlayedMessage(timeReduced), game.getPlayerIds());
 		}
-
 	}
 
 	/**
@@ -329,7 +277,7 @@ public class GameServiceImpl implements GameService {
 	 * Updates the scores of all the players in a multi-player game when the timer of a question elapses
 	 * based on the latest answer that they submitted.
 	 *
-	 * @param game
+	 * @param game game
 	 */
 	private void scoreUpdate(Game game) {
 		int numberOfPlayersScored = 0;
@@ -340,9 +288,9 @@ public class GameServiceImpl implements GameService {
 			//if latestAnswer was null it represents that the player has not given any answer for this question
 			var scoreDelta = 0;
 			if (player.getLatestAnswer() != null) {
-				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(),
-						player.getLatestAnswer(), player.getTimeTakenToAnswer(), doublePoints);
-				doublePoints = false;
+				scoreDelta = questionService.calculateScore(game.getCurrentQuestion(), player.getLatestAnswer(),
+						player.getTimeTakenToAnswer(), player.isDoublePointsForCurrentQuestion());
+				player.setDoublePointsForCurrentQuestion(false);
 				player.incrementScore(scoreDelta);
 				if (scoreDelta > 0) {
 					numberOfPlayersScored++;
@@ -356,7 +304,6 @@ public class GameServiceImpl implements GameService {
 			ScoreMessage message = new ScoreMessage(scoreDelta, player.getScore(), numberOfPlayersScored);
 			outgoingController.sendScore(message, List.of(player.getPlayerId()));
 		}
-		numberOfPlayersScored = 0;
 		continueMultiPlayerGame(game);
 	}
 
@@ -380,7 +327,7 @@ public class GameServiceImpl implements GameService {
 	/**
 	 * Generic cleanup method.
 	 *
-	 * @param game
+	 * @param game game
 	 */
 	private void cleanUpGame(Game game) {
 		games.remove(game.getGameId());
@@ -388,9 +335,9 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * Generic get method.
+	 * Returns the game the player belongs to
 	 *
-	 * @param playerId
+	 * @param playerId player id
 	 * @return which game a player is in
 	 */
 	private Game getPlayerGame(int playerId) {
