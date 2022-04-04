@@ -44,8 +44,8 @@ public class ActivityController {
 	 * @param activities list of activities to add
 	 */
 	@PostMapping
-	public void addActivities(@RequestBody List<Activity> activities) {
-		activityService.addActivities(activities);
+	public List<Activity> addActivities(@RequestBody List<Activity> activities) {
+		return activityService.addActivities(activities);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class ActivityController {
 	 * @param activity the activity to replace the old activity with
 	 */
 	@PutMapping("/{id}")
-	public void updateActivity(@PathVariable long id, Activity activity) {
+	public void updateActivity(@PathVariable long id, @RequestBody Activity activity) {
 		try {
 			activityService.updateActivity(id, activity);
 		} catch (EntityNotFoundException e) {

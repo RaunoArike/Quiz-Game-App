@@ -77,6 +77,7 @@ public class MainCtrl {
 
 	public static final String DEFAULT_SERVER_ADDRESS = "localhost:8080";
 
+
 	public void initialize(Stage primaryStage,
 		Pair<LeaderboardCtrl, Parent> leaderboardCtrl,
 		Pair<OpeningCtrl, Parent> openingCtrl,
@@ -92,46 +93,60 @@ public class MainCtrl {
 		Pair<IntermediateLeaderboardCtrl, Parent> intermediateLeaderboardCtrlParentPair,
 		Pair<EndingScreenCtrl, Parent> endingScreenCtrlParentPair) {
 
+		//String css = this.getClass().getResource("client/styles.css").toExternalForm();
 		this.primaryStage = primaryStage;
 
 		this.leaderboardCtrl = leaderboardCtrl.getKey();
 		this.leaderboard = new Scene(leaderboardCtrl.getValue());
+		this.leaderboard.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.openingCtrl = openingCtrl.getKey();
 		this.home = new Scene(openingCtrl.getValue());
+		this.home.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.usernameCtrl = usernameCtrl.getKey();
 		this.username = new Scene(usernameCtrl.getValue());
+		this.username.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.joinWaitingroomCtrl = joinWaitingroomCtrl.getKey();
 		this.joinWaitingroom = new Scene(joinWaitingroomCtrl.getValue());
+		this.joinWaitingroom.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.waitingroomCtrl = waitingroomCtrl.getKey();
 		this.waitingroom = new Scene(waitingroomCtrl.getValue());
+		this.waitingroom.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.serverAddressCtrl = serverAddressCtrl.getKey();
 		this.serverAddress = new Scene(serverAddressCtrl.getValue());
+		this.serverAddress.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.comparisonScreenCtrl = comparisonScreenCtrl.getKey();
 		this.comparisonScreen = new Scene(comparisonScreenCtrl.getValue());
+		this.comparisonScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.estimationScreenCtrl = estimationScreenCtrl.getKey();
 		this.estimationScreen = new Scene(estimationScreenCtrl.getValue());
+		this.estimationScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.multiChoiceScreenCtrl = multiChoiceScreenCtrl.getKey();
 		this.multiChoiceScreen = new Scene(multiChoiceScreenCtrl.getValue());
+		this.multiChoiceScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.pickEnergyScreenCtrl = pickEnergyScreenCtrl.getKey();
 		this.pickEnergyScreen = new Scene(pickEnergyScreenCtrl.getValue());
+		this.pickEnergyScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.adminCtrl = adminCtrlParentPair.getKey();
 		this.adminScreen = new Scene(adminCtrlParentPair.getValue());
+		this.adminScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.endingScreenCtrl = endingScreenCtrlParentPair.getKey();
 		this.endingScreen = new Scene(endingScreenCtrlParentPair.getValue());
+		this.endingScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		this.intermediateLeaderboardCtrl = intermediateLeaderboardCtrlParentPair.getKey();
 		this.intermediateLeaderboardScreen = new Scene(intermediateLeaderboardCtrlParentPair.getValue());
+		this.intermediateLeaderboardScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		showServerAddress();
 		primaryStage.show();
@@ -139,6 +154,7 @@ public class MainCtrl {
 
 	public void showAdminPanel() {
 		adminCtrl.init();
+		adminScreen.setOnKeyPressed(e -> adminCtrl.keyPressed(e));
 		primaryStage.setTitle("Admin panel");
 
 		primaryStage.setScene(adminScreen);
@@ -269,6 +285,15 @@ public class MainCtrl {
 			case ESTIMATION -> estimationScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
 			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyReduceTimePlayed(timeLeftMs);
+		}
+	}
+
+	public void notifyEmojiPlayed(QuestionTypes type, int emojiType) {
+		switch (type) {
+			case COMPARISON -> comparisonScreenCtrl.notifyEmojiPlayed(emojiType);
+			case ESTIMATION -> estimationScreenCtrl.notifyEmojiPlayed(emojiType);
+			case MULTI_CHOICE -> multiChoiceScreenCtrl.notifyEmojiPlayed(emojiType);
+			case PICK_ENERGY -> pickEnergyScreenCtrl.notifyEmojiPlayed(emojiType);
 		}
 	}
 

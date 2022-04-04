@@ -18,16 +18,16 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class ActivityServiceImplTest {
 	private static final List<Activity> FAKE_ACTIVITY_LIST = List.of(
-			new Activity("A1", null, 1f),
-			new Activity("A2", null, 2f),
-			new Activity("A3", null, 3f)
+			new Activity(0, "A1", null, 1f),
+			new Activity(1, "A2", null, 2f),
+			new Activity(2, "A3", null, 3f)
 	);
 	private static final List<ActivityEntity> FAKE_ACTIVITY_ENTITY_LIST = List.of(
 			new ActivityEntity(0, "A1", null, 1f),
 			new ActivityEntity(1, "A1", null, 1f),
 			new ActivityEntity(2, "A1", null, 1f)
 	);
-	private static final Activity FAKE_UPDATED_ACTIVITY = new Activity("A4", null, 4f);
+	private static final Activity FAKE_UPDATED_ACTIVITY = new Activity(0, "A4", null, 4f);
 
 	@Mock
 	private ActivityRepository activityRepository;

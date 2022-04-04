@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ServerAddressCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ServerAddressCtrl">
    <children>
-      <Label layoutX="87.0" layoutY="105.0" prefHeight="47.0" prefWidth="435.0" text="Connect to a server to play:">
+      <Label layoutX="107.0" layoutY="125.0" prefHeight="47.0" prefWidth="435.0" text="Connect to a server to play:">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <Label layoutX="106.0" layoutY="176.0" prefHeight="35.0" prefWidth="178.0" text="Server address:">
+      <Label layoutX="126.0" layoutY="196.0" prefHeight="35.0" prefWidth="178.0" text="Server address:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="serverAddress" layoutX="284.0" layoutY="175.0" prefHeight="37.0" prefWidth="231.0">
+      <TextField fx:id="serverAddress" layoutX="304.0" layoutY="195.0" prefHeight="37.0" prefWidth="231.0">
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Button fx:id="ok" layoutX="435.0" layoutY="227.0" mnemonicParsing="false" onAction="#ok" prefHeight="26.0" prefWidth="80.0" text="OK ">
+      <Button fx:id="ok" layoutX="455.0" layoutY="247.0" mnemonicParsing="false" onAction="#ok" prefHeight="26.0" prefWidth="80.0" text="OK ">
          <font>
             <Font size="16.0" />
          </font></Button>
@@ -31,7 +31,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="defaultButton" layoutX="252.0" layoutY="226.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="115.0" text="Use default">
+      <Button fx:id="defaultButton" layoutX="272.0" layoutY="246.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="115.0" text="Use default">
          <font>
             <Font size="16.0" />
          </font></Button>
