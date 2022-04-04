@@ -106,19 +106,16 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 
 	public void optionAClicked() {
 		messageService.answerQuestion(0);
-		timeStop();
 		selectedAnswer = 0;
 	}
 
 	public void optionBClicked() {
 		messageService.answerQuestion(1);
-		timeStop();
 		selectedAnswer = 1;
 	}
 
 	public void optionCClicked() {
 		messageService.answerQuestion(2);
-		timeStop();
 		selectedAnswer = 2;
 	}
 

@@ -87,7 +87,6 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
 			resetError();
-			timeStop();
 		} else {
 			errorMessage.setText("Invalid value");
 		}

@@ -109,19 +109,16 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 
 	public void optionAClicked() {
-		timeStop();
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
 	}
 
 	public void optionBClicked() {
-		timeStop();
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
 	}
 
 	public void optionCClicked() {
-		timeStop();
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
 	}

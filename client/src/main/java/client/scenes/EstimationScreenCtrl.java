@@ -76,7 +76,6 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
 			resetError();
-			timeStop();
 		} else {
 			errorMessage.setText("Invalid value");
 		}
