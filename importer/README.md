@@ -22,5 +22,5 @@ where:
 
 For example:
 ```
-gradle :importer:run --args "http://localhost:8080 ../activities -D"
+./gradlew :importer:run --args "http://localhost:8080 ../activities -D"
 ```
