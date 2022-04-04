@@ -214,6 +214,10 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		eliminateOptionJoker.setDisable(true);
 	}
 
+	protected QuestionData<Q> getQuestionData() {
+		return questionData;
+	}
+
 	private void useEmoji(int emojiType) {
 		switch (emojiType) {
 			case LOL_EMOJI_TYPE:
@@ -282,9 +286,5 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.schedule(() -> toDisable.setDisable(false), 2, TimeUnit.SECONDS);
-	}
-
-	protected QuestionData<Q> getQuestionData() {
-		return questionData;
 	}
 }

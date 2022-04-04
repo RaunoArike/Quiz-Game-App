@@ -56,9 +56,9 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	public void init() {
 		super.init();
 		scoreMessage.setText("");
-		optionA.setStyle(null);
-		optionB.setStyle(null);
-		optionC.setStyle(null);
+		optionAtext.setStyle(null);
+		optionBtext.setStyle(null);
+		optionCtext.setStyle(null);
 
 		optionA.setToggleGroup(toggleGroup);
 		optionB.setToggleGroup(toggleGroup);
@@ -123,42 +123,36 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	}
 
 	public void showAnswer(int option, int numberOfPlayersScored) {
+		optionA.setDisable(true);
+		optionB.setDisable(true);
+		optionC.setDisable(true);
 		switch (option) {
 			case 0:
-				optionA.setStyle("-fx-background-color: #00c203; ");
-				optionA.setDisable(true);
-				optionB.setDisable(true);
-				optionC.setDisable(true);
+				optionAtext.setStyle("-fx-background-color: #8dcc4f; ");
 				if (selectedAnswer == 1) {
-					optionB.setStyle("-fx-background-color: #fd4119; ");
+					optionBtext.setStyle("-fx-background-color: #cc4f4f; ");
 				} else if (selectedAnswer == 2) {
-					optionC.setStyle("-fx-background-color: #fd4119; ");
+					optionCtext.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 				break;
 
 			case 1:
-				optionB.setStyle("-fx-background-color: #00c203; ");
-				optionA.setDisable(true);
-				optionB.setDisable(true);
-				optionC.setDisable(true);
+				optionBtext.setStyle("-fx-background-color: #8dcc4f; ");
 				if (selectedAnswer == 0) {
-					optionA.setStyle("-fx-background-color: #fd4119; ");
+					optionAtext.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 				if (selectedAnswer == 2) {
-					optionC.setStyle("-fx-background-color: #fd4119; ");
+					optionCtext.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 				break;
 
 				case 2:
-				optionC.setStyle("-fx-background-color: #00c203; ");
-				optionA.setDisable(true);
-				optionB.setDisable(true);
-				optionC.setDisable(true);
+				optionCtext.setStyle("-fx-background-color: #8dcc4f; ");
 				if (selectedAnswer == 1) {
-					optionB.setStyle("-fx-background-color: #fd4119; ");
+					optionBtext.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 				if (selectedAnswer == 0) {
-					optionA.setStyle("-fx-background-color: #fd4119; ");
+					optionAtext.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 				break;
 		}
