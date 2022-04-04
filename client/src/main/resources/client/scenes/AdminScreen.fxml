@@ -8,38 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.AdminCtrl">
-   <children>
-      <Label alignment="CENTER" layoutX="2.0" layoutY="-3.0" prefHeight="62.0" prefWidth="154.0" text="Admin" textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS" wrapText="true">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-    <Button cancelButton="true" layoutX="36.0" layoutY="398.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="26.0" prefWidth="118.0" text="Return home">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
-      <Button layoutX="470.0" layoutY="397.0" mnemonicParsing="false" onAction="#removeButton" prefHeight="26.0" prefWidth="130.0" text="Delete activity">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
-      <Button layoutX="315.0" layoutY="397.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="26.0" prefWidth="130.0" text="Update activity">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
-      <TableView fx:id="table" layoutX="160.0" layoutY="7.0" prefHeight="351.0" prefWidth="495.0">
-        <columns>
-            <TableColumn fx:id="columnOne" prefWidth="400.0" text="Name" />
-            <TableColumn fx:id="columnTwo" prefWidth="90.0" text="Energy" />
-        </columns>
-      </TableView>
-      <TextField fx:id="nameTextField" layoutX="11.0" layoutY="106.0" prefHeight="26.0" prefWidth="146.0" promptText="Name" />
-      <TextField fx:id="energyTextField" layoutX="10.0" layoutY="186.0" prefHeight="26.0" prefWidth="109.0" promptText="Energy" />
-       <TextField fx:id="urlTextField" layoutX="11.0" layoutY="147.0" prefHeight="26.0" prefWidth="146.0" promptText="URL" />
-      <Button layoutX="11.0" layoutY="233.0" mnemonicParsing="false" onAction="#addButton" text="Save">
-         <font>
-            <Font size="15.0" />
-         </font></Button>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="client.scenes.AdminCtrl">
+    <children>
+        <Label alignment="CENTER" layoutX="16.0" layoutY="14.0" prefHeight="61.0" prefWidth="324.0" text="ADMIN"
+               textAlignment="JUSTIFY" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+            <font>
+                <Font size="40.0"/>
+            </font>
+        </Label>
 
         <Label layoutX="16.0" layoutY="106.0" text="ID"/>
         <TextField fx:id="idTextField" layoutX="70.0" layoutY="104.0" prefHeight="26.0" prefWidth="234.0"
