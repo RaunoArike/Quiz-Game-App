@@ -154,6 +154,7 @@ public class MainCtrl {
 
 	public void showAdminPanel() {
 		adminCtrl.init();
+		adminScreen.setOnKeyPressed(e -> adminCtrl.keyPressed(e));
 		primaryStage.setTitle("Admin panel");
 
 		primaryStage.setScene(adminScreen);

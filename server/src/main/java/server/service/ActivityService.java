@@ -12,8 +12,9 @@ public interface ActivityService {
 	 * Adds specified activities.
 	 *
 	 * @param activities activities to add
+	 * @return created activities
 	 */
-	void addActivities(List<Activity> activities);
+	List<Activity> addActivities(List<Activity> activities);
 
 	/**
 	 * Provides a list with all activities currently in the repository.

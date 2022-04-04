@@ -1,15 +1,13 @@
 package server.service;
 
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendEmojiMessage;
 import commons.clientmessage.SendJokerMessage;
 import commons.model.Activity;
 import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.model.Question;
-import commons.servermessage.IntermediateLeaderboardMessage;
-import commons.servermessage.QuestionMessage;
-import commons.servermessage.ReduceTimePlayedMessage;
-import commons.servermessage.ScoreMessage;
+import commons.servermessage.*;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,12 +32,12 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
 	private static final Question FAKE_QUESTION_EST = new Question.EstimationQuestion(
-			new Activity("a", "b", 42f), 4f);
+			new Activity(420, "a", "b", 42f), 4f);
 
 	private static final List<Activity> FAKE_ACTIVITIES_LIST = List.of(
-			new Activity("a", "b", 42f),
-			new Activity("d", "e", 42f),
-			new Activity("g", "h", 42f)
+			new Activity(421, "a", "b", 42f),
+			new Activity(422, "d", "e", 42f),
+			new Activity(423, "g", "h", 42f)
 	);
 
 	private static final Question FAKE_QUESTION_MC = new Question.MultiChoiceQuestion(FAKE_ACTIVITIES_LIST, 0);
@@ -296,4 +294,16 @@ public class GameServiceImplTest {
 		verify(mockitoOutgoingController).sendTimeReduced(message, FAKE_PLAYER_ID_LIST);
 	}
 
+	@Test
+	public void emoji_played_message_should_be_sent() {
+		var service = createService(controllableTimer, mockitoOutgoingController);
+		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+
+		SendEmojiMessage messages = new SendEmojiMessage(3);
+
+		service.emojiPlayed(2, messages);
+
+		EmojiPlayedMessage message = new EmojiPlayedMessage(messages.emojiNumber());
+		verify(mockitoOutgoingController).sendEmojiPlayed(message, FAKE_PLAYER_ID_LIST);
+	}
 }
