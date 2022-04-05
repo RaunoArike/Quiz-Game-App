@@ -111,16 +111,19 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	public void optionAClicked() {
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
+		timerProgress.setStyle("-fx-accent: black;");
 	}
 
 	public void optionBClicked() {
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
+		timerProgress.setStyle("-fx-accent: black;");
 	}
 
 	public void optionCClicked() {
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
+		timerProgress.setStyle("-fx-accent: black;");
 	}
 
 	public void showAnswer(int option, int numberOfPlayersScored) {

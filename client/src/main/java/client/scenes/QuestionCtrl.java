@@ -92,7 +92,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private ImageView vomitEmojiStatic;
 
 	@FXML
-	private ProgressBar timerProgress;
+	public ProgressBar timerProgress;
 
 	@FXML
 	private Text timerNumber;
@@ -115,6 +115,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 
 	public void setQuestion(QuestionData<Q> questionData) {
+		timerProgress.setStyle("-fx-accent: blue;");
 		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
@@ -202,6 +203,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void useReduceTimeJoker() {
 		messageService.sendJoker(JokerType.REDUCE_TIME);
 		reduceTimeJoker.setDisable(true);
+		timerProgress.setStyle("-fx-accent: red;");
 	}
 
 	public void useDoublePointsJoker() {

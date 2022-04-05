@@ -73,6 +73,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	public void sendAnswer() {
 
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
+		timerProgress.setStyle("-fx-accent: black;");
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
 			resetError();
