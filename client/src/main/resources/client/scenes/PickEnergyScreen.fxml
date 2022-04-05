@@ -22,12 +22,12 @@
       <RadioButton fx:id="optionA" layoutX="418.0" layoutY="138.0" mnemonicParsing="false" onAction="#optionAClicked" text="A" />
       <RadioButton fx:id="optionB" layoutX="418.0" layoutY="167.0" mnemonicParsing="false" onAction="#optionBClicked" text="B" />
       <RadioButton fx:id="optionC" layoutX="418.0" layoutY="197.0" mnemonicParsing="false" onAction="#optionCClicked" text="C" />
-      <Label fx:id="questionText" layoutX="24.0" layoutY="15.0" prefHeight="118.0" prefWidth="543.0" text="How much does X take?" wrapText="true">
+      <Label fx:id="questionText" layoutX="24.0" layoutY="38.0" prefHeight="95.0" prefWidth="612.0" text="How much does X take?" wrapText="true">
          <font>
-            <Font size="20.0" />
+            <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="score" layoutX="545.0" layoutY="13.0" prefHeight="32.0" prefWidth="106.0" text="Score:">
+      <Label fx:id="score" layoutX="545.0" layoutY="11.0" prefHeight="32.0" prefWidth="106.0" text="Score:">
          <font>
             <Font size="15.0" />
          </font>
