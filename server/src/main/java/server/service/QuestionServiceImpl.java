@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 @Service
 public class QuestionServiceImpl implements QuestionService {
 	public static final int MAX_SCORE = 100;
