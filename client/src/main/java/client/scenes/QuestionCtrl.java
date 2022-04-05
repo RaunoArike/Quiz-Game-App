@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.model.GameType;
 import client.model.QuestionData;
 import client.service.MessageLogicService;
 import com.google.inject.Inject;
@@ -118,7 +119,24 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
-		///based on single or multi show or hide emojis
+		setEmojis(questionData.gameType());
+	}
+
+	private void setEmojis(GameType gameType) {
+		lolEmoji.setVisible(false);
+			sunglassesEmoji.setVisible(false);
+			likeEmoji.setVisible(false);
+			dislikeEmoji.setVisible(false);
+			angryEmoji.setVisible(false);
+			vomitEmoji.setVisible(false);
+		if (gameType == GameType.SINGLE) {
+			lolEmojiStatic.setVisible(false);
+			sunglassesEmojiStatic.setVisible(false);
+			likeEmojiStatic.setVisible(false);
+			dislikeEmojiStatic.setVisible(false);
+			angryEmojiStatic.setVisible(false);
+			vomitEmojiStatic.setVisible(false);
+		}
 	}
 
 	protected void setQuestionText(String questionText) {
@@ -167,31 +185,93 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void handleLolEmojiClicks() {
+
+		lolEmoji.setVisible(true);
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				lolEmoji.setVisible(false);
+			}
+
+		};
+		timer.schedule(timerTask, (TIMER_SECOND) * 2);
+
 		useEmoji(LOL_EMOJI_TYPE);
 		notifyEmojiPlayed(LOL_EMOJI_TYPE);
 	}
 
 	public void handleSunglassesEmojiClicks() {
+		sunglassesEmoji.setVisible(true);
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				sunglassesEmoji.setVisible(false);
+			}
+
+		};
+		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(SUNGLASSES_EMOJI_TYPE);
 		notifyEmojiPlayed(SUNGLASSES_EMOJI_TYPE);
 	}
 
 	public void handleLikeEmojiClicks() {
+		likeEmoji.setVisible(true);
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				likeEmoji.setVisible(false);
+			}
+
+		};
+		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(LIKE_EMOJI_TYPE);
 		notifyEmojiPlayed(LIKE_EMOJI_TYPE);
 	}
 
 	public void handleDislikeEmojiClicks() {
+		dislikeEmoji.setVisible(true);
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				dislikeEmoji.setVisible(false);
+			}
+
+		};
+		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(DISLIKE_EMOJI_TYPE);
 		notifyEmojiPlayed(DISLIKE_EMOJI_TYPE);
 	}
 
 	public void handleAngryEmojiClicks() {
+		angryEmoji.setVisible(true);
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				angryEmoji.setVisible(false);
+			}
+
+		};
+		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(ANGRY_EMOJI_TYPE);
 		notifyEmojiPlayed(ANGRY_EMOJI_TYPE);
 	}
 
 	public void handleVomitEmojiClicks() {
+		vomitEmoji.setVisible(true);
+		timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				vomitEmoji.setVisible(false);
+			}
+
+		};
+		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(VOMIT_EMOJI_TYPE);
 		notifyEmojiPlayed(VOMIT_EMOJI_TYPE);
 	}

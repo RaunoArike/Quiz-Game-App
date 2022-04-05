@@ -100,11 +100,6 @@
                   <Image url="@/emojis/vomit_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="80.0" fitWidth="50.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/emojis/background.png" />
-               </image>
-            </ImageView>
             <Label fx:id="score" layoutX="569.0" layoutY="5.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
                <font>
                   <Font size="15.0" />
