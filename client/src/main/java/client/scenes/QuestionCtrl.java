@@ -129,19 +129,18 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private void setEmojis(GameType gameType) {
 		lolEmoji.setVisible(false);
-			sunglassesEmoji.setVisible(false);
-			likeEmoji.setVisible(false);
-			dislikeEmoji.setVisible(false);
-			angryEmoji.setVisible(false);
-			vomitEmoji.setVisible(false);
-		if (gameType == GameType.SINGLE) {
-			lolEmojiStatic.setVisible(false);
-			sunglassesEmojiStatic.setVisible(false);
-			likeEmojiStatic.setVisible(false);
-			dislikeEmojiStatic.setVisible(false);
-			angryEmojiStatic.setVisible(false);
-			vomitEmojiStatic.setVisible(false);
-		}
+		sunglassesEmoji.setVisible(false);
+		likeEmoji.setVisible(false);
+		dislikeEmoji.setVisible(false);
+		angryEmoji.setVisible(false);
+		vomitEmoji.setVisible(false);
+		boolean isMultiPlayer = !(gameType == GameType.SINGLE);
+		lolEmojiStatic.setVisible(isMultiPlayer);
+		sunglassesEmojiStatic.setVisible(isMultiPlayer);
+		likeEmojiStatic.setVisible(isMultiPlayer);
+		dislikeEmojiStatic.setVisible(isMultiPlayer);
+		angryEmojiStatic.setVisible(isMultiPlayer);
+		vomitEmojiStatic.setVisible(isMultiPlayer);
 	}
 
 	protected void setQuestionText(String questionText) {

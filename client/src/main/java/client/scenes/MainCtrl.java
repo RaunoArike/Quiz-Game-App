@@ -149,6 +149,7 @@ public class MainCtrl {
 		this.intermediateLeaderboardScreen.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
 
 		showServerAddress();
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 
