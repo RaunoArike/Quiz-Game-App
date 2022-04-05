@@ -1,6 +1,7 @@
 package client.service;
 
 import commons.model.Activity;
+import commons.model.JokerType;
 import commons.model.LeaderboardEntry;
 import commons.servermessage.*;
 
@@ -38,7 +39,6 @@ public interface ServerService {
 		 */
 		void onEndOfGame();
 
-
 		/**
 		 * Called when error occurs at the server side
 		 * @param message message with error details
@@ -46,10 +46,22 @@ public interface ServerService {
 		void onError(ErrorMessage message);
 
 		/**
-		 * Called to get the intermediate leaderboard
+		 * Called when the intermediate leaderboard should be shown
 		 * @param message the message of the intermediate leaderboard
 		 */
 		void onIntermediateLeaderboard(IntermediateLeaderboardMessage message);
+
+		/**
+		 * Called when a time reduction joker was played by one of the players
+		 * @param message message about the joker played
+		 */
+		void onReduceTimePlayed(ReduceTimePlayedMessage message);
+
+		/**
+		 * Called when an emoji was sent by one of the players
+		 * @param message message about the emoji played
+		 */
+		void onEmojiPlayed(EmojiPlayedMessage message);
 	}
 
 	/**
@@ -80,6 +92,12 @@ public interface ServerService {
 	void startMultiGame();
 
 	/**
+	 * Exits the waiting room.
+	 * Can only be called if connected to server.
+	 */
+	void exitWaitingRoom();
+
+	/**
 	 * Submits answer to the current question.
 	 * Can only be called if connected to server.
 	 * @param answer answer; Integer or Float depending on the question type
@@ -88,10 +106,28 @@ public interface ServerService {
 	void answerQuestion(Number answer);
 
 	/**
+	 * Sends information about a joker being used to the server
+	 * @param type type of the used joker
+	 */
+	void sendJoker(JokerType type);
+
+	/**
+	 * Sends information about an emoji having been sent to the server
+	 * @param emojiType type of the used emoji
+	 */
+	void sendEmoji(int emojiType);
+
+	/**
 	 * Registers a listener for server messages.
 	 * @param serverListener listener
 	 */
 	void registerListener(ServerListener serverListener);
+
+	/**
+	 * Returns current server address
+	 * @return current server address, or null if not connected
+	 */
+	String getServerAddress();
 
 	/**
 	 * Retrieves single-player leaderboard entries
@@ -99,10 +135,28 @@ public interface ServerService {
 	 */
 	List<LeaderboardEntry> getLeaderboardData();
 
-
 	/**
-	 * Returns the list of activities
+	 * Fetches all activities from the server
 	 * @return the list of activities
 	 */
 	List<Activity> getActivities();
+
+	/**
+	 * Adds a new activity to the server
+	 * @param activity activity to add
+	 * @return created activity
+	 */
+	Activity addActivity(Activity activity);
+
+	/**
+	 * Updates an existing activity on the server (based on the id of the passed activity)
+	 * @param activity activity to update
+	 */
+	void updateActivity(Activity activity);
+
+	/**
+	 * Removes an activity from the server by id
+	 * @param id id of the activity to remove
+	 */
+	void removeActivity(long id);
 }

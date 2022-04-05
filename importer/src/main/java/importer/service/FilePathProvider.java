@@ -18,8 +18,4 @@ public class FilePathProvider {
 					+ "Please provide a path to a directory containing an activities.json file.");
 		}
 	}
-
-	public String provideAbsolutePath(String filePath) throws IOException {
-			return new File(filePath).getCanonicalPath();
-	}
 }

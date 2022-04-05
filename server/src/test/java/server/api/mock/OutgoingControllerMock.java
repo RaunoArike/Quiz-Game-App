@@ -44,6 +44,16 @@ public class OutgoingControllerMock implements OutgoingController {
 		saveMessage(message, players);
 	}
 
+	@Override
+	public void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players) {
+		saveMessage(message, players);
+	}
+
+	@Override
+	public void sendEmojiPlayed(EmojiPlayedMessage message, List<Integer> players) {
+		saveMessage(message, players);
+	}
+
 	private void saveMessage(Object message, List<Integer> players) {
 		players.forEach(p -> sentMessages.add(new SentMessage(message, p)));
 	}

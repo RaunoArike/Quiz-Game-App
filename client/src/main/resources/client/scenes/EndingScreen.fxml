@@ -6,35 +6,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EndingScreenCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EndingScreenCtrl">
    <children>
-      <Label layoutX="164.0" layoutY="50.0" prefHeight="104.0" prefWidth="226.0" text="Well played!">
+      <Label layoutX="214.0" layoutY="60.0" prefHeight="104.0" prefWidth="226.0" text="Well played!">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <Button layoutX="398.0" layoutY="320.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="38.0" prefWidth="162.0" text="Return Home ">
+      <Button layoutX="378.0" layoutY="350.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="38.0" prefWidth="162.0" text="Return Home ">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
       <Text layoutX="196.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Label fx:id="score" layoutX="196.0" layoutY="136.0" prefHeight="72.0" prefWidth="182.0" text="Your score: 000 ">
+      <Label fx:id="score" layoutX="246.0" layoutY="146.0" prefHeight="72.0" prefWidth="182.0" text="Your score: 000 ">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <Button layoutX="398.0" layoutY="247.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="38.0" prefWidth="162.0" text="View Leaderboard">
+      <Button layoutX="378.0" layoutY="277.0" mnemonicParsing="false" onAction="#goToLeaderboard" prefHeight="38.0" prefWidth="162.0" text="View Leaderboard">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Label layoutX="227.0" layoutY="247.0" prefHeight="38.0" prefWidth="162.0" text="See how others did..." wrapText="true">
+      <Label layoutX="190.0" layoutY="277.0" prefHeight="38.0" prefWidth="199.0" text="See how others did..." wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="118.0" layoutY="320.0" prefHeight="38.0" prefWidth="270.0" text="...and play again for a better score!">
+      <Label layoutX="93.0" layoutY="350.0" prefHeight="38.0" prefWidth="295.0" text="...and play again for a better score!">
          <font>
             <Font size="16.0" />
          </font>

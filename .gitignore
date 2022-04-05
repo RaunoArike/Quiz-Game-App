@@ -39,3 +39,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+activityBank/
+images/
+server/images/

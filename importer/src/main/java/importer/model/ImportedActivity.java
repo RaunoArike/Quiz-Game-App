@@ -3,8 +3,6 @@ package importer.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import commons.model.Activity;
 
-import java.nio.file.Path;
-
 /**
  * Model representing an activity from the ActivityBank
  */
@@ -15,8 +13,7 @@ public record ImportedActivity(
 		@JsonProperty("consumption_in_wh") long energyInWh,
 		String source
 ) {
-	public Activity toModel(String filePath) {
-		String path = Path.of(filePath, imagePath).toString();
-		return new Activity(title, path, energyInWh);
+	public Activity toModel(String imageUrlPrefix) {
+		return new Activity(-1, title, imageUrlPrefix + imagePath, energyInWh);
 	}
 }

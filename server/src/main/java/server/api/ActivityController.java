@@ -2,10 +2,16 @@ package server.api;
 
 import commons.model.Activity;
 import org.springframework.web.bind.annotation.*;
+import server.exception.DuplicateFileException;
 import server.exception.IdNotFoundException;
 import server.service.ActivityService;
+import server.service.FileStorageService;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.List;
 
 /**
@@ -15,9 +21,11 @@ import java.util.List;
 @RequestMapping("api/activities")
 public class ActivityController {
 	private final ActivityService activityService;
+	private final FileStorageService storageService;
 
-	public ActivityController(ActivityService activityService) {
+	public ActivityController(ActivityService activityService, FileStorageService storageService) {
 		this.activityService = activityService;
+		this.storageService = storageService;
 	}
 
 	/**
@@ -36,8 +44,8 @@ public class ActivityController {
 	 * @param activities list of activities to add
 	 */
 	@PostMapping
-	public void addActivities(@RequestBody List<Activity> activities) {
-		activityService.addActivities(activities);
+	public List<Activity> addActivities(@RequestBody List<Activity> activities) {
+		return activityService.addActivities(activities);
 	}
 
 	/**
@@ -46,6 +54,7 @@ public class ActivityController {
 	@DeleteMapping
 	public void removeAllActivities() {
 		activityService.removeAllActivities();
+		storageService.deleteAll();
 	}
 
 	/**
@@ -70,11 +79,25 @@ public class ActivityController {
 	 * @param activity the activity to replace the old activity with
 	 */
 	@PutMapping("/{id}")
-	public void updateActivity(@PathVariable long id, Activity activity) {
+	public void updateActivity(@PathVariable long id, @RequestBody Activity activity) {
 		try {
 			activityService.updateActivity(id, activity);
 		} catch (EntityNotFoundException e) {
 			throw new IdNotFoundException();
+		}
+	}
+
+	/**
+	 * Uploads a file (such as activity's image) and saves it on the server
+	 *
+	 * @param file uploaded multipart file
+	 */
+	@PostMapping("/imageUpload")
+	public void uploadFile(@RequestParam("file") MultipartFile file, @RequestParam String imagePath) {
+		try {
+			storageService.save(file, imagePath);
+		} catch (FileAlreadyExistsException e) {
+			throw new DuplicateFileException();
 		}
 	}
 }

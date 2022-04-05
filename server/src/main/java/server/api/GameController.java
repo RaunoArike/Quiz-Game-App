@@ -1,6 +1,8 @@
 package server.api;
 
+import commons.clientmessage.*;
 import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendJokerMessage;
 import commons.clientmessage.SinglePlayerGameStartMessage;
 import commons.clientmessage.WaitingRoomJoinMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -61,6 +63,12 @@ public class GameController {
 		waitingRoomService.joinWaitingRoom(waitingRoomJoinMessage.username(), playerId);
 	}
 
+	@MessageMapping("/exit-waiting-room")
+	public void exitWaitingRoom(@Payload WaitingRoomExitMessage waitingRoomExitMessage, Principal principal) {
+		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
+		waitingRoomService.exitWaitingRoom(playerId);
+	}
+
 	/**
 	 * Submits the player's answer to the server.
 	 *
@@ -71,5 +79,29 @@ public class GameController {
 	public void submitAnswer(@Payload QuestionAnswerMessage answerMessage, Principal principal) {
 		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
 		gameService.submitAnswer(playerId, answerMessage);
+	}
+
+	/**
+	 *Sends the joker used to the server
+	 *
+	 * @param jokerMessage
+	 * @param principal
+	 */
+	@MessageMapping("/send-joker")
+	public void jokerPlayed(@Payload SendJokerMessage jokerMessage, Principal principal) {
+		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
+		gameService.jokerPlayed(playerId, jokerMessage);
+	}
+
+	/**
+	 * Sends the emoji played to the server
+	 *
+	 * @param emojiMessage a message containing the player's owner
+	 * @param principal contains the connection id
+	 */
+	@MessageMapping("/send-emoji")
+	public void emojiPlayed(@Payload SendEmojiMessage emojiMessage, Principal principal) {
+		int playerId = connectionRegistry.getPlayerIdByConnectionId(principal.getName());
+		gameService.emojiPlayed(playerId, emojiMessage);
 	}
 }

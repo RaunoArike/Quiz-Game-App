@@ -4,54 +4,111 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EstimationScreenCtrl">
+<AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.EstimationScreenCtrl">
    <children>
-      <AnchorPane layoutY="3.0" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <ProgressBar fx:id="timerProgress" layoutX="177.0" layoutY="326.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" />
-            <Text layoutX="109.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
-            <Text layoutX="39.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Use a joker!" wrappingWidth="168.45074462890625">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-            <Button layoutX="198.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="Eliminate" />
-            <Button layoutX="455.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="0.5x time" />
-            <Button layoutX="326.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="106.0" text="2x points" />
-            <Text layoutX="313.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your guess:" wrappingWidth="91.20000000000005">
+            <ProgressBar fx:id="timerProgress" layoutX="227.0" layoutY="346.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
+            <Text layoutX="159.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
+            <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="91.0" text="Eliminate" />
+            <Button fx:id="doublePointsJoker" layoutX="113.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="91.0" text="2x points" />
+            <Button fx:id="reduceTimeJoker" layoutX="217.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="91.0" text="0.5x time" />
+            <Text layoutX="383.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your guess:" wrappingWidth="91.20000000000005">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="answer" layoutX="402.0" layoutY="176.0" />
-            <Button fx:id="ok" layoutX="472.0" layoutY="211.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
-            <Label fx:id="questionText" layoutX="24.0" layoutY="49.0" prefHeight="114.0" prefWidth="556.0" text="How much does X take?" wrapText="true">
+            <TextField fx:id="answer" layoutX="472.0" layoutY="145.0" />
+            <Button fx:id="ok" layoutX="542.0" layoutY="180.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
+            <Label fx:id="questionText" layoutX="18.0" layoutY="29.0" prefHeight="105.0" prefWidth="556.0" text="How much does X take?" wrapText="true">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="296.0" layoutY="248.0" prefHeight="60.0" prefWidth="278.0" text="Answer Message" wrapText="true">
+            <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="385.0" layoutY="239.0" prefHeight="106.0" prefWidth="276.0" text="Answer Message" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font></Label>
-            <Text fx:id="timerNumber" layoutX="149.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
-            <Label fx:id="errorMessage" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="432.0" layoutY="248.0" prefHeight="26.0" prefWidth="138.0" text="Error message" wrapText="true">
+            <Text fx:id="timerNumber" layoutX="199.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" />
+            <Label fx:id="errorMessage" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="396.0" layoutY="187.0" prefHeight="26.0" prefWidth="138.0" text="Error message" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
             <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="190.0" layoutX="61.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
-      <Label fx:id="score" layoutX="482.0" layoutY="30.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
+            <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="325.0" layoutY="400.0" onMouseClicked="#handleLolEmojiClicks" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/lol_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="sunglassesEmojiStatic" fitHeight="42.0" fitWidth="46.0" layoutX="382.0" layoutY="400.0" onMouseClicked="#handleSunglassesEmojiClicks" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/sunglasses_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="likeEmojiStatic" fitHeight="49.0" fitWidth="46.0" layoutX="434.0" layoutY="400.0" onMouseClicked="#handleLikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/like_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dislikeEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="489.0" layoutY="400.0" onMouseClicked="#handleDislikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/dislike_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="angryEmojiStatic" fitHeight="46.0" fitWidth="55.0" layoutX="542.0" layoutY="400.0" onMouseClicked="#handleAngryEmojiClicks" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/angry_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="vomitEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="593.0" layoutY="400.0" onMouseClicked="#handleVomitEmojiClicks" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/vomit_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="lolEmoji" fitHeight="42.0" fitWidth="48.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/lol_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="sunglassesEmoji" fitHeight="42.0" fitWidth="46.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/sunglasses_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="likeEmoji" fitHeight="49.0" fitWidth="46.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/like_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="dislikeEmoji" fitHeight="46.0" fitWidth="48.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/dislike_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="angryEmoji" fitHeight="46.0" fitWidth="55.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/angry_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="vomitEmoji" fitHeight="46.0" fitWidth="48.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/vomit_emoji.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="50.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@/emojis/background.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="score" layoutX="569.0" layoutY="5.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
    </children>
 </AnchorPane>

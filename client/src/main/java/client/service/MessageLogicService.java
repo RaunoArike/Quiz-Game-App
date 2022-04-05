@@ -1,5 +1,7 @@
 package client.service;
 
+import commons.model.JokerType;
+
 public interface MessageLogicService {
 	/**
 	 * Start a single player game.
@@ -14,6 +16,11 @@ public interface MessageLogicService {
 	void joinWaitingRoom(String username);
 
 	/**
+	 * Exits the waiting room.
+	 */
+	void exitWaitingRoom();
+
+	/**
 	 * Starts a multiplayer game, the player must already be in a waiting room.
 	 */
 	void startMultiGame();
@@ -24,4 +31,16 @@ public interface MessageLogicService {
 	 * 0, 1 or 2 for choice questions, float answer for open-ended questions
 	 */
 	void answerQuestion(Number answer);
+
+	/**
+	 * Sends a joker usage request to the server
+	 * @param type type of the joker played
+	 */
+	void sendJoker(JokerType type);
+
+	/**
+	 * Sends an emoji sending request to the server
+	 * @param emojiType type of emoji being sent
+	 */
+	void sendEmoji(int emojiType);
 }

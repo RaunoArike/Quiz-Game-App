@@ -17,11 +17,11 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionServiceImplTest {
-	private static final Activity FAKE_ACTIVITY = new Activity("A1", null, 1f);
+	private static final Activity FAKE_ACTIVITY = new Activity(0, "A1", null, 1f);
 	private static final List<Activity> FAKE_ACTIVITY_LIST = List.of(
 			FAKE_ACTIVITY,
-			new Activity("A2", null, 2f),
-			new Activity("A3", null, 3f)
+			new Activity(1, "A2", null, 2f),
+			new Activity(2, "A3", null, 3f)
 	);
 	private static final List<ActivityEntity> FAKE_ACTIVITY_ENTITY_LIST = List.of(
 			new ActivityEntity(0, "A1", null, 1f),
@@ -43,7 +43,7 @@ public class QuestionServiceImplTest {
 	public void correct_answer_for_mc_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
-		var score = service.calculateScore(question, 2, 1000L);
+		var score = service.calculateScore(question, 2, 1000L, false);
 
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
@@ -52,7 +52,7 @@ public class QuestionServiceImplTest {
 	public void wrong_answer_for_mc_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.MultiChoiceQuestion(FAKE_ACTIVITY_LIST, 2);
-		var score = service.calculateScore(question, 1, 1000L);
+		var score = service.calculateScore(question, 1, 1000L, false);
 
 		assertEquals(0, score);
 	}
@@ -61,7 +61,7 @@ public class QuestionServiceImplTest {
 	public void close_answer_for_est_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 95f, 1000L);
+		var score = service.calculateScore(question, 95f, 1000L, false);
 
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
@@ -70,7 +70,7 @@ public class QuestionServiceImplTest {
 	public void distant_answer_for_est_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 40f, 1000L);
+		var score = service.calculateScore(question, 40f, 1000L, false);
 
 		assertEquals(0, score);
 	}
@@ -79,7 +79,7 @@ public class QuestionServiceImplTest {
 	public void medium_answer_for_est_question_should_partial_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 70f, 1000L);
+		var score = service.calculateScore(question, 70f, 1000L, false);
 
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
@@ -89,16 +89,16 @@ public class QuestionServiceImplTest {
 	public void close_answer_for_comp_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
-		var score = service.calculateScore(question, 1.1f, 1000L);
+		var score = service.calculateScore(question, 1.1f, 1000L, false);
 
-		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
+		assertEquals(96, score);
 	}
 
 	@Test
 	public void distant_answer_for_comp_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
-		var score = service.calculateScore(question, 2.1f, 1000L);
+		var score = service.calculateScore(question, 2.1f, 1000L, false);
 
 		assertEquals(0, score);
 	}
@@ -107,7 +107,7 @@ public class QuestionServiceImplTest {
 	public void medium_answer_for_comp_question_should_partial_score() {
 		var service = createService();
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
-		var score = service.calculateScore(question, 1.5f, 1000L);
+		var score = service.calculateScore(question, 1.5f, 1000L, false);
 
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
@@ -117,7 +117,7 @@ public class QuestionServiceImplTest {
 	public void correct_answer_for_pick_question_should_give_max_score() {
 		var service = createService();
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
-		var score = service.calculateScore(question, 2, 1000L);
+		var score = service.calculateScore(question, 2, 1000L, false);
 
 		assertEquals(QuestionServiceImpl.MAX_SCORE, score);
 	}
@@ -126,7 +126,7 @@ public class QuestionServiceImplTest {
 	public void wrong_answer_for_pick_question_should_give_zero_score() {
 		var service = createService();
 		var question = new Question.PickEnergyQuestion(FAKE_ACTIVITY, 2, FAKE_ENERGIES);
-		var score = service.calculateScore(question, 1, 1000L);
+		var score = service.calculateScore(question, 1, 1000L, false);
 
 		assertEquals(0, score);
 	}
