@@ -25,14 +25,13 @@ public class QuestionServiceImpl implements QuestionService {
 	private static final double TIME_RATIO_GOOD = 0.85;
 	private static final double TIME_RATIO_AVERAGE = 0.55;
 	private static final double TIME_RATIO_BAD = 0.33;
-	private static final double TIME_RATIO_POOR = 0.45;
 
 	private static final int TIME_PERIOD_1 = 5000;
 	private static final int TIME_PERIOD_2 = 10000;
 	private static final int TIME_PERIOD_3 = 15000;
 	private static final int TOTAL_TIME = 20000;
 
-	private static final int BASE = 20;
+	private static final int BASE = 10;
 
 	private static final int DEFAULT = 0;
 	private final List<ActivityEntity> visited = new ArrayList<>();
@@ -149,9 +148,9 @@ public class QuestionServiceImpl implements QuestionService {
 		if (question instanceof Question.MultiChoiceQuestion mc) {
 			return calculateScoreMC(mc, answer.intValue(), timeSpent, doublePoints);
 		} else if (question instanceof Question.EstimationQuestion est) {
-			return calculateScoreEst(est, answer.floatValue(), timeSpent, doublePoints);
+			return estimationScoring(est, answer.floatValue(), timeSpent, doublePoints);
 		} else if (question instanceof Question.ComparisonQuestion comp) {
-			return calculateScoreComp(comp, answer.floatValue(), timeSpent, doublePoints);
+			return comparisonScoring(comp, answer.floatValue(), timeSpent, doublePoints);
 		} else if (question instanceof Question.PickEnergyQuestion pick) {
 			return calculateScorePick(pick, answer.intValue(), timeSpent, doublePoints);
 		}
@@ -170,13 +169,13 @@ public class QuestionServiceImpl implements QuestionService {
 				return scoreToTime(timeSpent);
 			}
 		}
-		double limit1 = answer - Math.pow(MAX_SCORE, 1 / BASE);
-		double limit2 = answer + Math.pow(MAX_SCORE, 1 / BASE);
+		double limit1 = question.correctAnswer() - Math.pow(MAX_SCORE, 1 / BASE);
+		double limit2 = question.correctAnswer() + Math.pow(MAX_SCORE, 1 / BASE);
 
-		float base = answer - question.correctAnswer();
+		float base1 = answer - question.correctAnswer();
 		float value = 1;
 		for (int i = 0; i < BASE; i++) {
-			value *= base;
+			value *= base1;
 		}
 		value = MAX_SCORE - value;
 		if (answer < limit1) {
@@ -191,10 +190,10 @@ public class QuestionServiceImpl implements QuestionService {
 			float base2 = answer - question.correctAnswer() + 1;
 			float value2 = 1;
 			for (int i = 0; i < BASE; i++) {
-				value *= base2;
+				value2 *= base2;
 			}
-			value = MAX_SCORE - value;
-			return (int) value;
+			value2 = MAX_SCORE - value2;
+			return (int) value2;
 		}
 		return (int) value;
 	}
@@ -208,13 +207,13 @@ public class QuestionServiceImpl implements QuestionService {
 
 			return scoreToTime(timeSpent);
 		}
-		double limit1 = answer - Math.pow(MAX_SCORE, 1 / BASE);
-		double limit2 = answer + Math.pow(MAX_SCORE, 1 / BASE);
+		double limit1 = question.correctAnswer() - Math.pow(MAX_SCORE, 1 / BASE);
+		double limit2 = question.correctAnswer() + Math.pow(MAX_SCORE, 1 / BASE);
 
-		float base = answer - question.correctAnswer();
+		float base1 = Math.abs(answer - question.correctAnswer()) / question.correctAnswer();
 		float value = 1;
 		for (int i = 0; i < BASE; i++) {
-			value *= base;
+			value *= base1;
 		}
 		value = MAX_SCORE - value;
 		if (answer < limit1) {
@@ -229,10 +228,10 @@ public class QuestionServiceImpl implements QuestionService {
 			float base2 = answer - question.correctAnswer() + 1;
 			float value2 = 1;
 			for (int i = 0; i < BASE; i++) {
-				value *= base2;
+				value2 *= base2;
 			}
-			value = MAX_SCORE - value;
-			return (int) value;
+			value2 = MAX_SCORE - value2;
+			return (int) value2;
 		}
 		return (int) value;
 	}
@@ -306,31 +305,6 @@ public class QuestionServiceImpl implements QuestionService {
 
 		}
 		return DEFAULT;
-	}
-
-
-	private int calculateScoreEst(Question.EstimationQuestion question,
-								float answer, long timeSpent, boolean doublePoints) {
-		var error = Math.abs(answer - question.correctAnswer());
-		var errorRatio = error / question.correctAnswer();
-		if (doublePoints) {
-			return 2 * calculateScoreShared(errorRatio, timeSpent);
-		}
-		return calculateScoreShared(errorRatio, timeSpent);
-	}
-
-	private int calculateScoreComp(Question.ComparisonQuestion question,
-									float answer, long timeSpent, boolean doublePoints) {
-		float errorRatio;
-		if (answer < question.correctAnswer()) {
-			errorRatio = 1 - (answer / question.correctAnswer());
-		} else {
-			errorRatio = 1 - (question.correctAnswer() / answer);
-		}
-		if (doublePoints) {
-			return 2 * calculateScoreShared(errorRatio, timeSpent);
-		}
-		return calculateScoreShared(errorRatio, timeSpent);
 	}
 
 	private int calculateScoreShared(float errorRatio, long timeSpent) {
