@@ -24,6 +24,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
+	private static final int EMOJI_Y_OFFSET = 50;
 
 	private static final int LOL_EMOJI_TYPE = 0;
 	private static final int SUNGLASSES_EMOJI_TYPE = 1;
@@ -31,7 +32,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final int DISLIKE_EMOJI_TYPE = 3;
 	private static final int ANGRY_EMOJI_TYPE = 4;
 	private static final int VOMIT_EMOJI_TYPE = 5;
-	private static final int EMOJI_MOVEMENT_RANGE = -150;
+	private static final int EMOJI_MOVEMENT_RANGE = -170;
 
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
@@ -108,6 +109,13 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	@Override
 	public void init() {
 		super.init();
+		// lolEmoji.setLayoutY(lolEmoji.getLayoutY() + 50);
+		// sunglassesEmoji.setLayoutY(sunglassesEmoji.getLayoutY() + 50);
+		// likeEmoji.setLayoutY(likeEmoji.getLayoutY() + 50);
+		// dislikeEmoji.setLayoutY(dislikeEmoji.getLayoutY() + 50);
+		// angryEmoji.setLayoutY(angryEmoji.getLayoutY() + 50);
+		// vomitEmoji.setLayoutY(vomitEmoji.getLayoutY() + 50);
+
 		callTimeLimiter(TIMER_DEFAULT_TIME);
 	}
 
@@ -291,6 +299,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private void animateEmoji(ImageView emoji, ImageView staticEmoji) {
 		staticEmoji.setDisable(true);
+		emoji.setLayoutY(emoji.getLayoutY() + EMOJI_Y_OFFSET);
 		emoji.setVisible(true);
 		TimerTask emojiTimer = new TimerTask() {
 
@@ -298,6 +307,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 			public void run() {
 				emoji.setVisible(false);
 				staticEmoji.setDisable(false);
+				emoji.setLayoutY(emoji.getLayoutY() - EMOJI_Y_OFFSET);
 			}
 
 		};
@@ -310,8 +320,5 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		translate.setCycleCount(2);
 		translate.setAutoReverse(true);
 		translate.play();
-
-		// ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-		// executorService.schedule(() -> staticEmoji.setDisable(false), 2, TimeUnit.SECONDS);
 	}
 }

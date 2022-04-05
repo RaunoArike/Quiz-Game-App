@@ -39,33 +39,33 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="190.0" layoutX="61.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="275.0" layoutY="390.0" onMouseClicked="#handleLolEmojiClicks" pickOnBounds="true" preserveRatio="true">
+           <ImageView fx:id="imageView" fitHeight="139.0" fitWidth="190.0" layoutX="61.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true" />
+          <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="285.0" layoutY="380.0" onMouseClicked="#handleLolEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/lol_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="sunglassesEmojiStatic" fitHeight="42.0" fitWidth="46.0" layoutX="332.0" layoutY="390.0" onMouseClicked="#handleSunglassesEmojiClicks" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="sunglassesEmojiStatic" fitHeight="42.0" fitWidth="46.0" layoutX="342.0" layoutY="380.0" onMouseClicked="#handleSunglassesEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/sunglasses_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="likeEmojiStatic" fitHeight="49.0" fitWidth="46.0" layoutX="384.0" layoutY="390.0" onMouseClicked="#handleLikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="likeEmojiStatic" fitHeight="49.0" fitWidth="46.0" layoutX="394.0" layoutY="380.0" onMouseClicked="#handleLikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/like_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="dislikeEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="439.0" layoutY="390.0" onMouseClicked="#handleDislikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="dislikeEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="449.0" layoutY="380.0" onMouseClicked="#handleDislikeEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/dislike_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="angryEmojiStatic" fitHeight="46.0" fitWidth="55.0" layoutX="492.0" layoutY="390.0" onMouseClicked="#handleAngryEmojiClicks" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="angryEmojiStatic" fitHeight="46.0" fitWidth="55.0" layoutX="502.0" layoutY="380.0" onMouseClicked="#handleAngryEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/angry_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="vomitEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="593.0" layoutY="400.0" onMouseClicked="#handleVomitEmojiClicks" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="vomitEmojiStatic" fitHeight="46.0" fitWidth="48.0" layoutX="560.0" layoutY="380.0" onMouseClicked="#handleVomitEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/vomit_emoji.png" />
                </image>
@@ -90,12 +90,12 @@
                   <Image url="@/emojis/dislike_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="angryEmoji" fitHeight="46.0" fitWidth="55.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="angryEmoji" fitHeight="46.0" fitWidth="55.0" layoutX="608.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/angry_emoji.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="vomitEmoji" fitHeight="46.0" fitWidth="48.0" layoutX="560.0" layoutY="390.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="vomitEmoji" fitHeight="46.0" fitWidth="48.0" layoutX="610.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@/emojis/vomit_emoji.png" />
                </image>
