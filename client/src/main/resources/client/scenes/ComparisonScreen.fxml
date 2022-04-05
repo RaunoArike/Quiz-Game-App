@@ -21,10 +21,10 @@
       <ImageView fx:id="activityA" fitHeight="102.0" fitWidth="188.0" layoutX="78.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="questionText" layoutX="19.0" layoutY="20.0" prefHeight="94.0" prefWidth="637.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
          <font>
-            <Font size="18.0" />
+            <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="score" layoutX="562.0" layoutY="10.0" prefHeight="18.0" prefWidth="78.0" text="Score:">
+      <Label fx:id="score" layoutX="547.0" prefHeight="26.0" prefWidth="91.0" text="Score:">
          <font>
             <Font size="15.0" />
          </font>
@@ -42,7 +42,7 @@
          </font>
       </Label>
       <ImageView fx:id="activityB" fitHeight="102.0" fitWidth="188.0" layoutX="82.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="368.0" layoutY="239.0" text="Answer Message" wrapText="true">
+      <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="373.0" layoutY="222.0" prefHeight="116.0" prefWidth="258.0" text="Answer Message" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
