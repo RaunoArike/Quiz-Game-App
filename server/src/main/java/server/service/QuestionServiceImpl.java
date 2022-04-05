@@ -18,6 +18,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private static final int NUMBER_OF_ANSWER_OPTIONS = 3;
 	private static final int NUMBER_OF_QUESTION_TYPES = 4;
 
+	private static final double ERROR_RATIO = 0.30;
 	private static final double TIME_RATIO_PERFECT = 1;
 	private static final double TIME_RATIO_GOOD = 0.85;
 	private static final double TIME_RATIO_AVERAGE = 0.55;
@@ -28,7 +29,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private static final int TIME_PERIOD_3 = 15000;
 	private static final int TOTAL_TIME = 20000;
 
-	private static final int BASE = 10;
+	private static final int BASE = 5;
 
 	private static final int DEFAULT = 0;
 	private final List<ActivityEntity> visited = new ArrayList<>();
@@ -166,10 +167,10 @@ public class QuestionServiceImpl implements QuestionService {
 				return scoreToTime(timeSpent);
 			}
 		}
-		double limit1 = question.correctAnswer() - Math.pow(MAX_SCORE, 1 / BASE);
-		double limit2 = question.correctAnswer() + Math.pow(MAX_SCORE, 1 / BASE);
+		double limit1 = question.correctAnswer() - question.correctAnswer() * ERROR_RATIO;
+		double limit2 = question.correctAnswer() + question.correctAnswer() * ERROR_RATIO;
 
-		float base1 = answer - question.correctAnswer();
+		float base1 = Math.abs(answer - question.correctAnswer()) / question.correctAnswer();
 		float value = 1;
 		for (int i = 0; i < BASE; i++) {
 			value *= base1;
