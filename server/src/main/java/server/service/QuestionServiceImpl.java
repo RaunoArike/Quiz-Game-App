@@ -4,7 +4,6 @@ import commons.model.Question;
 import org.springframework.stereotype.Service;
 import server.entity.ActivityEntity;
 import server.repository.ActivityRepository;
-import server.util.MathUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,6 @@ import java.util.stream.Collectors;
 public class QuestionServiceImpl implements QuestionService {
 	public static final int MAX_SCORE = 100;
 
-	private static final float EST_SCORE_RATIO_GOOD = 0.075f;
-	private static final float EST_SCORE_RATIO_BAD = 0.45f;
 	private static final int NUMBER_OF_CASES = 3;
 	private static final int NUMBER_OF_ANSWER_OPTIONS = 3;
 	private static final int NUMBER_OF_QUESTION_TYPES = 4;
@@ -305,31 +302,5 @@ public class QuestionServiceImpl implements QuestionService {
 
 		}
 		return DEFAULT;
-	}
-
-	private int calculateScoreShared(float errorRatio, long timeSpent) {
-		if (errorRatio < EST_SCORE_RATIO_GOOD) {
-			return MAX_SCORE;
-		} else if (errorRatio > EST_SCORE_RATIO_BAD) {
-			return 0;
-		} else {
-			int intermediaryResult = Math.round(MathUtil.linearMap(errorRatio,
-					EST_SCORE_RATIO_GOOD, EST_SCORE_RATIO_BAD, MAX_SCORE, 0));
-			if (timeSpent < TIME_PERIOD_1) {
-				return (int) (intermediaryResult * TIME_RATIO_PERFECT);
-			}
-
-			if (timeSpent > TIME_PERIOD_1
-					&& timeSpent < TIME_PERIOD_2) {
-				return (int) (intermediaryResult * TIME_RATIO_GOOD);
-			}
-
-			if (timeSpent > TOTAL_TIME - TIME_PERIOD_2
-					&& timeSpent < TIME_PERIOD_3) {
-				return (int) (intermediaryResult * TIME_RATIO_AVERAGE);
-			} else {
-				return (int) (intermediaryResult * TIME_RATIO_BAD);
-			}
-		}
 	}
 }
