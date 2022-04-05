@@ -19,9 +19,10 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public void addActivities(List<Activity> activities) {
+	public List<Activity> addActivities(List<Activity> activities) {
 		List<ActivityEntity> entities = activities.stream().map(ActivityEntity::fromModel).toList();
-		activityRepository.saveAll(entities);
+		List<ActivityEntity> savedEntities = activityRepository.saveAll(entities);
+		return savedEntities.stream().map(ActivityEntity::toModel).toList();
 	}
 
 	@Override
@@ -52,5 +53,6 @@ public class ActivityServiceImpl implements ActivityService {
 		entity.setName(activity.name());
 		entity.setImageUrl(activity.imageUrl());
 		entity.setEnergyInWh(activity.energyInWh());
+		activityRepository.save(entity);
 	}
 }

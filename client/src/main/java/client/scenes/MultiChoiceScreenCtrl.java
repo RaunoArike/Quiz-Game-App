@@ -126,45 +126,45 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	public void showAnswer(int option, int numberOfPlayersScored) {
 		switch (option) {
 			case 0:
-				optionA.setStyle("-fx-background-color: #00ff7f; ");
+				optionA.setStyle("-fx-background-color: #8dcc4f; ");
 
 				optionA.setDisable(true);
 				optionB.setDisable(true);
 				optionC.setDisable(true);
 
 				if (selectedAnswer == 1) {
-					optionB.setStyle("-fx-background-color: #fd4119; ");
+					optionB.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 				if (selectedAnswer == 2) {
-					optionC.setStyle("-fx-background-color: #fd4119; ");
+					optionC.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 
 				break;
 			case 1:
-				optionB.setStyle("-fx-background-color: #00ff7f; ");
+				optionB.setStyle("-fx-background-color: #8dcc4f; ");
 
 				optionA.setDisable(true);
 				optionB.setDisable(true);
 				optionC.setDisable(true);
 
 				if (selectedAnswer == 0) {
-					optionA.setStyle("-fx-background-color: #fd4119; ");
+					optionA.setStyle("-fx-background-color: #cc4f4f; ");
 				} else if (selectedAnswer == 2) {
-					optionC.setStyle("-fx-background-color: #fd4119; ");
+					optionC.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 
 				break;
 			case 2:
-				optionC.setStyle("-fx-background-color: #00ff7f; ");
+				optionC.setStyle("-fx-background-color: #8dcc4f; ");
 
 				optionA.setDisable(true);
 				optionB.setDisable(true);
 				optionC.setDisable(true);
 
 				if (selectedAnswer == 0) {
-					optionA.setStyle("-fx-background-color: #fd4119; ");
+					optionA.setStyle("-fx-background-color: #cc4f4f; ");
 				} else if (selectedAnswer == 1) {
-					optionB.setStyle("-fx-background-color: #fd4119; ");
+					optionB.setStyle("-fx-background-color: #cc4f4f; ");
 				}
 
 				break;

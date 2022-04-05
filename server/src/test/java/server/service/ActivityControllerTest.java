@@ -16,7 +16,7 @@ import static org.mockito.Mockito.doThrow;
 @ExtendWith(MockitoExtension.class)
 public class ActivityControllerTest {
 
-	private static final Activity FAKE_ACTIVITY = new Activity("A4", null, 4f);
+	private static final Activity FAKE_ACTIVITY = new Activity(4, "A4", null, 4f);
 
 	@Mock
 	private ActivityService activityService;

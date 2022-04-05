@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.UsernameCtrl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.UsernameCtrl">
    <children>
-      <Label layoutX="95.0" layoutY="81.0" prefHeight="68.0" prefWidth="409.0" text="Start a new singleplayer game">
+      <Label layoutX="125.0" layoutY="111.0" prefHeight="68.0" prefWidth="409.0" text="Start a new singleplayer game">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label layoutX="95.0" layoutY="164.0" prefHeight="68.0" prefWidth="410.0" text="Enter your username:">
+      <Label layoutX="125.0" layoutY="194.0" prefHeight="68.0" prefWidth="410.0" text="Enter your username:">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="username" layoutX="325.0" layoutY="180.0" prefHeight="28.0" prefWidth="164.0">
+      <TextField fx:id="username" layoutX="355.0" layoutY="210.0" prefHeight="28.0" prefWidth="164.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Button layoutX="242.0" layoutY="290.0" mnemonicParsing="false" onAction="#start" prefHeight="52.0" prefWidth="114.0" text="Start">
+      <Button layoutX="272.0" layoutY="320.0" mnemonicParsing="false" onAction="#start" prefHeight="52.0" prefWidth="114.0" text="Start">
          <font>
             <Font size="25.0" />
          </font>

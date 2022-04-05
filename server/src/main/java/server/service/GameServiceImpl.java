@@ -1,19 +1,20 @@
-	package server.service;
+package server.service;
 
-	import commons.clientmessage.QuestionAnswerMessage;
-	import commons.clientmessage.SendJokerMessage;
-	import commons.model.JokerType;
-	import commons.model.LeaderboardEntry;
-	import commons.model.Question;
-	import commons.servermessage.*;
-	import org.springframework.stereotype.Service;
-	import server.api.OutgoingController;
-	import server.model.Game;
-	import server.model.Player;
+import commons.clientmessage.QuestionAnswerMessage;
+import commons.clientmessage.SendEmojiMessage;
+import commons.clientmessage.SendJokerMessage;
+import commons.model.JokerType;
+import commons.model.LeaderboardEntry;
+import commons.model.Question;
+import commons.servermessage.*;
+import org.springframework.stereotype.Service;
+import server.api.OutgoingController;
+import server.model.Game;
+import server.model.Player;
 
-	import java.util.*;
+import java.util.*;
 
-	@Service
+@Service
 public class GameServiceImpl implements GameService {
 	private static final double TIME_JOKER_EFFECT = 0.75;
 
@@ -138,12 +139,12 @@ public class GameServiceImpl implements GameService {
 
 		long timePassed = timerService.getTime() - game.getStartTime();
 		var currentQuestion = game.getCurrentQuestion();
-
-		var scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
-				timePassed, doublePoints);
-		doublePoints = false;
-		player.incrementScore(scoreDelta);
-
+		var scoreDelta = 0;
+		if (answer != null) {
+			scoreDelta = questionService.calculateScore(currentQuestion, answer.getAnswer(),
+				timePassed, false); //TO DO - final boolean should be whether or not doublePoints have been played
+			player.incrementScore(scoreDelta);
+		}
 		outgoingController.sendScore(new ScoreMessage(scoreDelta, player.getScore(), -1), List.of(playerId));
 
 		if (!game.isLastQuestion()) {
@@ -174,6 +175,26 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
+	 * EmojiPlayed method
+	 * Receiving emojiMessage from the frontend and
+	 * Send emojiPlayed message back to client
+	 *
+	 * @param playerId player who played the emoji
+	 * @param emojiMessage message containing which emoji is used
+	 */
+	@Override
+	public void emojiPlayed(int playerId, SendEmojiMessage emojiMessage) {
+		var game = getPlayerGame(playerId);
+		if (game == null) throw new RuntimeException("Game not found");
+
+		var player = game.getPlayer(playerId);
+		if (player == null) throw new RuntimeException("Player not found");
+
+		var emojiPlayedMessage = new EmojiPlayedMessage(emojiMessage.emojiNumber());
+		outgoingController.sendEmojiPlayed(emojiPlayedMessage, game.getPlayerIds());
+	}
+
+	/**
 	 * Generic jokerPlayed method, calls either single- or multi-player method
 	 *
 	 * @param playerId     player who uses the joker
@@ -194,6 +215,7 @@ public class GameServiceImpl implements GameService {
 		}
 	}
 
+
 	/**
 	 * Single player jokerPlayed method
 	 *
@@ -207,12 +229,12 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+		if (jokerMessage.jokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
 			doublePoints = true;
 		}
 
-		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+		if (jokerMessage.jokerType() == JokerType.ELIMINATE_MC_OPTION) {
 			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
 
@@ -231,16 +253,16 @@ public class GameServiceImpl implements GameService {
 		var player = game.getPlayer(playerId);
 		if (player == null) throw new RuntimeException("Player not found");
 
-		if (jokerMessage.getJokerType() == JokerType.DOUBLE_POINTS) {
+		if (jokerMessage.jokerType() == JokerType.DOUBLE_POINTS) {
 			player.setJokerAvailability(JokerType.DOUBLE_POINTS, false);
 			doublePoints = true;
 		}
 
-		if (jokerMessage.getJokerType() == JokerType.ELIMINATE_MC_OPTION) {
+		if (jokerMessage.jokerType() == JokerType.ELIMINATE_MC_OPTION) {
 			player.setJokerAvailability(JokerType.ELIMINATE_MC_OPTION, false);
 		}
 
-		if (jokerMessage.getJokerType() == JokerType.REDUCE_TIME) {
+		if (jokerMessage.jokerType() == JokerType.REDUCE_TIME) {
 			player.setJokerAvailability(JokerType.REDUCE_TIME, false);
 
 			long currentTimeLefts = timerService.getRemainingTime(game.getGameId());
@@ -293,7 +315,14 @@ public class GameServiceImpl implements GameService {
 		}
 		game.setQuestionStartTime(timerService.getTime());
 
-		timerService.scheduleTimer(game.getGameId(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+		if (!game.isSinglePlayer()) {
+			timerService.scheduleTimer(game.getGameId(), Game.QUESTION_DURATION, () -> scoreUpdate(game));
+		} else {
+			int playerId = game.getPlayers().get(0).getPlayerId();
+			timerService.scheduleTimer(game.getGameId(),
+									Game.QUESTION_DURATION, () -> submitAnswerSinglePlayer(playerId, null));
+		}
+
 	}
 
 	/**

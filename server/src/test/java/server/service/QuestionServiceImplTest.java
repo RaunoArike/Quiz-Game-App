@@ -17,11 +17,11 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionServiceImplTest {
-	private static final Activity FAKE_ACTIVITY = new Activity("A1", null, 1f);
+	private static final Activity FAKE_ACTIVITY = new Activity(0, "A1", null, 1f);
 	private static final List<Activity> FAKE_ACTIVITY_LIST = List.of(
 			FAKE_ACTIVITY,
-			new Activity("A2", null, 2f),
-			new Activity("A3", null, 3f)
+			new Activity(1, "A2", null, 2f),
+			new Activity(2, "A3", null, 3f)
 	);
 	private static final List<ActivityEntity> FAKE_ACTIVITY_ENTITY_LIST = List.of(
 			new ActivityEntity(0, "A1", null, 1f),
