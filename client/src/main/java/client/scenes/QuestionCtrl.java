@@ -18,9 +18,6 @@ import javafx.util.Duration;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
@@ -185,93 +182,31 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void handleLolEmojiClicks() {
-
-		lolEmoji.setVisible(true);
-		timerTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				lolEmoji.setVisible(false);
-			}
-
-		};
-		timer.schedule(timerTask, (TIMER_SECOND) * 2);
-
 		useEmoji(LOL_EMOJI_TYPE);
 		notifyEmojiPlayed(LOL_EMOJI_TYPE);
 	}
 
 	public void handleSunglassesEmojiClicks() {
-		sunglassesEmoji.setVisible(true);
-		timerTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				sunglassesEmoji.setVisible(false);
-			}
-
-		};
-		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(SUNGLASSES_EMOJI_TYPE);
 		notifyEmojiPlayed(SUNGLASSES_EMOJI_TYPE);
 	}
 
 	public void handleLikeEmojiClicks() {
-		likeEmoji.setVisible(true);
-		timerTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				likeEmoji.setVisible(false);
-			}
-
-		};
-		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(LIKE_EMOJI_TYPE);
 		notifyEmojiPlayed(LIKE_EMOJI_TYPE);
 	}
 
 	public void handleDislikeEmojiClicks() {
-		dislikeEmoji.setVisible(true);
-		timerTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				dislikeEmoji.setVisible(false);
-			}
-
-		};
-		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(DISLIKE_EMOJI_TYPE);
 		notifyEmojiPlayed(DISLIKE_EMOJI_TYPE);
 	}
 
 	public void handleAngryEmojiClicks() {
-		angryEmoji.setVisible(true);
-		timerTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				angryEmoji.setVisible(false);
-			}
-
-		};
-		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(ANGRY_EMOJI_TYPE);
 		notifyEmojiPlayed(ANGRY_EMOJI_TYPE);
 	}
 
 	public void handleVomitEmojiClicks() {
-		vomitEmoji.setVisible(true);
-		timerTask = new TimerTask() {
-
-			@Override
-			public void run() {
-				vomitEmoji.setVisible(false);
-			}
-
-		};
-		timer.schedule(timerTask, (TIMER_SECOND) * 2);
 		useEmoji(VOMIT_EMOJI_TYPE);
 		notifyEmojiPlayed(VOMIT_EMOJI_TYPE);
 	}
@@ -354,18 +289,29 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		}
 	}
 
-	private void animateEmoji(ImageView emojiType, ImageView toDisable) {
-		toDisable.setDisable(true);
+	private void animateEmoji(ImageView emoji, ImageView staticEmoji) {
+		staticEmoji.setDisable(true);
+		emoji.setVisible(true);
+		TimerTask emojiTimer = new TimerTask() {
+
+			@Override
+			public void run() {
+				emoji.setVisible(false);
+				staticEmoji.setDisable(false);
+			}
+
+		};
+		timer.schedule(emojiTimer, (TIMER_SECOND) * 2);
 
 		TranslateTransition translate = new TranslateTransition();
-		translate.setNode(emojiType);
+		translate.setNode(emoji);
 		translate.setDuration(Duration.millis(TIMER_SECOND));
 		translate.setByY(EMOJI_MOVEMENT_RANGE);
 		translate.setCycleCount(2);
 		translate.setAutoReverse(true);
 		translate.play();
 
-		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-		executorService.schedule(() -> toDisable.setDisable(false), 2, TimeUnit.SECONDS);
+		// ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+		// executorService.schedule(() -> staticEmoji.setDisable(false), 2, TimeUnit.SECONDS);
 	}
 }
