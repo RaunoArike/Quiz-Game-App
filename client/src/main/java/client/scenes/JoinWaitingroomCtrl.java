@@ -1,6 +1,7 @@
 package client.scenes;
 
 import client.service.MessageLogicService;
+import client.usecase.RememberUsernamesUseCase;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -8,15 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class JoinWaitingroomCtrl extends AbstractCtrl {
 	private final MessageLogicService messageService;
 	private final MainCtrl mainCtrl;
+
+	private final RememberUsernamesUseCase rememberUsernamesUseCase;
 
 	@FXML
 	private TextField username;
@@ -28,9 +27,12 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	private ComboBox comboBox;
 
 	@Inject
-	public JoinWaitingroomCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
+	public JoinWaitingroomCtrl(MessageLogicService messageService,
+								MainCtrl mainCtrl,
+								RememberUsernamesUseCase rememberUsernamesUseCase) {
 		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
+		this.rememberUsernamesUseCase = rememberUsernamesUseCase;
 	}
 
 	@Override
@@ -52,18 +54,10 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	public void join() {
 		String username = this.username.getText();
 
-		String path = Path.of("src", "main", "resources", "usernames", "usernames.txt").toAbsolutePath().toString();
-
 		if (username != null && !username.isEmpty()) {
 			messageService.joinWaitingRoom(username);
 			errorMessage.setText("");
-			try {
-				Writer writer = new FileWriter(path, true);
-				writer.write(username + "\n");
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			rememberUsernamesUseCase.writeUsername(username);
 
 		} else {
 			this.errorMessage.setText("Please enter a valid username: ");
@@ -85,28 +79,14 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	 * and adds them to the dropdown menu.
 	 */
 	private void initializeDropdownMenu() {
-		try {
-			comboBox.setPromptText("Choose username");
+		comboBox.setPromptText("Choose username");
+		List<String> usernames = rememberUsernamesUseCase.readUsernames();
 
-			List<String> usernames = new ArrayList<>();
-			String path = Path.of("src", "main", "resources", "usernames", "usernames.txt").toAbsolutePath().toString();
-			Scanner scanner = new Scanner(new File(path));
-			while (scanner.hasNextLine()) {
-				String next = scanner.nextLine();
-				if (usernames.contains(next) || next.equals("")) {
-					continue;
-				}
-				usernames.add(next);
+		for (String name : usernames) {
+			if (comboBox.getItems().contains(name)) {
+				continue;
 			}
-
-			for (String name : usernames) {
-				if (comboBox.getItems().contains(name)) {
-					continue;
-				}
-				comboBox.getItems().add(name);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			comboBox.getItems().add(name);
 		}
 	}
 
