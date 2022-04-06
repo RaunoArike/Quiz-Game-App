@@ -1,5 +1,6 @@
 package client.scenes;
 
+import client.model.GameType;
 import client.model.QuestionData;
 import client.service.MessageLogicService;
 import com.google.inject.Inject;
@@ -17,15 +18,13 @@ import javafx.util.Duration;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
+	private static final int EMOJI_Y_OFFSET = 50;
 
 	private static final int LOL_EMOJI_TYPE = 0;
 	private static final int SUNGLASSES_EMOJI_TYPE = 1;
@@ -33,7 +32,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final int DISLIKE_EMOJI_TYPE = 3;
 	private static final int ANGRY_EMOJI_TYPE = 4;
 	private static final int VOMIT_EMOJI_TYPE = 5;
-	private static final int EMOJI_MOVEMENT_RANGE = -150;
+	private static final int EMOJI_MOVEMENT_RANGE = -170;
 
 	protected final MessageLogicService messageService;
 	protected final MainCtrl mainCtrl;
@@ -92,7 +91,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private ImageView vomitEmojiStatic;
 
 	@FXML
-	private ProgressBar timerProgress;
+	public ProgressBar timerProgress;
 
 	@FXML
 	private Text timerNumber;
@@ -110,14 +109,39 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	@Override
 	public void init() {
 		super.init();
+		// lolEmoji.setLayoutY(lolEmoji.getLayoutY() + 50);
+		// sunglassesEmoji.setLayoutY(sunglassesEmoji.getLayoutY() + 50);
+		// likeEmoji.setLayoutY(likeEmoji.getLayoutY() + 50);
+		// dislikeEmoji.setLayoutY(dislikeEmoji.getLayoutY() + 50);
+		// angryEmoji.setLayoutY(angryEmoji.getLayoutY() + 50);
+		// vomitEmoji.setLayoutY(vomitEmoji.getLayoutY() + 50);
+
 		callTimeLimiter(TIMER_DEFAULT_TIME);
 	}
 
 
 	public void setQuestion(QuestionData<Q> questionData) {
+		timerProgress.setStyle("-fx-accent: blue;");
 		this.questionData = questionData;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
+		setEmojis(questionData.gameType());
+	}
+
+	private void setEmojis(GameType gameType) {
+		lolEmoji.setVisible(false);
+		sunglassesEmoji.setVisible(false);
+		likeEmoji.setVisible(false);
+		dislikeEmoji.setVisible(false);
+		angryEmoji.setVisible(false);
+		vomitEmoji.setVisible(false);
+		boolean isMultiPlayer = !(gameType == GameType.SINGLE);
+		lolEmojiStatic.setVisible(isMultiPlayer);
+		sunglassesEmojiStatic.setVisible(isMultiPlayer);
+		likeEmojiStatic.setVisible(isMultiPlayer);
+		dislikeEmojiStatic.setVisible(isMultiPlayer);
+		angryEmojiStatic.setVisible(isMultiPlayer);
+		vomitEmojiStatic.setVisible(isMultiPlayer);
 	}
 
 	protected void setQuestionText(String questionText) {
@@ -202,6 +226,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void useReduceTimeJoker() {
 		messageService.sendJoker(JokerType.REDUCE_TIME);
 		reduceTimeJoker.setDisable(true);
+		timerProgress.setStyle("-fx-accent: red;");
 	}
 
 	public void useDoublePointsJoker() {
@@ -273,18 +298,28 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		}
 	}
 
-	private void animateEmoji(ImageView emojiType, ImageView toDisable) {
-		toDisable.setDisable(true);
+	private void animateEmoji(ImageView emoji, ImageView staticEmoji) {
+		staticEmoji.setDisable(true);
+		emoji.setLayoutY(emoji.getLayoutY() + EMOJI_Y_OFFSET);
+		emoji.setVisible(true);
+		TimerTask emojiTimer = new TimerTask() {
+
+			@Override
+			public void run() {
+				emoji.setVisible(false);
+				staticEmoji.setDisable(false);
+				emoji.setLayoutY(emoji.getLayoutY() - EMOJI_Y_OFFSET);
+			}
+
+		};
+		timer.schedule(emojiTimer, (TIMER_SECOND) * 2);
 
 		TranslateTransition translate = new TranslateTransition();
-		translate.setNode(emojiType);
+		translate.setNode(emoji);
 		translate.setDuration(Duration.millis(TIMER_SECOND));
 		translate.setByY(EMOJI_MOVEMENT_RANGE);
 		translate.setCycleCount(2);
 		translate.setAutoReverse(true);
 		translate.play();
-
-		ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-		executorService.schedule(() -> toDisable.setDisable(false), 2, TimeUnit.SECONDS);
 	}
 }

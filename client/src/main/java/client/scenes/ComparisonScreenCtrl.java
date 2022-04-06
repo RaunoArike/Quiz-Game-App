@@ -84,10 +84,10 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	public void sendAnswer() {
 
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
+		timerProgress.setStyle("-fx-accent: black;");
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
 			resetError();
-			timeStop();
 		} else {
 			errorMessage.setText("Invalid value");
 		}
