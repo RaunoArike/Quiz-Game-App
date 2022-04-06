@@ -72,6 +72,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		var imageC = question.activities().get(2).imageUrl();
 		setActivityImages(imageA, imageB, imageC);
 
+		selectedAnswer = -1;
 	}
 
 	private void setAnswerOptions(String a, String b, String c) {

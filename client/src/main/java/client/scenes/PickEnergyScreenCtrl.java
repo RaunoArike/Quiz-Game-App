@@ -84,6 +84,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 
 		String url = question.activity().imageUrl();
 		setActivityImages(url);
+
+		selectedAnswer = -1;
 	}
 
 	private void setOptions(String a, String b, String c) {
