@@ -3,18 +3,20 @@ package client.scenes;
 import client.model.QuestionData;
 import client.service.MessageLogicService;
 import client.utils.NumberUtils;
+import com.google.inject.Inject;
 import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import com.google.inject.Inject;
-import javafx.scene.image.Image;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
 
 public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuestion> {
+
+	private static final int FIT_WIDTH = 208;
+	private static final int FIT_HEIGHT = 145;
 
 	@FXML
 	private TextField answer;
@@ -30,9 +32,6 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 
 	@FXML
 	private Label errorMessage;
-
-	private final int fitWidth = 208;
-	private final int fitHeight = 145;
 
 	@Inject
 	public EstimationScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -63,11 +62,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 
 
 	public void setActivityImages(String url) {
-		Image image =  new Image(url);
-
-		imageView.setFitWidth(fitWidth);
-		imageView.setFitHeight(fitHeight);
-		imageView.setImage(image);
+		setImage(imageView, url, FIT_WIDTH, FIT_HEIGHT);
 	}
 
 	public void sendAnswer() {

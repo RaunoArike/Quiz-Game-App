@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -330,5 +331,17 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	protected void markAnswerGiven() {
 		isAnswerGiven = true;
 		updateTimerColor();
+	}
+
+	protected void setImage(ImageView imageView, String imageUrl, int fitWidth, int fitHeight) {
+		try {
+			Image image = new Image(imageUrl);
+
+			imageView.setFitWidth(fitWidth);
+			imageView.setFitHeight(fitHeight);
+			imageView.setImage(image);
+		} catch (Exception e) {
+			// Cannot load an image; ignore
+		}
 	}
 }

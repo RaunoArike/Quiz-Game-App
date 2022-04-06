@@ -7,7 +7,6 @@ import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Random;
@@ -15,6 +14,8 @@ import java.util.Random;
 public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
 	private static final int ANSWERS = 3;
+	private static final int FIT_WIDTH = 168;
+	private static final int FIT_HEIGHT = 112;
 
 	@FXML
 	private Button optionA;
@@ -38,9 +39,6 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	@FXML
 	private Label scoreMessage;
-
-	private final int fitWidth = 168;
-	private final int fitHeight = 112;
 
 	@Inject
 	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -86,27 +84,11 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		optionC.setDisable(false);
 	}
 
-
 	public void setActivityImages(String a, String b, String c) {
-		Image imageA = new Image(a);
-
-		activityA.setFitWidth(fitWidth);
-		activityA.setFitHeight(fitHeight);
-		activityA.setImage(imageA);
-
-		Image imageB = new Image(b);
-
-		activityB.setFitWidth(fitWidth);
-		activityB.setFitHeight(fitHeight);
-		activityB.setImage(imageB);
-
-		Image imageC = new Image(c);
-
-		activityC.setFitWidth(fitWidth);
-		activityC.setFitHeight(fitHeight);
-		activityC.setImage(imageC);
+		setImage(activityA, a, FIT_WIDTH, FIT_HEIGHT);
+		setImage(activityB, b, FIT_WIDTH, FIT_HEIGHT);
+		setImage(activityC, c, FIT_WIDTH, FIT_HEIGHT);
 	}
-
 
 	public void optionAClicked() {
 		selectedAnswer = 0;
