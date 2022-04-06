@@ -79,8 +79,7 @@ public class QuestionServiceImplTest {
 	public void medium_answer_for_est_question_should_partial_score() {
 		var service = createService();
 		var question = new Question.EstimationQuestion(FAKE_ACTIVITY, 100f);
-		var score = service.calculateScore(question, 70f, 1000L, false);
-
+		var score = service.calculateScore(question, 80f, 1000L, false);
 		assertTrue(score > 0);
 		assertTrue(score < QuestionServiceImpl.MAX_SCORE);
 	}
@@ -91,7 +90,7 @@ public class QuestionServiceImplTest {
 		var question = new Question.ComparisonQuestion(FAKE_ACTIVITY_LIST.subList(0, 2), 1f);
 		var score = service.calculateScore(question, 1.1f, 1000L, false);
 
-		assertEquals(96, score);
+		assertEquals(99, score);
 	}
 
 	@Test
