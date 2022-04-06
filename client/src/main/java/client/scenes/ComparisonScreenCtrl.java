@@ -82,11 +82,11 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	}
 
 	public void sendAnswer() {
-
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
-		timerProgress.setStyle("-fx-accent: black;");
+
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
+			markAnswerGiven();
 			resetError();
 		} else {
 			errorMessage.setText("Invalid value");
@@ -105,6 +105,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 		}
 		answerMessage.setText(message);
 		ok.setDisable(true);
+		timeStop();
 		disableJokers();
 	}
 

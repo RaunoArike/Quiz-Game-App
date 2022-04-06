@@ -71,11 +71,11 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	}
 
 	public void sendAnswer() {
-
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
-		timerProgress.setStyle("-fx-accent: black;");
+
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
+			markAnswerGiven();
 			resetError();
 		} else {
 			errorMessage.setText("Invalid value");
@@ -94,6 +94,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 		}
 		answerMessage.setText(message);
 		ok.setDisable(true);
+		timeStop();
 		disableJokers();
 	}
 

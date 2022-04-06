@@ -107,19 +107,19 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	public void optionAClicked() {
 		messageService.answerQuestion(0);
 		selectedAnswer = 0;
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void optionBClicked() {
 		messageService.answerQuestion(1);
 		selectedAnswer = 1;
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void optionCClicked() {
 		messageService.answerQuestion(2);
 		selectedAnswer = 2;
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void showAnswer(int option, int numberOfPlayersScored) {
@@ -165,6 +165,7 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			}
 		}
 		scoreMessage.setText(message);
+		timeStop();
 		disableJokers();
 	}
 
