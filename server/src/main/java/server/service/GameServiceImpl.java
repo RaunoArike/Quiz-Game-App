@@ -138,9 +138,9 @@ public class GameServiceImpl implements GameService {
 		game.clearPlayersAnswers();
 		if (game.isSinglePlayer()) {
 			var player = game.getPlayers().get(0);
-			continueSinglePlayerGame(game, player);
+			doAfterDelay(game, Game.SCORE_DURATION, () -> continueSinglePlayerGame(game, player));
 		} else {
-			continueMultiPlayerGame(game);
+			doAfterDelay(game, Game.SCORE_DURATION, () -> continueMultiPlayerGame(game));
 		}
 	}
 
@@ -187,10 +187,10 @@ public class GameServiceImpl implements GameService {
 	 */
 	private void continueSinglePlayerGame(Game game, Player player) {
 		if (!game.isLastQuestion()) {
-			doAfterDelay(game, Game.SCORE_DURATION, () -> startNewQuestion(game));
+			startNewQuestion(game);
 		} else {
 			leaderboardService.addToLeaderboard(new LeaderboardEntry(player.getName(), player.getScore()));
-			doAfterDelay(game, Game.SCORE_DURATION, () -> finishGame(game));
+			finishGame(game);
 		}
 	}
 
@@ -202,16 +202,14 @@ public class GameServiceImpl implements GameService {
 	private void continueMultiPlayerGame(Game game) {
 		if (!game.isLastQuestion()) {
 			if (!game.isIntermediateLeaderboardNext()) {
-				doAfterDelay(game, Game.SCORE_DURATION, () -> startNewQuestion(game));
+				startNewQuestion(game);
 			} else {
 				showIntermediateLeaderboard(game);
 				doAfterDelay(game, Game.LEADERBOARD_DURATION, () -> startNewQuestion(game));
 			}
 		} else {
-			doAfterDelay(game, Game.SCORE_DURATION, () -> {
-				showIntermediateLeaderboard(game);
-				doAfterDelay(game, Game.LEADERBOARD_DURATION, () -> finishGame(game));
-			});
+			showIntermediateLeaderboard(game);
+			doAfterDelay(game, Game.LEADERBOARD_DURATION, () -> finishGame(game));
 		}
 	}
 
