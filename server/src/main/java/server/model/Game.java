@@ -8,10 +8,9 @@ import java.util.*;
 public class Game {
 	public static final int QUESTIONS_PER_GAME = 20;
 	public static final int LEADERBOARD_DISPLAY_FREQUENCY = 5;
-	public static final int TIMER_DELAY = 100;
-	public static final int QUESTION_DURATION = 20000;
-	public static final long LEADERBOARD_DELAY = 10000;
-	public static final long QUESTION_DELAY = 3000;
+	public static final long QUESTION_DURATION = 20000;
+	public static final long LEADERBOARD_DURATION = 10000;
+	public static final long SCORE_DURATION = 3000;
 
 	private final int gameId;
 
@@ -91,7 +90,7 @@ public class Game {
 	}
 
 	public void setQuestionStartTime(long currentTime) {
-		this.questionStartTime = currentTime + TIMER_DELAY;
+		this.questionStartTime = currentTime;
 	}
 
 	public long getStartTime() {
@@ -100,5 +99,12 @@ public class Game {
 
 	public boolean isQuestionFinished() {
 		return questionFinished;
+	}
+
+	public void clearPlayersAnswers() {
+		for (Player p : getPlayers()) {
+			p.setLatestAnswer(null);
+			p.setTimeTakenToAnswer(0L);
+		}
 	}
 }
