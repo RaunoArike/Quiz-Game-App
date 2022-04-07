@@ -8,10 +8,6 @@ import java.util.Scanner;
 
 public class RememberUsernameUseCaseImpl implements RememberUsernamesUseCase {
 
-	/**
-	 * Reads previously used usernames from usernames.txt
-	 * @return returns a list of previously used usernames
-	 */
 	@Override
 	public List<String> readUsernames() {
 		try {
