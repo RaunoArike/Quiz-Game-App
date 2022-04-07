@@ -1,6 +1,8 @@
 package server.api;
 
 import commons.servermessage.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 public class OutgoingControllerImpl implements OutgoingController {
 	private final SimpMessagingTemplate template;
 	private final ConnectionRegistry connectionRegistry;
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public OutgoingControllerImpl(SimpMessagingTemplate template, ConnectionRegistry connectionRegistry) {
 		this.template = template;
@@ -27,47 +31,48 @@ public class OutgoingControllerImpl implements OutgoingController {
 	@Override
 	public void sendQuestion(QuestionMessage message, List<Integer> players) {
 		send(message, players, "question");
-		System.out.println("Question sent");
+		logger.debug("Question sent");
 	}
 
 	@Override
 	public void sendScore(ScoreMessage message, List<Integer> players) {
 		send(message, players, "score");
-		System.out.println("Score sent");
+		logger.debug("Score sent");
 	}
 
 	@Override
 	public void sendEndOfGame(EndOfGameMessage message, List<Integer> players) {
 		send(message, players, "end-of-game");
-		System.out.println("End of game sent");
+		logger.debug("End of game sent");
 	}
 
 	@Override
 	public void sendWaitingRoomState(WaitingRoomStateMessage message, List<Integer> listOfPlayers) {
 		send(message, listOfPlayers, "waiting-room-state");
-		System.out.println("Waiting room state sent");
+		logger.debug("Waiting room state sent");
 	}
 
 	@Override
 	public void sendIntermediateLeaderboard(IntermediateLeaderboardMessage message, List<Integer> listOfPlayers) {
 		send(message, listOfPlayers, "intermediate-leaderboard");
-		System.out.println("Intermediate leaderboard sent");
+		logger.debug("Intermediate leaderboard sent");
 	}
 
 	@Override
 	public void sendError(ErrorMessage message, List<Integer> players) {
 		send(message, players, "error");
+		logger.debug("Error sent");
 	}
 
 	@Override
 	public void sendTimeReduced(ReduceTimePlayedMessage message, List<Integer> players) {
 		send(message, players, "reduce-time-played");
-		System.out.println("ReduceTimePlayed Message sent");
+		logger.debug("ReduceTimePlayed Message sent");
 	}
 
 	@Override
 	public void sendEmojiPlayed(EmojiPlayedMessage message, List<Integer> players) {
 		send(message, players, "emoji-played");
-		System.out.println("EmojiPlayed Message sent");
+		logger.debug("EmojiPlayed Message sent");
 	}
 }
