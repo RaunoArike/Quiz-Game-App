@@ -31,35 +31,35 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class GameServiceImplTest {
-	private static final Question FAKE_QUESTION_EST = new Question.EstimationQuestion(
+	private final Question fakeQuestionEst = new Question.EstimationQuestion(
 			new Activity(420, "a", "b", 42f), 4f);
 
-	private static final List<Activity> FAKE_ACTIVITIES_LIST = List.of(
+	private final List<Activity> fakeActivitiesList = List.of(
 			new Activity(421, "a", "b", 42f),
 			new Activity(422, "d", "e", 42f),
 			new Activity(423, "g", "h", 42f)
 	);
 
-	private static final Question FAKE_QUESTION_MC = new Question.MultiChoiceQuestion(FAKE_ACTIVITIES_LIST, 0);
+	private final Question fakeQuestionMC = new Question.MultiChoiceQuestion(fakeActivitiesList, 0);
 
-	private static final List<Player> FAKE_PLAYER_LIST = List.of(
+	private final List<Player> fakePlayerList = List.of(
 			new Player("name1", 1, 0),
 			new Player("name2", 2, 0),
 			new Player("name3", 3, 0)
 	);
-	private static final List<Player> FAKE_PLAYER_LIST_2 = List.of(
+	private final List<Player> fakePlayerList2 = List.of(
 			new Player("name1", 1, 100),
 			new Player("name2", 2, 200),
 			new Player("name3", 3, 300)
 	);
 
-	private static final List<LeaderboardEntry> FAKE_LEADERBOARD = List.of(
+	private final List<LeaderboardEntry> fakeLeaderboard = List.of(
 			new LeaderboardEntry("name3", 300),
 			new LeaderboardEntry("name2", 200),
 			new LeaderboardEntry("name1", 100)
 	);
 
-	private static final List<Integer> FAKE_PLAYER_ID_LIST = List.of(1, 2, 3);
+	private final List<Integer> fakePlayerIdList = List.of(1, 2, 3);
 
 	private final TimerServiceImmediateMock immediateTimer = new TimerServiceImmediateMock();
 	private final TimerServiceControllableMock controllableTimer = new TimerServiceControllableMock();
@@ -86,33 +86,33 @@ public class GameServiceImplTest {
 
 	@Test
 	public void starting_single_player_game_should_send_question_est() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_EST);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionEst);
 
 		var service = createService(immediateTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_EST, 0, false, true, false),
+				new QuestionMessage(fakeQuestionEst, 0, false, true, false),
 				List.of(30)
 		);
 	}
 
 	@Test
 	public void starting_single_player_game_should_send_question_mc() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_MC);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionMC);
 
 		var service = createService(immediateTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_MC, 0, false, true, true),
+				new QuestionMessage(fakeQuestionMC, 0, false, true, true),
 				List.of(30)
 		);
 	}
 
 	@Test
 	public void answering_question_should_send_another_question() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_EST);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionEst);
 
 		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
@@ -123,9 +123,9 @@ public class GameServiceImplTest {
 				questionMessageCaptor.capture(),
 				eq(List.of(30))
 		);
-		assertEquals(new QuestionMessage(FAKE_QUESTION_EST, 0, false, true, false),
+		assertEquals(new QuestionMessage(fakeQuestionEst, 0, false, true, false),
 				questionMessageCaptor.getAllValues().get(0));
-		assertEquals(new QuestionMessage(FAKE_QUESTION_EST, 1, false, true, false),
+		assertEquals(new QuestionMessage(fakeQuestionEst, 1, false, true, false),
 				questionMessageCaptor.getAllValues().get(1));
 
 		verify(questionService, times(2)).generateQuestion(anyInt());
@@ -182,26 +182,26 @@ public class GameServiceImplTest {
 
 	@Test
 	public void show_intermediate_leaderboard_should_send_leaderboard() {
-		when(game.getPlayers()).thenReturn(FAKE_PLAYER_LIST_2);
+		when(game.getPlayers()).thenReturn(fakePlayerList2);
 		when(game.getPlayerIds()).thenReturn(List.of(1, 2, 3));
 
 		var service = createService(immediateTimer, mockitoOutgoingController);
 		service.showIntermediateLeaderboard(game);
 
-		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(FAKE_LEADERBOARD);
-		verify(mockitoOutgoingController).sendIntermediateLeaderboard(message, FAKE_PLAYER_ID_LIST);
+		IntermediateLeaderboardMessage message = new IntermediateLeaderboardMessage(fakeLeaderboard);
+		verify(mockitoOutgoingController).sendIntermediateLeaderboard(message, fakePlayerIdList);
 	}
 
 	@Test
 	public void starting_multi_player_game_should_send_question_est() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_EST);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionEst);
 
 		var service = createService(controllableTimer, capturingOutgoingController);
-		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+		service.startMultiPlayerGame(fakePlayerList);
 
-		for (Player p : FAKE_PLAYER_LIST) {
+		for (Player p : fakePlayerList) {
 			assertThat(capturingOutgoingController.getSentMessagesForPlayer(p.getPlayerId()), Matchers.contains(
-					new QuestionMessage(FAKE_QUESTION_EST, 0, true, true, false))
+					new QuestionMessage(fakeQuestionEst, 0, true, true, false))
 			);
 
 		}
@@ -210,14 +210,14 @@ public class GameServiceImplTest {
 
 	@Test
 	public void starting_multi_player_game_should_send_question_mc() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_MC);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionMC);
 
 		var service = createService(controllableTimer, capturingOutgoingController);
-		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+		service.startMultiPlayerGame(fakePlayerList);
 
-		for (Player p : FAKE_PLAYER_LIST) {
+		for (Player p : fakePlayerList) {
 			assertThat(capturingOutgoingController.getSentMessagesForPlayer(p.getPlayerId()), Matchers.contains(
-					new QuestionMessage(FAKE_QUESTION_MC, 0, true, true, true))
+					new QuestionMessage(fakeQuestionMC, 0, true, true, true))
 			);
 		}
 
@@ -226,9 +226,9 @@ public class GameServiceImplTest {
 	@Test
 	public void answering_multiplayer_question_should_save_answer() {
 		var service = createService(controllableTimer, mockitoOutgoingController);
-		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+		service.startMultiPlayerGame(fakePlayerList);
 
-		Player p = FAKE_PLAYER_LIST.get(0);
+		Player p = fakePlayerList.get(0);
 		service.submitAnswer(p.getPlayerId(), new QuestionAnswerMessage(10, null));
 
 		assertEquals(10, p.getLatestAnswer());
@@ -236,7 +236,7 @@ public class GameServiceImplTest {
 
 	@Test
 	public void starting_single_player_game_should_send_question_immediately_est() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_EST);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionEst);
 
 		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
@@ -244,14 +244,14 @@ public class GameServiceImplTest {
 		// Timer not advanced
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_EST, 0, false, true, false),
+				new QuestionMessage(fakeQuestionEst, 0, false, true, false),
 				List.of(30)
 		);
 	}
 
 	@Test
 	public void starting_single_player_game_should_send_question_immediately_mc() {
-		when(questionService.generateQuestion(anyInt())).thenReturn(FAKE_QUESTION_MC);
+		when(questionService.generateQuestion(anyInt())).thenReturn(fakeQuestionMC);
 
 		var service = createService(controllableTimer, mockitoOutgoingController);
 		service.startSinglePlayerGame(30, "abc");
@@ -259,7 +259,7 @@ public class GameServiceImplTest {
 		// Timer not advanced
 
 		verify(mockitoOutgoingController).sendQuestion(
-				new QuestionMessage(FAKE_QUESTION_MC, 0, false, true, true),
+				new QuestionMessage(fakeQuestionMC, 0, false, true, true),
 				List.of(30)
 		);
 	}
@@ -267,14 +267,14 @@ public class GameServiceImplTest {
 	@Test
 	public void multiplayer_question_should_be_ended_after_20s() {
 		var service = createService(controllableTimer, capturingOutgoingController);
-		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+		service.startMultiPlayerGame(fakePlayerList);
 		capturingOutgoingController.reset();
 
 		controllableTimer.advanceBy(19999);
 		assertTrue(capturingOutgoingController.getSentMessages().isEmpty());
 
 		controllableTimer.advanceBy(1);
-		FAKE_PLAYER_ID_LIST.forEach(player -> {
+		fakePlayerIdList.forEach(player -> {
 			assertThat(capturingOutgoingController.getSentMessagesForPlayer(player), Matchers.contains(
 					new ScoreMessage(0, 0, 0)
 			));
@@ -284,26 +284,26 @@ public class GameServiceImplTest {
 	@Test
 	public void reduce_time_played_message_should_be_sent() {
 		var service = createService(controllableTimer, mockitoOutgoingController);
-		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+		service.startMultiPlayerGame(fakePlayerList);
 
 		SendJokerMessage messages = new SendJokerMessage(JokerType.REDUCE_TIME);
 
 		service.jokerPlayed(1, messages);
 
 		ReduceTimePlayedMessage message = new ReduceTimePlayedMessage(15000);
-		verify(mockitoOutgoingController).sendTimeReduced(message, FAKE_PLAYER_ID_LIST);
+		verify(mockitoOutgoingController).sendTimeReduced(message, fakePlayerIdList);
 	}
 
 	@Test
 	public void emoji_played_message_should_be_sent() {
 		var service = createService(controllableTimer, mockitoOutgoingController);
-		service.startMultiPlayerGame(FAKE_PLAYER_LIST);
+		service.startMultiPlayerGame(fakePlayerList);
 
 		SendEmojiMessage messages = new SendEmojiMessage(3);
 
 		service.emojiPlayed(2, messages);
 
 		EmojiPlayedMessage message = new EmojiPlayedMessage(messages.emojiNumber());
-		verify(mockitoOutgoingController).sendEmojiPlayed(message, FAKE_PLAYER_ID_LIST);
+		verify(mockitoOutgoingController).sendEmojiPlayed(message, fakePlayerIdList);
 	}
 }

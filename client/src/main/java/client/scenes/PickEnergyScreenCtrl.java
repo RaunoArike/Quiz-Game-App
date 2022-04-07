@@ -8,13 +8,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Random;
 
 
 public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuestion> {
+
+	private static final int FIT_WIDTH = 200;
+	private static final int FIT_HEIGHT = 150;
 
 	@FXML
 	private RadioButton optionA;
@@ -43,9 +45,6 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	private int selectedAnswer = -1;
 
 	private final ToggleGroup toggleGroup = new ToggleGroup();
-
-	private final int fitWidth = 200;
-	private final int fitHeight = 150;
 
 	@Inject
 	public PickEnergyScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -85,6 +84,8 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 
 		String url = question.activity().imageUrl();
 		setActivityImages(url);
+
+		selectedAnswer = -1;
 	}
 
 	private void setOptions(String a, String b, String c) {
@@ -98,28 +99,25 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	}
 
 	public void setActivityImages(String url) {
-		Image image =  new Image(url);
-		imageView.setFitWidth(fitWidth);
-		imageView.setFitHeight(fitHeight);
-		imageView.setImage(image);
+		setImage(imageView, url, FIT_WIDTH, FIT_HEIGHT);
 	}
 
 	public void optionAClicked() {
 		messageService.answerQuestion(0);
 		selectedAnswer = 0;
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void optionBClicked() {
 		messageService.answerQuestion(1);
 		selectedAnswer = 1;
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void optionCClicked() {
 		messageService.answerQuestion(2);
 		selectedAnswer = 2;
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void showAnswer(int option, int numberOfPlayersScored) {
@@ -165,6 +163,7 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 			}
 		}
 		scoreMessage.setText(message);
+		timeStop();
 		disableJokers();
 	}
 
