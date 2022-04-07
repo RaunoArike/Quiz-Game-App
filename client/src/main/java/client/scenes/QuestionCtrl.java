@@ -25,6 +25,9 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
+
+	private static final double EMOJI_X_POSITION = 610.0;
+	private static final double EMOJI_Y_POSITION = 400.0;
 	private static final double PHANTOM_EMOJI_X_POSITION = 610.0;
 	private static final double PHANTOM_EMOJI_Y_POSITION = 450.0;
 
@@ -108,6 +111,25 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		this.messageService = messageService;
 		this.mainCtrl = mainCtrl;
 	}
+
+	@Override
+	public void init() {
+		super.init();
+		lolEmoji.setLayoutX(EMOJI_X_POSITION);
+		lolEmoji.setLayoutY(EMOJI_Y_POSITION);
+		sunglassesEmoji.setLayoutX(EMOJI_X_POSITION);
+		sunglassesEmoji.setLayoutY(EMOJI_Y_POSITION);
+		likeEmoji.setLayoutX(EMOJI_X_POSITION);
+		likeEmoji.setLayoutY(EMOJI_Y_POSITION);
+		dislikeEmoji.setLayoutX(EMOJI_X_POSITION);
+		dislikeEmoji.setLayoutY(EMOJI_Y_POSITION);
+		angryEmoji.setLayoutX(EMOJI_X_POSITION);
+		angryEmoji.setLayoutY(EMOJI_Y_POSITION);
+		vomitEmoji.setLayoutX(EMOJI_X_POSITION);
+		vomitEmoji.setLayoutY(EMOJI_Y_POSITION);
+		callTimeLimiter(TIMER_DEFAULT_TIME);
+	}
+
 
 	public void setQuestion(QuestionData<Q> questionData) {
 		this.questionData = questionData;

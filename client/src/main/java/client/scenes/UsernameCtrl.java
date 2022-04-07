@@ -47,6 +47,7 @@ public class UsernameCtrl extends AbstractCtrl {
 
 	public void clearField() {
 		username.clear();
+		errorMessage.setText("");
 	}
 
 	public void cancel() {
