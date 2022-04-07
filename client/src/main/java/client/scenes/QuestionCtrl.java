@@ -24,7 +24,9 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
-	private static final int EMOJI_Y_OFFSET = 50;
+
+	private static final double EMOJI_X_POSITION = 610.0;
+	private static final double EMOJI_Y_POSITION = 400.0;
 
 	private static final int LOL_EMOJI_TYPE = 0;
 	private static final int SUNGLASSES_EMOJI_TYPE = 1;
@@ -109,13 +111,18 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	@Override
 	public void init() {
 		super.init();
-		// lolEmoji.setLayoutY(lolEmoji.getLayoutY() + 50);
-		// sunglassesEmoji.setLayoutY(sunglassesEmoji.getLayoutY() + 50);
-		// likeEmoji.setLayoutY(likeEmoji.getLayoutY() + 50);
-		// dislikeEmoji.setLayoutY(dislikeEmoji.getLayoutY() + 50);
-		// angryEmoji.setLayoutY(angryEmoji.getLayoutY() + 50);
-		// vomitEmoji.setLayoutY(vomitEmoji.getLayoutY() + 50);
-
+		lolEmoji.setLayoutX(EMOJI_X_POSITION);
+		lolEmoji.setLayoutY(EMOJI_Y_POSITION);
+		sunglassesEmoji.setLayoutX(EMOJI_X_POSITION);
+		sunglassesEmoji.setLayoutY(EMOJI_Y_POSITION);
+		likeEmoji.setLayoutX(EMOJI_X_POSITION);
+		likeEmoji.setLayoutY(EMOJI_Y_POSITION);
+		dislikeEmoji.setLayoutX(EMOJI_X_POSITION);
+		dislikeEmoji.setLayoutY(EMOJI_Y_POSITION);
+		angryEmoji.setLayoutX(EMOJI_X_POSITION);
+		angryEmoji.setLayoutY(EMOJI_Y_POSITION);
+		vomitEmoji.setLayoutX(EMOJI_X_POSITION);
+		vomitEmoji.setLayoutY(EMOJI_Y_POSITION);
 		callTimeLimiter(TIMER_DEFAULT_TIME);
 	}
 
@@ -300,7 +307,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private void animateEmoji(ImageView emoji, ImageView staticEmoji) {
 		staticEmoji.setDisable(true);
-		emoji.setLayoutY(emoji.getLayoutY() + EMOJI_Y_OFFSET);
+		emoji.setLayoutY(emoji.getLayoutY() + EMOJI_Y_POSITION);
 		emoji.setVisible(true);
 		TimerTask emojiTimer = new TimerTask() {
 
@@ -308,7 +315,7 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 			public void run() {
 				emoji.setVisible(false);
 				staticEmoji.setDisable(false);
-				emoji.setLayoutY(emoji.getLayoutY() - EMOJI_Y_OFFSET);
+				emoji.setLayoutY(emoji.getLayoutY() - EMOJI_Y_POSITION);
 			}
 
 		};
