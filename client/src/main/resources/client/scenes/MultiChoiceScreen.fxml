@@ -11,15 +11,15 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiChoiceScreenCtrl">
    <children>
-      <Button fx:id="optionA" alignment="CENTER" layoutX="52.0" layoutY="225.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="70.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="optionA" alignment="CENTER" layoutX="51.0" layoutY="242.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="70.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="optionB" alignment="CENTER" layoutX="258.0" layoutY="225.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="70.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="optionB" alignment="CENTER" layoutX="258.0" layoutY="242.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="70.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="optionC" alignment="CENTER" layoutX="446.0" layoutY="225.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="70.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="optionC" alignment="CENTER" layoutX="446.0" layoutY="242.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="70.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Button>
@@ -57,9 +57,9 @@
               <Font name="System Bold" size="18.0" />
           </font>
       </Label>
-      <Label fx:id="scoreMessage" layoutX="239.0" layoutY="276.0" prefHeight="70.0" prefWidth="411.0" wrapText="true">
+      <Label fx:id="scoreMessage" layoutX="234.0" layoutY="264.0" prefHeight="118.0" prefWidth="411.0" wrapText="true">
          <font>
-            <Font name="System Bold Italic" size="15.0" />
+            <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
   

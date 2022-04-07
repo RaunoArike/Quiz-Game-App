@@ -66,7 +66,7 @@ public class JoinWaitingroomCtrl extends AbstractCtrl {
 	}
 
 	public void showUsernameBusyError() {
-		errorMessage.setText("This username is already taken! Please choose a different username");
+		errorMessage.setText("This username is already taken!");
 	}
 
 	public void clearField() {

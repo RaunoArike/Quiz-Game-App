@@ -21,7 +21,7 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="eliminateOptionJoker" layoutX="18.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate">
+      <Button fx:id="eliminateOptionJoker" layoutX="14.0" layoutY="395.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate">
          <font>
             <Font size="14.0" />
          </font></Button>
@@ -50,7 +50,10 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="ok" layoutX="533.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
+      <Button fx:id="ok" layoutX="533.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <Label fx:id="errorMessage" alignment="TOP_LEFT" layoutX="378.0" layoutY="201.0" prefHeight="26.0" prefWidth="128.0" text="Error message" wrapText="true">
          <font>
             <Font size="14.0" />

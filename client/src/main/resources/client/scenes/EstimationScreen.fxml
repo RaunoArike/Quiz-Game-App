@@ -17,16 +17,28 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-        <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate" />
-        <Button fx:id="doublePointsJoker" layoutX="93.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points" />
-        <Button fx:id="reduceTimeJoker" layoutX="180.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time" />
+        <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+        <Button fx:id="doublePointsJoker" layoutX="93.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+        <Button fx:id="reduceTimeJoker" layoutX="180.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
         <Text layoutX="378.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your guess:" wrappingWidth="91.20000000000005">
            <font>
               <Font size="16.0" />
            </font>
         </Text>
         <TextField fx:id="answer" layoutX="470.0" layoutY="160.0" />
-        <Button fx:id="ok" layoutX="528.0" layoutY="195.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
+        <Button fx:id="ok" layoutX="528.0" layoutY="195.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
         <Label fx:id="questionText" layoutX="20.0" layoutY="32.0" prefHeight="99.0" prefWidth="624.0" text="How much does X take?" wrapText="true">
            <font>
               <Font size="22.0" />
