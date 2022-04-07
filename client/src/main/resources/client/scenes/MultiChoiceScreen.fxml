@@ -11,15 +11,15 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.MultiChoiceScreenCtrl">
    <children>
-      <Button fx:id="optionA" alignment="CENTER" layoutX="52.0" layoutY="247.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="70.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="optionA" alignment="CENTER" layoutX="52.0" layoutY="225.0" mnemonicParsing="false" onAction="#optionAClicked" prefHeight="70.0" prefWidth="178.0" text="A" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="optionB" alignment="CENTER" layoutX="258.0" layoutY="247.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="70.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="optionB" alignment="CENTER" layoutX="258.0" layoutY="225.0" mnemonicParsing="false" onAction="#optionBClicked" prefHeight="70.0" prefWidth="168.0" text="B" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="optionC" alignment="CENTER" layoutX="445.0" layoutY="247.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="70.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="optionC" alignment="CENTER" layoutX="446.0" layoutY="225.0" mnemonicParsing="false" onAction="#optionCClicked" prefHeight="70.0" prefWidth="168.0" text="C" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
          </font></Button>
@@ -32,9 +32,18 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="86.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" layoutX="97.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="86.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="86.0" text="0.5x time" />
+      <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="86.0" text="Eliminate">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="doublePointsJoker" layoutX="97.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="86.0" text="2x points">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="86.0" text="0.5x time">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <ImageView fx:id="activityA" fitHeight="112.0" fitWidth="168.0" layoutX="57.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="activityB" fitHeight="112.0" fitWidth="168.0" layoutX="258.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="activityC" fitHeight="112.0" fitWidth="168.0" layoutX="446.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true" />
@@ -48,7 +57,7 @@
               <Font name="System Bold" size="18.0" />
           </font>
       </Label>
-      <Label fx:id="scoreMessage" layoutX="239.0" layoutY="324.0" prefHeight="19.0" prefWidth="411.0" wrapText="true">
+      <Label fx:id="scoreMessage" layoutX="239.0" layoutY="276.0" prefHeight="70.0" prefWidth="411.0" wrapText="true">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>

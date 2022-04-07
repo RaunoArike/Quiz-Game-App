@@ -21,9 +21,18 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="eliminateOptionJoker" layoutX="18.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" layoutX="105.0" layoutY="395.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time" />
+      <Button fx:id="eliminateOptionJoker" layoutX="18.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="doublePointsJoker" layoutX="105.0" layoutY="395.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="167.0" layoutX="19.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="questionText" layoutX="19.0" layoutY="29.0" prefHeight="102.0" prefWidth="638.0" text="&quot;Instead of X, you can do Y&quot;" wrapText="true">
          <font>
