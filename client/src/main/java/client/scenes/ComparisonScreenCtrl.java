@@ -44,6 +44,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 	public void init() {
 		super.init();
 		answer.setText("");
+		answerMessage.setText("");
 		resetError();
 		resetCorrectAnswer();
 	}
@@ -73,7 +74,7 @@ public class ComparisonScreenCtrl extends QuestionCtrl<Question.ComparisonQuesti
 
 	public void sendAnswer() {
 		var parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
-
+		answerMessage.setText("Answer saved!");
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
 			markAnswerGiven();

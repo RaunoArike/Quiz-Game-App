@@ -12,19 +12,19 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ComparisonScreenCtrl">
    <children>
-      <ProgressBar fx:id="timerProgress" layoutX="228.0" layoutY="343.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
-      <Text layoutX="157.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
-      <Text fx:id="timerNumber" layoutX="195.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
-      <Button fx:id="eliminateOptionJoker" layoutX="18.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" layoutX="105.0" layoutY="395.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time" />
+       <ProgressBar fx:id="timerProgress" layoutX="232.0" layoutY="348.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
+      <Text layoutX="161.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
+      <Text fx:id="timerNumber" layoutX="199.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
+      <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="86.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" layoutX="97.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="86.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="86.0" text="0.5x time" />
       <ImageView fx:id="activityA" fitHeight="102.0" fitWidth="188.0" layoutX="78.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="questionText" layoutX="19.0" layoutY="20.0" prefHeight="94.0" prefWidth="637.0" text="&quot;Instead of X, you can do Y&quot; " wrapText="true">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="score" layoutX="547.0" prefHeight="26.0" prefWidth="91.0" text="Score:">
+      <Label fx:id="score" layoutX="600.0" layoutY="13.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
          <font>
             <Font size="15.0" />
          </font>

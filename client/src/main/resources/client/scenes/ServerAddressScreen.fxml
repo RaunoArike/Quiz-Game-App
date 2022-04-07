@@ -31,7 +31,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="defaultButton" layoutX="272.0" layoutY="246.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="115.0" text="Use default">
+      <Button fx:id="defaultButton" layoutX="302.0" layoutY="246.0" mnemonicParsing="false" onAction="#useDefault" prefHeight="35.0" prefWidth="115.0" text="Use default">
          <font>
             <Font size="16.0" />
          </font></Button>
