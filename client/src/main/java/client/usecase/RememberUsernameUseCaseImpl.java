@@ -2,17 +2,20 @@ package client.usecase;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class RememberUsernameUseCaseImpl implements RememberUsernamesUseCase {
 
+	private final Path root = Paths.get("usernames/");
+
 	@Override
 	public List<String> readUsernames() {
 		try {
 			List<String> usernames = new ArrayList<>();
-			String path = Path.of("src", "main", "resources", "usernames", "usernames.txt").toAbsolutePath().toString();
+			String path = root.resolve("usernames.txt").toString();
 
 			Scanner scanner = new Scanner(new File(path));
 			while (scanner.hasNextLine()) {
@@ -32,7 +35,7 @@ public class RememberUsernameUseCaseImpl implements RememberUsernamesUseCase {
 	@Override
 	public void writeUsername(String username) {
 		try {
-			String path = Path.of("src", "main", "resources", "usernames", "usernames.txt").toAbsolutePath().toString();
+			String path = root.resolve("usernames.txt").toString();
 			Writer writer = new FileWriter(path, true);
 			writer.write(username + "\n");
 			writer.close();
