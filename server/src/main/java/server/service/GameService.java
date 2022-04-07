@@ -20,9 +20,9 @@ public interface GameService {
 	void startSinglePlayerGame(int playerId, String userName);
 
 	/**
-	 *Starts a multi-player game.
+	 * Starts a multi-player game.
 	 *
-	 * @param listOfPlayers
+	 * @param listOfPlayers list of players participating in the game
 	 */
 	void startMultiPlayerGame(List<Player> listOfPlayers);
 

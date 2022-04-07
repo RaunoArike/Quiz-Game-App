@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -24,7 +25,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	private static final long TIMER_DEFAULT_TIME = 20000;
 	private static final long TIMER_UPDATE_PERIOD = 1000;
 	private static final long TIMER_SECOND = 1000;
-	private static final int EMOJI_Y_OFFSET = 50;
+	private static final double PHANTOM_EMOJI_X_POSITION = 610.0;
+	private static final double PHANTOM_EMOJI_Y_POSITION = 450.0;
 
 	private static final int LOL_EMOJI_TYPE = 0;
 	private static final int SUNGLASSES_EMOJI_TYPE = 1;
@@ -98,7 +100,8 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private QuestionData<Q> questionData;
 	private TimerTask timerTask;
-
+	private boolean isAnswerGiven;
+	private boolean isTimeReduced;
 
 	@Inject
 	public QuestionCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -106,26 +109,15 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		this.mainCtrl = mainCtrl;
 	}
 
-	@Override
-	public void init() {
-		super.init();
-		// lolEmoji.setLayoutY(lolEmoji.getLayoutY() + 50);
-		// sunglassesEmoji.setLayoutY(sunglassesEmoji.getLayoutY() + 50);
-		// likeEmoji.setLayoutY(likeEmoji.getLayoutY() + 50);
-		// dislikeEmoji.setLayoutY(dislikeEmoji.getLayoutY() + 50);
-		// angryEmoji.setLayoutY(angryEmoji.getLayoutY() + 50);
-		// vomitEmoji.setLayoutY(vomitEmoji.getLayoutY() + 50);
-
-		callTimeLimiter(TIMER_DEFAULT_TIME);
-	}
-
-
 	public void setQuestion(QuestionData<Q> questionData) {
-		timerProgress.setStyle("-fx-accent: blue;");
 		this.questionData = questionData;
+		this.isAnswerGiven = false;
+		this.isTimeReduced = false;
 		setScore(questionData.currentScore());
 		setJokerAvailability(questionData.availableJokers());
 		setEmojis(questionData.gameType());
+		updateTimerColor();
+		callTimeLimiter(TIMER_DEFAULT_TIME);
 	}
 
 	private void setEmojis(GameType gameType) {
@@ -157,6 +149,16 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		reduceTimeJoker.setDisable(!availableJokers.contains(JokerType.REDUCE_TIME));
 		doublePointsJoker.setDisable(!availableJokers.contains(JokerType.DOUBLE_POINTS));
 		eliminateOptionJoker.setDisable(!availableJokers.contains(JokerType.ELIMINATE_MC_OPTION));
+	}
+
+	private void updateTimerColor() {
+		if (isAnswerGiven) {
+			timerProgress.setStyle("-fx-accent: black;");
+		} else if (isTimeReduced) {
+			timerProgress.setStyle("-fx-accent: red;");
+		} else {
+			timerProgress.setStyle("-fx-accent: blue;");
+		}
 	}
 
 	protected void disableJokers() {
@@ -220,13 +222,14 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	}
 
 	public void notifyReduceTimePlayed(long timeLeftMs) {
+		isTimeReduced = true;
+		updateTimerColor();
 		callTimeLimiter(timeLeftMs);
 	}
 
 	public void useReduceTimeJoker() {
 		messageService.sendJoker(JokerType.REDUCE_TIME);
 		reduceTimeJoker.setDisable(true);
-		timerProgress.setStyle("-fx-accent: red;");
 	}
 
 	public void useDoublePointsJoker() {
@@ -237,10 +240,6 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 	public void useEliminateOptionJoker() {
 		messageService.sendJoker(JokerType.ELIMINATE_MC_OPTION);
 		eliminateOptionJoker.setDisable(true);
-	}
-
-	protected QuestionData<Q> getQuestionData() {
-		return questionData;
 	}
 
 	private void useEmoji(int emojiType) {
@@ -300,15 +299,17 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 	private void animateEmoji(ImageView emoji, ImageView staticEmoji) {
 		staticEmoji.setDisable(true);
-		emoji.setLayoutY(emoji.getLayoutY() + EMOJI_Y_OFFSET);
+		// Restore the emoji to its fixed starting position on the screen
+		emoji.setLayoutX(PHANTOM_EMOJI_X_POSITION);
+		emoji.setLayoutY(PHANTOM_EMOJI_Y_POSITION);
 		emoji.setVisible(true);
 		TimerTask emojiTimer = new TimerTask() {
 
 			@Override
 			public void run() {
+				// After the animation duration the emoji will be invisible again
 				emoji.setVisible(false);
 				staticEmoji.setDisable(false);
-				emoji.setLayoutY(emoji.getLayoutY() - EMOJI_Y_OFFSET);
 			}
 
 		};
@@ -321,5 +322,26 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		translate.setCycleCount(2);
 		translate.setAutoReverse(true);
 		translate.play();
+	}
+
+	protected QuestionData<Q> getQuestionData() {
+		return questionData;
+	}
+
+	protected void markAnswerGiven() {
+		isAnswerGiven = true;
+		updateTimerColor();
+	}
+
+	protected void setImage(ImageView imageView, String imageUrl, int fitWidth, int fitHeight) {
+		try {
+			Image image = new Image(imageUrl);
+
+			imageView.setFitWidth(fitWidth);
+			imageView.setFitHeight(fitHeight);
+			imageView.setImage(image);
+		} catch (Exception e) {
+			// Cannot load an image; ignore
+		}
 	}
 }

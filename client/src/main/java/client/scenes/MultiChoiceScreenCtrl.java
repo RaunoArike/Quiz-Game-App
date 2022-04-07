@@ -7,7 +7,6 @@ import commons.model.Question;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Random;
@@ -15,6 +14,8 @@ import java.util.Random;
 public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
 	private static final int ANSWERS = 3;
+	private static final int FIT_WIDTH = 168;
+	private static final int FIT_HEIGHT = 112;
 
 	@FXML
 	private Button optionA;
@@ -38,9 +39,6 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 
 	@FXML
 	private Label scoreMessage;
-
-	private final int fitWidth = 168;
-	private final int fitHeight = 112;
 
 	@Inject
 	public MultiChoiceScreenCtrl(MessageLogicService messageService, MainCtrl mainCtrl) {
@@ -74,6 +72,7 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		var imageC = question.activities().get(2).imageUrl();
 		setActivityImages(imageA, imageB, imageC);
 
+		selectedAnswer = -1;
 	}
 
 	private void setAnswerOptions(String a, String b, String c) {
@@ -86,44 +85,28 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		optionC.setDisable(false);
 	}
 
-
 	public void setActivityImages(String a, String b, String c) {
-		Image imageA = new Image(a);
-
-		activityA.setFitWidth(fitWidth);
-		activityA.setFitHeight(fitHeight);
-		activityA.setImage(imageA);
-
-		Image imageB = new Image(b);
-
-		activityB.setFitWidth(fitWidth);
-		activityB.setFitHeight(fitHeight);
-		activityB.setImage(imageB);
-
-		Image imageC = new Image(c);
-
-		activityC.setFitWidth(fitWidth);
-		activityC.setFitHeight(fitHeight);
-		activityC.setImage(imageC);
+		setImage(activityA, a, FIT_WIDTH, FIT_HEIGHT);
+		setImage(activityB, b, FIT_WIDTH, FIT_HEIGHT);
+		setImage(activityC, c, FIT_WIDTH, FIT_HEIGHT);
 	}
-
 
 	public void optionAClicked() {
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void optionBClicked() {
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void optionCClicked() {
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
-		timerProgress.setStyle("-fx-accent: black;");
+		markAnswerGiven();
 	}
 
 	public void showAnswer(int option, int numberOfPlayersScored) {
