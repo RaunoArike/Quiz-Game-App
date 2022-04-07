@@ -21,10 +21,19 @@
          <font>
             <Font size="14.0" />
          </font></Text>
-      <Button fx:id="eliminateOptionJoker" layoutX="18.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" layoutX="105.0" layoutY="395.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time" />
-      <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="167.0" layoutX="19.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="eliminateOptionJoker" layoutX="19.0" layoutY="395.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="78.0" text="Eliminate">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="doublePointsJoker" layoutX="105.0" layoutY="395.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="78.0" text="2x points">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="167.0" layoutX="38.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="questionText" layoutX="19.0" layoutY="29.0" prefHeight="102.0" prefWidth="638.0" text="&quot;Instead of X, you can do Y&quot;" wrapText="true">
          <font>
             <Font size="22.0" />
@@ -41,13 +50,16 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button fx:id="ok" layoutX="533.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK" />
+      <Button fx:id="ok" layoutX="533.0" layoutY="200.0" mnemonicParsing="false" onAction="#sendAnswer" prefHeight="25.0" prefWidth="91.0" text="OK">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
       <Label fx:id="errorMessage" alignment="TOP_LEFT" layoutX="378.0" layoutY="201.0" prefHeight="26.0" prefWidth="128.0" text="Error message" wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="activityB" fitHeight="102.0" fitWidth="188.0" layoutX="82.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="102.0" fitWidth="188.0" layoutX="140.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="377.0" layoutY="248.0" prefHeight="80.0" prefWidth="258.0" text="Answer Message" wrapText="true">
          <font>
             <Font name="System Bold Italic" size="14.0" />
