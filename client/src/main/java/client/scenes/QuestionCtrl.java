@@ -135,7 +135,11 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 		this.questionData = questionData;
 		this.isAnswerGiven = false;
 		this.isTimeReduced = false;
-		setScore(questionData.currentScore());
+		if (questionData.questionNumber() == 0) {
+			setScore(0);
+		} else {
+			setScore(questionData.currentScore());
+		}
 		setJokerAvailability(questionData.availableJokers());
 		setEmojis(questionData.gameType());
 		updateTimerColor();
