@@ -29,7 +29,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.5x time">
+      <Button fx:id="reduceTimeJoker" layoutX="195.0" layoutY="395.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="78.0" text="0.75x time">
          <font>
             <Font size="14.0" />
          </font></Button>

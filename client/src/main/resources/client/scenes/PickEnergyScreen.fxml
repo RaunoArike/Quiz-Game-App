@@ -23,7 +23,7 @@
          </font></Text>
       <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="383.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="84.0" text="Eliminate" />
       <Button fx:id="doublePointsJoker" layoutX="98.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="84.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="383.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="84.0" text="0.5x time" />
+      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="383.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="84.0" text="0.75x time" />
       <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
       <RadioButton fx:id="optionA" layoutX="415.0" layoutY="164.0" mnemonicParsing="false" onAction="#optionAClicked" text="A">
          <font>
