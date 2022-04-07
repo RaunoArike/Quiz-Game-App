@@ -12,13 +12,13 @@
 
 <AnchorPane prefHeight="440.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.PickEnergyScreenCtrl">
    <children>
-      <ProgressBar fx:id="timerProgress" layoutX="227.0" layoutY="336.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
-      <Text layoutX="159.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
-      <Text fx:id="timerNumber" layoutX="197.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
-      <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="383.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="84.0" text="Eliminate" />
-      <Button fx:id="doublePointsJoker" layoutX="98.0" layoutY="383.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="84.0" text="2x points" />
-      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="383.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="84.0" text="0.5x time" />
-      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
+     <ProgressBar fx:id="timerProgress" layoutX="232.0" layoutY="348.0" prefHeight="18.0" prefWidth="258.0" progress="1.0" style="-fx-accent: #0A1520;" />
+      <Text layoutX="161.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" wrappingWidth="47.6063232421875" />
+      <Text fx:id="timerNumber" layoutX="199.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="20" wrappingWidth="18.537506103515625" />
+      <Button fx:id="eliminateOptionJoker" layoutX="8.0" layoutY="393.0" mnemonicParsing="false" onAction="#useEliminateOptionJoker" prefHeight="32.0" prefWidth="86.0" text="Eliminate" />
+      <Button fx:id="doublePointsJoker" layoutX="97.0" layoutY="393.0" mnemonicParsing="false" onAction="#useDoublePointsJoker" prefHeight="32.0" prefWidth="86.0" text="2x points" />
+      <Button fx:id="reduceTimeJoker" layoutX="187.0" layoutY="393.0" mnemonicParsing="false" onAction="#useReduceTimeJoker" prefHeight="32.0" prefWidth="86.0" text="0.5x time" />
+        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="67.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true" />
       <RadioButton fx:id="optionA" layoutX="418.0" layoutY="138.0" mnemonicParsing="false" onAction="#optionAClicked" text="A" />
       <RadioButton fx:id="optionB" layoutX="418.0" layoutY="167.0" mnemonicParsing="false" onAction="#optionBClicked" text="B" />
       <RadioButton fx:id="optionC" layoutX="418.0" layoutY="197.0" mnemonicParsing="false" onAction="#optionCClicked" text="C" />
@@ -27,7 +27,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="score" layoutX="545.0" layoutY="11.0" prefHeight="32.0" prefWidth="106.0" text="Score:">
+      <Label fx:id="score" layoutX="600.0" layoutY="13.0" prefHeight="22.0" prefWidth="85.0" text="Score: ">
          <font>
             <Font size="15.0" />
          </font>

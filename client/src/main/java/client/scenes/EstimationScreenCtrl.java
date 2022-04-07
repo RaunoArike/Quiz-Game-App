@@ -42,6 +42,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 	public void init() {
 		super.init();
 		answer.setText("");
+		answerMessage.setText("");
 		resetError();
 		resetCorrectAnswer();
 	}
@@ -67,7 +68,7 @@ public class EstimationScreenCtrl extends QuestionCtrl<Question.EstimationQuesti
 
 	public void sendAnswer() {
 		Float parsedValue = NumberUtils.parseFloatOrNull(answer.getText());
-
+		answerMessage.setText("Answer saved!");
 		if (parsedValue != null) {
 			messageService.answerQuestion(parsedValue);
 			markAnswerGiven();
