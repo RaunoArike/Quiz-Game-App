@@ -18,6 +18,8 @@ package client;
 import client.scenes.*;
 import client.service.MessageLogicService;
 import client.service.MessageLogicServiceImpl;
+import client.usecase.RememberUsernameUseCaseImpl;
+import client.usecase.RememberUsernamesUseCase;
 import client.usecase.ResolveImageUrlsUseCase;
 import client.usecase.ResolveImageUrlsUseCaseImpl;
 import com.google.inject.Binder;
@@ -40,5 +42,6 @@ public class MyModule implements Module {
 		binder.bind(MessageLogicService.class).to(MessageLogicServiceImpl.class).in(Scopes.SINGLETON);
 		binder.bind(EndingScreenCtrl.class).in(Scopes.SINGLETON);
 		binder.bind(ResolveImageUrlsUseCase.class).to(ResolveImageUrlsUseCaseImpl.class).in(Scopes.SINGLETON);
+		binder.bind(RememberUsernamesUseCase.class).to(RememberUsernameUseCaseImpl.class).in(Scopes.SINGLETON);
 	}
 }
