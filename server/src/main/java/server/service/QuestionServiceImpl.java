@@ -134,7 +134,7 @@ public class QuestionServiceImpl implements QuestionService {
 		if (correctAnswerInt > 1) {
 			for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
 				float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
-				while (wrongAnswer == correctAnswerInWh) {
+				while (wrongAnswer == correctAnswerInWh && answerList.contains(wrongAnswer)) {
 					wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
 				}
 				answerList.add(wrongAnswer);
@@ -142,7 +142,7 @@ public class QuestionServiceImpl implements QuestionService {
 		} else {
 			for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
 				float wrongAnswer = (float) Math.random() + correctAnswerInWh;
-				while (wrongAnswer == correctAnswerInWh) {
+				while (wrongAnswer == correctAnswerInWh && answerList.contains(wrongAnswer)) {
 					wrongAnswer = correctAnswerInWh + (float) Math.random();
 				}
 				answerList.add(wrongAnswer);
