@@ -131,10 +131,10 @@ public class QuestionServiceImpl implements QuestionService {
 	public List<Float> generatePickOptions(float correctAnswerInWh, int answerNumber) {
 		int correctAnswerInt = (int) correctAnswerInWh;
 		List<Float> answerList = new ArrayList<>();
-		if (correctAnswerInt > 1) {
+		if (correctAnswerInt > 2) {
 			for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
 				float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
-				while (wrongAnswer == correctAnswerInWh && answerList.contains(wrongAnswer)) {
+				while (wrongAnswer == correctAnswerInWh || answerList.contains(wrongAnswer)) {
 					wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
 				}
 				answerList.add(wrongAnswer);
@@ -142,7 +142,7 @@ public class QuestionServiceImpl implements QuestionService {
 		} else {
 			for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
 				float wrongAnswer = (float) Math.random() + correctAnswerInWh;
-				while (wrongAnswer == correctAnswerInWh && answerList.contains(wrongAnswer)) {
+				while (wrongAnswer == correctAnswerInWh || answerList.contains(wrongAnswer)) {
 					wrongAnswer = correctAnswerInWh + (float) Math.random();
 				}
 				answerList.add(wrongAnswer);
