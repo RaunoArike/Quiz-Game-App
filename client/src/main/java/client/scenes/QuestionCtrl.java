@@ -7,6 +7,7 @@ import com.google.inject.Inject;
 import commons.model.JokerType;
 import commons.model.Question;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -198,14 +199,16 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 			@Override
 			public void run() {
-				if (timeLeft >= TIMER_UPDATE_PERIOD) {
-					timeLeft -= TIMER_UPDATE_PERIOD;
-					timerProgress.setProgress(timeLeft / (float) TIMER_DEFAULT_TIME);
-					timerNumber.setText(String.valueOf(Math.round(timeLeft / (float) TIMER_SECOND)));
-				} else {
-					timerNumber.setText("0");
-					timerProgress.setProgress(0);
-				}
+				timeLeft -= TIMER_UPDATE_PERIOD;
+				Platform.runLater(() -> {
+					if (timeLeft >= TIMER_UPDATE_PERIOD) {
+						timerProgress.setProgress(timeLeft / (float) TIMER_DEFAULT_TIME);
+						timerNumber.setText(String.valueOf(Math.round(timeLeft / (float) TIMER_SECOND)));
+					} else {
+						timerNumber.setText("0");
+						timerProgress.setProgress(0);
+					}
+				});
 			}
 		};
 		timer.schedule(timerTask, 0, TIMER_UPDATE_PERIOD);
@@ -333,9 +336,11 @@ public abstract class QuestionCtrl<Q extends Question> extends AbstractCtrl {
 
 			@Override
 			public void run() {
-				// After the animation duration the emoji will be invisible again
-				emoji.setVisible(false);
-				staticEmoji.setDisable(false);
+				Platform.runLater(() -> {
+					// After the animation duration the emoji will be invisible again
+					emoji.setVisible(false);
+					staticEmoji.setDisable(false);
+				});
 			}
 
 		};
