@@ -27,16 +27,17 @@ public class RememberUsernameUseCaseImpl implements RememberUsernamesUseCase {
 			}
 			return usernames;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			// The file is not found. This is fine at the first launch
 		}
-		return null;
+		return List.of();
 	}
 
 	@Override
 	public void writeUsername(String username) {
 		try {
-			String path = root.resolve("usernames.txt").toString();
-			Writer writer = new FileWriter(path, true);
+			root.toFile().mkdirs();
+			File file = root.resolve("usernames.txt").toFile();
+			Writer writer = new FileWriter(file, true);
 			writer.write(username + "\n");
 			writer.close();
 		} catch (IOException e) {
