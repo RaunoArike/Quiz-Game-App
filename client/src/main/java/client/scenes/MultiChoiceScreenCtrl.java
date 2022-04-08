@@ -13,7 +13,6 @@ import java.util.Random;
 
 public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQuestion> {
 
-	private static final int ANSWERS = 3;
 	private static final int FIT_WIDTH = 168;
 	private static final int FIT_HEIGHT = 112;
 
@@ -92,18 +91,21 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 	}
 
 	public void optionAClicked() {
+		scoreMessage.setText("Answer saved!");
 		selectedAnswer = 0;
 		messageService.answerQuestion(0);
 		markAnswerGiven();
 	}
 
 	public void optionBClicked() {
+		scoreMessage.setText("Answer saved!");
 		selectedAnswer = 1;
 		messageService.answerQuestion(1);
 		markAnswerGiven();
 	}
 
 	public void optionCClicked() {
+		scoreMessage.setText("Answer saved!");
 		selectedAnswer = 2;
 		messageService.answerQuestion(2);
 		markAnswerGiven();
@@ -158,9 +160,9 @@ public class MultiChoiceScreenCtrl extends QuestionCtrl<Question.MultiChoiceQues
 		String message = "";
 		if (numberOfPlayersScored != -1) {
 			if (numberOfPlayersScored == 1) {
-				message += "\n" + numberOfPlayersScored + " player scored on this question.";
+				message += numberOfPlayersScored + " player scored on this question.";
 			} else {
-				message += "\n" + numberOfPlayersScored + " players scored on this question.";
+				message += numberOfPlayersScored + " players scored on this question.";
 			}
 		}
 		scoreMessage.setText(message);

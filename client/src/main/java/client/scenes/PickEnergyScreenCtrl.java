@@ -103,18 +103,21 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 	}
 
 	public void optionAClicked() {
+		scoreMessage.setText("Answer saved!");
 		messageService.answerQuestion(0);
 		selectedAnswer = 0;
 		markAnswerGiven();
 	}
 
 	public void optionBClicked() {
+		scoreMessage.setText("Answer saved!");
 		messageService.answerQuestion(1);
 		selectedAnswer = 1;
 		markAnswerGiven();
 	}
 
 	public void optionCClicked() {
+		scoreMessage.setText("Answer saved!");
 		messageService.answerQuestion(2);
 		selectedAnswer = 2;
 		markAnswerGiven();
@@ -157,9 +160,9 @@ public class PickEnergyScreenCtrl extends QuestionCtrl<Question.PickEnergyQuesti
 		String message = "";
 		if (numberOfPlayersScored != -1) {
 			if (numberOfPlayersScored == 1) {
-				message += "\n" + numberOfPlayersScored + " player scored on this question.";
+				message += numberOfPlayersScored + " player scored on this question.";
 			} else {
-				message += "\n" + numberOfPlayersScored + " players scored on this question.";
+				message += numberOfPlayersScored + " players scored on this question.";
 			}
 		}
 		scoreMessage.setText(message);

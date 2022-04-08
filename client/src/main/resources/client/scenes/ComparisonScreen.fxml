@@ -33,7 +33,7 @@
          <font>
             <Font size="14.0" />
          </font></Button>
-      <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="167.0" layoutX="19.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityA" fitHeight="93.0" fitWidth="167.0" layoutX="57.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="questionText" layoutX="19.0" layoutY="29.0" prefHeight="102.0" prefWidth="638.0" text="&quot;Instead of X, you can do Y&quot;" wrapText="true">
          <font>
             <Font size="22.0" />
@@ -59,13 +59,13 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="activityB" fitHeight="102.0" fitWidth="188.0" layoutX="82.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activityB" fitHeight="102.0" fitWidth="188.0" layoutX="124.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="answerMessage" alignment="TOP_LEFT" layoutX="377.0" layoutY="248.0" prefHeight="80.0" prefWidth="258.0" text="Answer Message" wrapText="true">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
-      <ImageView fx:id="imageView" fitHeight="113.0" fitWidth="150.0" layoutX="178.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageView" fitHeight="113.0" fitWidth="150.0" layoutX="210.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true" />
      
           <ImageView fx:id="lolEmojiStatic" fitHeight="42.0" fitWidth="48.0" layoutX="285.0" layoutY="380.0" onMouseClicked="#handleLolEmojiClicks" pickOnBounds="true" preserveRatio="true">
                <image>
