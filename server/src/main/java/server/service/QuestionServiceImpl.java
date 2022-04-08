@@ -131,12 +131,22 @@ public class QuestionServiceImpl implements QuestionService {
 	public List<Float> generatePickOptions(float correctAnswerInWh, int answerNumber) {
 		int correctAnswerInt = (int) correctAnswerInWh;
 		List<Float> answerList = new ArrayList<>();
-		for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
-			float wrongAnswer = correctAnswerInWh;
-			while (wrongAnswer == correctAnswerInWh) {
-				wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+		if (correctAnswerInt > 2) {
+			for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
+				float wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+				while (wrongAnswer == correctAnswerInWh || answerList.contains(wrongAnswer)) {
+					wrongAnswer = correctAnswerInWh + (new Random().nextInt() % correctAnswerInt);
+				}
+				answerList.add(wrongAnswer);
 			}
-			answerList.add(wrongAnswer);
+		} else {
+			for (int i = 0; i < NUMBER_OF_ANSWER_OPTIONS; i++) {
+				float wrongAnswer = (float) Math.random() + correctAnswerInWh;
+				while (wrongAnswer == correctAnswerInWh || answerList.contains(wrongAnswer)) {
+					wrongAnswer = correctAnswerInWh + (float) Math.random();
+				}
+				answerList.add(wrongAnswer);
+			}
 		}
 		answerList.set(answerNumber, correctAnswerInWh);
 		return answerList;

@@ -149,6 +149,16 @@ public class QuestionServiceImplTest {
 	}
 
 	@Test
+	public void pick_energy_answer_generator_should_generate_different_answers() {
+		var service = createService();
+		var answerOptions = service.generatePickOptions(55, 2);
+
+		assertTrue(answerOptions.get(0) != answerOptions.get(2)
+				&& answerOptions.get(1) != answerOptions.get(2)
+				&& answerOptions.get(0) != answerOptions.get(1));
+	}
+
+	@Test
 	public void generate_MC_question_should_generate_three_activities() {
 		var service = createService();
 		when(activityRepository.findAll()).thenReturn(FAKE_ACTIVITY_ENTITY_LIST);
